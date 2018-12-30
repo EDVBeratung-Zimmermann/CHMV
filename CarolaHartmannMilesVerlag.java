@@ -82,6 +82,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.setContentPane(new ModulBackground("background.jpg"));
+        
         ImageIcon img = new ImageIcon("CarolaHartmannMilesVerlag.png");
         this.setIconImage(img.getImage());
 
@@ -89,6 +90,12 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
         Modulhelferlein.dbUrl = Modulhelferlein.dbUrl + ":" + Modulhelferlein.dbPort + "/" + Modulhelferlein.dbName;
 
+        //prüfe, ob die Parameter stimmen:
+        // 0    Adresse für den Datenbankserver
+        // 1    Port für den Datenbankserver
+        // 2    Name der Datenbank 
+        // 3    Benutzername 
+        // 4    Kennwort
         if (parameter != 5) {
             Modulhelferlein.Fehlermeldung("Die Anzahl der Parameter stimmt nicht!");
             System.exit(-1);
