@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_192" class="java.beans.XMLDecoder">
+ <object class="com.jformdesigner.model.FormModel">
+  <void property="contentType">
+   <string>form/swing</string>
+  </void>
+  <void property="root">
+   <object class="com.jformdesigner.model.FormRoot">
+    <void method="add">
+     <object class="com.jformdesigner.model.FormWindow">
+      <string>javax.swing.JDialog</string>
+      <object class="com.jformdesigner.model.FormLayoutManager">
+       <class>org.jdesktop.layout.GroupLayout</class>
+       <void method="setProperty">
+        <string>$horizontalGroup</string>
+        <string>par l {comp panel1::t:::x}</string>
+       </void>
+       <void method="setProperty">
+        <string>$verticalGroup</string>
+        <string>par l {comp panel1::t:::x}</string>
+       </void>
+      </object>
+      <void method="setProperty">
+       <string>defaultCloseOperation</string>
+       <int>2</int>
+      </void>
+      <void method="setProperty">
+       <string>title</string>
+       <string>Carola Hartmann Miles Verlag</string>
+      </void>
+      <void method="add">
+       <object class="com.jformdesigner.model.FormContainer">
+        <string>javax.swing.JPanel</string>
+        <object class="com.jformdesigner.model.FormLayoutManager">
+         <class>org.jdesktop.layout.GroupLayout</class>
+         <void method="setProperty">
+          <string>$horizontalGroup</string>
+          <string>par l {seq l {space :::p, par l {comp jLabel1:::p::p, seq l {comp jLabel2:::p::p, space :111:111:p, comp jLabel3:::p::p}, seq l {comp jRadioButtonAutor:::p::p, space :108:108:p, comp jRadioButtonPDF:::p::p}, seq l {comp jRadioButtonISBN:::p::p, space :112:112:p, comp jRadioButtonXLS:::p::p}, seq l {space :161:161:p, comp jRadioButtonDOC:::p::p}, seq l {comp jButtonDrucken:::p::p, space :18:18:p, comp jButtonAbbrechen:::p::p}}, space ::25:x}}</string>
+         </void>
+         <void method="setProperty">
+          <string>$verticalGroup</string>
+          <string>par l {seq l {space :::p, comp jLabel1:::p::p, space :11:11:p, par l {comp jLabel2:::p::p, comp jLabel3:::p::p}, space :7:7:p, par l {comp jRadioButtonAutor:::p::p, comp jRadioButtonPDF:::p::p}, space :3:3:p, par l {comp jRadioButtonISBN:::p::p, comp jRadioButtonXLS:::p::p}, space :3:3:p, comp jRadioButtonDOC:::p::p, space :34:34:p, par l {comp jButtonDrucken:::p::p, comp jButtonAbbrechen:::p::p}, space ::23:x}}</string>
+         </void>
+        </object>
+        <void property="name">
+         <string>panel1</string>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="java.awt.Font">
+            <string>Tahoma</string>
+            <int>1</int>
+            <int>12</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Inventur</string>
+          </void>
+          <void property="name">
+           <string>jLabel1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Sortierung</string>
+          </void>
+          <void property="name">
+           <string>jLabel2</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Format</string>
+          </void>
+          <void property="name">
+           <string>jLabel3</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JRadioButton</string>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroupSortierung</string>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>selected</string>
+           <boolean>true</boolean>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Autor</string>
+          </void>
+          <void property="name">
+           <string>jRadioButtonAutor</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JRadioButton</string>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroupSortierung</string>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>ISBN</string>
+          </void>
+          <void property="name">
+           <string>jRadioButtonISBN</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JRadioButton</string>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroupFormat</string>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>selected</string>
+           <boolean>true</boolean>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>PDF</string>
+          </void>
+          <void property="name">
+           <string>jRadioButtonPDF</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JRadioButton</string>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroupFormat</string>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>XLS</string>
+          </void>
+          <void property="name">
+           <string>jRadioButtonXLS</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JRadioButton</string>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroupFormat</string>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>DOC</string>
+          </void>
+          <void property="name">
+           <string>jRadioButtonDOC</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Drucken</string>
+          </void>
+          <void property="name">
+           <string>jButtonDrucken</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>jButtonDruckenActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Abbrechen</string>
+          </void>
+          <void property="name">
+           <string>jButtonAbbrechen</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>jButtonAbbrechenActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="name">
+       <string>this</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>size</string>
+       <object class="java.awt.Dimension">
+        <int>245</int>
+        <int>245</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>0</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.jformdesigner.model.FormNonVisual">
+      <string>javax.swing.ButtonGroup</string>
+      <void property="name">
+       <string>buttonGroupSortierung</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>310</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.jformdesigner.model.FormNonVisual">
+      <string>javax.swing.ButtonGroup</string>
+      <void property="name">
+       <string>buttonGroupFormat</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>362</int>
+       </object>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

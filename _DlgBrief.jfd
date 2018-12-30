@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_192" class="java.beans.XMLDecoder">
+ <object class="com.jformdesigner.model.FormModel">
+  <void property="contentType">
+   <string>form/swing</string>
+  </void>
+  <void property="root">
+   <object class="com.jformdesigner.model.FormRoot">
+    <void method="add">
+     <object class="com.jformdesigner.model.FormWindow">
+      <string>javax.swing.JDialog</string>
+      <object class="com.jformdesigner.model.FormLayoutManager">
+       <class>org.jdesktop.layout.GroupLayout</class>
+       <void method="setProperty">
+        <string>$horizontalGroup</string>
+        <string>par l {comp panel1::t:::x}</string>
+       </void>
+       <void method="setProperty">
+        <string>$verticalGroup</string>
+        <string>par l {comp panel1::t:::x}</string>
+       </void>
+      </object>
+      <void method="setProperty">
+       <string>defaultCloseOperation</string>
+       <int>2</int>
+      </void>
+      <void method="setProperty">
+       <string>title</string>
+       <string>Carola Hartmann Miles Verlag</string>
+      </void>
+      <void method="setProperty">
+       <string>minimumSize</string>
+       <object class="java.awt.Dimension">
+        <int>560</int>
+        <int>560</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>resizable</string>
+       <boolean>false</boolean>
+      </void>
+      <void method="add">
+       <object class="com.jformdesigner.model.FormContainer">
+        <string>javax.swing.JPanel</string>
+        <object class="com.jformdesigner.model.FormLayoutManager">
+         <class>org.jdesktop.layout.GroupLayout</class>
+         <void method="setProperty">
+          <string>$horizontalGroup</string>
+          <string>par l {seq l {space :::p, par l {comp jLabel1:::p::p, comp jLabel2:::p::p, comp jComboBoxAdresse:::p:530:p, comp jLabel3:::p::p, comp jTextFieldBetreff:::p:530:p, comp jLabel5:::p::p, comp jTextFieldBezug:::p:530:p, comp jCheckBoxAnrede:::p::p, comp jLabel4:::p::p, comp jPanel1:::p::p, seq l {comp jButtonDrucken:::p::p, space :19:19:p, comp jButtonSchliessen:::p::p}}, space ::19:x}}</string>
+         </void>
+         <void method="setProperty">
+          <string>$verticalGroup</string>
+          <string>par l {seq l {space :::p, comp jLabel1:::p::p, space :15:15:p, comp jLabel2:::p::p, space :6:6:p, comp jComboBoxAdresse:::p::p, space :20:20:p, comp jLabel3:::p::p, space :6:6:p, comp jTextFieldBetreff:::p::p, space :10:10:p, comp jLabel5:::p::p, space :6:6:p, comp jTextFieldBezug:::p::p, space :20:20:p, comp jCheckBoxAnrede:::p::p, space :17:17:p, comp jLabel4:::p::p, space :6:6:p, comp jPanel1:::p::p, space :20:20:p, par l {comp jButtonDrucken:::p::p, comp jButtonSchliessen:::p::p}, space ::14:x}}</string>
+         </void>
+        </object>
+        <void property="name">
+         <string>panel1</string>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="java.awt.Font">
+            <string>Tahoma</string>
+            <int>1</int>
+            <int>12</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Brief drucken</string>
+          </void>
+          <void property="name">
+           <string>jLabel1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Adresse</string>
+          </void>
+          <void property="name">
+           <string>jLabel2</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent" id="FormComponent0">
+          <string>javax.swing.JComboBox</string>
+          <void method="setProperty">
+           <string>model</string>
+           <object class="javax.swing.DefaultComboBoxModel"/>
+          </void>
+          <void property="name">
+           <string>jComboBoxAdresse</string>
+          </void>
+          <void method="auxiliary">
+           <void method="setProperty">
+            <string>JavaCodeGenerator.typeParameters</string>
+            <string>String</string>
+           </void>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JTextField</string>
+          <void property="name">
+           <string>jTextFieldBetreff</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Betreffzeile</string>
+          </void>
+          <void property="name">
+           <string>jLabel3</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Drucken</string>
+          </void>
+          <void property="name">
+           <string>jButtonDrucken</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>jButtonDruckenActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Schließen</string>
+          </void>
+          <void property="name">
+           <string>jButtonSchliessen</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>jButtonSchliessenActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Text</string>
+          </void>
+          <void property="name">
+           <string>jLabel4</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormContainer">
+          <string>javax.swing.JPanel</string>
+          <object class="com.jformdesigner.model.FormLayoutManager">
+           <class>org.jdesktop.layout.GroupLayout</class>
+           <void method="setProperty">
+            <string>$horizontalGroup</string>
+            <string>par l {comp jScrollPane1::l::530:x}</string>
+           </void>
+           <void method="setProperty">
+            <string>$verticalGroup</string>
+            <string>par l {comp jScrollPane1::l::160:x}</string>
+           </void>
+          </object>
+          <void property="name">
+           <string>jPanel1</string>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormContainer">
+            <string>javax.swing.JScrollPane</string>
+            <object class="com.jformdesigner.model.FormLayoutManager">
+             <class>javax.swing.JScrollPane</class>
+            </object>
+            <void property="name">
+             <string>jScrollPane1</string>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JTextArea</string>
+              <void method="setProperty">
+               <string>columns</string>
+               <int>20</int>
+              </void>
+              <void method="setProperty">
+               <string>font</string>
+               <object class="java.awt.Font">
+                <string>Arial</string>
+                <int>0</int>
+                <int>13</int>
+               </object>
+              </void>
+              <void method="setProperty">
+               <string>lineWrap</string>
+               <boolean>true</boolean>
+              </void>
+              <void method="setProperty">
+               <string>rows</string>
+               <int>5</int>
+              </void>
+              <void method="setProperty">
+               <string>wrapStyleWord</string>
+               <boolean>true</boolean>
+              </void>
+              <void property="name">
+               <string>jTextArea</string>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JTextField</string>
+          <void property="name">
+           <string>jTextFieldBezug</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Bezugzeile</string>
+          </void>
+          <void property="name">
+           <string>jLabel5</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Anrede </string>
+          </void>
+          <void property="name">
+           <string>jCheckBoxAnrede</string>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="name">
+       <string>this</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>size</string>
+       <object class="java.awt.Dimension">
+        <int>561</int>
+        <int>520</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>0</int>
+       </object>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

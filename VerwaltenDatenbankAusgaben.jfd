@@ -1,0 +1,423 @@
+JFDML JFormDesigner: "6.0.5.0.178" Java: "1.8.0_192" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :::p, comp panel1::::783:x, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp panel1:::p::p, space :::x}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			"title": "Carola Hartmann Miles Verlag"
+			"resizable": false
+			"$sizePolicy": 1
+			"font": new java.awt.Font( "Dialog", 1, 12 )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "panel1"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabelTitel"
+					"font": new java.awt.Font( "Tahoma", 1, 12 )
+					"text": "Verwaltung der Ausgaben"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"height": 20
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabelID"
+					"text": "ID"
+					"horizontalAlignment": 4
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 235
+					"width": 50
+					"height": 20
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "field_ID"
+					"editable": false
+					"text": "0000"
+					"enabled": false
+					"focusable": false
+					"maximumSize": new java.awt.Dimension( 30, 20 )
+					"minimumSize": new java.awt.Dimension( 30, 20 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 290
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel1"
+					"text": "Datensatz Nr."
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 345
+					"width": 120
+					"height": 20
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "field_count"
+					"editable": false
+					"text": "000"
+					"enabled": false
+					"focusable": false
+					"maximumSize": new java.awt.Dimension( 30, 20 )
+					"minimumSize": new java.awt.Dimension( 30, 20 )
+					"preferredSize": new java.awt.Dimension( 32, 20 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 470
+					"width": 30
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel2"
+					"text": "von"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 525
+					"width": 50
+					"height": 20
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "field_countMax"
+					"editable": false
+					"text": "000"
+					"enabled": false
+					"focusable": false
+					"maximumSize": new java.awt.Dimension( 30, 20 )
+					"minimumSize": new java.awt.Dimension( 30, 20 )
+					"preferredSize": new java.awt.Dimension( 32, 20 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 580
+					"width": 30
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "field_Typ"
+					"model": new javax.swing.DefaultComboBoxModel
+					"name": ""
+					"preferredSize": new java.awt.Dimension( 28, 30 )
+					auxiliary() {
+						"JavaCodeGenerator.typeParameters": "String"
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"y": 69
+					"width": 160
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabelRechNr"
+					"text": "Rechnungsnummer"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"y": 104
+					"width": 105
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "field_RechnNr"
+					"preferredSize": new java.awt.Dimension( 6, 30 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"y": 123
+					"width": 105
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabelRechDat"
+					"text": "Rechn.Datum"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 110
+					"y": 104
+					"width": 120
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "field_Beschreibung"
+					"preferredSize": new java.awt.Dimension( 6, 30 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 235
+					"y": 123
+					"width": 395
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel6"
+					"text": "Rechnungsdatei"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"y": 158
+					"width": 705
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "BDatei"
+					"text": "..."
+					"preferredSize": new java.awt.Dimension( 45, 30 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "BDateiActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"y": 177
+					"width": 50
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "field_Link"
+					"preferredSize": new java.awt.Dimension( 6, 30 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 55
+					"y": 177
+					"width": 575
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel3"
+					"text": "Ausgabenart"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"y": 50
+					"width": 160
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabelBetrag"
+					"text": "Bruttobetrag"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 165
+					"y": 50
+					"width": 120
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabelUStr"
+					"text": "UStr"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 290
+					"y": 50
+					"width": 50
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel5"
+					"text": "Bezahlt am"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 345
+					"y": 50
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabelLieferant"
+					"text": "Kostenverursacher/Lieferant"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 470
+					"y": 50
+					"width": 160
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "field_Betrag"
+					"text": "0000.00"
+					"preferredSize": new java.awt.Dimension( 46, 30 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 165
+					"y": 69
+					"width": 65
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel4"
+					"text": "€"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 235
+					"y": 69
+					"width": 50
+					"height": 30
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "field_Ustr"
+					"text": "00"
+					"minimumSize": new java.awt.Dimension( 20, 30 )
+					"preferredSize": new java.awt.Dimension( 20, 30 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 290
+					"y": 69
+					"width": 50
+				} )
+				add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
+					name: "field_Bezahlt"
+					"preferredSize": new java.awt.Dimension( 120, 30 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 345
+					"y": 69
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "field_Lieferant"
+					"model": new javax.swing.DefaultComboBoxModel
+					"preferredSize": new java.awt.Dimension( 28, 30 )
+					auxiliary() {
+						"JavaCodeGenerator.typeParameters": "String"
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 470
+					"y": 69
+					"width": 160
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabelBeschreibung"
+					"text": "Beschreibung"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 235
+					"y": 104
+					"width": 395
+				} )
+				add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
+					name: "field_RechnDat"
+					"preferredSize": new java.awt.Dimension( 120, 30 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 110
+					"y": 123
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "Anfang"
+					"text": "<<"
+					"toolTipText": "Gehe zum Anfang - erster Datensatz"
+					"maximumSize": new java.awt.Dimension( 50, 25 )
+					"minimumSize": new java.awt.Dimension( 50, 25 )
+					"preferredSize": new java.awt.Dimension( 50, 23 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "AnfangActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"y": 237
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "Zurueck"
+					"text": "<"
+					"toolTipText": "Gehe zum vorherigen Datensatz"
+					"maximumSize": new java.awt.Dimension( 50, 25 )
+					"minimumSize": new java.awt.Dimension( 50, 25 )
+					"preferredSize": new java.awt.Dimension( 50, 23 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "ZurueckActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 55
+					"y": 237
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "Vor"
+					"text": ">"
+					"toolTipText": "Gehe zum nächsten Datensatz"
+					"maximumSize": new java.awt.Dimension( 50, 25 )
+					"minimumSize": new java.awt.Dimension( 50, 25 )
+					"preferredSize": new java.awt.Dimension( 50, 23 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "VorActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 110
+					"y": 237
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "Ende"
+					"text": ">>"
+					"toolTipText": "Gehe zum Ende - zum letzten Datensatz"
+					"maximumSize": new java.awt.Dimension( 50, 25 )
+					"minimumSize": new java.awt.Dimension( 50, 25 )
+					"preferredSize": new java.awt.Dimension( 50, 23 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "EndeActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 165
+					"y": 237
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "Update"
+					"text": "!"
+					"toolTipText": "Datensatz aktualisieren"
+					"maximumSize": new java.awt.Dimension( 50, 25 )
+					"minimumSize": new java.awt.Dimension( 50, 25 )
+					"preferredSize": new java.awt.Dimension( 50, 23 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "UpdateActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 235
+					"y": 237
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "Einfuegen"
+					"text": "+"
+					"toolTipText": "Datensatz einfügen"
+					"maximumSize": new java.awt.Dimension( 50, 25 )
+					"minimumSize": new java.awt.Dimension( 50, 25 )
+					"preferredSize": new java.awt.Dimension( 50, 23 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "EinfuegenActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 290
+					"y": 237
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "Loeschen"
+					"text": "-"
+					"toolTipText": "Datensatz löschen"
+					"maximumSize": new java.awt.Dimension( 50, 25 )
+					"minimumSize": new java.awt.Dimension( 50, 25 )
+					"preferredSize": new java.awt.Dimension( 50, 23 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "LoeschenActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 345
+					"y": 237
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "Suchen"
+					"text": "?"
+					"toolTipText": "Datensatz suchen"
+					"maximumSize": new java.awt.Dimension( 50, 25 )
+					"minimumSize": new java.awt.Dimension( 50, 25 )
+					"preferredSize": new java.awt.Dimension( 50, 23 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SuchenActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 402
+					"y": 237
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "WSuchen"
+					"text": "..."
+					"toolTipText": "Weitersuchen"
+					"maximumSize": new java.awt.Dimension( 50, 25 )
+					"minimumSize": new java.awt.Dimension( 50, 25 )
+					"preferredSize": new java.awt.Dimension( 50, 23 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "WSuchenActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 470
+					"y": 237
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "Drucken"
+					"text": "D"
+					"toolTipText": "Liste der Ausgaben drucken"
+					"maximumSize": new java.awt.Dimension( 50, 25 )
+					"minimumSize": new java.awt.Dimension( 50, 25 )
+					"preferredSize": new java.awt.Dimension( 50, 23 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "DruckenActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 525
+					"y": 237
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "Schliessen"
+					"text": "X"
+					"maximumSize": new java.awt.Dimension( 50, 25 )
+					"minimumSize": new java.awt.Dimension( 50, 25 )
+					"preferredSize": new java.awt.Dimension( 50, 23 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SchliessenActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 580
+					"y": 237
+					"height": 25
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {comp scrollPane1:::p:138:p, space :0:2:x}}"
+					"$verticalGroup": "par l {comp scrollPane1::l::265:x}"
+				} ) {
+					name: "jPanel1"
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane1"
+						auxiliary() {
+							"JavaCodeGenerator.preInitCode": "jList1.setModel(listModel);\n                    jList1.addMouseListener(new MouseAdapter() {\n                        @Override\n                        public void mouseClicked(MouseEvent e) {\n                            jList1MouseClicked(e);\n                        }\n                    });"
+						}
+						add( new FormComponent( "javax.swing.JList" ) {
+							name: "jList1"
+							auxiliary() {
+								"JavaCodeGenerator.typeParameters": "String"
+							}
+						} )
+					} )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 640
+					"y": -5
+					"height": 265
+					"width": 140
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 805, 315 )
+			"location": new java.awt.Point( 5, 20 )
+		} )
+	}
+}

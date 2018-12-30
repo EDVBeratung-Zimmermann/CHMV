@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_192" class="java.beans.XMLDecoder">
+ <object class="com.jformdesigner.model.FormModel">
+  <void property="contentType">
+   <string>form/swing</string>
+  </void>
+  <void property="root">
+   <object class="com.jformdesigner.model.FormRoot">
+    <void method="add">
+     <object class="com.jformdesigner.model.FormWindow">
+      <string>javax.swing.JDialog</string>
+      <object class="com.jformdesigner.model.FormLayoutManager">
+       <class>org.jdesktop.layout.GroupLayout</class>
+       <void method="setProperty">
+        <string>$horizontalGroup</string>
+        <string>par l {seq l {space :::p, comp panel1:::p:429:p, space :::x}}</string>
+       </void>
+       <void method="setProperty">
+        <string>$verticalGroup</string>
+        <string>par l {seq l {space :::p, comp panel1:::p:336:p, space ::6:x}}</string>
+       </void>
+      </object>
+      <void method="setProperty">
+       <string>defaultCloseOperation</string>
+       <int>2</int>
+      </void>
+      <void method="setProperty">
+       <string>title</string>
+       <string>Über</string>
+      </void>
+      <void method="setProperty">
+       <string>modal</string>
+       <boolean>true</boolean>
+      </void>
+      <void method="setProperty">
+       <string>resizable</string>
+       <boolean>false</boolean>
+      </void>
+      <void method="setProperty">
+       <string>font</string>
+       <object class="com.jformdesigner.model.SwingDerivedFont">
+        <null/>
+        <int>1</int>
+        <int>0</int>
+        <boolean>false</boolean>
+       </object>
+      </void>
+      <void method="add">
+       <object class="com.jformdesigner.model.FormContainer">
+        <string>javax.swing.JPanel</string>
+        <object class="com.jformdesigner.model.FormLayoutManager">
+         <class>net.miginfocom.swing.MigLayout</class>
+         <void method="setProperty">
+          <string>$layoutConstraints</string>
+          <string>insets 0,hidemode 3,gap 5 5</string>
+         </void>
+         <void method="setProperty">
+          <string>$columnConstraints</string>
+          <string>[fill][fill][fill]</string>
+         </void>
+         <void method="setProperty">
+          <string>$rowConstraints</string>
+          <string>[fill][fill][fill][][fill][fill][fill][][fill][fill][fill][fill][]</string>
+         </void>
+        </object>
+        <void property="name">
+         <string>panel1</string>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Schließen</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string>Schließt den Dialog</string>
+          </void>
+          <void property="name">
+           <string>jBtnSchliessen</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>jBtnSchliessenActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 11 2 1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="java.awt.Font">
+            <string>Tahoma</string>
+            <int>1</int>
+            <int>18</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>horizontalAlignment</string>
+           <int>0</int>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Carola Hartmann Miles Verlag</string>
+          </void>
+          <void property="name">
+           <string>jLabel1</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 0 2 1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="java.awt.Font">
+            <string>Tahoma</string>
+            <int>1</int>
+            <int>14</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>horizontalAlignment</string>
+           <int>0</int>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Verlagsverwaltung</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string></string>
+          </void>
+          <void property="name">
+           <string>jLabel2</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 1 2 1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>icon</string>
+           <object class="com.jformdesigner.model.SwingIcon">
+            <int>0</int>
+            <string>/milesVerlagMain/logo.png</string>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>borderPainted</string>
+           <boolean>false</boolean>
+          </void>
+          <void method="setProperty">
+           <string>focusPainted</string>
+           <boolean>false</boolean>
+          </void>
+          <void method="setProperty">
+           <string>focusable</string>
+           <boolean>false</boolean>
+          </void>
+          <void method="setProperty">
+           <string>preferredSize</string>
+           <object class="java.awt.Dimension">
+            <int>400</int>
+            <int>100</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>requestFocusEnabled</string>
+           <boolean>false</boolean>
+          </void>
+          <void method="setProperty">
+           <string>selectedIcon</string>
+           <object class="com.jformdesigner.model.SwingIcon">
+            <int>0</int>
+            <string>/milesVerlagMain/logo.png</string>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>verifyInputWhenFocusTarget</string>
+           <boolean>false</boolean>
+          </void>
+          <void property="name">
+           <string>logo</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 4 2 1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>(c) 2017   EDV-Beratung und Betrieb, Entwicklung von Software</string>
+          </void>
+          <void method="setProperty">
+           <string>horizontalAlignment</string>
+           <int>0</int>
+          </void>
+          <void property="name">
+           <string>jLabel4</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 2 2 1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="java.awt.Font">
+            <string>Tahoma</string>
+            <int>1</int>
+            <int>12</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Dipl. Inform. Thomas Zimmermann </string>
+          </void>
+          <void method="setProperty">
+           <string>horizontalAlignment</string>
+           <int>0</int>
+          </void>
+          <void property="name">
+           <string>jLabel3</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 1 3 2 1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Straße</string>
+          </void>
+          <void method="setProperty">
+           <string>horizontalAlignment</string>
+           <int>4</int>
+          </void>
+          <void property="name">
+           <string>label1</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 5</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Ritterfelddamm 225</string>
+          </void>
+          <void method="setProperty">
+           <string>horizontalAlignment</string>
+           <int>2</int>
+          </void>
+          <void property="name">
+           <string>jLblEMailData1</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 1 5</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Ort</string>
+          </void>
+          <void method="setProperty">
+           <string>horizontalAlignment</string>
+           <int>4</int>
+          </void>
+          <void property="name">
+           <string>label2</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 6</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>14089 Berlin</string>
+          </void>
+          <void property="name">
+           <string>jLblEMailData2</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 1 6</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>e-Mail</string>
+          </void>
+          <void method="setProperty">
+           <string>horizontalAlignment</string>
+           <int>4</int>
+          </void>
+          <void property="name">
+           <string>jLblEMail</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 8</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>kontakt@edv-beratung.familiezimmermann.de</string>
+          </void>
+          <void property="name">
+           <string>jLblEMailData</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 1 8</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Telefon</string>
+          </void>
+          <void method="setProperty">
+           <string>horizontalAlignment</string>
+           <int>4</int>
+          </void>
+          <void property="name">
+           <string>jLblTelefon</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 9</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>(030) 37 43 51 10</string>
+          </void>
+          <void property="name">
+           <string>jLblTelefonData</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 1 9</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Telefax</string>
+          </void>
+          <void method="setProperty">
+           <string>horizontalAlignment</string>
+           <int>4</int>
+          </void>
+          <void property="name">
+           <string>jLblTelefax</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 10</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>(030) 37 43 51 09</string>
+          </void>
+          <void property="name">
+           <string>jLblTelefaxData</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 1 10</string>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="name">
+       <string>this</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>size</string>
+       <object class="java.awt.Dimension">
+        <int>450</int>
+        <int>385</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>0</int>
+       </object>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

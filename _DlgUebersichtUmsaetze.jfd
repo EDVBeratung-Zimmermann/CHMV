@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_192" class="java.beans.XMLDecoder">
+ <object class="com.jformdesigner.model.FormModel">
+  <void property="contentType">
+   <string>form/swing</string>
+  </void>
+  <void property="root">
+   <object class="com.jformdesigner.model.FormRoot">
+    <void method="add">
+     <object class="com.jformdesigner.model.FormWindow">
+      <string>javax.swing.JDialog</string>
+      <object class="com.jformdesigner.model.FormLayoutManager">
+       <class>org.jdesktop.layout.GroupLayout</class>
+       <void method="setProperty">
+        <string>$horizontalGroup</string>
+        <string>par l {seq l {space :::p, comp panel1:::p::p, space ::12:x}}</string>
+       </void>
+       <void method="setProperty">
+        <string>$verticalGroup</string>
+        <string>par l {seq l {space :::p, comp panel1:::p::p, space ::7:x}}</string>
+       </void>
+      </object>
+      <void method="setProperty">
+       <string>defaultCloseOperation</string>
+       <int>2</int>
+      </void>
+      <void method="setProperty">
+       <string>title</string>
+       <string>Carola Hartmann Miles Verlag</string>
+      </void>
+      <void method="setProperty">
+       <string>resizable</string>
+       <boolean>false</boolean>
+      </void>
+      <void method="setProperty">
+       <string>font</string>
+       <object class="com.jformdesigner.model.SwingDerivedFont">
+        <null/>
+        <int>1</int>
+        <int>0</int>
+        <boolean>false</boolean>
+       </object>
+      </void>
+      <void method="add">
+       <object class="com.jformdesigner.model.FormContainer">
+        <string>javax.swing.JPanel</string>
+        <object class="com.jformdesigner.model.FormLayoutManager">
+         <class>net.miginfocom.swing.MigLayout</class>
+         <void method="setProperty">
+          <string>$layoutConstraints</string>
+          <string>insets 0,hidemode 3</string>
+         </void>
+         <void method="setProperty">
+          <string>$columnConstraints</string>
+          <string>[fill][fill][fill][fill][fill]</string>
+         </void>
+         <void method="setProperty">
+          <string>$rowConstraints</string>
+          <string>[fill][][][][][][][][][][]</string>
+         </void>
+        </object>
+        <void property="name">
+         <string>panel1</string>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Übersicht der Umsätze</string>
+          </void>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="com.jformdesigner.model.SwingDerivedFont">
+            <null/>
+            <int>1</int>
+            <int>0</int>
+            <boolean>false</boolean>
+           </object>
+          </void>
+          <void property="name">
+           <string>label2</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 0 5 1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="java.awt.Font">
+            <string>Tahoma</string>
+            <int>1</int>
+            <int>11</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Zeitraum</string>
+          </void>
+          <void property="name">
+           <string>jLabelZeitraum</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 2</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="java.awt.Font">
+            <string>Tahoma</string>
+            <int>1</int>
+            <int>11</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Ausgabeformat</string>
+          </void>
+          <void property="name">
+           <string>jLabelAusgabeformat</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 4 2</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>von ...</string>
+          </void>
+          <void property="name">
+           <string>jLabelVon</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 3</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>... bis</string>
+          </void>
+          <void property="name">
+           <string>jLabelBis</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 1 3</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JRadioButton</string>
+          <void method="setProperty">
+           <string>selected</string>
+           <boolean>true</boolean>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>PDF</string>
+          </void>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroupAusgabeformat</string>
+           </object>
+          </void>
+          <void property="name">
+           <string>jRadioButtonPDF</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 4 3</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>com.toedter.calendar.JDateChooser</string>
+          <void property="name">
+           <string>jDateChooserVon</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 4</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>com.toedter.calendar.JDateChooser</string>
+          <void property="name">
+           <string>jDateChooserBis</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 1 4</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JRadioButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>XLS</string>
+          </void>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroupAusgabeformat</string>
+           </object>
+          </void>
+          <void property="name">
+           <string>jRadioButtonXLS</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 4 4</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JRadioButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>DOC</string>
+          </void>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroupAusgabeformat</string>
+           </object>
+          </void>
+          <void property="name">
+           <string>jRadioButtonDoc</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 4 5</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Umfang</string>
+          </void>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="com.jformdesigner.model.SwingDerivedFont">
+            <null/>
+            <int>1</int>
+            <int>0</int>
+            <boolean>false</boolean>
+           </object>
+          </void>
+          <void property="name">
+           <string>label1</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 6</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JRadioButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>für Umsatzsteuervoranmeldung =&gt; alle Rechnungen</string>
+          </void>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroupRechnungen</string>
+           </object>
+          </void>
+          <void property="name">
+           <string>rbAlle</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 7 5 1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JRadioButton</string>
+          <void method="setProperty">
+           <string>selected</string>
+           <boolean>true</boolean>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>für Umsatzsteuererklärung =&gt; nur bezahlte Rechnungen</string>
+          </void>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroupRechnungen</string>
+           </object>
+          </void>
+          <void property="name">
+           <string>rbBezahlt</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 0 8 5 1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Drucken</string>
+          </void>
+          <void property="name">
+           <string>jButtonDrucken</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>jButtonDruckenActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 3 10</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Schließen</string>
+          </void>
+          <void property="name">
+           <string>jButtonSchließen</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>jButtonSchließenActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>net.miginfocom.layout.CC</class>
+          <void method="setProperty">
+           <string>value</string>
+           <string>cell 4 10</string>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="name">
+       <string>this</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>size</string>
+       <object class="java.awt.Dimension">
+        <int>405</int>
+        <int>340</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>0</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.jformdesigner.model.FormNonVisual">
+      <string>javax.swing.ButtonGroup</string>
+      <void property="name">
+       <string>buttonGroupAusgabeformat</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>414</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.jformdesigner.model.FormNonVisual">
+      <string>javax.swing.ButtonGroup</string>
+      <void property="name">
+       <string>buttonGroupRechnungen</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>466</int>
+       </object>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

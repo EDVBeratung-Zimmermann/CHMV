@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_192" class="java.beans.XMLDecoder">
+ <object class="com.jformdesigner.model.FormModel">
+  <void property="contentType">
+   <string>form/swing</string>
+  </void>
+  <void property="root">
+   <object class="com.jformdesigner.model.FormRoot">
+    <void method="add">
+     <object class="com.jformdesigner.model.FormWindow">
+      <string>javax.swing.JDialog</string>
+      <object class="com.jformdesigner.model.FormLayoutManager">
+       <class>com.jformdesigner.runtime.NullLayout</class>
+      </object>
+      <void method="setProperty">
+       <string>defaultCloseOperation</string>
+       <int>2</int>
+      </void>
+      <void method="setProperty">
+       <string>title</string>
+       <string>Carola Hartmann Miles Verlag</string>
+      </void>
+      <void method="setProperty">
+       <string>resizable</string>
+       <boolean>false</boolean>
+      </void>
+      <void method="setProperty">
+       <string>$sizePolicy</string>
+       <int>1</int>
+      </void>
+      <void method="setProperty">
+       <string>font</string>
+       <object class="java.awt.Font">
+        <string>Dialog</string>
+        <int>1</int>
+        <int>12</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>minimumSize</string>
+       <object class="java.awt.Dimension">
+        <int>560</int>
+        <int>400</int>
+       </object>
+      </void>
+      <void method="add">
+       <object class="com.jformdesigner.model.FormContainer">
+        <string>javax.swing.JPanel</string>
+        <object class="com.jformdesigner.model.FormLayoutManager">
+         <class>com.jformdesigner.runtime.NullLayout</class>
+        </object>
+        <void method="setProperty">
+         <string>minimumSize</string>
+         <object class="java.awt.Dimension">
+          <int>560</int>
+          <int>400</int>
+         </object>
+        </void>
+        <void property="name">
+         <string>panel1</string>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="java.awt.Font">
+            <string>Tahoma</string>
+            <int>1</int>
+            <int>12</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Leeren von Tabellen</string>
+          </void>
+          <void property="name">
+           <string>jLabel4</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="java.awt.Font" id="Font0">
+            <string>Tahoma</string>
+            <int>1</int>
+            <int>11</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Stammdaten</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string></string>
+          </void>
+          <void property="name">
+           <string>jLabel1</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>y</string>
+           <int>45</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object idref="Font0"/>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Bewegungsdaten</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string></string>
+          </void>
+          <void property="name">
+           <string>jLabel2</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>127</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>45</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>177</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object idref="Font0"/>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Sonstige Daten</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string></string>
+          </void>
+          <void property="name">
+           <string>jLabel3</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>309</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>45</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>159</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Buchprojekte</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox2</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>y</string>
+           <int>64</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>122</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Einnahmen</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox6</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>127</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>64</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>177</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Konfiguration</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox10</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>309</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>64</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>159</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Adressen</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox1</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>y</string>
+           <int>92</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>74</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Ausgaben</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox5</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>127</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>92</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>177</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Termine</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox11</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>309</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>92</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>159</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Mailverteiler</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox3</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>y</string>
+           <int>120</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>122</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Bestellungen</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox7</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>127</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>120</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>177</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Bestellnummer</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox12</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>309</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>120</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>159</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Mailadressen</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox4</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>y</string>
+           <int>148</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>122</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Rezensionen ausgehend</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox14</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>127</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>148</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>177</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Umsatzsteuervoranmeldung</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox13</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>309</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>148</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Rezensionen Details ausg...</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox15</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>127</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>176</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Hilfstabelle Buch</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox16</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>309</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>176</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>159</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Rezensionen eingehend</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox8</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>127</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>204</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>177</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Aufgaben</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox18</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>309</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>204</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>159</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Bestellungdetails</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox9</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>127</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>232</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>177</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Honorar</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox17</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>309</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>232</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>159</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Hilfstabelle Verkauf</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox19</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>309</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>260</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>159</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Leeren</string>
+          </void>
+          <void property="name">
+           <string>jButtonEnde</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>jButtonEndeActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>125</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>325</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>177</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Schließen</string>
+          </void>
+          <void property="name">
+           <string>jButtonSchliessen</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>jButtonSchliessenActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>310</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>325</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>159</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Benutzer</string>
+          </void>
+          <void property="name">
+           <string>jCheckBox20</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>width</string>
+           <int>69</int>
+          </void>
+          <void method="setProperty">
+           <string>height</string>
+           <int>23</int>
+          </void>
+          <void method="setProperty">
+           <string>x</string>
+           <int>309</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>285</int>
+          </void>
+         </object>
+        </void>
+       </object>
+       <object class="com.jformdesigner.model.FormLayoutConstraints">
+        <class>com.jformdesigner.runtime.NullConstraints</class>
+        <void method="setProperty">
+         <string>x</string>
+         <int>10</int>
+        </void>
+        <void method="setProperty">
+         <string>y</string>
+         <int>11</int>
+        </void>
+        <void method="setProperty">
+         <string>width</string>
+         <int>470</int>
+        </void>
+        <void method="setProperty">
+         <string>height</string>
+         <int>354</int>
+        </void>
+       </object>
+      </void>
+      <void property="name">
+       <string>this</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>size</string>
+       <object class="java.awt.Dimension">
+        <int>495</int>
+        <int>410</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>0</int>
+       </object>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

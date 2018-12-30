@@ -1,0 +1,1946 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_192" class="java.beans.XMLDecoder">
+ <object class="com.jformdesigner.model.FormModel">
+  <void property="contentType">
+   <string>form/swing</string>
+  </void>
+  <void property="root">
+   <object class="com.jformdesigner.model.FormRoot">
+    <void method="add">
+     <object class="com.jformdesigner.model.FormWindow">
+      <string>javax.swing.JFrame</string>
+      <object class="com.jformdesigner.model.FormLayoutManager">
+       <class>com.jformdesigner.runtime.NullLayout</class>
+      </object>
+      <void method="setProperty">
+       <string>defaultCloseOperation</string>
+       <int>3</int>
+      </void>
+      <void method="setProperty">
+       <string>title</string>
+       <string>Carola Hartmann Miles Verlag</string>
+      </void>
+      <void method="setProperty">
+       <string>resizable</string>
+       <boolean>false</boolean>
+      </void>
+      <void method="addEvent">
+       <object class="com.jformdesigner.model.FormEvent">
+        <string>java.awt.event.WindowListener</string>
+        <string>windowClosing</string>
+        <string>formWindowClosing</string>
+        <boolean>true</boolean>
+       </object>
+      </void>
+      <void property="menuBar">
+       <object class="com.jformdesigner.model.FormContainer">
+        <string>javax.swing.JMenuBar</string>
+        <object class="com.jformdesigner.model.FormLayoutManager">
+         <class>javax.swing.JMenuBar</class>
+        </object>
+        <void property="name">
+         <string>jMenuBar1</string>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormContainer">
+          <string>javax.swing.JMenu</string>
+          <object class="com.jformdesigner.model.FormLayoutManager">
+           <class>javax.swing.JMenu</class>
+          </object>
+          <void method="setProperty">
+           <string>mnemonic</string>
+           <int>118</int>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Softwareverwaltung</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string>Alle Funktionen zur Verwaltung der Datenbank und Tabellen</string>
+          </void>
+          <void property="name">
+           <string>jMenuSoftware</string>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormContainer">
+            <string>javax.swing.JMenu</string>
+            <object class="com.jformdesigner.model.FormLayoutManager">
+             <class>javax.swing.JMenu</class>
+            </object>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Server-/Datenbankverwaltung</string>
+            </void>
+            <void property="name">
+             <string>jMenuSoftwareServer</string>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Verwalten der XAMPP-Umgebung</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemSoftwareXAMPP</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemSoftwareXAMPPActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Verwalten des SQL-Datenbankservers</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemSoftwareSQL</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemSoftwareSQLActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JPopupMenu$Separator</string>
+              <void property="name">
+               <string>jSeparator3</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>SQL-Injection ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItem3</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItem3ActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JPopupMenu$Separator</string>
+              <void property="name">
+               <string>jSeparator4</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Erstellen der milesverlag-Datenbank ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemSoftwareDBErstellen</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemSoftwareDBErstellenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Löschen der milesverlag-Datenbank ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemSoftwareDBLoeschen</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemSoftwareDBLoeschenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JPopupMenu$Separator</string>
+              <void property="name">
+               <string>jSeparator2</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Sichern der milesverlag-Datenbank ...</string>
+              </void>
+              <void method="setProperty">
+               <string>accelerator</string>
+               <object class="javax.swing.KeyStroke" method="getKeyStroke">
+                <int>83</int>
+                <int>650</int>
+                <boolean>false</boolean>
+               </object>
+              </void>
+              <void property="name">
+               <string>jMenuItemSoftwareDBSichern</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemSoftwareDBSichernActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Wiederherstellen der milesverlag-Datenbank ...</string>
+              </void>
+              <void method="setProperty">
+               <string>accelerator</string>
+               <object class="javax.swing.KeyStroke" method="getKeyStroke">
+                <int>82</int>
+                <int>650</int>
+                <boolean>false</boolean>
+               </object>
+              </void>
+              <void property="name">
+               <string>jMenuItemSoftwareDBWiederherstellen</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemSoftwareDBWiederherstellenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JPopupMenu$Separator</string>
+              <void property="name">
+               <string>jSeparator1</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Tabellen leeren ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemTabellenLeeren</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemTabellenLeerenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Tabellen löschen ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemSoftwareTabellenLoeschen</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemSoftwareTabellenLoeschenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Tabellen erstellen ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemSoftwareTabellenErstellen</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemSoftwareTabellenErstellenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent" id="FormComponent0">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Konfiguration der Ausgabepfade ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemServerKonfiguration</string>
+            </void>
+            <void method="auxiliary">
+             <void method="setProperty">
+              <string>JavaCodeGenerator.preInitCode</string>
+              <string>jMenuSoftware.addSeparator();</string>
+             </void>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemServerKonfigurationActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Benutzer verwalten ...</string>
+            </void>
+            <void property="name">
+             <string>menuItemSoftwareverwaltungBenutzer</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>menuItemSoftwareverwaltungBenutzerActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Bestellnummer zurücksetzen ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemServerBestellnummer</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemServerBestellnummerActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent" id="FormComponent1">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>accelerator</string>
+             <object class="javax.swing.KeyStroke" method="getKeyStroke">
+              <int>115</int>
+              <int>520</int>
+              <boolean>false</boolean>
+             </object>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Ende</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemEnde</string>
+            </void>
+            <void method="auxiliary">
+             <void method="setProperty">
+              <string>JavaCodeGenerator.preInitCode</string>
+              <string>jMenuSoftware.addSeparator();</string>
+             </void>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemEndeActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormContainer">
+          <string>javax.swing.JMenu</string>
+          <object class="com.jformdesigner.model.FormLayoutManager">
+           <class>javax.swing.JMenu</class>
+          </object>
+          <void method="setProperty">
+           <string>mnemonic</string>
+           <int>102</int>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Verlagsführung</string>
+          </void>
+          <void property="name">
+           <string>jMenuVerlagsfuehrung</string>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormContainer">
+            <string>javax.swing.JMenu</string>
+            <object class="com.jformdesigner.model.FormLayoutManager">
+             <class>javax.swing.JMenu</class>
+            </object>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Mails</string>
+            </void>
+            <void property="name">
+             <string>jMenu2</string>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Versenden von Werbe-E-Mails ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuehrungWerbung</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuehrungWerbungActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Konfiguration ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItem2</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItem2ActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Aufgaben ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemVerlagsfuehrungAufgaben</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemVerlagsfuehrungAufgabenActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>accelerator</string>
+             <object class="javax.swing.KeyStroke" method="getKeyStroke">
+              <int>84</int>
+              <int>130</int>
+              <boolean>false</boolean>
+             </object>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Termine ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemVerlagsfuehrungTermine</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemVerlagsfuehrungTermineActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Honorarabrechnung ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemVerlagsfuehrungHonorar</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemVerlagsfuehrungHonorarActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Fremdwährungen ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemVerlagsfuehrungFremdwaehrung</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemVerlagsfuehrungFremdwaehrungActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Jahreswechsel</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemVerlagsfuehrungJahreswechsel</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemVerlagsfuehrungJahreswechselActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JPopupMenu$Separator</string>
+            <void property="name">
+             <string>jSeparator6</string>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Briefpapier blanko</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemVerlagsfuehrungBriefpapier</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemVerlagsfuehrungBriefpapierActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Brief ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemBriefpapierAdresse</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemBriefpapierAdresseActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JPopupMenu$Separator</string>
+            <void property="name">
+             <string>jSeparator5</string>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormContainer">
+            <string>javax.swing.JMenu</string>
+            <object class="com.jformdesigner.model.FormLayoutManager">
+             <class>javax.swing.JMenu</class>
+            </object>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Datensicherung</string>
+            </void>
+            <void property="name">
+             <string>jMenuVerlagsfuehrungDatensicherung</string>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Konfiguration ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsführungDatensicherungKonfiguration</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsführungDatensicherungKonfigurationActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent" id="FormComponent2">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>accelerator</string>
+               <object class="javax.swing.KeyStroke" method="getKeyStroke">
+                <int>83</int>
+                <int>130</int>
+                <boolean>false</boolean>
+               </object>
+              </void>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Datensicherung</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsführungDatensicherungDatensicherung</string>
+              </void>
+              <void method="auxiliary">
+               <void method="setProperty">
+                <string>JavaCodeGenerator.preInitCode</string>
+                <string>jMenuVerlagsfuehrungDatensicherung.addSeparator();</string>
+               </void>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsführungDatensicherungDatensicherungActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormContainer" id="FormContainer0">
+            <string>javax.swing.JMenu</string>
+            <object class="com.jformdesigner.model.FormLayoutManager">
+             <class>javax.swing.JMenu</class>
+            </object>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Steuer</string>
+            </void>
+            <void method="auxiliary">
+             <void method="setProperty">
+              <string>JavaCodeGenerator.preInitCode</string>
+              <string>jMenuVerlagsfuehrung.addSeparator();</string>
+             </void>
+            </void>
+            <void property="name">
+             <string>jMenuVerlagsfuehrungSteuer</string>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Konfiguration Steuererklärung ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuehrungSteuerKonfiguration</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuehrungSteuerKonfigurationActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent" id="FormComponent3">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Umsatzsteuervoranmeldung ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuehrungSteuerUstrVA</string>
+              </void>
+              <void method="auxiliary">
+               <void method="setProperty">
+                <string>JavaCodeGenerator.preInitCode</string>
+                <string>jMenuVerlagsfuehrungSteuer.addSeparator();</string>
+               </void>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuehrungSteuerUstrVAActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Umsatzsteuererklärung ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuehrungSteuerUstrE</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuehrungSteuerUstrEActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Einnahmenüberschussrechnung ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuehrungSteuerEUR</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuehrungSteuerEURActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>prüfen UStrID</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemVerlagsfuehrungInternetPruefenUStrID</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemVerlagsfuehrungInternetPruefenUStrIDActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormContainer" id="FormContainer1">
+            <string>javax.swing.JMenu</string>
+            <object class="com.jformdesigner.model.FormLayoutManager">
+             <class>javax.swing.JMenu</class>
+            </object>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Aufruf von Internet-Seiten</string>
+            </void>
+            <void method="auxiliary">
+             <void method="setProperty">
+              <string>JavaCodeGenerator.preInitCode</string>
+              <string>jMenuVerlagsfuehrung.addSeparator();</string>
+             </void>
+            </void>
+            <void property="name">
+             <string>jMenuVerlagsfuehrungInternet</string>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Books on Demand</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuehrungInternetBOD</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuehrungInternetBODActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Volksbank</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuehrungInternetVolksbank</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuehrungInternetVolksbankActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Printus</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuehrungInternetPrintus</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuehrungInternetPrintusActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Vistaprint</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuehrungInternetVistaprint</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuehrungInternetVistaprintActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Amazon</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuehrungInternetAmazon</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuehrungInternetAmazonActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>VLB</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuehrungInternetVLB</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuehrungInternetVLBActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>IBAN-Rechner</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemVerlagsfuerhungInternetIBAN</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemVerlagsfuerhungInternetIBANActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormContainer">
+          <string>javax.swing.JMenu</string>
+          <object class="com.jformdesigner.model.FormLayoutManager">
+           <class>javax.swing.JMenu</class>
+          </object>
+          <void method="setProperty">
+           <string>mnemonic</string>
+           <int>83</int>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Stammdaten</string>
+          </void>
+          <void property="name">
+           <string>jMenuStammdaten</string>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>accelerator</string>
+             <object class="javax.swing.KeyStroke" method="getKeyStroke">
+              <int>80</int>
+              <int>130</int>
+              <boolean>false</boolean>
+             </object>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Buchprojekte ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemStammdatenBuchprojekte</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemStammdatenBuchprojekteActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>accelerator</string>
+             <object class="javax.swing.KeyStroke" method="getKeyStroke">
+              <int>65</int>
+              <int>130</int>
+              <boolean>false</boolean>
+             </object>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Adressen ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemStammdatenAdressen</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemStammdatenAdressenActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>E-Mail-Verteiler ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemStammdatenEMailVerteiler</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemStammdatenEMailVerteilerActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>E-Mail-Adressen ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemStammdatenEMailAdressen</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemStammdatenEMailAdressenActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormContainer">
+          <string>javax.swing.JMenu</string>
+          <object class="com.jformdesigner.model.FormLayoutManager">
+           <class>javax.swing.JMenu</class>
+          </object>
+          <void method="setProperty">
+           <string>mnemonic</string>
+           <int>100</int>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Bewegungsdaten</string>
+          </void>
+          <void property="name">
+           <string>jMenuBewegungsdaten</string>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormContainer">
+            <string>javax.swing.JMenu</string>
+            <object class="com.jformdesigner.model.FormLayoutManager">
+             <class>javax.swing.JMenu</class>
+            </object>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Einnahmen</string>
+            </void>
+            <void property="name">
+             <string>jMenuBewegungsdatenEinanhmen</string>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>accelerator</string>
+               <object class="javax.swing.KeyStroke" method="getKeyStroke">
+                <int>66</int>
+                <int>195</int>
+                <boolean>false</boolean>
+               </object>
+              </void>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Buchbestellungen ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemBewegungsdatenBuchbestellungen</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBewegungsdatenBuchbestellungenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>accelerator</string>
+               <object class="javax.swing.KeyStroke" method="getKeyStroke">
+                <int>69</int>
+                <int>195</int>
+                <boolean>false</boolean>
+               </object>
+              </void>
+              <void method="setProperty">
+               <string>text</string>
+               <string>sonstige Einnahmen ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItem4</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItem4ActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>accelerator</string>
+             <object class="javax.swing.KeyStroke" method="getKeyStroke">
+              <int>65</int>
+              <int>195</int>
+              <boolean>false</boolean>
+             </object>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Ausgaben ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemBewegungsdatenAusgaben</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemBewegungsdatenAusgabenActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormContainer">
+            <string>javax.swing.JMenu</string>
+            <object class="com.jformdesigner.model.FormLayoutManager">
+             <class>javax.swing.JMenu</class>
+            </object>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Rezensionen/Freiexemplare</string>
+            </void>
+            <void property="name">
+             <string>jMenuBewegungsdatenRezensionen</string>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>versenden ...</string>
+              </void>
+              <void method="setProperty">
+               <string>accelerator</string>
+               <object class="javax.swing.KeyStroke" method="getKeyStroke">
+                <int>82</int>
+                <int>195</int>
+                <boolean>false</boolean>
+               </object>
+              </void>
+              <void property="name">
+               <string>jMenuItemBewegungsdatenRezensionenVersenden</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBewegungsdatenRezensionenVersendenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>accelerator</string>
+               <object class="javax.swing.KeyStroke" method="getKeyStroke">
+                <int>82</int>
+                <int>520</int>
+                <boolean>false</boolean>
+               </object>
+              </void>
+              <void method="setProperty">
+               <string>text</string>
+               <string>erfassen ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemBewegungsdatenRezensionenErfassen</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBewegungsdatenRezensionenErfassenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormContainer">
+          <string>javax.swing.JMenu</string>
+          <object class="com.jformdesigner.model.FormLayoutManager">
+           <class>javax.swing.JMenu</class>
+          </object>
+          <void method="setProperty">
+           <string>mnemonic</string>
+           <int>66</int>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Berichte</string>
+          </void>
+          <void property="name">
+           <string>jMenuBerichte</string>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormContainer">
+            <string>javax.swing.JMenu</string>
+            <object class="com.jformdesigner.model.FormLayoutManager">
+             <class>javax.swing.JMenu</class>
+            </object>
+            <void method="setProperty">
+             <string>mnemonic</string>
+             <int>83</int>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Stammdaten</string>
+            </void>
+            <void property="name">
+             <string>jMenuBerichteStammdaten</string>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Buchprojekte ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemBerichteStammdatenBuchprojekte</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBerichteStammdatenBuchprojekteActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Verlagsprogramm</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemBerichteStammdatenVerlagsprogramm</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBerichteStammdatenVerlagsprogrammActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Adressen ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemBerichteStammdatenAdressen</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBerichteStammdatenAdressenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Inventur</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemBerichteStammdatenInventur</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBerichteStammdatenInventurActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormContainer">
+            <string>javax.swing.JMenu</string>
+            <object class="com.jformdesigner.model.FormLayoutManager">
+             <class>javax.swing.JMenu</class>
+            </object>
+            <void method="setProperty">
+             <string>mnemonic</string>
+             <int>69</int>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Einnahmen/Ausgaben</string>
+            </void>
+            <void property="name">
+             <string>jMenuBerichteUmsaetze</string>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Einnahmen ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemBerichteEinnahmen</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBerichteEinnahmenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Ausgaben ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemBerichteAusgaben</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBerichteAusgabenActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Umsätze ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemBerichteUmsaetze</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBerichteUmsaetzeActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormContainer">
+              <string>javax.swing.JMenu</string>
+              <object class="com.jformdesigner.model.FormLayoutManager">
+               <class>javax.swing.JMenu</class>
+              </object>
+              <void method="setProperty">
+               <string>text</string>
+               <string>offene Rechnungen</string>
+              </void>
+              <void property="name">
+               <string>jMenu1</string>
+              </void>
+              <void method="add">
+               <object class="com.jformdesigner.model.FormComponent">
+                <string>javax.swing.JMenuItem</string>
+                <void method="setProperty">
+                 <string>text</string>
+                 <string>Einnahmen/Mahnungen</string>
+                </void>
+                <void property="name">
+                 <string>jMenuItemBerichteMahnungen</string>
+                </void>
+                <void method="addEvent">
+                 <object class="com.jformdesigner.model.FormEvent">
+                  <string>java.awt.event.ActionListener</string>
+                  <string>actionPerformed</string>
+                  <string>jMenuItemBerichteMahnungenActionPerformed</string>
+                  <boolean>true</boolean>
+                 </object>
+                </void>
+               </object>
+              </void>
+              <void method="add">
+               <object class="com.jformdesigner.model.FormComponent">
+                <string>javax.swing.JMenuItem</string>
+                <void method="setProperty">
+                 <string>text</string>
+                 <string>Ausgaben/Zahlungen</string>
+                </void>
+                <void property="name">
+                 <string>jMenuItemBerichteZahlungen</string>
+                </void>
+                <void method="addEvent">
+                 <object class="com.jformdesigner.model.FormEvent">
+                  <string>java.awt.event.ActionListener</string>
+                  <string>actionPerformed</string>
+                  <string>jMenuItemBerichteZahlungenActionPerformed</string>
+                  <boolean>true</boolean>
+                 </object>
+                </void>
+               </object>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormContainer">
+            <string>javax.swing.JMenu</string>
+            <object class="com.jformdesigner.model.FormLayoutManager">
+             <class>javax.swing.JMenu</class>
+            </object>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Verkaufsstatistik</string>
+            </void>
+            <void property="name">
+             <string>jMenuBerichteVerkaufsstatistik</string>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Einzelnes Buch ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemBerichteVerkaufsstatistikEinzel</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBerichteVerkaufsstatistikEinzelActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="com.jformdesigner.model.FormComponent">
+              <string>javax.swing.JMenuItem</string>
+              <void method="setProperty">
+               <string>mnemonic</string>
+               <int>86</int>
+              </void>
+              <void method="setProperty">
+               <string>text</string>
+               <string>Alle Bücher ...</string>
+              </void>
+              <void property="name">
+               <string>jMenuItemBerichteVerkaufsstatistikGesamt</string>
+              </void>
+              <void method="addEvent">
+               <object class="com.jformdesigner.model.FormEvent">
+                <string>java.awt.event.ActionListener</string>
+                <string>actionPerformed</string>
+                <string>jMenuItemBerichteVerkaufsstatistikGesamtActionPerformed</string>
+                <boolean>true</boolean>
+               </object>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Rezensionen ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItem5</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItem5ActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>mnemonic</string>
+             <int>84</int>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Termine</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemBerichteTermine</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemBerichteTermineActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Aufgaben</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemBerichteAufgaben</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemBerichteAufgabenActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>mnemonic</string>
+             <int>107</int>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Konfiguration</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemBerichteKonfiguration</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemBerichteKonfigurationActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormContainer">
+          <string>javax.swing.JMenu</string>
+          <object class="com.jformdesigner.model.FormLayoutManager">
+           <class>javax.swing.JMenu</class>
+          </object>
+          <void method="setProperty">
+           <string>mnemonic</string>
+           <int>105</int>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Hilfe</string>
+          </void>
+          <void method="setProperty">
+           <string>horizontalAlignment</string>
+           <int>4</int>
+          </void>
+          <void method="setProperty">
+           <string>horizontalTextPosition</string>
+           <int>4</int>
+          </void>
+          <void property="name">
+           <string>jMenuHilfe</string>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>accelerator</string>
+             <object class="javax.swing.KeyStroke" method="getKeyStroke">
+              <int>112</int>
+              <int>130</int>
+              <boolean>false</boolean>
+             </object>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Hilfe</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemHilfeHilfe</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemHilfeHilfeActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>accelerator</string>
+             <object class="javax.swing.KeyStroke" method="getKeyStroke">
+              <int>112</int>
+              <int>65</int>
+              <boolean>false</boolean>
+             </object>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Über ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemHilfeUeber</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemHilfeUeberActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Change-Log ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItemHilfeChanges</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItemHilfeChangesActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JMenuItem</string>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Test ...</string>
+            </void>
+            <void property="name">
+             <string>jMenuItem1</string>
+            </void>
+            <void method="addEvent">
+             <object class="com.jformdesigner.model.FormEvent">
+              <string>java.awt.event.ActionListener</string>
+              <string>actionPerformed</string>
+              <string>jMenuItem1ActionPerformed</string>
+              <boolean>true</boolean>
+             </object>
+            </void>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JMenuItem</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>-</string>
+          </void>
+          <void method="setProperty">
+           <string>foreground</string>
+           <object class="java.awt.Color" field="blue"/>
+          </void>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="java.awt.Font">
+            <string>Segoe UI</string>
+            <int>1</int>
+            <int>10</int>
+           </object>
+          </void>
+          <void property="name">
+           <string>menuItemBenutzer</string>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="name">
+       <string>this</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>size</string>
+       <object class="java.awt.Dimension">
+        <int>645</int>
+        <int>195</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>0</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.jformdesigner.model.FormComponent">
+      <string>javax.swing.JMenuItem</string>
+      <void method="setProperty">
+       <string>text</string>
+       <string>jMenuItem6</string>
+      </void>
+      <void property="name">
+       <string>jMenuItem6</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>310</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.jformdesigner.model.FormComponent">
+      <string>javax.swing.JMenuItem</string>
+      <void method="setProperty">
+       <string>text</string>
+       <string>jMenuItem7</string>
+      </void>
+      <void property="name">
+       <string>jMenuItem7</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>342</int>
+       </object>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

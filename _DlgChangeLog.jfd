@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_192" class="java.beans.XMLDecoder">
+ <object class="com.jformdesigner.model.FormModel">
+  <void property="contentType">
+   <string>form/swing</string>
+  </void>
+  <void property="root">
+   <object class="com.jformdesigner.model.FormRoot">
+    <void method="add">
+     <object class="com.jformdesigner.model.FormWindow">
+      <string>javax.swing.JDialog</string>
+      <object class="com.jformdesigner.model.FormLayoutManager">
+       <class>org.jdesktop.layout.GroupLayout</class>
+       <void method="setProperty">
+        <string>$horizontalGroup</string>
+        <string>par l {seq {comp panel1:::p::p, space :p:50:p, comp jPanel1:::::x, space :::p}}</string>
+       </void>
+       <void method="setProperty">
+        <string>$verticalGroup</string>
+        <string>par l {seq t {space ::44:x, comp jPanel1:::p::p, space :p:46:p}, comp panel1::t:::x}</string>
+       </void>
+      </object>
+      <void method="setProperty">
+       <string>defaultCloseOperation</string>
+       <int>2</int>
+      </void>
+      <void method="setProperty">
+       <string>title</string>
+       <string>Carola Hartmann Miles-Verlag</string>
+      </void>
+      <void method="setProperty">
+       <string>resizable</string>
+       <boolean>false</boolean>
+      </void>
+      <void method="add">
+       <object class="com.jformdesigner.model.FormContainer">
+        <string>javax.swing.JPanel</string>
+        <object class="com.jformdesigner.model.FormLayoutManager">
+         <class>org.jdesktop.layout.GroupLayout</class>
+         <void method="setProperty">
+          <string>$horizontalGroup</string>
+          <string>par l {space :0:0:x}</string>
+         </void>
+         <void method="setProperty">
+          <string>$verticalGroup</string>
+          <string>par l {space :0:203:x}</string>
+         </void>
+        </object>
+        <void property="name">
+         <string>jPanel1</string>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="com.jformdesigner.model.FormContainer">
+        <string>javax.swing.JPanel</string>
+        <object class="com.jformdesigner.model.FormLayoutManager">
+         <class>org.jdesktop.layout.GroupLayout</class>
+         <void method="setProperty">
+          <string>$horizontalGroup</string>
+          <string>par l {seq l {space :::p, par l {comp jLabel1:::p::p, comp jScrollPane1:::p:684:p, seq l {space :322:322:p, comp jButtonSchliessen:::p::p}}, space ::16:x}}</string>
+         </void>
+         <void method="setProperty">
+          <string>$verticalGroup</string>
+          <string>par l {seq l {space :::p, comp jLabel1:::p::p, space :18:18:p, comp jScrollPane1:::p:203:p, space :11:11:p, comp jButtonSchliessen:::p::p, space ::12:x}}</string>
+         </void>
+        </object>
+        <void property="name">
+         <string>panel1</string>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Schließen</string>
+          </void>
+          <void property="name">
+           <string>jButtonSchliessen</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>jButtonSchliessenActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="java.awt.Font">
+            <string>Tahoma</string>
+            <int>1</int>
+            <int>12</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Change-Log</string>
+          </void>
+          <void property="name">
+           <string>jLabel1</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormContainer">
+          <string>javax.swing.JScrollPane</string>
+          <object class="com.jformdesigner.model.FormLayoutManager">
+           <class>javax.swing.JScrollPane</class>
+          </object>
+          <void property="name">
+           <string>jScrollPane1</string>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JTextArea</string>
+            <void method="setProperty">
+             <string>editable</string>
+             <boolean>false</boolean>
+            </void>
+            <void method="setProperty">
+             <string>columns</string>
+             <int>20</int>
+            </void>
+            <void method="setProperty">
+             <string>lineWrap</string>
+             <boolean>true</boolean>
+            </void>
+            <void method="setProperty">
+             <string>rows</string>
+             <int>5</int>
+            </void>
+            <void method="setProperty">
+             <string>text</string>
+             <string>Feature
+* Benutzerverwaltung
+
+Feature
+* PDF-Ausgabe/E-Rechnung/Hybrid-PDF
+
+Feature
+* Sichern und Bereinigen der Datenbank zum Jahresabschluss/-wechsel
+
+Feature
+* Bericht zu den verkauften Büchern als Excel-Datei
+
+Feature
+* Prüfen Umsatzsteuer-ID und Ausgabe des Ergebnisses
+
+Feature
+* Freiexemplar als Option bei Rezensionen
+
+Feature
+* Buchrechnung um Freitext-Zeilen ergänzen
+
+Feature
+* Adressetikettendruck aus dem Adressen-Dialog
+
+Feature
+* Rechnungsbetrag Fett
+
+Feature
+* Dialog Adresse ergänzt um Auswahl-Liste
+
+Bug-Fix
+* Ausgabe der Beschreibung bei Rezensionen
+* Richtiger Autorentitel bei mehreren Rezensionen
+
+Bug-Fix
+* Adressaufkleber Adresse 7,8 neu gesetzt
+* Adressaufkleber Adresse 9, 10 neu gesetzt
+
+Feature
+* Einfügen eines Feldes &quot;BESTELLUNG_STORNIERT&quot;
+  - Anpassen der Rechnung für den Fall &quot;STORNIERT&quot;
+  - Anpassen der Bestellung für den Fall &quot;STORNIERT&quot;
+  - Anpassen Berichte Einnahmen, Umsätze
+  
+Feature
+* Etikettendruck für Avery Zweckform 
+
+Bug-Fix
+* Brief Rezension
+  - Zeilenlänge 1. Satz; Zeilenumbruch 2. Satz, Leerzeichen
+
+Bug-Fix
+* Umbenennen DOC zu DOCX
+* Brief Rezension: Herausgeber/mehrere Autoren berücksichtigen
+
+Bug-Fix
+* Bericht Einnahmen: Abfrage der Tabelle bzgl. Einnahmearten
+* Bericht Umsätze: Abfrage der Tabelle bzgl. Einnahmearten
+
+Feature
+* Brief Rezensions-, Pflicht- und Belegexemplar um Text-Feld ergänzen  
+
+Feature
+* Info- und Fehlermeldung ein-, zwei- und dreizeilig ermöglichen
+
+Feature
+* Belegexemplar als Bestell-Typ
+
+Bug-Fix
+* Liste der Bücher mit führenden Nullen bei ID, Courier New wg. Lesbarkeit</string>
+            </void>
+            <void method="setProperty">
+             <string>wrapStyleWord</string>
+             <boolean>true</boolean>
+            </void>
+            <void method="setProperty">
+             <string>focusable</string>
+             <boolean>false</boolean>
+            </void>
+            <void property="name">
+             <string>jTextArea1</string>
+            </void>
+           </object>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="name">
+       <string>this</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>size</string>
+       <object class="java.awt.Dimension">
+        <int>710</int>
+        <int>325</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>0</int>
+       </object>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
