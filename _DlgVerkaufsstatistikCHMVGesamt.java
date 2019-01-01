@@ -93,7 +93,8 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        Container contentPane = getContentPane();
+        setMinimumSize(new Dimension(475, 370));
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {

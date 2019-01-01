@@ -36,6 +36,13 @@
        <string>$sizePolicy</string>
        <int>1</int>
       </void>
+      <void method="setProperty">
+       <string>minimumSize</string>
+       <object class="java.awt.Dimension">
+        <int>475</int>
+        <int>370</int>
+       </object>
+      </void>
       <void method="add">
        <object class="com.jformdesigner.model.FormContainer">
         <string>javax.swing.JPanel</string>
