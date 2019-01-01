@@ -10,15 +10,7 @@
      <object class="com.jformdesigner.model.FormWindow">
       <string>javax.swing.JDialog</string>
       <object class="com.jformdesigner.model.FormLayoutManager">
-       <class>org.jdesktop.layout.GroupLayout</class>
-       <void method="setProperty">
-        <string>$horizontalGroup</string>
-        <string>par l {seq l {space :::p, comp panel1:::p::p, space :::x}}</string>
-       </void>
-       <void method="setProperty">
-        <string>$verticalGroup</string>
-        <string>par l {seq l {space :::p, comp panel1:::p::p, space ::9:x}}</string>
-       </void>
+       <class>com.jformdesigner.runtime.NullLayout</class>
       </object>
       <void method="setProperty">
        <string>defaultCloseOperation</string>
@@ -43,23 +35,19 @@
         <int>370</int>
        </object>
       </void>
+      <void method="setProperty">
+       <string>font</string>
+       <object class="java.awt.Font">
+        <string>Dialog</string>
+        <int>1</int>
+        <int>12</int>
+       </object>
+      </void>
       <void method="add">
        <object class="com.jformdesigner.model.FormContainer">
         <string>javax.swing.JPanel</string>
         <object class="com.jformdesigner.model.FormLayoutManager">
-         <class>net.miginfocom.swing.MigLayout</class>
-         <void method="setProperty">
-          <string>$layoutConstraints</string>
-          <string>insets 0,hidemode 3,gap 5 5</string>
-         </void>
-         <void method="setProperty">
-          <string>$columnConstraints</string>
-          <string>[fill][fill][fill][fill][fill][fill][fill][fill][fill]</string>
-         </void>
-         <void method="setProperty">
-          <string>$rowConstraints</string>
-          <string>[fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][][]</string>
-         </void>
+         <class>com.jformdesigner.runtime.NullLayout</class>
         </object>
         <void property="name">
          <string>panel1</string>
@@ -84,10 +72,10 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 0 0 4 1</string>
+           <string>width</string>
+           <int>118</int>
           </void>
          </object>
         </void>
@@ -103,10 +91,10 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 0 2</string>
+           <string>y</string>
+           <int>45</int>
           </void>
          </object>
         </void>
@@ -122,10 +110,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 4 2</string>
+           <string>x</string>
+           <int>123</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>45</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>87</int>
           </void>
          </object>
         </void>
@@ -137,10 +133,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 0 3 4 1</string>
+           <string>y</string>
+           <int>64</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>118</int>
+          </void>
+          <void method="setProperty">
+           <string>height</string>
+           <int>23</int>
           </void>
          </object>
         </void>
@@ -152,10 +156,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 4 3</string>
+           <string>x</string>
+           <int>123</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>64</int>
+          </void>
+          <void method="setProperty">
+           <string>height</string>
+           <int>23</int>
           </void>
          </object>
         </void>
@@ -180,10 +192,14 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 6 2</string>
+           <string>x</string>
+           <int>240</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>45</int>
           </void>
          </object>
         </void>
@@ -208,10 +224,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 8 2</string>
+           <string>x</string>
+           <int>358</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>45</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>85</int>
           </void>
          </object>
         </void>
@@ -231,10 +255,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 6 3</string>
+           <string>x</string>
+           <int>240</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>64</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>88</int>
           </void>
          </object>
         </void>
@@ -254,10 +286,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 8 3</string>
+           <string>x</string>
+           <int>358</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>64</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>85</int>
           </void>
          </object>
         </void>
@@ -273,10 +313,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 6 4</string>
+           <string>x</string>
+           <int>240</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>92</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>88</int>
           </void>
          </object>
         </void>
@@ -292,10 +340,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 8 4</string>
+           <string>x</string>
+           <int>358</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>92</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>85</int>
           </void>
          </object>
         </void>
@@ -320,10 +376,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 0 5 2 1</string>
+           <string>y</string>
+           <int>120</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>68</int>
+          </void>
+          <void method="setProperty">
+           <string>height</string>
+           <int>23</int>
           </void>
          </object>
         </void>
@@ -339,10 +403,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 6 5</string>
+           <string>x</string>
+           <int>240</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>120</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>88</int>
           </void>
          </object>
         </void>
@@ -358,10 +430,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 8 5</string>
+           <string>x</string>
+           <int>358</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>120</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>85</int>
           </void>
          </object>
         </void>
@@ -381,10 +461,14 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 0 6 5 1</string>
+           <string>y</string>
+           <int>148</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>210</int>
           </void>
          </object>
         </void>
@@ -400,10 +484,14 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 0 7 5 1</string>
+           <string>y</string>
+           <int>176</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>210</int>
           </void>
          </object>
         </void>
@@ -427,10 +515,14 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 1 8</string>
+           <string>x</string>
+           <int>23</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>204</int>
           </void>
          </object>
         </void>
@@ -454,10 +546,22 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 2 8 7 1</string>
+           <string>x</string>
+           <int>73</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>204</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>370</int>
+          </void>
+          <void method="setProperty">
+           <string>height</string>
+           <int>23</int>
           </void>
          </object>
         </void>
@@ -473,10 +577,14 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 0 9 4 1</string>
+           <string>y</string>
+           <int>232</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>118</int>
           </void>
          </object>
         </void>
@@ -500,10 +608,18 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 6 11</string>
+           <string>x</string>
+           <int>240</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>285</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>88</int>
           </void>
          </object>
         </void>
@@ -527,12 +643,27 @@
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>net.miginfocom.layout.CC</class>
+          <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
-           <string>value</string>
-           <string>cell 8 11</string>
+           <string>x</string>
+           <int>358</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>285</int>
           </void>
          </object>
+        </void>
+       </object>
+       <object class="com.jformdesigner.model.FormLayoutConstraints">
+        <class>com.jformdesigner.runtime.NullConstraints</class>
+        <void method="setProperty">
+         <string>x</string>
+         <int>10</int>
+        </void>
+        <void method="setProperty">
+         <string>y</string>
+         <int>11</int>
         </void>
        </object>
       </void>

@@ -94,143 +94,155 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
         setMinimumSize(new Dimension(475, 370));
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
         var contentPane = getContentPane();
+        contentPane.setLayout(null);
 
         //======== panel1 ========
         {
-            panel1.setLayout(new MigLayout(
-                "insets 0,hidemode 3,gap 5 5",
-                // columns
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]",
-                // rows
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[]" +
-                "[]"));
+            panel1.setLayout(null);
 
             //---- jLabel1 ----
             jLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
             jLabel1.setText("Verkaufsstatistik ");
-            panel1.add(jLabel1, "cell 0 0 4 1");
+            panel1.add(jLabel1);
+            jLabel1.setBounds(0, 0, 118, jLabel1.getPreferredSize().height);
 
             //---- jLabel3 ----
             jLabel3.setText("von");
-            panel1.add(jLabel3, "cell 0 2");
+            panel1.add(jLabel3);
+            jLabel3.setBounds(new Rectangle(new Point(0, 45), jLabel3.getPreferredSize()));
 
             //---- jLabel4 ----
             jLabel4.setText("bis");
-            panel1.add(jLabel4, "cell 4 2");
-            panel1.add(field_von, "cell 0 3 4 1");
-            panel1.add(field_bis, "cell 4 3");
+            panel1.add(jLabel4);
+            jLabel4.setBounds(123, 45, 87, jLabel4.getPreferredSize().height);
+            panel1.add(field_von);
+            field_von.setBounds(0, 64, 118, 23);
+            panel1.add(field_bis);
+            field_bis.setBounds(123, 64, field_bis.getPreferredSize().width, 23);
 
             //---- jLabel6 ----
             jLabel6.setText("Ausgabeformat");
             jLabel6.setFont(jLabel6.getFont().deriveFont(jLabel6.getFont().getStyle() | Font.BOLD));
-            panel1.add(jLabel6, "cell 6 2");
+            panel1.add(jLabel6);
+            jLabel6.setBounds(new Rectangle(new Point(240, 45), jLabel6.getPreferredSize()));
 
             //---- jLabel7 ----
             jLabel7.setText("Sortierung");
             jLabel7.setFont(jLabel7.getFont().deriveFont(jLabel7.getFont().getStyle() | Font.BOLD));
-            panel1.add(jLabel7, "cell 8 2");
+            panel1.add(jLabel7);
+            jLabel7.setBounds(358, 45, 85, jLabel7.getPreferredSize().height);
 
             //---- PDF ----
             PDF.setSelected(true);
             PDF.setText("PDF");
-            panel1.add(PDF, "cell 6 3");
+            panel1.add(PDF);
+            PDF.setBounds(240, 64, 88, PDF.getPreferredSize().height);
 
             //---- rbAutor ----
             rbAutor.setSelected(true);
             rbAutor.setText("Autor");
-            panel1.add(rbAutor, "cell 8 3");
+            panel1.add(rbAutor);
+            rbAutor.setBounds(358, 64, 85, rbAutor.getPreferredSize().height);
 
             //---- XLS ----
             XLS.setText("XLS");
-            panel1.add(XLS, "cell 6 4");
+            panel1.add(XLS);
+            XLS.setBounds(240, 92, 88, XLS.getPreferredSize().height);
 
             //---- rbTitel ----
             rbTitel.setText("Titel");
-            panel1.add(rbTitel, "cell 8 4");
+            panel1.add(rbTitel);
+            rbTitel.setBounds(358, 92, 85, rbTitel.getPreferredSize().height);
 
             //---- jLabel5 ----
             jLabel5.setText("Umfang");
             jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getStyle() | Font.BOLD));
-            panel1.add(jLabel5, "cell 0 5 2 1");
+            panel1.add(jLabel5);
+            jLabel5.setBounds(0, 120, 68, 23);
 
             //---- DOC ----
             DOC.setText("DOC");
-            panel1.add(DOC, "cell 6 5");
+            panel1.add(DOC);
+            DOC.setBounds(240, 120, 88, DOC.getPreferredSize().height);
 
             //---- rbISBN ----
             rbISBN.setText("ISBN");
-            panel1.add(rbISBN, "cell 8 5");
+            panel1.add(rbISBN);
+            rbISBN.setBounds(358, 120, 85, rbISBN.getPreferredSize().height);
 
             //---- rbMiles ----
             rbMiles.setSelected(true);
             rbMiles.setText("Direktvertrieb Miles-Verlag");
-            panel1.add(rbMiles, "cell 0 6 5 1");
+            panel1.add(rbMiles);
+            rbMiles.setBounds(0, 148, 210, rbMiles.getPreferredSize().height);
 
             //---- rbBOD ----
             rbBOD.setText("Books on Demand-Verk\u00e4ufe");
-            panel1.add(rbBOD, "cell 0 7 5 1");
+            panel1.add(rbBOD);
+            rbBOD.setBounds(0, 176, 210, rbBOD.getPreferredSize().height);
 
             //---- btnSalesBOD ----
             btnSalesBOD.setText("...");
             btnSalesBOD.addActionListener(e -> btnSalesBODActionPerformed(e));
-            panel1.add(btnSalesBOD, "cell 1 8");
+            panel1.add(btnSalesBOD);
+            btnSalesBOD.setBounds(new Rectangle(new Point(23, 204), btnSalesBOD.getPreferredSize()));
 
             //---- lblSalesCSV ----
             lblSalesCSV.setText("SALES.CSV");
             lblSalesCSV.setEnabled(false);
             lblSalesCSV.setFocusable(false);
-            panel1.add(lblSalesCSV, "cell 2 8 7 1");
+            panel1.add(lblSalesCSV);
+            lblSalesCSV.setBounds(73, 204, 370, 23);
 
             //---- rbGesamt ----
             rbGesamt.setText("Gesamtverk\u00e4ufe");
-            panel1.add(rbGesamt, "cell 0 9 4 1");
+            panel1.add(rbGesamt);
+            rbGesamt.setBounds(0, 232, 118, rbGesamt.getPreferredSize().height);
 
             //---- Drucken ----
             Drucken.setText("Drucken");
             Drucken.addActionListener(e -> DruckenActionPerformed(e));
-            panel1.add(Drucken, "cell 6 11");
+            panel1.add(Drucken);
+            Drucken.setBounds(240, 285, 88, Drucken.getPreferredSize().height);
 
             //---- Schliessen ----
             Schliessen.setText("Abbrechen");
             Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
-            panel1.add(Schliessen, "cell 8 11");
-        }
+            panel1.add(Schliessen);
+            Schliessen.setBounds(new Rectangle(new Point(358, 285), Schliessen.getPreferredSize()));
 
-        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
-        contentPane.setLayout(contentPaneLayout);
-        contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(9, Short.MAX_VALUE))
-        );
+            { // compute preferred size
+                Dimension preferredSize = new Dimension();
+                for(int i = 0; i < panel1.getComponentCount(); i++) {
+                    Rectangle bounds = panel1.getComponent(i).getBounds();
+                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                }
+                Insets insets = panel1.getInsets();
+                preferredSize.width += insets.right;
+                preferredSize.height += insets.bottom;
+                panel1.setMinimumSize(preferredSize);
+                panel1.setPreferredSize(preferredSize);
+            }
+        }
+        contentPane.add(panel1);
+        panel1.setBounds(new Rectangle(new Point(10, 11), panel1.getPreferredSize()));
+
+        { // compute preferred size
+            Dimension preferredSize = new Dimension();
+            for(int i = 0; i < contentPane.getComponentCount(); i++) {
+                Rectangle bounds = contentPane.getComponent(i).getBounds();
+                preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+            }
+            Insets insets = contentPane.getInsets();
+            preferredSize.width += insets.right;
+            preferredSize.height += insets.bottom;
+            contentPane.setMinimumSize(preferredSize);
+            contentPane.setPreferredSize(preferredSize);
+        }
         setSize(465, 360);
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
