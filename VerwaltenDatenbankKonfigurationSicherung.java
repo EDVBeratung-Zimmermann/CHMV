@@ -335,14 +335,14 @@ public class VerwaltenDatenbankKonfigurationSicherung extends javax.swing.JDialo
             jButtonUpdate.setToolTipText("Aktualisiert die Konfiguartionsdaten");
             jButtonUpdate.addActionListener(e -> jButtonUpdateActionPerformed(e));
             panel1.add(jButtonUpdate);
-            jButtonUpdate.setBounds(35, 330, 140, 35);
+            jButtonUpdate.setBounds(185, 340, 95, 25);
 
             //---- jButtonSchliessen ----
             jButtonSchliessen.setText("Schlie\u00dfen");
             jButtonSchliessen.setToolTipText("Schlie\u00dft den Dialog");
             jButtonSchliessen.addActionListener(e -> jButtonSchliessenActionPerformed(e));
             panel1.add(jButtonSchliessen);
-            jButtonSchliessen.setBounds(180, 330, 149, 35);
+            jButtonSchliessen.setBounds(285, 340, 104, 25);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
