@@ -95,6 +95,8 @@ public class ModulAbrechnungHonorar {
             if (conn != null) {    // Datenbankverbindung steht
                 try {
                     SQLBestellungDetails = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    SQLBestellung = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    SQLKunde = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     Filename = chooser.getSelectedFile().getCanonicalPath();
 // Tabelle Honorar leeren   
                     System.out.println("Tabelle Honorar leeren ...");
@@ -371,9 +373,11 @@ public class ModulAbrechnungHonorar {
                             AnzahlGesamt = AnzahlGesamt + resultBestellungDetails.getInt("BESTELLUNG_DETAIL_ANZAHL");
                             String Bestellnummer = resultBestellungDetails.getString("BESTELLUNG_DETAIL_RECHNR");
                             // hole Bestellung mit Bestellnummer
-                            resultBestellung = SQLBestellung.executeQuery("SELECT * FROM TBL_BESTELLUNG "
-                                    + " WHERE BESTELLUNG_RECHNR = '" + Bestellnummer + "'");
-                            resultBestellung.next();
+                            SQL = "SELECT * FROM TBL_BESTELLUNG "
+                                    + " WHERE BESTELLUNG_RECHNR = '" + Bestellnummer + "'";
+                            System.out.println("      -> " + SQL);
+                            resultBestellung = SQLBestellung.executeQuery(SQL);
+                            resultBestellung.first();
                             // if Bestelltyp != Bestellung => AnzahlGeschenk = ANzahlGescehnk + 1
                             if (resultBestellung.getInt("BESTELLUNG_TYP") != 0) {
                                 AnzahlGeschenk = AnzahlGeschenk + resultBestellungDetails.getInt("BESTELLUNG_DETAIL_ANZAHL");
