@@ -111,7 +111,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             //---- jLabel3 ----
             jLabel3.setText("von");
             panel1.add(jLabel3);
-            jLabel3.setBounds(new Rectangle(new Point(0, 45), jLabel3.getPreferredSize()));
+            jLabel3.setBounds(0, 45, 95, jLabel3.getPreferredSize().height);
 
             //---- jLabel4 ----
             jLabel4.setText("bis");
@@ -194,7 +194,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             lblSalesCSV.setEnabled(false);
             lblSalesCSV.setFocusable(false);
             panel1.add(lblSalesCSV);
-            lblSalesCSV.setBounds(73, 204, 370, 23);
+            lblSalesCSV.setBounds(73, 204, 357, 23);
 
             //---- rbGesamt ----
             rbGesamt.setText("Gesamtverk\u00e4ufe");
@@ -211,7 +211,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             Schliessen.setText("Abbrechen");
             Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
             panel1.add(Schliessen);
-            Schliessen.setBounds(new Rectangle(new Point(358, 285), Schliessen.getPreferredSize()));
+            Schliessen.setBounds(new Rectangle(new Point(350, 285), Schliessen.getPreferredSize()));
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
