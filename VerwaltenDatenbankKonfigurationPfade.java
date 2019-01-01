@@ -74,27 +74,26 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
             SQLAnfrage = null; // Anfrage erzeugen
 
             try {
-                SQLAnfrage = conn.createStatement(
-                        ResultSet.TYPE_SCROLL_SENSITIVE,
-                        ResultSet.CONCUR_UPDATABLE); // Anfrage der DB conn2 zuordnen
-                result = SQLAnfrage.executeQuery(
-                        "SELECT * FROM tbl_konfiguration"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                SQLAnfrage = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE); 
+                result = SQLAnfrage.executeQuery("SELECT * FROM tbl_konfiguration");  
 
                 // gehe zum ersten Datensatz - wenn nicht leer
-                while (result.next()) {
+                boolean notGefunden = true;
+                while (result.next() && (notGefunden)) {
                     resultIsEmpty = false;
 
                     if (Benutzer.equals(result.getString("Konfiguration_Benutzer"))) {
-                    field_Stammdaten.setText(result.getString("Konfiguration_Stammdaten"));
-                    field_Einnahmen.setText(result.getString("Konfiguration_Einnahmen"));
-                    field_Ausgaben.setText(result.getString("Konfiguration_Ausgaben"));
-                    field_Umsaetze.setText(result.getString("Konfiguration_Umsaetze"));
-                    field_Rechnungen.setText(result.getString("Konfiguration_Rechnungen"));
-                    field_Mahnungen.setText(result.getString("Konfiguration_Mahnungen"));
-                    field_Sicherung.setText(result.getString("Konfiguration_Sicherung"));
-                    field_Termine.setText(result.getString("Konfiguration_Termine"));
-                    field_Schriftverkehr.setText(result.getString("Konfiguration_Schriftverkehr"));
-                    field_Steuer.setText(result.getString("Konfiguration_Steuer"));
+                        field_Stammdaten.setText(result.getString("Konfiguration_Stammdaten"));
+                        field_Einnahmen.setText(result.getString("Konfiguration_Einnahmen"));
+                        field_Ausgaben.setText(result.getString("Konfiguration_Ausgaben"));
+                        field_Umsaetze.setText(result.getString("Konfiguration_Umsaetze"));
+                        field_Rechnungen.setText(result.getString("Konfiguration_Rechnungen"));
+                        field_Mahnungen.setText(result.getString("Konfiguration_Mahnungen"));
+                        field_Sicherung.setText(result.getString("Konfiguration_Sicherung"));
+                        field_Termine.setText(result.getString("Konfiguration_Termine"));
+                        field_Schriftverkehr.setText(result.getString("Konfiguration_Schriftverkehr"));
+                        field_Steuer.setText(result.getString("Konfiguration_Steuer"));
+                        notGefunden = false;
                     }
                 } // if notempty
 
@@ -356,6 +355,36 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
             if (resultIsEmpty) {
                 result.moveToInsertRow();
             }
+            if (field_Stammdaten.getText() == null) {
+                field_Stammdaten.setText("");
+            }
+            if (field_Einnahmen.getText() == null) {
+                field_Einnahmen.setText("");
+            }
+            if (field_Ausgaben.getText() == null) {
+                field_Ausgaben.setText("");
+            }
+            if (field_Umsaetze.getText() == null) {
+                field_Umsaetze.setText("");
+            }
+            if (field_Rechnungen.getText() == null) {
+                field_Rechnungen.setText("");
+            }
+            if (field_Sicherung.getText() == null) {
+                field_Sicherung.setText("");
+            }
+            if (field_Mahnungen.getText() == null) {
+                field_Mahnungen.setText("");
+            }
+            if (field_Termine.getText() == null) {
+                field_Termine.setText("");
+            }
+            if (field_Schriftverkehr.getText() == null) {
+                field_Schriftverkehr.setText("");
+            }
+            if (field_Steuer.getText() == null) {
+                field_Steuer.setText("");
+            }
             result.updateString("Konfiguration_Stammdaten", field_Stammdaten.getText());
             result.updateString("Konfiguration_Einnahmen", field_Einnahmen.getText());
             result.updateString("Konfiguration_Ausgaben", field_Ausgaben.getText());
@@ -384,7 +413,7 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
             Modulhelferlein.pathBuchprojekte = field_Schriftverkehr.getText();
             Modulhelferlein.pathSteuer = field_Steuer.getText();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            Modulhelferlein.Fehlermeldung("Update Konfiguration Ausgabepfade","SQL-Exception: " + exept.getMessage());
         }
 
         // Dialog schlieﬂen
@@ -483,18 +512,17 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-/**        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CarolaHartmannMilesVerlag.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-*/        
+        /**
+         * try { for (javax.swing.UIManager.LookAndFeelInfo info :
+         * javax.swing.UIManager.getInstalledLookAndFeels()) { if
+         * ("Nimbus".equals(info.getName())) {
+         * javax.swing.UIManager.setLookAndFeel(info.getClassName()); break; } }
+         * } catch (ClassNotFoundException | InstantiationException |
+         * IllegalAccessException | javax.swing.UnsupportedLookAndFeelException
+         * ex) {
+         * java.util.logging.Logger.getLogger(CarolaHartmannMilesVerlag.class.getName()).log(java.util.logging.Level.SEVERE,
+         * null, ex); }
+         */
         //</editor-fold>
 
         //</editor-fold>
