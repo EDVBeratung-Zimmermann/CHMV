@@ -32,6 +32,8 @@ import java.sql.Statement;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.JFileChooser;
+import info.clearthought.layout.*;
+import net.miginfocom.swing.*;
 
 /**
  *
@@ -121,11 +123,9 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
     private void initComponents() {
         panel1 = new JPanel();
         jLabel1 = new JLabel();
-        jLabel2 = new JLabel();
         jLabel3 = new JLabel();
         jLabel4 = new JLabel();
         jLabel5 = new JLabel();
-        field_Stammdaten = new JTextField();
         field_Einnahmen = new JTextField();
         field_Ausgaben = new JTextField();
         field_Umsaetze = new JTextField();
@@ -135,9 +135,6 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
         field_Termine = new JTextField();
         field_Schriftverkehr = new JTextField();
         field_Steuer = new JTextField();
-        btnStammdaten = new JButton();
-        jButtonUpdate = new JButton();
-        jButtonSchliessen = new JButton();
         jLabel6 = new JLabel();
         jLabel7 = new JLabel();
         jLabel8 = new JLabel();
@@ -154,102 +151,133 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
         btnTermine = new JButton();
         btnSchriftverkehr = new JButton();
         field_ID = new JTextField();
+        jLabel2 = new JLabel();
+        field_Stammdaten = new JTextField();
+        btnStammdaten = new JButton();
+        jButtonUpdate = new JButton();
+        jButtonSchliessen = new JButton();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        Container contentPane = getContentPane();
+        setMinimumSize(new Dimension(450, 435));
+        var contentPane = getContentPane();
+        contentPane.setLayout(null);
 
         //======== panel1 ========
         {
+            panel1.setLayout(null);
 
             //---- jLabel1 ----
             jLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
             jLabel1.setText("Verwalten der Konfiguration - Mail");
-
-            //---- jLabel2 ----
-            jLabel2.setText("Host");
+            panel1.add(jLabel1);
+            jLabel1.setBounds(0, 0, 340, 20);
 
             //---- jLabel3 ----
             jLabel3.setText("Port");
+            panel1.add(jLabel3);
+            jLabel3.setBounds(0, 73, 22, 22);
 
             //---- jLabel4 ----
             jLabel4.setText("User");
+            panel1.add(jLabel4);
+            jLabel4.setBounds(0, 100, jLabel4.getPreferredSize().width, 23);
 
             //---- jLabel5 ----
             jLabel5.setText("Pass");
-
-            //---- field_Stammdaten ----
-            field_Stammdaten.setToolTipText("Adresse des Mailservers");
-            field_Stammdaten.setFocusCycleRoot(true);
+            panel1.add(jLabel5);
+            jLabel5.setBounds(0, 128, jLabel5.getPreferredSize().width, 23);
 
             //---- field_Einnahmen ----
             field_Einnahmen.setToolTipText("Port");
+            panel1.add(field_Einnahmen);
+            field_Einnahmen.setBounds(27, 73, 313, 22);
 
             //---- field_Ausgaben ----
             field_Ausgaben.setToolTipText("User-Name");
+            panel1.add(field_Ausgaben);
+            field_Ausgaben.setBounds(27, 100, 313, 23);
 
             //---- field_Umsaetze ----
             field_Umsaetze.setToolTipText("Kennwort");
-
-            //---- btnStammdaten ----
-            btnStammdaten.setText("...");
-            btnStammdaten.setEnabled(false);
-            btnStammdaten.setFocusPainted(false);
-            btnStammdaten.addActionListener(e -> btnStammdatenActionPerformed(e));
-
-            //---- jButtonUpdate ----
-            jButtonUpdate.setText("Update");
-            jButtonUpdate.setToolTipText("Aktualisiert die Konfiguartionsdaten");
-            jButtonUpdate.addActionListener(e -> jButtonUpdateActionPerformed(e));
-
-            //---- jButtonSchliessen ----
-            jButtonSchliessen.setText("Schlie\u00dfen");
-            jButtonSchliessen.setToolTipText("Schlie\u00dft den Dialog");
-            jButtonSchliessen.addActionListener(e -> jButtonSchliessenActionPerformed(e));
+            panel1.add(field_Umsaetze);
+            field_Umsaetze.setBounds(27, 128, 313, 23);
+            panel1.add(field_Sicherung);
+            field_Sicherung.setBounds(27, 156, 313, 23);
+            panel1.add(field_Mahnungen);
+            field_Mahnungen.setBounds(27, 184, 313, 23);
+            panel1.add(field_Rechnungen);
+            field_Rechnungen.setBounds(27, 212, 313, 23);
+            panel1.add(field_Termine);
+            field_Termine.setBounds(27, 240, 313, 23);
+            panel1.add(field_Schriftverkehr);
+            field_Schriftverkehr.setBounds(27, 268, 313, 23);
+            panel1.add(field_Steuer);
+            field_Steuer.setBounds(27, 296, 313, 23);
 
             //---- jLabel6 ----
             jLabel6.setText("-");
+            panel1.add(jLabel6);
+            jLabel6.setBounds(0, 156, 22, 23);
 
             //---- jLabel7 ----
             jLabel7.setText("-");
+            panel1.add(jLabel7);
+            jLabel7.setBounds(0, 184, 22, 23);
 
             //---- jLabel8 ----
             jLabel8.setText("-");
+            panel1.add(jLabel8);
+            jLabel8.setBounds(0, 212, 22, 23);
 
             //---- jLabel9 ----
             jLabel9.setText("-");
+            panel1.add(jLabel9);
+            jLabel9.setBounds(0, 240, 22, 23);
 
             //---- jLabel10 ----
             jLabel10.setText("-");
+            panel1.add(jLabel10);
+            jLabel10.setBounds(0, 268, 22, 23);
 
             //---- jLabel11 ----
             jLabel11.setText("-");
+            panel1.add(jLabel11);
+            jLabel11.setBounds(0, 296, 22, 23);
 
             //---- btnSteuer ----
             btnSteuer.setText("...");
             btnSteuer.setEnabled(false);
             btnSteuer.setFocusable(false);
             btnSteuer.addActionListener(e -> btnSteuerActionPerformed(e));
+            panel1.add(btnSteuer);
+            btnSteuer.setBounds(new Rectangle(new Point(370, 296), btnSteuer.getPreferredSize()));
 
             //---- btnAusgaben ----
             btnAusgaben.setText("...");
             btnAusgaben.setEnabled(false);
             btnAusgaben.setFocusable(false);
             btnAusgaben.addActionListener(e -> btnAusgabenActionPerformed(e));
+            panel1.add(btnAusgaben);
+            btnAusgaben.setBounds(new Rectangle(new Point(370, 100), btnAusgaben.getPreferredSize()));
 
             //---- btnEinnahmen ----
             btnEinnahmen.setText("...");
             btnEinnahmen.setEnabled(false);
             btnEinnahmen.setFocusPainted(false);
             btnEinnahmen.addActionListener(e -> btnEinnahmenActionPerformed(e));
+            panel1.add(btnEinnahmen);
+            btnEinnahmen.setBounds(370, 73, 45, btnEinnahmen.getPreferredSize().height);
 
             //---- btnUmsaetze ----
             btnUmsaetze.setText("...");
             btnUmsaetze.setEnabled(false);
             btnUmsaetze.setFocusable(false);
             btnUmsaetze.addActionListener(e -> btnUmsaetzeActionPerformed(e));
+            panel1.add(btnUmsaetze);
+            btnUmsaetze.setBounds(new Rectangle(new Point(370, 128), btnUmsaetze.getPreferredSize()));
 
             //---- btnSicherungen ----
             btnSicherungen.setText("...");
@@ -257,229 +285,112 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
             btnSicherungen.setFocusable(false);
             btnSicherungen.setName("");
             btnSicherungen.addActionListener(e -> btnSicherungenActionPerformed(e));
+            panel1.add(btnSicherungen);
+            btnSicherungen.setBounds(new Rectangle(new Point(370, 156), btnSicherungen.getPreferredSize()));
 
             //---- btnMahnungen ----
             btnMahnungen.setText("...");
             btnMahnungen.setEnabled(false);
             btnMahnungen.setFocusable(false);
             btnMahnungen.addActionListener(e -> btnMahnungenActionPerformed(e));
+            panel1.add(btnMahnungen);
+            btnMahnungen.setBounds(new Rectangle(new Point(370, 184), btnMahnungen.getPreferredSize()));
 
             //---- btnRechnungen ----
             btnRechnungen.setText("...");
             btnRechnungen.setEnabled(false);
             btnRechnungen.setFocusable(false);
             btnRechnungen.addActionListener(e -> btnRechnungenActionPerformed(e));
+            panel1.add(btnRechnungen);
+            btnRechnungen.setBounds(new Rectangle(new Point(370, 212), btnRechnungen.getPreferredSize()));
 
             //---- btnTermine ----
             btnTermine.setText("...");
             btnTermine.setEnabled(false);
             btnTermine.setFocusable(false);
             btnTermine.addActionListener(e -> btnTermineActionPerformed(e));
+            panel1.add(btnTermine);
+            btnTermine.setBounds(new Rectangle(new Point(370, 240), btnTermine.getPreferredSize()));
 
             //---- btnSchriftverkehr ----
             btnSchriftverkehr.setText("...");
             btnSchriftverkehr.setEnabled(false);
             btnSchriftverkehr.setFocusable(false);
             btnSchriftverkehr.addActionListener(e -> btnSchriftverkehrActionPerformed(e));
+            panel1.add(btnSchriftverkehr);
+            btnSchriftverkehr.setBounds(new Rectangle(new Point(370, 268), btnSchriftverkehr.getPreferredSize()));
 
             //---- field_ID ----
             field_ID.setEditable(false);
             field_ID.setEnabled(false);
             field_ID.setFocusable(false);
+            panel1.add(field_ID);
+            field_ID.setBounds(370, 0, 45, field_ID.getPreferredSize().height);
 
-            GroupLayout panel1Layout = new GroupLayout(panel1);
-            panel1.setLayout(panel1Layout);
-            panel1Layout.setHorizontalGroup(
-                panel1Layout.createParallelGroup()
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(143, 143, 143)
-                                .addComponent(field_ID, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(10, 10, 10)
-                                .addComponent(field_Stammdaten, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
-                                .addComponent(btnStammdaten, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(12, 12, 12)
-                                .addComponent(field_Einnahmen, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(btnEinnahmen, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(10, 10, 10)
-                                .addComponent(field_Ausgaben, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(btnAusgaben, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(10, 10, 10)
-                                .addComponent(field_Umsaetze, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(btnUmsaetze, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(28, 28, 28)
-                                .addComponent(field_Sicherung, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(btnSicherungen, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(28, 28, 28)
-                                .addComponent(field_Mahnungen, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(btnMahnungen, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(28, 28, 28)
-                                .addComponent(field_Rechnungen, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(btnRechnungen, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(28, 28, 28)
-                                .addComponent(field_Termine, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(btnTermine, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(28, 28, 28)
-                                .addComponent(field_Schriftverkehr, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(btnSchriftverkehr, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(28, 28, 28)
-                                .addComponent(field_Steuer, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(btnSteuer, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jButtonUpdate)
-                                .addGap(10, 10, 10)
-                                .addComponent(jButtonSchliessen)))
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            );
-            panel1Layout.setVerticalGroup(
-                panel1Layout.createParallelGroup()
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel1))
-                            .addComponent(field_ID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel2))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(field_Stammdaten, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnStammdaten))
-                        .addGap(6, 6, 6)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel3))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(field_Einnahmen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnEinnahmen))
-                        .addGap(6, 6, 6)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addComponent(jLabel4)
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(field_Ausgaben, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnAusgaben))
-                        .addGap(6, 6, 6)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel5))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(field_Umsaetze, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnUmsaetze))
-                        .addGap(6, 6, 6)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel6))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(field_Sicherung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnSicherungen))
-                        .addGap(6, 6, 6)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel7))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(field_Mahnungen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnMahnungen))
-                        .addGap(6, 6, 6)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel8))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(field_Rechnungen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnRechnungen))
-                        .addGap(6, 6, 6)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel9))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(field_Termine, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnTermine))
-                        .addGap(6, 6, 6)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel10))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(field_Schriftverkehr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnSchriftverkehr))
-                        .addGap(6, 6, 6)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel11))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(field_Steuer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnSteuer))
-                        .addGap(13, 13, 13)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addComponent(jButtonUpdate)
-                            .addComponent(jButtonSchliessen))
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            );
+            //---- jLabel2 ----
+            jLabel2.setText("Host");
+            panel1.add(jLabel2);
+            jLabel2.setBounds(new Rectangle(new Point(0, 50), jLabel2.getPreferredSize()));
+
+            //---- field_Stammdaten ----
+            field_Stammdaten.setToolTipText("Adresse des Mailservers");
+            field_Stammdaten.setFocusCycleRoot(true);
+            panel1.add(field_Stammdaten);
+            field_Stammdaten.setBounds(27, 47, 313, field_Stammdaten.getPreferredSize().height);
+
+            //---- btnStammdaten ----
+            btnStammdaten.setText("...");
+            btnStammdaten.setEnabled(false);
+            btnStammdaten.setFocusPainted(false);
+            btnStammdaten.addActionListener(e -> btnStammdatenActionPerformed(e));
+            panel1.add(btnStammdaten);
+            btnStammdaten.setBounds(370, 46, 45, btnStammdaten.getPreferredSize().height);
+
+            //---- jButtonUpdate ----
+            jButtonUpdate.setText("Update");
+            jButtonUpdate.setToolTipText("Aktualisiert die Konfiguartionsdaten");
+            jButtonUpdate.addActionListener(e -> jButtonUpdateActionPerformed(e));
+            panel1.add(jButtonUpdate);
+            jButtonUpdate.setBounds(225, 340, 91, jButtonUpdate.getPreferredSize().height);
+
+            //---- jButtonSchliessen ----
+            jButtonSchliessen.setText("Schlie\u00dfen");
+            jButtonSchliessen.setToolTipText("Schlie\u00dft den Dialog");
+            jButtonSchliessen.addActionListener(e -> jButtonSchliessenActionPerformed(e));
+            panel1.add(jButtonSchliessen);
+            jButtonSchliessen.setBounds(320, 340, 91, jButtonSchliessen.getPreferredSize().height);
+
+            { // compute preferred size
+                Dimension preferredSize = new Dimension();
+                for(int i = 0; i < panel1.getComponentCount(); i++) {
+                    Rectangle bounds = panel1.getComponent(i).getBounds();
+                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                }
+                Insets insets = panel1.getInsets();
+                preferredSize.width += insets.right;
+                preferredSize.height += insets.bottom;
+                panel1.setMinimumSize(preferredSize);
+                panel1.setPreferredSize(preferredSize);
+            }
         }
+        contentPane.add(panel1);
+        panel1.setBounds(10, 10, 415, 368);
 
-        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
-        contentPane.setLayout(contentPaneLayout);
-        contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        setSize(400, 410);
+        { // compute preferred size
+            Dimension preferredSize = new Dimension();
+            for(int i = 0; i < contentPane.getComponentCount(); i++) {
+                Rectangle bounds = contentPane.getComponent(i).getBounds();
+                preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+            }
+            Insets insets = contentPane.getInsets();
+            preferredSize.width += insets.right;
+            preferredSize.height += insets.bottom;
+            contentPane.setMinimumSize(preferredSize);
+            contentPane.setPreferredSize(preferredSize);
+        }
+        setSize(440, 425);
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
@@ -635,11 +546,9 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JPanel panel1;
     private JLabel jLabel1;
-    private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
     private JLabel jLabel5;
-    private JTextField field_Stammdaten;
     private JTextField field_Einnahmen;
     private JTextField field_Ausgaben;
     private JTextField field_Umsaetze;
@@ -649,9 +558,6 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
     private JTextField field_Termine;
     private JTextField field_Schriftverkehr;
     private JTextField field_Steuer;
-    private JButton btnStammdaten;
-    private JButton jButtonUpdate;
-    private JButton jButtonSchliessen;
     private JLabel jLabel6;
     private JLabel jLabel7;
     private JLabel jLabel8;
@@ -668,6 +574,11 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
     private JButton btnTermine;
     private JButton btnSchriftverkehr;
     private JTextField field_ID;
+    private JLabel jLabel2;
+    private JTextField field_Stammdaten;
+    private JButton btnStammdaten;
+    private JButton jButtonUpdate;
+    private JButton jButtonSchliessen;
     // End of variables declaration//GEN-END:variables
 
     private Connection conn;
