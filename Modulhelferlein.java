@@ -82,6 +82,7 @@ public class Modulhelferlein {
     
     public static String Semaphore = "NutzerAktiv.srv";
 
+    public static String pathUserDir = "";
     public static String pathRechnungen = "";
     public static String pathBerichte = "";
     public static String pathUmsaetze = "";
