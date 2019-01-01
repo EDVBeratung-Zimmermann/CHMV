@@ -296,7 +296,7 @@ public class _DlgTabellenLoeschen extends javax.swing.JDialog {
                 Modulhelferlein.Fehlermeldung("SQL-Exception", "Löschen von Tabellen", ex.getMessage());
             }
             if (JOptionPane.showConfirmDialog(null,
-                    "Sollen die Tabellen wirklich geleert werden?",
+                    "Sollen die Tabellen wirklich gelöscht werden?",
                     "Bestätigung",
                     JOptionPane.YES_NO_OPTION) == 0) {
                 try {
