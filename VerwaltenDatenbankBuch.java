@@ -38,16 +38,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
-import javax.swing.border.*;
 import javax.swing.plaf.ActionMapUIResource;
-import net.miginfocom.swing.*;
 import static milesVerlagMain.ModulMyOwnFocusTraversalPolicy.newPolicy;
 
 /**
@@ -317,6 +313,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     lbAutor.setSelectedIndices(select);
 
                     LabelBild.setIcon(new ImageIcon(result.getString("BUCH_COVER")));
+                    //LabelBild.setIcon(new ImageIcon(Modulhelferlein.pathUserDir + "/" + result.getString("BUCH_COVER")));
                     //Bild = new Background(result.getString("Buch_COVER"));this.add(Bild); Bild.setBounds(520, 350, 120, 160);
 
                     field_Titel.setText(result.getString("Buch_Titel"));
@@ -499,8 +496,8 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
         setMinimumSize(new Dimension(970, 710));
         setResizable(false);
         setSize(new Dimension(750, 700));
-        setFont(new Font("Dialog", Font.BOLD, 12));
-        Container contentPane = getContentPane();
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+        var contentPane = getContentPane();
         contentPane.setLayout(null);
 
         //======== panel1 ========
@@ -527,6 +524,10 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 
             //======== jScrollPane2 ========
             {
+
+                //---- lbAutor ----
+                lbAutor.setModel(listModel);
+                        lbAutor.setValueIsAdjusting(true);
                 jScrollPane2.setViewportView(lbAutor);
             }
             panel1.add(jScrollPane2);
@@ -917,70 +918,70 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             Zurueck.setToolTipText("gehe zum vorherigen Datensatz");
             Zurueck.addActionListener(e -> ZurueckActionPerformed(e));
             panel1.add(Zurueck);
-            Zurueck.setBounds(new Rectangle(new Point(54, 618), Zurueck.getPreferredSize()));
+            Zurueck.setBounds(48, 618, 49, Zurueck.getPreferredSize().height);
 
             //---- Vor ----
             Vor.setText(">");
             Vor.setToolTipText("gehe zum n\u00e4chsten Datensatz");
             Vor.addActionListener(e -> VorActionPerformed(e));
             panel1.add(Vor);
-            Vor.setBounds(new Rectangle(new Point(100, 618), Vor.getPreferredSize()));
+            Vor.setBounds(96, 618, 49, Vor.getPreferredSize().height);
 
             //---- Ende ----
             Ende.setText(">>");
             Ende.setToolTipText("gehe zum letzten Datensatz");
             Ende.addActionListener(e -> EndeActionPerformed(e));
             panel1.add(Ende);
-            Ende.setBounds(new Rectangle(new Point(146, 618), Ende.getPreferredSize()));
+            Ende.setBounds(144, 618, 49, Ende.getPreferredSize().height);
 
             //---- Update ----
             Update.setText("!");
             Update.setToolTipText("Datensatz aktualisieren");
             Update.addActionListener(e -> UpdateActionPerformed(e));
             panel1.add(Update);
-            Update.setBounds(new Rectangle(new Point(200, 618), Update.getPreferredSize()));
+            Update.setBounds(205, 618, 49, Update.getPreferredSize().height);
 
             //---- Einfuegen ----
             Einfuegen.setText("+");
             Einfuegen.setToolTipText("Datensatz einf\u00fcgen");
             Einfuegen.addActionListener(e -> EinfuegenActionPerformed(e));
             panel1.add(Einfuegen);
-            Einfuegen.setBounds(new Rectangle(new Point(242, 618), Einfuegen.getPreferredSize()));
+            Einfuegen.setBounds(255, 618, 49, Einfuegen.getPreferredSize().height);
 
             //---- Loeschen ----
             Loeschen.setText("-");
             Loeschen.setToolTipText("Datensatz l\u00f6schen");
             Loeschen.addActionListener(e -> LoeschenActionPerformed(e));
             panel1.add(Loeschen);
-            Loeschen.setBounds(new Rectangle(new Point(288, 618), Loeschen.getPreferredSize()));
+            Loeschen.setBounds(305, 618, 49, Loeschen.getPreferredSize().height);
 
             //---- Suchen ----
             Suchen.setText("?");
             Suchen.setToolTipText("Suche nach Autor, Titel, ISBN oder Druckereinummer");
             Suchen.addActionListener(e -> SuchenActionPerformed(e));
             panel1.add(Suchen);
-            Suchen.setBounds(new Rectangle(new Point(330, 618), Suchen.getPreferredSize()));
+            Suchen.setBounds(365, 618, 49, Suchen.getPreferredSize().height);
 
             //---- WSuchen ----
             WSuchen.setText("...");
             WSuchen.setToolTipText("Weitersuchen");
             WSuchen.addActionListener(e -> WSuchenActionPerformed(e));
             panel1.add(WSuchen);
-            WSuchen.setBounds(372, 618, 46, WSuchen.getPreferredSize().height);
+            WSuchen.setBounds(415, 618, 49, WSuchen.getPreferredSize().height);
 
             //---- Drucken ----
             Drucken.setText("D");
             Drucken.setToolTipText("Druckt das aktuelle Buchprojekt als PDF");
             Drucken.addActionListener(e -> DruckenActionPerformed(e));
             panel1.add(Drucken);
-            Drucken.setBounds(423, 618, 57, Drucken.getPreferredSize().height);
+            Drucken.setBounds(475, 618, 49, Drucken.getPreferredSize().height);
 
             //---- Schliessen ----
             Schliessen.setText("X");
             Schliessen.setToolTipText("Schlie\u00dft den Dialog");
             Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
             panel1.add(Schliessen);
-            Schliessen.setBounds(485, 618, 50, Schliessen.getPreferredSize().height);
+            Schliessen.setBounds(530, 618, 49, Schliessen.getPreferredSize().height);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -2285,9 +2286,16 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 
     private void CoverAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CoverAddActionPerformed
         // TODO add your handling code here:
+        String Dateiname = "";
         if (chooser.showDialog(null, "Datei mit dem Cover wählen") == JFileChooser.APPROVE_OPTION) {
             try {
-                field_Cover.setText(chooser.getSelectedFile().getCanonicalPath());
+                Dateiname = chooser.getSelectedFile().getCanonicalPath();
+                System.out.println("Cover-Datei");
+                System.out.println("-> " + Modulhelferlein.pathUserDir);
+                System.out.println("-> " + Modulhelferlein.pathBuchprojekte);
+                System.out.println("-> " + Dateiname);
+                
+                field_Cover.setText(Dateiname);
             } catch (IOException e) {
                 Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
             }
