@@ -79,92 +79,103 @@ public class _DlgUebersichtEinnahmen extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles-Verlag");
         setResizable(false);
-        Container contentPane = getContentPane();
+        setMinimumSize(new Dimension(405, 330));
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
-            panel1.setLayout(new MigLayout(
-                "insets 0,hidemode 3,gap 5 5",
-                // columns
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]",
-                // rows
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[]" +
-                "[]" +
-                "[]"));
-            panel1.add(jDateChooserVon, "cell 0 4");
+            panel1.setLayout(null);
+            panel1.add(jDateChooserVon);
+            jDateChooserVon.setBounds(0, 90, jDateChooserVon.getPreferredSize().width, 23);
 
             //---- jLabel1 ----
             jLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
             jLabel1.setText("\u00dcbersicht der Einnahmen");
-            panel1.add(jLabel1, "cell 0 0 3 1");
+            panel1.add(jLabel1);
+            jLabel1.setBounds(0, 0, 277, jLabel1.getPreferredSize().height);
 
             //---- jLabelZeitraum ----
             jLabelZeitraum.setFont(new Font("Tahoma", Font.BOLD, 11));
             jLabelZeitraum.setText("Zeitraum");
-            panel1.add(jLabelZeitraum, "cell 0 2");
+            panel1.add(jLabelZeitraum);
+            jLabelZeitraum.setBounds(0, 43, 87, jLabelZeitraum.getPreferredSize().height);
 
             //---- jLabelAusgabeformat ----
             jLabelAusgabeformat.setFont(new Font("Tahoma", Font.BOLD, 11));
             jLabelAusgabeformat.setText("Ausgabeformat");
-            panel1.add(jLabelAusgabeformat, "cell 3 2");
+            panel1.add(jLabelAusgabeformat);
+            jLabelAusgabeformat.setBounds(new Rectangle(new Point(282, 43), jLabelAusgabeformat.getPreferredSize()));
 
             //---- jLabelVon ----
             jLabelVon.setText("von ...");
-            panel1.add(jLabelVon, "cell 0 3");
+            panel1.add(jLabelVon);
+            jLabelVon.setBounds(0, 62, 87, 23);
 
             //---- jLabelBis ----
             jLabelBis.setText("... bis");
-            panel1.add(jLabelBis, "cell 1 3");
+            panel1.add(jLabelBis);
+            jLabelBis.setBounds(92, 62, 87, 23);
 
             //---- jRadioButtonPDF ----
             jRadioButtonPDF.setSelected(true);
             jRadioButtonPDF.setText("PDF");
-            panel1.add(jRadioButtonPDF, "cell 3 3");
-            panel1.add(jDateChooserBis, "cell 1 4");
+            panel1.add(jRadioButtonPDF);
+            jRadioButtonPDF.setBounds(282, 62, 88, jRadioButtonPDF.getPreferredSize().height);
+            panel1.add(jDateChooserBis);
+            jDateChooserBis.setBounds(92, 90, jDateChooserBis.getPreferredSize().width, 23);
 
             //---- jRadioButtonXLS ----
             jRadioButtonXLS.setText("XLS");
-            panel1.add(jRadioButtonXLS, "cell 3 4");
+            panel1.add(jRadioButtonXLS);
+            jRadioButtonXLS.setBounds(282, 90, 88, jRadioButtonXLS.getPreferredSize().height);
 
             //---- jRadioButtonDoc ----
             jRadioButtonDoc.setText("DOC");
-            panel1.add(jRadioButtonDoc, "cell 3 5");
+            panel1.add(jRadioButtonDoc);
+            jRadioButtonDoc.setBounds(282, 118, 88, jRadioButtonDoc.getPreferredSize().height);
 
             //---- label1 ----
             label1.setText("Umfang");
             label1.setFont(label1.getFont().deriveFont(label1.getFont().getStyle() | Font.BOLD));
-            panel1.add(label1, "cell 0 6");
+            panel1.add(label1);
+            label1.setBounds(0, 146, 87, label1.getPreferredSize().height);
 
             //---- rbAlle ----
             rbAlle.setSelected(true);
             rbAlle.setText("f\u00fcr Umsatzsteuervoranmeldung => alle Rechnungen");
-            panel1.add(rbAlle, "cell 0 7 3 1");
+            panel1.add(rbAlle);
+            rbAlle.setBounds(new Rectangle(new Point(0, 165), rbAlle.getPreferredSize()));
 
             //---- rbBezahlt ----
             rbBezahlt.setText("f\u00fcr Umsatzsteuererkl\u00e4rung => nur bezahlte Rechnungen");
-            panel1.add(rbBezahlt, "cell 0 8 4 1");
+            panel1.add(rbBezahlt);
+            rbBezahlt.setBounds(0, 193, 370, rbBezahlt.getPreferredSize().height);
 
             //---- jButtonDrucken ----
             jButtonDrucken.setText("Drucken");
             jButtonDrucken.addActionListener(e -> jButtonDruckenActionPerformed(e));
-            panel1.add(jButtonDrucken, "cell 2 10");
+            panel1.add(jButtonDrucken);
+            jButtonDrucken.setBounds(170, 235, 93, jButtonDrucken.getPreferredSize().height);
 
             //---- jButtonSchlieﬂen ----
             jButtonSchlieﬂen.setText("Schlie\u00dfen");
             jButtonSchlieﬂen.addActionListener(e -> jButtonSchlieﬂenActionPerformed(e));
-            panel1.add(jButtonSchlieﬂen, "cell 3 10");
+            panel1.add(jButtonSchlieﬂen);
+            jButtonSchlieﬂen.setBounds(270, 235, 93, jButtonSchlieﬂen.getPreferredSize().height);
+
+            { // compute preferred size
+                Dimension preferredSize = new Dimension();
+                for(int i = 0; i < panel1.getComponentCount(); i++) {
+                    Rectangle bounds = panel1.getComponent(i).getBounds();
+                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                }
+                Insets insets = panel1.getInsets();
+                preferredSize.width += insets.right;
+                preferredSize.height += insets.bottom;
+                panel1.setMinimumSize(preferredSize);
+                panel1.setPreferredSize(preferredSize);
+            }
         }
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -180,11 +191,22 @@ public class _DlgUebersichtEinnahmen extends javax.swing.JDialog {
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panel1, GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                    .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap())
         );
         setSize(395, 320);
         setLocationRelativeTo(getOwner());
+
+        //---- buttonGroup1 ----
+        var buttonGroup1 = new ButtonGroup();
+        buttonGroup1.add(jRadioButtonPDF);
+        buttonGroup1.add(jRadioButtonXLS);
+        buttonGroup1.add(jRadioButtonDoc);
+
+        //---- buttonGroup2 ----
+        var buttonGroup2 = new ButtonGroup();
+        buttonGroup2.add(rbAlle);
+        buttonGroup2.add(rbBezahlt);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSchlieﬂenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSchlieﬂenActionPerformed
