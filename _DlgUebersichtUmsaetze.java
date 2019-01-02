@@ -158,13 +158,13 @@ public class _DlgUebersichtUmsaetze extends javax.swing.JDialog {
             jButtonDrucken.setText("Drucken");
             jButtonDrucken.addActionListener(e -> jButtonDruckenActionPerformed(e));
             panel1.add(jButtonDrucken);
-            jButtonDrucken.setBounds(185, 260, 91, jButtonDrucken.getPreferredSize().height);
+            jButtonDrucken.setBounds(125, 260, 121, jButtonDrucken.getPreferredSize().height);
 
             //---- jButtonSchlieﬂen ----
             jButtonSchlieﬂen.setText("Schlie\u00dfen");
             jButtonSchlieﬂen.addActionListener(e -> jButtonSchlieﬂenActionPerformed(e));
             panel1.add(jButtonSchlieﬂen);
-            jButtonSchlieﬂen.setBounds(280, 260, 89, jButtonSchlieﬂen.getPreferredSize().height);
+            jButtonSchlieﬂen.setBounds(250, 260, 119, jButtonSchlieﬂen.getPreferredSize().height);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();

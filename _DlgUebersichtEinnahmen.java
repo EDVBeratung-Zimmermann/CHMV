@@ -81,6 +81,7 @@ public class _DlgUebersichtEinnahmen extends javax.swing.JDialog {
         setResizable(false);
         setMinimumSize(new Dimension(405, 330));
         var contentPane = getContentPane();
+        contentPane.setLayout(null);
 
         //======== panel1 ========
         {
@@ -155,13 +156,13 @@ public class _DlgUebersichtEinnahmen extends javax.swing.JDialog {
             jButtonDrucken.setText("Drucken");
             jButtonDrucken.addActionListener(e -> jButtonDruckenActionPerformed(e));
             panel1.add(jButtonDrucken);
-            jButtonDrucken.setBounds(170, 235, 93, jButtonDrucken.getPreferredSize().height);
+            jButtonDrucken.setBounds(133, 235, 113, jButtonDrucken.getPreferredSize().height);
 
             //---- jButtonSchlieﬂen ----
             jButtonSchlieﬂen.setText("Schlie\u00dfen");
             jButtonSchlieﬂen.addActionListener(e -> jButtonSchlieﬂenActionPerformed(e));
             panel1.add(jButtonSchlieﬂen);
-            jButtonSchlieﬂen.setBounds(270, 235, 93, jButtonSchlieﬂen.getPreferredSize().height);
+            jButtonSchlieﬂen.setBounds(250, 235, 113, jButtonSchlieﬂen.getPreferredSize().height);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -177,23 +178,22 @@ public class _DlgUebersichtEinnahmen extends javax.swing.JDialog {
                 panel1.setPreferredSize(preferredSize);
             }
         }
+        contentPane.add(panel1);
+        panel1.setBounds(10, 11, 372, 266);
 
-        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
-        contentPane.setLayout(contentPaneLayout);
-        contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panel1, GroupLayout.PREFERRED_SIZE, 372, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(11, Short.MAX_VALUE))
-        );
-        contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap())
-        );
+        { // compute preferred size
+            Dimension preferredSize = new Dimension();
+            for(int i = 0; i < contentPane.getComponentCount(); i++) {
+                Rectangle bounds = contentPane.getComponent(i).getBounds();
+                preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+            }
+            Insets insets = contentPane.getInsets();
+            preferredSize.width += insets.right;
+            preferredSize.height += insets.bottom;
+            contentPane.setMinimumSize(preferredSize);
+            contentPane.setPreferredSize(preferredSize);
+        }
         setSize(395, 320);
         setLocationRelativeTo(getOwner());
 

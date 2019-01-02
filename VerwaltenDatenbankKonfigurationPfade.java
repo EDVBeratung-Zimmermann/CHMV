@@ -32,7 +32,6 @@ import java.sql.Statement;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.JFileChooser;
-import net.miginfocom.swing.*;
 
 /**
  *
@@ -74,15 +73,20 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
             SQLAnfrage = null; // Anfrage erzeugen
 
             try {
-                SQLAnfrage = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE); 
-                result = SQLAnfrage.executeQuery("SELECT * FROM tbl_konfiguration");  
+                SQLAnfrage = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                result = SQLAnfrage.executeQuery("SELECT * FROM tbl_konfiguration");
 
+                System.out.println("Suche Konfiguration Pfede für  " + Benutzer);
                 // gehe zum ersten Datensatz - wenn nicht leer
                 boolean notGefunden = true;
-                while (result.next() && (notGefunden)) {
-                    resultIsEmpty = false;
-
+                if (result.first()) {
+                    System.out.println(" -> Datensatz  " + result.getString("Konfiguration_ID"));
+                    System.out.println("    -> Datensatz  " + result.getString("Konfiguration_Benutzer"));
                     if (Benutzer.equals(result.getString("Konfiguration_Benutzer"))) {
+                    System.out.println("    -> Gefunden  " + result.getString("Konfiguration_ID"));
+                        field_ID.setText(result.getString("Konfiguration_ID"));
+                        ID = result.getInt("Konfiguration_ID");
+                        field_Benutzer = result.getString("Konfiguration_Benutzer");
                         field_Stammdaten.setText(result.getString("Konfiguration_Stammdaten"));
                         field_Einnahmen.setText(result.getString("Konfiguration_Einnahmen"));
                         field_Ausgaben.setText(result.getString("Konfiguration_Ausgaben"));
@@ -95,6 +99,28 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
                         field_Steuer.setText(result.getString("Konfiguration_Steuer"));
                         notGefunden = false;
                     }
+                    while (notGefunden) {
+                        result.next();
+                        System.out.println(" -> Datensatz  " + result.getString("Konfiguration_ID"));
+                        System.out.println("    -> Datensatz  " + result.getString("Konfiguration_Benutzer"));
+                        if (Benutzer.equals(result.getString("Konfiguration_Benutzer"))) {
+                            System.out.println("    -> Gefunden  " + result.getString("Konfiguration_ID"));
+                            field_ID.setText(result.getString("Konfiguration_ID"));
+                            ID = result.getInt("Konfiguration_ID");
+                            field_Benutzer = result.getString("Konfiguration_Benutzer");
+                            field_Stammdaten.setText(result.getString("Konfiguration_Stammdaten"));
+                            field_Einnahmen.setText(result.getString("Konfiguration_Einnahmen"));
+                            field_Ausgaben.setText(result.getString("Konfiguration_Ausgaben"));
+                            field_Umsaetze.setText(result.getString("Konfiguration_Umsaetze"));
+                            field_Rechnungen.setText(result.getString("Konfiguration_Rechnungen"));
+                            field_Mahnungen.setText(result.getString("Konfiguration_Mahnungen"));
+                            field_Sicherung.setText(result.getString("Konfiguration_Sicherung"));
+                            field_Termine.setText(result.getString("Konfiguration_Termine"));
+                            field_Schriftverkehr.setText(result.getString("Konfiguration_Schriftverkehr"));
+                            field_Steuer.setText(result.getString("Konfiguration_Steuer"));
+                            notGefunden = false;
+                        } // if Benutzer gefunden
+                    } // while
                 } // if notempty
 
             } catch (SQLException exept) {
@@ -149,14 +175,15 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
         btnSteuer = new JButton();
         jButtonUpdate = new JButton();
         jButtonSchliessen = new JButton();
+        field_ID = new JTextField();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
         setMinimumSize(new Dimension(685, 415));
-        setFont(new Font("Dialog", Font.BOLD, 12));
-        Container contentPane = getContentPane();
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -314,6 +341,11 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
             panel1.add(jButtonSchliessen);
             jButtonSchliessen.setBounds(556, 328, 95, jButtonSchliessen.getPreferredSize().height);
 
+            //---- field_ID ----
+            field_ID.setEditable(false);
+            panel1.add(field_ID);
+            field_ID.setBounds(615, 5, 25, field_ID.getPreferredSize().height);
+
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
@@ -342,7 +374,7 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panel1, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                    .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap())
         );
         setSize(675, 405);
@@ -352,9 +384,6 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
         // TODO add your handling code here:
         try {
-            if (resultIsEmpty) {
-                result.moveToInsertRow();
-            }
             if (field_Stammdaten.getText() == null) {
                 field_Stammdaten.setText("");
             }
@@ -395,13 +424,8 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
             result.updateString("Konfiguration_Termine", field_Termine.getText());
             result.updateString("Konfiguration_Schriftverkehr", field_Schriftverkehr.getText());
             result.updateString("Konfiguration_Steuer", field_Steuer.getText());
-            if (resultIsEmpty) {
-                result.insertRow();
-                resultIsEmpty = false;
-            } else {
-                result.updateRow();
-            }
-
+            result.updateRow();
+ 
             Modulhelferlein.pathBerichte = field_Stammdaten.getText();
             Modulhelferlein.pathEinnahmen = field_Einnahmen.getText();
             Modulhelferlein.pathAusgaben = field_Ausgaben.getText();
@@ -413,7 +437,7 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
             Modulhelferlein.pathBuchprojekte = field_Schriftverkehr.getText();
             Modulhelferlein.pathSteuer = field_Steuer.getText();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Update Konfiguration Ausgabepfade","SQL-Exception: " + exept.getMessage());
+            Modulhelferlein.Fehlermeldung("Update Konfiguration Ausgabepfade", "SQL-Exception: " + exept.getMessage());
         }
 
         // Dialog schließen
@@ -575,13 +599,14 @@ public class VerwaltenDatenbankKonfigurationPfade extends javax.swing.JDialog {
     private JButton btnSteuer;
     private JButton jButtonUpdate;
     private JButton jButtonSchliessen;
+    private JTextField field_ID;
     // End of variables declaration//GEN-END:variables
 
     private Connection conn;
     private Statement SQLAnfrage;
     private ResultSet result;
     private JFileChooser chooser;
-    private boolean resultIsEmpty = true;
     private static String Benutzer = "";
-
+    private static int ID = 0;
+    private static String field_Benutzer = "";
 }

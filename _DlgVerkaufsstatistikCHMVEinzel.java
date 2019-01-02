@@ -150,83 +150,92 @@ public class _DlgVerkaufsstatistikCHMVEinzel extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        Container contentPane = getContentPane();
+        setMinimumSize(new Dimension(425, 285));
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
-            panel1.setLayout(new MigLayout(
-                "insets 0,hidemode 3,gap 5 5",
-                // columns
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]",
-                // rows
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[]"));
+            panel1.setLayout(null);
 
             //---- jLabel1 ----
             jLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
             jLabel1.setText("Verkaufsstatistik ");
-            panel1.add(jLabel1, "cell 0 0 2 1");
+            panel1.add(jLabel1);
+            jLabel1.setBounds(new Rectangle(new Point(0, 0), jLabel1.getPreferredSize()));
 
             //---- jLabel3 ----
             jLabel3.setText("von");
-            panel1.add(jLabel3, "cell 0 2");
+            panel1.add(jLabel3);
+            jLabel3.setBounds(0, 45, 23, jLabel3.getPreferredSize().height);
 
             //---- jLabel4 ----
             jLabel4.setText("bis");
-            panel1.add(jLabel4, "cell 2 2");
+            panel1.add(jLabel4);
+            jLabel4.setBounds(112, 45, 87, jLabel4.getPreferredSize().height);
 
             //---- jLabel6 ----
             jLabel6.setText("Ausgabeformat");
             jLabel6.setFont(jLabel6.getFont().deriveFont(jLabel6.getFont().getStyle() | Font.BOLD));
-            panel1.add(jLabel6, "cell 5 2 2 1");
-            panel1.add(field_von, "cell 0 3 2 1");
-            panel1.add(field_bis, "cell 2 3");
+            panel1.add(jLabel6);
+            jLabel6.setBounds(254, 45, 137, jLabel6.getPreferredSize().height);
+            panel1.add(field_von);
+            field_von.setBounds(0, 64, 107, 23);
+            panel1.add(field_bis);
+            field_bis.setBounds(112, 64, 103, 23);
 
             //---- PDF ----
             PDF.setText("PDF");
-            panel1.add(PDF, "cell 5 3");
+            panel1.add(PDF);
+            PDF.setBounds(254, 64, 86, PDF.getPreferredSize().height);
 
             //---- XLS ----
             XLS.setSelected(true);
             XLS.setText("XLS");
-            panel1.add(XLS, "cell 5 4");
+            panel1.add(XLS);
+            XLS.setBounds(254, 92, 86, XLS.getPreferredSize().height);
 
             //---- DOC ----
             DOC.setText("DOC");
-            panel1.add(DOC, "cell 5 5");
+            panel1.add(DOC);
+            DOC.setBounds(254, 120, 86, DOC.getPreferredSize().height);
 
             //---- jLabel2 ----
             jLabel2.setText("Buch");
-            panel1.add(jLabel2, "cell 0 6");
+            panel1.add(jLabel2);
+            jLabel2.setBounds(0, 125, 120, 20);
 
             //---- jComboBoxBuch ----
             jComboBoxBuch.setModel(new DefaultComboBoxModel<>(new String[] {
 
             }));
-            panel1.add(jComboBoxBuch, "cell 1 6 6 1");
+            panel1.add(jComboBoxBuch);
+            jComboBoxBuch.setBounds(0, 148, 391, jComboBoxBuch.getPreferredSize().height);
 
             //---- Drucken ----
             Drucken.setText("Drucken");
             Drucken.addActionListener(e -> DruckenActionPerformed(e));
-            panel1.add(Drucken, "cell 4 8 2 1");
+            panel1.add(Drucken);
+            Drucken.setBounds(135, 190, 121, Drucken.getPreferredSize().height);
 
             //---- Schliessen ----
             Schliessen.setText("Abbrechen");
             Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
-            panel1.add(Schliessen, "cell 6 8");
+            panel1.add(Schliessen);
+            Schliessen.setBounds(260, 190, 123, Schliessen.getPreferredSize().height);
+
+            { // compute preferred size
+                Dimension preferredSize = new Dimension();
+                for(int i = 0; i < panel1.getComponentCount(); i++) {
+                    Rectangle bounds = panel1.getComponent(i).getBounds();
+                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                }
+                Insets insets = panel1.getInsets();
+                preferredSize.width += insets.right;
+                preferredSize.height += insets.bottom;
+                panel1.setMinimumSize(preferredSize);
+                panel1.setPreferredSize(preferredSize);
+            }
         }
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -242,8 +251,8 @@ public class _DlgVerkaufsstatistikCHMVEinzel extends javax.swing.JDialog {
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panel1, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                    .addContainerGap())
         );
         setSize(415, 275);
         setLocationRelativeTo(getOwner());

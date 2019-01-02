@@ -1385,7 +1385,7 @@
               <string>javax.swing.JMenuItem</string>
               <void method="setProperty">
                <string>text</string>
-               <string>Verlagsprogramm</string>
+               <string>Verlagsprogramm ...</string>
               </void>
               <void property="name">
                <string>jMenuItemBerichteStammdatenVerlagsprogramm</string>

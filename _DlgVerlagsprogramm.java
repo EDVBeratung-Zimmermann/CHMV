@@ -82,93 +82,108 @@ public class _DlgVerlagsprogramm extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        setFont(this.getFont().deriveFont(this.getFont().getStyle() | Font.BOLD));
-        Container contentPane = getContentPane();
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+        setMinimumSize(new Dimension(305, 260));
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
-            panel1.setLayout(new MigLayout(
-                "insets 0,hidemode 3,gap 5 5",
-                // columns
-                "[fill]" +
-                "[fill]" +
-                "[fill]",
-                // rows
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[]" +
-                "[]"));
+            panel1.setLayout(null);
 
             //---- jLabel1 ----
             jLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
             jLabel1.setText("Verlagsprogramm drucken");
-            panel1.add(jLabel1, "cell 0 0 2 1");
+            panel1.add(jLabel1);
+            jLabel1.setBounds(0, 0, 166, jLabel1.getPreferredSize().height);
 
             //---- jLabel2 ----
             jLabel2.setText("Ausgabeformat");
             jLabel2.setFont(jLabel2.getFont().deriveFont(jLabel2.getFont().getStyle() | Font.BOLD));
-            panel1.add(jLabel2, "cell 0 2");
+            panel1.add(jLabel2);
+            jLabel2.setBounds(new Rectangle(new Point(0, 45), jLabel2.getPreferredSize()));
 
             //---- jLabel3 ----
             jLabel3.setText("sortiert nach");
             jLabel3.setFont(jLabel3.getFont().deriveFont(jLabel3.getFont().getStyle() | Font.BOLD));
-            panel1.add(jLabel3, "cell 1 2");
+            panel1.add(jLabel3);
+            jLabel3.setBounds(new Rectangle(new Point(93, 45), jLabel3.getPreferredSize()));
 
             //---- jLabel4 ----
             jLabel4.setText("Umfang");
             jLabel4.setFont(jLabel4.getFont().deriveFont(jLabel4.getFont().getStyle() | Font.BOLD));
-            panel1.add(jLabel4, "cell 2 2");
+            panel1.add(jLabel4);
+            jLabel4.setBounds(171, 45, 99, jLabel4.getPreferredSize().height);
 
             //---- jRadioButtonPDF ----
             jRadioButtonPDF.setSelected(true);
             jRadioButtonPDF.setText("PDF");
-            panel1.add(jRadioButtonPDF, "cell 0 3");
+            panel1.add(jRadioButtonPDF);
+            jRadioButtonPDF.setBounds(0, 64, 88, jRadioButtonPDF.getPreferredSize().height);
 
             //---- jRadioButtonISBN ----
             jRadioButtonISBN.setSelected(true);
             jRadioButtonISBN.setText("ISBN");
-            panel1.add(jRadioButtonISBN, "cell 1 3");
+            panel1.add(jRadioButtonISBN);
+            jRadioButtonISBN.setBounds(93, 64, 73, jRadioButtonISBN.getPreferredSize().height);
 
             //---- rbAlle ----
             rbAlle.setText("alle B\u00fccher");
-            panel1.add(rbAlle, "cell 2 3");
+            panel1.add(rbAlle);
+            rbAlle.setBounds(171, 64, 99, rbAlle.getPreferredSize().height);
 
             //---- jRadioButtonDOC ----
             jRadioButtonDOC.setText("DOC");
-            panel1.add(jRadioButtonDOC, "cell 0 4");
+            panel1.add(jRadioButtonDOC);
+            jRadioButtonDOC.setBounds(0, 92, 88, jRadioButtonDOC.getPreferredSize().height);
 
             //---- jRadioButtonAutor ----
             jRadioButtonAutor.setText("Autor");
-            panel1.add(jRadioButtonAutor, "cell 1 4");
+            panel1.add(jRadioButtonAutor);
+            jRadioButtonAutor.setBounds(93, 92, 73, jRadioButtonAutor.getPreferredSize().height);
 
             //---- rbAktiv ----
             rbAktiv.setSelected(true);
             rbAktiv.setText("aktive Vertr\u00e4ge");
-            panel1.add(rbAktiv, "cell 2 4");
+            panel1.add(rbAktiv);
+            rbAktiv.setBounds(new Rectangle(new Point(171, 92), rbAktiv.getPreferredSize()));
 
             //---- jRadioButtonXLS ----
             jRadioButtonXLS.setText("XLS");
-            panel1.add(jRadioButtonXLS, "cell 0 5");
+            panel1.add(jRadioButtonXLS);
+            jRadioButtonXLS.setBounds(0, 120, 88, jRadioButtonXLS.getPreferredSize().height);
 
             //---- jRadioButtonTitel ----
             jRadioButtonTitel.setText("Titel");
-            panel1.add(jRadioButtonTitel, "cell 1 5");
+            panel1.add(jRadioButtonTitel);
+            jRadioButtonTitel.setBounds(93, 120, 73, jRadioButtonTitel.getPreferredSize().height);
 
             //---- jButtonDrucken ----
             jButtonDrucken.setText("Drucken");
             jButtonDrucken.setToolTipText("Druckt das Verlagsporgramm im gew\u00e4hlten Format und schlie\u00dft den Dialog");
             jButtonDrucken.addActionListener(e -> jButtonDruckenActionPerformed(e));
-            panel1.add(jButtonDrucken, "cell 1 7");
+            panel1.add(jButtonDrucken);
+            jButtonDrucken.setBounds(25, 170, 121, jButtonDrucken.getPreferredSize().height);
 
             //---- jButtonSchliessen ----
             jButtonSchliessen.setText("Schlie\u00dfen");
             jButtonSchliessen.setToolTipText("Schlie\u00dft den Dialog");
             jButtonSchliessen.addActionListener(e -> jButtonSchliessenActionPerformed(e));
-            panel1.add(jButtonSchliessen, "cell 2 7");
+            panel1.add(jButtonSchliessen);
+            jButtonSchliessen.setBounds(155, 170, 121, jButtonSchliessen.getPreferredSize().height);
+
+            { // compute preferred size
+                Dimension preferredSize = new Dimension();
+                for(int i = 0; i < panel1.getComponentCount(); i++) {
+                    Rectangle bounds = panel1.getComponent(i).getBounds();
+                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                }
+                Insets insets = panel1.getInsets();
+                preferredSize.width += insets.right;
+                preferredSize.height += insets.bottom;
+                panel1.setMinimumSize(preferredSize);
+                panel1.setPreferredSize(preferredSize);
+            }
         }
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);

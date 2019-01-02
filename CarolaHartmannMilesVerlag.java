@@ -89,6 +89,9 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         Modulhelferlein.CurDate = new Date();
 
         Modulhelferlein.dbUrl = Modulhelferlein.dbUrl + ":" + Modulhelferlein.dbPort + "/" + Modulhelferlein.dbName;
+        
+        Modulhelferlein.pathUserDir = System.getProperty("user.dir");
+        System.out.println("UserDir = " + Modulhelferlein.pathUserDir);
 
         //prüfe, ob die Parameter stimmen:
         // 0    Adresse für den Datenbankserver
@@ -412,7 +415,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                 formWindowClosing(e);
             }
         });
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
         contentPane.setLayout(null);
 
         //======== jMenuBar1 ========
@@ -759,7 +762,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                     jMenuBerichteStammdaten.add(jMenuItemBerichteStammdatenBuchprojekte);
 
                     //---- jMenuItemBerichteStammdatenVerlagsprogramm ----
-                    jMenuItemBerichteStammdatenVerlagsprogramm.setText("Verlagsprogramm");
+                    jMenuItemBerichteStammdatenVerlagsprogramm.setText("Verlagsprogramm ...");
                     jMenuItemBerichteStammdatenVerlagsprogramm.addActionListener(e -> jMenuItemBerichteStammdatenVerlagsprogrammActionPerformed(e));
                     jMenuBerichteStammdaten.add(jMenuItemBerichteStammdatenVerlagsprogramm);
 
