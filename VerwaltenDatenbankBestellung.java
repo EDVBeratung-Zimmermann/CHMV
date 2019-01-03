@@ -715,8 +715,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        setFont(new Font("Dialog", Font.BOLD, 12));
-        Container contentPane = getContentPane();
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -939,7 +939,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             //---- jLabel19 ----
             jLabel19.setText("bezahlt am");
             panel1.add(jLabel19);
-            jLabel19.setBounds(737, 178, 57, 25);
+            jLabel19.setBounds(737, 178, 123, 25);
 
             //---- jLabel7 ----
             jLabel7.setText("Zeile 1");
@@ -1367,12 +1367,12 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         setLocationRelativeTo(getOwner());
 
         //---- buttonGroup1 ----
-        ButtonGroup buttonGroup1 = new ButtonGroup();
+        var buttonGroup1 = new ButtonGroup();
         buttonGroup1.add(KDB);
         buttonGroup1.add(manuell);
 
         //---- buttonGroup2 ----
-        ButtonGroup buttonGroup2 = new ButtonGroup();
+        var buttonGroup2 = new ButtonGroup();
         buttonGroup2.add(rbBestellung);
         buttonGroup2.add(rbRezension);
         buttonGroup2.add(rbPflicht);
@@ -1380,7 +1380,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         buttonGroup2.add(rbBeleg);
 
         //---- buttonGroupBezahlung ----
-        ButtonGroup buttonGroupBezahlung = new ButtonGroup();
+        var buttonGroupBezahlung = new ButtonGroup();
         buttonGroupBezahlung.add(field_Ueberweisung);
         buttonGroupBezahlung.add(field_Verrechnung);
     }// </editor-fold>//GEN-END:initComponents

@@ -1222,7 +1222,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>57</int>
+           <int>123</int>
           </void>
           <void method="setProperty">
            <string>height</string>
