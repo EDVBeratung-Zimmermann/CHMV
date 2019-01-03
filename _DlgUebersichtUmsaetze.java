@@ -123,9 +123,9 @@ public class _DlgUebersichtUmsaetze extends javax.swing.JDialog {
             panel1.add(jRadioButtonPDF);
             jRadioButtonPDF.setBounds(293, 69, 88, jRadioButtonPDF.getPreferredSize().height);
             panel1.add(jDateChooserVon);
-            jDateChooserVon.setBounds(new Rectangle(new Point(0, 101), jDateChooserVon.getPreferredSize()));
+            jDateChooserVon.setBounds(0, 101, 115, jDateChooserVon.getPreferredSize().height);
             panel1.add(jDateChooserBis);
-            jDateChooserBis.setBounds(new Rectangle(new Point(94, 101), jDateChooserBis.getPreferredSize()));
+            jDateChooserBis.setBounds(120, 101, 116, jDateChooserBis.getPreferredSize().height);
 
             //---- jRadioButtonXLS ----
             jRadioButtonXLS.setText("XLS");
