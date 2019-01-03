@@ -3453,6 +3453,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected()) {
             field_B_Rabatt.setText("100");
+            field_Bezahldatum.setDate(CurDate);
         }
     }//GEN-LAST:event_rbBestellungActionPerformed
 
@@ -3460,6 +3461,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected()) {
             field_B_Rabatt.setText("100");
+            field_Bezahldatum.setDate(CurDate);
         }
     }//GEN-LAST:event_rbRezensionActionPerformed
 
@@ -3467,6 +3469,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected()) {
             field_B_Rabatt.setText("100");
+            field_Bezahldatum.setDate(CurDate);
         }
     }//GEN-LAST:event_rbPflichtActionPerformed
 
@@ -3474,6 +3477,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected()) {
             field_B_Rabatt.setText("100");
+            field_Bezahldatum.setDate(CurDate);
         }
     }//GEN-LAST:event_rbGeschenkActionPerformed
 
@@ -3481,6 +3485,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected()) {
             field_B_Rabatt.setText("100");
+            field_Bezahldatum.setDate(CurDate);
         }
     }//GEN-LAST:event_rbBelegActionPerformed
 
