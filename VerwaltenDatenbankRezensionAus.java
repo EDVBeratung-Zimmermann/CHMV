@@ -23,7 +23,6 @@
 package milesVerlagMain;
 
 import java.awt.*;
-import java.awt.Component;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,13 +33,9 @@ import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle;
-import javax.swing.SwingConstants;
-import javax.swing.border.*;
 import com.toedter.calendar.*;
 import java.awt.event.ActionEvent;
 import javax.swing.plaf.ActionMapUIResource;
-import net.miginfocom.swing.*;
 
 /**
  *
