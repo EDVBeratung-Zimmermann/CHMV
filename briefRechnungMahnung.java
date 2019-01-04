@@ -173,12 +173,12 @@ public class briefRechnungMahnung {
         String outputFileName = Modulhelferlein.pathRechnungen + "\\Einnahmen"
                 + "\\Rechnung"
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
-                + "-"
                 + "CHMV"
                 + "-"
                 + RechNr
-                + "-";
+                + "-"
+                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd");
+
         String ISBN = "";
 
         Dialog.setSize(600, 500);
@@ -1271,12 +1271,11 @@ public class briefRechnungMahnung {
         String outputFileName = Modulhelferlein.pathRechnungen + "\\Einnahmen"
                 + "\\Rechnung"
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
-                + "-"
                 + "CHMV"
                 + "-"
                 + RechNr
-                + "-";
+                + "-"
+                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd");
 
         String ISBN = "";
         System.out.println("Dateiname ist " + outputFileName);
