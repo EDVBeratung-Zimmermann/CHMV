@@ -13,11 +13,11 @@
        <class>org.jdesktop.layout.GroupLayout</class>
        <void method="setProperty">
         <string>$horizontalGroup</string>
-        <string>par l {comp panel1::t:::x}</string>
+        <string>par l {seq l {space :::p, comp panel1:::::x, space :::p}}</string>
        </void>
        <void method="setProperty">
         <string>$verticalGroup</string>
-        <string>par l {seq l {comp panel1:::::x, space :::p}}</string>
+        <string>par l {seq l {space :::p, comp panel1:::::x, space :::p}}</string>
        </void>
       </object>
       <void method="setProperty">
@@ -36,6 +36,21 @@
        <string>$sizePolicy</string>
        <int>1</int>
       </void>
+      <void method="setProperty">
+       <string>font</string>
+       <object class="java.awt.Font">
+        <string>Dialog</string>
+        <int>1</int>
+        <int>12</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>minimumSize</string>
+       <object class="java.awt.Dimension">
+        <int>410</int>
+        <int>265</int>
+       </object>
+      </void>
       <void method="add">
        <object class="com.jformdesigner.model.FormContainer">
         <string>javax.swing.JPanel</string>
@@ -43,11 +58,11 @@
          <class>org.jdesktop.layout.GroupLayout</class>
          <void method="setProperty">
           <string>$horizontalGroup</string>
-          <string>par l {seq l {space :::p, par l {seq l {comp jLabelZeitraum:::p::p, space :198:198:p, comp jLabelAusgabeformat:::p::p}, seq l {par l {comp jLabelVon:::p::p, comp jDateChooserVon:::p:73:p}, space :18:18:p, par l {comp jLabelBis:::p::p, comp jDateChooserBis:::p:125:p}, space :36:36:p, par l {comp jRadioButtonPDF:::p::p, comp jRadioButtonXLS:::p::p}}, seq l {space :252:252:p, comp jRadioButtonDoc:::p::p}, seq l {comp jButtonDrucken:::p::p, space :18:18:p, comp jButtonSchließen:::p::p}}, space ::41:x}}</string>
+          <string>par l {seq l {space :::p, par l {seq l {comp jLabelZeitraum:::p::p, space :198:198:p, comp jLabelAusgabeformat:::p::p}, par t:l {seq {comp jButtonDrucken:2::p::p, space :p:18:p, comp jButtonSchließen:2::p:95:p}, seq {par l {comp jLabelVon:::p::p, comp jDateChooserVon:1::p:73:p}, space :18:18:p, par l {comp jLabelBis:::p::p, comp jDateChooserBis:1::p:125:p}, space :36:36:p, par l {comp jRadioButtonPDF:::p::p, comp jRadioButtonXLS:::p::p, comp jRadioButtonDoc::l:p::p}}}}, space ::17:x}, seq l {comp label1:::p:330:p, space :0:48:x}}</string>
          </void>
          <void method="setProperty">
           <string>$verticalGroup</string>
-          <string>par l {seq l {space :::p, par l {comp jLabelZeitraum:::p::p, comp jLabelAusgabeformat:::p::p}, space :18:18:p, par l {seq l {comp jLabelVon:::p::p, space :6:6:p, comp jDateChooserVon:::p::p}, seq l {comp jLabelBis:::p::p, space :6:6:p, comp jDateChooserBis:::p::p}, seq l {comp jRadioButtonPDF:::p::p, space :0:0:p, comp jRadioButtonXLS:::p::p}}, comp jRadioButtonDoc:::p::p, space :14:14:p, par l {comp jButtonDrucken:::p::p, comp jButtonSchließen:::p::p}, space :::x}}</string>
+          <string>par l {seq l {comp label1:::p::p, space ::47:x, par l {comp jLabelZeitraum:::p::p, comp jLabelAusgabeformat:::p::p}, space :18:18:p, par l {seq l {comp jLabelVon:::p::p, space :6:6:p, comp jDateChooserVon:::p::p}, seq l {comp jLabelBis:::p::p, space :6:6:p, comp jDateChooserBis:::p::p}, seq l {comp jRadioButtonPDF:::p::p, space :0:0:p, comp jRadioButtonXLS:::p::p}}, space u:::p, comp jRadioButtonDoc:::p::p, space :p:11:p, par l {comp jButtonDrucken:::p::p, comp jButtonSchließen:::p::p}}}</string>
          </void>
         </object>
         <void property="name">
@@ -168,6 +183,12 @@
            <string>text</string>
            <string>PDF</string>
           </void>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroup1</string>
+           </object>
+          </void>
           <void property="name">
            <string>jRadioButtonPDF</string>
           </void>
@@ -180,6 +201,12 @@
            <string>text</string>
            <string>XLS</string>
           </void>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroup1</string>
+           </object>
+          </void>
           <void property="name">
            <string>jRadioButtonXLS</string>
           </void>
@@ -191,6 +218,12 @@
           <void method="setProperty">
            <string>text</string>
            <string>DOC</string>
+          </void>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroup1</string>
+           </object>
           </void>
           <void property="name">
            <string>jRadioButtonDoc</string>
@@ -213,6 +246,27 @@
           </void>
          </object>
         </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Offene Rechnungen identifizieren</string>
+          </void>
+          <void method="setProperty">
+           <string>font</string>
+           <object class="com.jformdesigner.model.SwingDerivedFont">
+            <null/>
+            <int>1</int>
+            <int>1</int>
+            <boolean>false</boolean>
+           </object>
+          </void>
+          <void property="name">
+           <string>label1</string>
+          </void>
+         </object>
+        </void>
        </object>
       </void>
       <void property="name">
@@ -225,7 +279,7 @@
        <string>size</string>
        <object class="java.awt.Dimension">
         <int>400</int>
-        <int>200</int>
+        <int>255</int>
        </object>
       </void>
       <void method="setProperty">
@@ -251,6 +305,24 @@
        <object class="java.awt.Point">
         <int>0</int>
         <int>310</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.jformdesigner.model.FormNonVisual">
+      <string>javax.swing.ButtonGroup</string>
+      <void property="name">
+       <string>buttonGroup1</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>362</int>
        </object>
       </void>
      </object>

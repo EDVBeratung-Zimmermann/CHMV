@@ -67,12 +67,15 @@ public class _DlgUebersichtMahnungen extends javax.swing.JDialog {
         jRadioButtonDoc = new JRadioButton();
         jDateChooserVon = new JDateChooser();
         jDateChooserBis = new JDateChooser();
+        label1 = new JLabel();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("\u00dcbersicht der offenen Einnahmen");
         setResizable(false);
-        Container contentPane = getContentPane();
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+        setMinimumSize(new Dimension(410, 265));
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -109,6 +112,10 @@ public class _DlgUebersichtMahnungen extends javax.swing.JDialog {
             //---- jRadioButtonDoc ----
             jRadioButtonDoc.setText("DOC");
 
+            //---- label1 ----
+            label1.setText("Offene Rechnungen identifizieren");
+            label1.setFont(label1.getFont().deriveFont(label1.getFont().getStyle() | Font.BOLD, label1.getFont().getSize() + 1f));
+
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
             panel1Layout.setHorizontalGroup(
@@ -120,31 +127,36 @@ public class _DlgUebersichtMahnungen extends javax.swing.JDialog {
                                 .addComponent(jLabelZeitraum)
                                 .addGap(198, 198, 198)
                                 .addComponent(jLabelAusgabeformat))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGroup(panel1Layout.createParallelGroup()
-                                    .addComponent(jLabelVon)
-                                    .addComponent(jDateChooserVon, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(panel1Layout.createParallelGroup()
-                                    .addComponent(jLabelBis)
-                                    .addComponent(jDateChooserBis, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE))
-                                .addGap(36, 36, 36)
-                                .addGroup(panel1Layout.createParallelGroup()
-                                    .addComponent(jRadioButtonPDF)
-                                    .addComponent(jRadioButtonXLS)))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(252, 252, 252)
-                                .addComponent(jRadioButtonDoc))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jButtonDrucken)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonSchlieﬂen)))
-                        .addContainerGap(41, Short.MAX_VALUE))
+                            .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addGroup(panel1Layout.createSequentialGroup()
+                                    .addComponent(jButtonDrucken)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButtonSchlieﬂen, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(panel1Layout.createSequentialGroup()
+                                    .addGroup(panel1Layout.createParallelGroup()
+                                        .addComponent(jLabelVon)
+                                        .addComponent(jDateChooserVon, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(panel1Layout.createParallelGroup()
+                                        .addComponent(jLabelBis)
+                                        .addComponent(jDateChooserBis, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE))
+                                    .addGap(36, 36, 36)
+                                    .addGroup(panel1Layout.createParallelGroup()
+                                        .addComponent(jRadioButtonPDF)
+                                        .addComponent(jRadioButtonXLS)
+                                        .addComponent(jRadioButtonDoc)))))
+                        .addContainerGap(17, Short.MAX_VALUE))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(label1, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 48, Short.MAX_VALUE))
             );
+            panel1Layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {jDateChooserBis, jDateChooserVon});
+            panel1Layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {jButtonDrucken, jButtonSchlieﬂen});
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(label1)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addGroup(panel1Layout.createParallelGroup()
                             .addComponent(jLabelZeitraum)
                             .addComponent(jLabelAusgabeformat))
@@ -162,12 +174,12 @@ public class _DlgUebersichtMahnungen extends javax.swing.JDialog {
                                 .addComponent(jRadioButtonPDF)
                                 .addGap(0, 0, 0)
                                 .addComponent(jRadioButtonXLS)))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jRadioButtonDoc)
-                        .addGap(14, 14, 14)
+                        .addGap(11, 11, 11)
                         .addGroup(panel1Layout.createParallelGroup()
                             .addComponent(jButtonDrucken)
-                            .addComponent(jButtonSchlieﬂen))
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButtonSchlieﬂen)))
             );
         }
 
@@ -175,16 +187,26 @@ public class _DlgUebersichtMahnungen extends javax.swing.JDialog {
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
-                .addComponent(panel1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap())
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
                     .addComponent(panel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap())
         );
-        setSize(400, 200);
+        setSize(400, 255);
         setLocationRelativeTo(getOwner());
+
+        //---- buttonGroup1 ----
+        var buttonGroup1 = new ButtonGroup();
+        buttonGroup1.add(jRadioButtonPDF);
+        buttonGroup1.add(jRadioButtonXLS);
+        buttonGroup1.add(jRadioButtonDoc);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSchlieﬂenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSchlieﬂenActionPerformed
@@ -259,6 +281,7 @@ public class _DlgUebersichtMahnungen extends javax.swing.JDialog {
     private JRadioButton jRadioButtonDoc;
     private JDateChooser jDateChooserVon;
     private JDateChooser jDateChooserBis;
+    private JLabel label1;
     // End of variables declaration//GEN-END:variables
 
     private ButtonGroup buttonGroupAusgabeformat = new ButtonGroup();
