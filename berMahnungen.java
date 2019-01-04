@@ -40,6 +40,7 @@ import static jxl.format.Alignment.LEFT;
 import static jxl.format.Alignment.RIGHT;
 import jxl.write.*;
 import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.Modulhelferlein.SQLDate2Normal;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
@@ -67,9 +68,20 @@ public class berMahnungen {
     public static void berichtXLS(String strVon, String strBis) {
         String outputFileName;
 
-        Double Gesamtsumme = 0D;
+        Double Gesamtsumme1 = 0D;
+        Double Gesamtsumme2 = 0D;
         Double Gesamtzeile = 0D;
+        Double Gesamt7 = 0D;
+        Double Gesamt19 = 0D;
         Double Buchpreis = 0D;
+        Double Gesamteinnahmen = 0D;
+
+        Double einBuch = 0D;
+        Double einDruck = 0D;
+        Double einKunde = 0D;
+        Double einVGW = 0D;
+        Double einMarge = 0D;
+        Double einSonst = 0D;
 
         int Anzahl = 0;
         int Rabatt = 0;
@@ -81,17 +93,25 @@ public class berMahnungen {
         ResultSet resultBestellungDetails = null;
         ResultSet resultBestellung = null;
 
+        Statement SQLBuch = null;
+        Statement SQLKunde = null;
+        Statement SQLBestellung = null;
+        Statement SQLBestellungDetails = null;
+
         outputFileName = Modulhelferlein.pathBerichte + "\\Mahnungen\\"
-                + "Liste-Mahnungen-" 
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") 
+                + "Liste-Mahnungen-"
+                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".xls";
 
         try { // Erstelle Workbook
             WritableWorkbook workbook = Workbook.createWorkbook(new File(outputFileName));
-            WritableSheet sheet_Mahnungen = workbook.createSheet("Offene Einnahmen", 0);
+            WritableSheet sheet_Mahnungen = workbook.createSheet("Offene Einnahmen - Mahnungen", 0);
 
             try {
                 // Create a cell format for Arial 10 point font
+                WritableFont arial14fontBold = new WritableFont(WritableFont.ARIAL, 14, WritableFont.BOLD);
+                WritableCellFormat arial14formatBold = new WritableCellFormat(arial14fontBold);
+
                 WritableFont arial10fontBold = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD);
                 WritableCellFormat arial10formatBold = new WritableCellFormat(arial10fontBold);
 
@@ -129,52 +149,327 @@ public class berMahnungen {
                 final Connection conn2 = conn;
 
                 if (conn2 != null) { // Datenbankverbindung steht
-                    Statement SQLAnfrage = null; // Anfrage erzeugen
 
-                    try {//Anfrage
-                        SQLAnfrage = conn2.createStatement(); // Anfrage der DB conn2 zuordnen
-                        String Abfrage = "SELECT * FROM TBL_ADRESSE";
-                        ResultSet result = SQLAnfrage.executeQuery(Abfrage); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert
+                    try { // Datenbankabfrage
+//helferlein.Infomeldung("Datenbankabfrage");
+                        // Aufbau des Tabellenblattes sheet_Mahnungen aus Buchbestellungen
+                        // RechNr - BestDat  Kunde  Einnahmen  Bezahlt  Bemerkung
+                        //  0        1       2      3          4        5
+                        label = new Label(0, 0, "Carola Hartmann Miles-Verlag", arial14formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(0, 1, "Offene Einnahmen aus Buchbestellungen von " + strVon + " - " + strBis, arial14formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(0, 3, "RechnungsNr", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(1, 3, "Bestelldatum", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(2, 3, "Kunde", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(3, 3, "Preis in €", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(4, 3, "Bezahlt", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(5, 3, "Bemerkung", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
 
-                        int rownum = 4;
+                        label = new Label(3, 4, "Brutto", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
 
-                        while (result.next()) { // geht durch alle zeilen
-                            label = new Label(0, rownum, result.getString("ADRESSEN_ID"), arial10formatL);
+                        Integer zeile = 6;
+                        Integer seite = 1;
+
+                        String strKunde = "";
+                        String strLand = "";
+                        String Bemerkung = "";
+
+                        SQLBuch = conn2.createStatement();
+                        SQLKunde = conn2.createStatement();
+                        SQLBestellung = conn2.createStatement();
+                        SQLBestellungDetails = conn2.createStatement();
+
+                        String Sql = "SELECT * FROM TBL_BESTELLUNG";
+                            Sql = Sql + " WHERE (BESTELLUNG_RECHDAT BETWEEN '" + strVon + "'  AND '" + strBis + "')"
+                                    + " AND (BESTELLUNG_BEZAHLT = '1970-01-01')"
+                                    + " ORDER BY BESTELLUNG_RECHNR, BESTELLUNG_DATUM";
+//helferlein.Infomeldung(Sql);                        
+                        resultBestellung = SQLBestellung.executeQuery(Sql);
+                        Gesamtsumme1 = 0D;
+                        while (resultBestellung.next()) { // geht durch alle zeilen
+                            // Kundendaten holen
+                            if (resultBestellung.getInt("BESTELLUNG_KUNDE") > 0) {
+                                resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
+                                resultKunde.next();
+                                strKunde = resultKunde.getString("ADRESSEN_NAME");
+                                strLand = resultKunde.getString("ADRESSEN_ZUSATZ_3");
+                            } else {
+                                strKunde = resultBestellung.getString("BESTELLUNG_ZEILE_2");
+                                strLand = resultBestellung.getString("BESTELLUNG_ZEILE_6");
+                            }
+
+                            // Bemerkungsfeld bestimmen
+                            switch (resultBestellung.getInt("BESTELLUNG_TYP")) {
+                                case 4:
+                                    Bemerkung = "Belegexemplar";
+                                    break;
+                                case 3:
+                                    Bemerkung = "Geschenk";
+                                    break;
+                                case 2:
+                                    Bemerkung = "Pflichtexemplar";
+                                    break;
+                                case 1:
+                                    Bemerkung = "Rezensionsexemplar";
+                                    break;
+                                case 0:
+                                    Bemerkung = "";
+                                    switch (resultBestellung.getInt("BESTELLUNG_LAND")) {
+                                        case 10:
+                                            Bemerkung = Bemerkung + " EU " + strLand;
+                                            break;
+                                        case 11:
+                                            Bemerkung = Bemerkung + " EU " + strLand;
+                                            break;
+                                        case 20:
+                                            Bemerkung = Bemerkung + " Drittland " + strLand;
+                                            break;
+                                        case 21:
+                                            Bemerkung = Bemerkung + " Drittland " + strLand;
+                                            break;
+                                    }
+                                    break;
+                            }
+                            if (resultBestellung.getBoolean("BESTELLUNG_STORNIERT")) {
+                                Bemerkung = "Bestellung storniert";
+                            }
+
+                            Gesamtzeile = 0D;
+                            Gesamt7 = 0D;
+                            Gesamt19 = 0D;
+
+                            // Buchdaten holen aus BESTELLUNG_DETAILS
+                            resultBestellungDetails = SQLBestellungDetails.executeQuery("SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + resultBestellung.getString("BESTELLUNG_RECHNR") + "'");
+
+                            Gesamtzeile = 0D;
+
+                            while (resultBestellungDetails.next()) {
+                                resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID = '" + resultBestellungDetails.getString("BESTELLUNG_DETAIL_BUCH") + "'");
+                                resultBuch.next();
+                                if (resultBestellungDetails.getBoolean("BESTELLUNG_DETAIL_SONST")) {
+                                    Anzahl = 1;
+                                    Rabatt = 0;
+                                    Buchpreis = (double) resultBestellungDetails.getFloat("BESTELLUNG_DETAIL_SONST_PREIS");
+                                    Gesamt19 = Gesamt19 + Anzahl * Buchpreis / 100 * (100 - Rabatt);
+                                } else {
+                                    Anzahl = resultBestellungDetails.getInt("BESTELLUNG_DETAIL_ANZAHL");
+                                    Rabatt = resultBestellungDetails.getInt("BESTELLUNG_DETAIL_RABATT");
+                                    Buchpreis = (double) resultBuch.getFloat("BUCH_PREIS");
+                                    Gesamt7 = Gesamt7 + Anzahl * Buchpreis / 100 * (100 - Rabatt);
+                                }
+
+                                // Gesamtzeile berechnen
+                                Gesamtzeile = Gesamtzeile + Anzahl * Buchpreis / 100 * (100 - Rabatt);
+                            } // while bestellung details
+
+                            // Abzug der Umsatzsteuer bei Drittland etc.
+                            switch (resultBestellung.getInt("BESTELLUNG_LAND")) {
+                                case 20:
+                                    Gesamtzeile = Gesamtzeile / 107 * 100;
+                                    break;
+                                case 21:
+                                    Gesamtzeile = Gesamtzeile / 107 * 100;
+                                    break;
+                                case 10:
+                                    if (!resultBestellung.getBoolean("BESTELLUNG_PRIVAT")) {
+                                        Gesamtzeile = Gesamtzeile / 107 * 100;
+                                    }
+                                    break;
+                                case 11:
+                                    if (!resultBestellung.getBoolean("BESTELLUNG_PRIVAT")) {
+                                        Gesamtzeile = Gesamtzeile / 107 * 100;
+                                    }
+                                    break;
+                            }
+                            // Versandkosten addieren
+                            Gesamtzeile = Gesamtzeile + resultBestellung.getFloat("BESTELLUNG_VERSAND") * 1D;
+
+                            // Gesamtsumme berechnen
+                            Gesamtsumme1 = Gesamtsumme1 + Gesamtzeile;
+
+                            label = new Label(0, zeile, resultBestellung.getString("BESTELLUNG_RECHNR"), arial10formatL);
                             sheet_Mahnungen.addCell(label);
-                            label = new Label(1, rownum, result.getString("ADRESSEN_TYP"), arial10formatL);
+                            label = new Label(1, zeile, SQLDate2Normal(resultBestellung.getString("BESTELLUNG_DATUM")), arial10formatL);
                             sheet_Mahnungen.addCell(label);
-                            label = new Label(2, rownum, result.getString("ADRESSEN_NAME"), arial10formatL);
+                            label = new Label(2, zeile, strKunde);
+                            sheet_Mahnungen.addCell(label);
+                            //label = new Label(3, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)), arial10formatR);
+                            //sheet_Mahnungen.addCell(label);
+                            // Number number = new Number(3, 4, 3.1459);
+                            jxl.write.Number number = new jxl.write.Number(3, zeile, Modulhelferlein.round2dec(Gesamtzeile), arial10formatR);
+                            sheet_Mahnungen.addCell(number);
+
+                            if (resultBestellung.getString("BESTELLUNG_BEZAHLT").equals("1970-01-01")) {
+                                label = new Label(4, zeile, "", arial10formatL);
+                            } else {
+                                label = new Label(4, zeile, SQLDate2Normal(resultBestellung.getString("BESTELLUNG_BEZAHLT")), arial10formatL);
+                            }
                             sheet_Mahnungen.addCell(label);
 
-                            rownum = rownum + 1;
-                        }	// geht durch alle zeilen
+                            label = new Label(5, zeile, Bemerkung, arial10formatL);
+                            sheet_Mahnungen.addCell(label);
+
+                            zeile = zeile + 1;
+                        } // while bestellungen geht durch alle zeilen
+                        // Gesamteinnahmen = Gesamteinnahmen + Gesamtsumme;
+
+                        zeile = zeile + 1;
+
+                        label = new Label(0, zeile, "Gesamtsumme der offenen Einnahmen aus Buchbestellungen:", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        //label = new Label(6, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)), arial10formatBold);
+                        //sheet_Mahnungen.addCell(label);
+                        jxl.write.Number number = new jxl.write.Number(6, zeile, Modulhelferlein.round2dec(Gesamtsumme1), arial10formatBold);
+                        sheet_Mahnungen.addCell(number);
+
+                        zeile = zeile + 3;
+                        // RechNr - BestDat  Kunde  Einnahmen  Bezahlt  Bemerkung
+                        //  0        1       2      3          4        5
+                        label = new Label(0, zeile, "weitere offene Einnahmen im Zeitraum von " + strVon + " - " + strBis, arial14formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        zeile = zeile + 2;
+                        label = new Label(0, zeile, "RechnungsNr", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(1, zeile, "Bestelldatum", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(2, zeile, "Kunde", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(3, zeile, "Preis in €", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(4, zeile, "Bezahlt", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        label = new Label(5, zeile, "Bemerkung", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+
+                        label = new Label(3, zeile + 1, "Brutto", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+
+                        zeile = zeile + 2;
+                            Sql = "SELECT * FROM TBL_EINNAHMEN"
+                                    + " WHERE EINNAHMEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "'"
+                                    + " AND EINNAHMEN_BEZAHLT = '1970-01-01'"
+                                    + " ORDER BY EINNAHMEN_RECHDATUM";
+//helferlein.Infomeldung(Sql);  
+
+                        resultBestellung = SQLBestellung.executeQuery(Sql);
+
+                        Gesamtsumme2 = 0D;
+                        while (resultBestellung.next()) { // geht durch alle zeilen
+                            Gesamtsumme2 = Gesamtsumme2 + resultBestellung.getFloat("EINNAHMEN_KOSTEN");
+                            label = new Label(0, zeile, resultBestellung.getString("EINNAHMEN_RECHNNR"), arial10formatL);
+                            sheet_Mahnungen.addCell(label);
+                            label = new Label(1, zeile, SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")), arial10formatL);
+                            sheet_Mahnungen.addCell(label);
+                            label = new Label(2, zeile, resultBestellung.getString("EINNAHMEN_LIEFERANT"));
+                            sheet_Mahnungen.addCell(label);
+                            //label = new Label(3, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(resultBestellung.getFloat("EINNAHMEN_KOSTEN"))), arial10formatR);
+                            //sheet_Mahnungen.addCell(label);
+                            number = new jxl.write.Number(3, zeile, Modulhelferlein.round2dec(resultBestellung.getFloat("EINNAHMEN_KOSTEN")), arial10formatR);
+                            sheet_Mahnungen.addCell(number);
+
+                            if (resultBestellung.getString("EINNAHMEN_BEZAHLT").equals("1970-01-01")) {
+                                label = new Label(4, zeile, "", arial10formatL);
+                            } else {
+                                label = new Label(4, zeile, SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BEZAHLT")), arial10formatL);
+                            }
+                            sheet_Mahnungen.addCell(label);
+                            switch (resultBestellung.getInt("EINNAHMEN_TYP")) {
+                                //{"Kundenbestellungen", "Margenabrechnungen", "Druckkostenzuschüsse",
+                                //"Auszahlung VG Wort", "Sonstige"}
+                                case 4:
+                                    Bemerkung = "Sonstige: " + resultBestellung.getString("EINNAHMEN_BESCHREIBUNG");
+                                    break;
+                                case 3:
+                                    Bemerkung = "Auszahlung VG Wort";
+                                    break;
+                                case 2:
+                                    Bemerkung = "Druckkostenzuschüsse: " + resultBestellung.getString("EINNAHMEN_BESCHREIBUNG");
+                                    break;
+                                case 1:
+                                    Bemerkung = "Margenabrechnungen";
+                                    break;
+                                case 0:
+                                    Bemerkung = "Kundenbestellungen: " + resultBestellung.getString("EINNAHMEN_BESCHREIBUNG");
+                            }
+
+                            label = new Label(5, zeile, Bemerkung, arial10formatL);
+                            sheet_Mahnungen.addCell(label);
+
+                            zeile = zeile + 1;
+                        }
+                        zeile = zeile + 1;
+
+                        label = new Label(0, zeile, "Gesamtsumme der sonstigen offenen Einnahmen:", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        //label = new Label(6, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)), arial10formatBold);
+                        //sheet_Mahnungen.addCell(label);
+                        number = new jxl.write.Number(6, zeile, Modulhelferlein.round2dec(Gesamtsumme2), arial10formatBold);
+                        sheet_Mahnungen.addCell(number);
+
+                        zeile = zeile + 3;
+
+                        label = new Label(0, zeile, "Gesamtsumme aller offenen Einnahmen:", arial10formatBold);
+                        sheet_Mahnungen.addCell(label);
+                        //label = new Label(6, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)), arial10formatBold);
+                        //sheet_Mahnungen.addCell(label);
+                        number = new jxl.write.Number(6, zeile, Modulhelferlein.round2dec(Gesamtsumme1 + Gesamtsumme2), arial10formatBold);
+                        sheet_Mahnungen.addCell(number);
 
                         // Fertig - alles schließen
                         try {// workbook write
                             workbook.write();
                         } catch (IOException e) {
-                            Modulhelferlein.Fehlermeldung("XLS-Bericht Mahnungen: IO-Exception: " + e.getMessage());
+                            Modulhelferlein.Fehlermeldung("XLS-Bericht Umsatz", "IO-Exception: ", e.getMessage());
                         } // workbook write
 
                         try { // try workbook close
                             workbook.close();
                         } catch (IOException e) {
-                            Modulhelferlein.Fehlermeldung("XLS-Bericht Mahnungen: IO-Exception: " + e.getMessage());
+                            Modulhelferlein.Fehlermeldung("XLS-Bericht Umsatz", "IO-Exception: ", e.getMessage());
                         } // try workbook close
 
                         try { // try XLS anzeigen
                             Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                         } catch (IOException exept) {
-                            Modulhelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Anzeige XLS-Export: Exception: " + exept.getMessage());
+                            Modulhelferlein.Fehlermeldung("Bericht Umsatz", "Anzeige XLS-Export: Exception: ", exept.getMessage());
                         } // try XLS anzeigen
 
-                    } catch (SQLException exept) {
-                        Modulhelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Datenbankanbindung: SQL-Exception: SQL-Anfrage nicht moeglich: " + exept.getMessage());
-                    } catch (WriteException e) {
-                        Modulhelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Datenbankanbindung: Exception: " + e.getMessage());
-                    } //try Anfrage
+                        if (SQLBuch != null) {
+                            SQLBuch.close();
+                        }
+                        if (SQLKunde != null) {
+                            SQLKunde.close();
+                        }
+                        if (SQLBestellungDetails != null) {
+                            SQLBestellungDetails.close();
+                        }
+                        if (resultKunde != null) {
+                            resultKunde.close();
+                        }
+                        if (resultBestellungDetails != null) {
+                            resultBestellungDetails.close();
+                        }
+                        if (resultBuch != null) {
+                            resultBuch.close();
+                        }
+                        if (conn != null) {
+                            conn.close();
+                        }
 
-                } else {
+                    } catch (SQLException exept) {
+                        Modulhelferlein.Fehlermeldung("Bericht Umsätze: ", "XLS-Export: SQL-Exception: SQL-Anfrage nicht moeglich: ", exept.getMessage());
+
+                    } // try Datenbankabfrage
+                } // Datenbankverbindung steht
+                else {
                     Modulhelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Datenbankanbindung besteht nicht");
                 } // keine Datenbankverbindung
 
@@ -229,8 +524,8 @@ public class berMahnungen {
 
         String outputFileName;
         outputFileName = Modulhelferlein.pathBerichte + "\\Mahnungen\\"
-                + "Liste-Mahnungen-" 
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") 
+                + "Liste-Mahnungen-"
+                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".pdf";
 
         PDDocumentInformation docInfo = document.getDocumentInformation();
@@ -260,8 +555,8 @@ public class berMahnungen {
             Ausgabe(cos, fontBold, 12, Color.BLACK, 200, 735, "Kunde");
             Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 735, "Betrag");
 
-            Linie(cos,1,56, 730, 539, 730);
-            
+            Linie(cos, 1, 56, 730, 539, 730);
+
             Connection conn = null;
 
             try { // Datenbank-Treiber laden
@@ -320,7 +615,7 @@ public class berMahnungen {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 200, 735, "Kunde");
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 735, "Betrag");
 
-                            Linie(cos,1,56, 730, 539, 730);
+                            Linie(cos, 1, 56, 730, 539, 730);
                         } // if
 
                         // Kundendaten holen
@@ -368,8 +663,8 @@ public class berMahnungen {
                         zeile = zeile + 1;
                     } // while bestellungen
 
-                    Linie(cos,1,56, 715 - 15 * (zeile - 1), 539, 715 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 715 - 15 * (zeile - 1), 539, 715 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
 
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 715 - 15 * (zeile - 1), "Gesamtsumme der Mahnungen : ");
@@ -388,7 +683,7 @@ public class berMahnungen {
                     try {
                         Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung("Bericht Mahnungen: Exception: " , exept.getMessage());
+                        Modulhelferlein.Fehlermeldung("Bericht Mahnungen: Exception: ", exept.getMessage());
                     } // try PDF anzeigen
 
                     if (resultKunde != null) {
