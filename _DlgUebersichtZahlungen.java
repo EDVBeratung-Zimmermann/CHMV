@@ -26,7 +26,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import com.toedter.calendar.*;
-import net.miginfocom.swing.*;
 
 /**
  *
