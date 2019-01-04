@@ -44,6 +44,8 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.border.*;
 import com.toedter.calendar.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.ActionMapUIResource;
 import net.miginfocom.swing.*;
 import static milesVerlagMain.ModulMyOwnFocusTraversalPolicy.newPolicy;
@@ -710,6 +712,11 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         Drucken = new JButton();
         Mahnung = new JButton();
         Schliessen = new JButton();
+        label2 = new JLabel();
+        field_EMail = new JTextField();
+        label3 = new JLabel();
+        field_DHL = new JTextField();
+        EMail = new JButton();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -847,7 +854,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             //---- KDB ----
             KDB.setText("Adresse aus Kundendatenbank");
             panel1.add(KDB);
-            KDB.setBounds(0, 78, 303, 30);
+            KDB.setBounds(0, 70, 303, 25);
 
             //---- field_Link ----
             field_Link.setMinimumSize(new Dimension(100, 25));
@@ -876,7 +883,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             }));
             cbKunde.setPreferredSize(new Dimension(28, 25));
             panel1.add(cbKunde);
-            cbKunde.setBounds(54, 113, 345, cbKunde.getPreferredSize().height);
+            cbKunde.setBounds(55, 95, 345, cbKunde.getPreferredSize().height);
 
             //---- jLabel16 ----
             jLabel16.setText("Bestelldatum");
@@ -892,7 +899,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             manuell.setSelected(true);
             manuell.setText("Adresse manuell eingeben");
             panel1.add(manuell);
-            manuell.setBounds(54, 143, 249, 30);
+            manuell.setBounds(55, 125, 249, 30);
 
             //---- field_Bestelldatum ----
             field_Bestelldatum.setPreferredSize(new Dimension(120, 30));
@@ -921,13 +928,13 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             //---- jLabel25 ----
             jLabel25.setText("UstrID");
             panel1.add(jLabel25);
-            jLabel25.setBounds(54, 178, 49, 25);
+            jLabel25.setBounds(55, 160, 49, 25);
 
             //---- field_UstrID ----
             field_UstrID.setMinimumSize(new Dimension(150, 25));
             field_UstrID.setPreferredSize(new Dimension(150, 25));
             panel1.add(field_UstrID);
-            field_UstrID.setBounds(108, 178, 291, field_UstrID.getPreferredSize().height);
+            field_UstrID.setBounds(110, 160, 291, field_UstrID.getPreferredSize().height);
 
             //---- rbBestellung ----
             rbBestellung.setSelected(true);
@@ -944,13 +951,13 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             //---- jLabel7 ----
             jLabel7.setText("Zeile 1");
             panel1.add(jLabel7);
-            jLabel7.setBounds(54, 208, 49, 25);
+            jLabel7.setBounds(55, 190, 49, 25);
 
             //---- field_Zeile1 ----
             field_Zeile1.setMinimumSize(new Dimension(150, 25));
             field_Zeile1.setPreferredSize(new Dimension(200, 25));
             panel1.add(field_Zeile1);
-            field_Zeile1.setBounds(108, 208, 291, field_Zeile1.getPreferredSize().height);
+            field_Zeile1.setBounds(110, 190, 291, 25);
 
             //---- rbRezension ----
             rbRezension.setText("Rezensionsexemplar");
@@ -966,13 +973,13 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             //---- jLabel8 ----
             jLabel8.setText("Name");
             panel1.add(jLabel8);
-            jLabel8.setBounds(54, 238, 49, 25);
+            jLabel8.setBounds(55, 220, 49, 25);
 
             //---- field_Zeile2 ----
             field_Zeile2.setMinimumSize(new Dimension(150, 25));
             field_Zeile2.setPreferredSize(new Dimension(200, 25));
             panel1.add(field_Zeile2);
-            field_Zeile2.setBounds(108, 238, 291, field_Zeile2.getPreferredSize().height);
+            field_Zeile2.setBounds(110, 220, 291, 25);
 
             //---- rbPflicht ----
             rbPflicht.setText("Pflichtexemplar");
@@ -983,13 +990,13 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             //---- jLabel9 ----
             jLabel9.setText("Zeile 3");
             panel1.add(jLabel9);
-            jLabel9.setBounds(54, 268, 49, 25);
+            jLabel9.setBounds(55, 250, 49, 25);
 
             //---- field_Zeile3 ----
             field_Zeile3.setMinimumSize(new Dimension(150, 25));
             field_Zeile3.setPreferredSize(new Dimension(200, 25));
             panel1.add(field_Zeile3);
-            field_Zeile3.setBounds(108, 268, 291, field_Zeile3.getPreferredSize().height);
+            field_Zeile3.setBounds(110, 250, 291, 25);
 
             //---- rbGeschenk ----
             rbGeschenk.setText("Geschenk");
@@ -1005,13 +1012,13 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             //---- jLabel10 ----
             jLabel10.setText("Strasse");
             panel1.add(jLabel10);
-            jLabel10.setBounds(54, 298, 49, 25);
+            jLabel10.setBounds(55, 280, 49, 25);
 
             //---- field_Zeile4 ----
             field_Zeile4.setMinimumSize(new Dimension(150, 25));
             field_Zeile4.setPreferredSize(new Dimension(200, 25));
             panel1.add(field_Zeile4);
-            field_Zeile4.setBounds(108, 298, 291, field_Zeile4.getPreferredSize().height);
+            field_Zeile4.setBounds(110, 280, 291, 25);
 
             //---- rbBeleg ----
             rbBeleg.setText("Belegexemplar");
@@ -1022,30 +1029,30 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             //---- jLabel12 ----
             jLabel12.setText("PLZ, Ort");
             panel1.add(jLabel12);
-            jLabel12.setBounds(54, 328, 49, 25);
+            jLabel12.setBounds(55, 310, 49, 25);
 
             //---- field_Zeile5 ----
             field_Zeile5.setMinimumSize(new Dimension(150, 25));
             field_Zeile5.setPreferredSize(new Dimension(200, 25));
             panel1.add(field_Zeile5);
-            field_Zeile5.setBounds(108, 328, 291, field_Zeile5.getPreferredSize().height);
+            field_Zeile5.setBounds(110, 310, 291, 25);
 
             //---- jLabel18 ----
             jLabel18.setText("Versandkosten");
             panel1.add(jLabel18);
-            jLabel18.setBounds(454, 328, 119, 25);
+            jLabel18.setBounds(459, 328, 111, 25);
 
             //---- field_Versand ----
             field_Versand.setMinimumSize(new Dimension(100, 25));
             field_Versand.setPreferredSize(new Dimension(100, 25));
             field_Versand.addActionListener(e -> field_VersandActionPerformed(e));
             panel1.add(field_Versand);
-            field_Versand.setBounds(578, 328, 116, field_Versand.getPreferredSize().height);
+            field_Versand.setBounds(578, 328, 116, 25);
 
             //---- jLabel13 ----
             jLabel13.setText("Land");
             panel1.add(jLabel13);
-            jLabel13.setBounds(54, 358, 49, 25);
+            jLabel13.setBounds(55, 340, 49, 25);
 
             //---- field_Zeile6 ----
             field_Zeile6.setEditable(false);
@@ -1053,13 +1060,13 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Zeile6.setMinimumSize(new Dimension(150, 25));
             field_Zeile6.setPreferredSize(new Dimension(200, 20));
             panel1.add(field_Zeile6);
-            field_Zeile6.setBounds(108, 358, 241, 25);
+            field_Zeile6.setBounds(110, 340, 241, 25);
 
             //---- jButtonLand ----
             jButtonLand.setText("...");
             jButtonLand.addActionListener(e -> jButtonLandActionPerformed(e));
             panel1.add(jButtonLand);
-            jButtonLand.setBounds(354, 358, jButtonLand.getPreferredSize().width, 25);
+            jButtonLand.setBounds(355, 340, jButtonLand.getPreferredSize().width, 25);
 
             //---- field_Land ----
             field_Land.setText("Ausland");
@@ -1260,77 +1267,98 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             Zurueck.setToolTipText("gehe zum vorherigen Datensatz");
             Zurueck.addActionListener(e -> ZurueckActionPerformed(e));
             panel1.add(Zurueck);
-            Zurueck.setBounds(54, 656, 49, Zurueck.getPreferredSize().height);
+            Zurueck.setBounds(51, 656, 49, 23);
 
             //---- Vor ----
             Vor.setText(">");
             Vor.setToolTipText("gehe zum n\u00e4chsten Datensatz");
             Vor.addActionListener(e -> VorActionPerformed(e));
             panel1.add(Vor);
-            Vor.setBounds(new Rectangle(new Point(108, 656), Vor.getPreferredSize()));
+            Vor.setBounds(102, 656, 49, 23);
 
             //---- Ende ----
             Ende.setText(">>");
             Ende.setToolTipText("gehe zum letzten Datensatz");
             Ende.addActionListener(e -> EndeActionPerformed(e));
             panel1.add(Ende);
-            Ende.setBounds(new Rectangle(new Point(154, 656), Ende.getPreferredSize()));
+            Ende.setBounds(153, 656, 49, 23);
 
             //---- Update ----
             Update.setText("!");
             Update.setToolTipText("Bestellung aktualisieren");
             Update.addActionListener(e -> UpdateActionPerformed(e));
             panel1.add(Update);
-            Update.setBounds(208, 656, 49, Update.getPreferredSize().height);
+            Update.setBounds(208, 656, 49, 23);
 
             //---- Einfuegen ----
             Einfuegen.setText("+");
             Einfuegen.setToolTipText("Neue Bestellung einf\u00fcgen");
             Einfuegen.addActionListener(e -> EinfuegenActionPerformed(e));
             panel1.add(Einfuegen);
-            Einfuegen.setBounds(new Rectangle(new Point(262, 656), Einfuegen.getPreferredSize()));
+            Einfuegen.setBounds(258, 656, 49, 23);
 
             //---- Loeschen ----
             Loeschen.setText("-");
             Loeschen.setToolTipText("Datensatz l\u00f6schen");
             Loeschen.addActionListener(e -> LoeschenActionPerformed(e));
             panel1.add(Loeschen);
-            Loeschen.setBounds(308, 656, 41, Loeschen.getPreferredSize().height);
+            Loeschen.setBounds(308, 656, 49, 23);
 
             //---- Suchen ----
             Suchen.setText("?");
             Suchen.setToolTipText("Suche nach Autor, Titel, ISBN oder Druckereinummer");
             Suchen.addActionListener(e -> SuchenActionPerformed(e));
             panel1.add(Suchen);
-            Suchen.setBounds(354, 656, 45, Suchen.getPreferredSize().height);
+            Suchen.setBounds(364, 656, 49, 23);
 
             //---- WSuchen ----
             WSuchen.setText("...");
             WSuchen.setToolTipText("Weitersuchen");
             WSuchen.addActionListener(e -> WSuchenActionPerformed(e));
             panel1.add(WSuchen);
-            WSuchen.setBounds(new Rectangle(new Point(404, 656), WSuchen.getPreferredSize()));
+            WSuchen.setBounds(414, 656, 49, 23);
 
             //---- Drucken ----
             Drucken.setText("D");
             Drucken.setToolTipText("Druckt die Rechnung f\u00fcr diese Bestellung");
             Drucken.addActionListener(e -> DruckenActionPerformed(e));
             panel1.add(Drucken);
-            Drucken.setBounds(454, 656, 49, Drucken.getPreferredSize().height);
+            Drucken.setBounds(469, 656, 49, 23);
 
             //---- Mahnung ----
             Mahnung.setText("M");
             Mahnung.setToolTipText("Druckt eine Mahnung f\u00fcr die aktuelle Bestellung");
             Mahnung.addActionListener(e -> MahnungActionPerformed(e));
             panel1.add(Mahnung);
-            Mahnung.setBounds(508, 656, 65, Mahnung.getPreferredSize().height);
+            Mahnung.setBounds(520, 656, 49, 23);
 
             //---- Schliessen ----
             Schliessen.setText("X");
             Schliessen.setToolTipText("Schlie\u00dft den Dialog");
             Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
             panel1.add(Schliessen);
-            Schliessen.setBounds(new Rectangle(new Point(578, 656), Schliessen.getPreferredSize()));
+            Schliessen.setBounds(677, 656, 49, 23);
+
+            //---- label2 ----
+            label2.setText("E-Mail");
+            panel1.add(label2);
+            label2.setBounds(55, 380, 45, label2.getPreferredSize().height);
+            panel1.add(field_EMail);
+            field_EMail.setBounds(110, 371, 290, 25);
+
+            //---- label3 ----
+            label3.setText("DHL-Sendungsnr.");
+            panel1.add(label3);
+            label3.setBounds(460, 395, 115, label3.getPreferredSize().height);
+            panel1.add(field_DHL);
+            field_DHL.setBounds(580, 388, 115, 25);
+
+            //---- EMail ----
+            EMail.setText("E");
+            EMail.setToolTipText("Druckt eine Mahnung f\u00fcr die aktuelle Bestellung");
+            EMail.addActionListener(e -> EMailActionPerformed(e));
+            panel1.add(EMail);
+            EMail.setBounds(580, 656, 49, 23);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -2999,6 +3027,40 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         _DlgMahnungNr.main(args);
     }//GEN-LAST:event_MahnungActionPerformed
 
+    private void EMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EMailActionPerformed
+        // TODO add your handling code here:
+        BUpdateActionPerformed(evt);
+        UpdateActionPerformed(evt);
+
+        FileFilter filter = new FileNameExtensionFilter("Rechnungsdatei", "PDF", "DOC", "XML");
+        JFileChooser chooser = new JFileChooser(Modulhelferlein.pathBerichte);
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.addChoosableFileFilter(filter);
+
+        String Filename = "";
+        String Kunde = "";
+
+        int Ergebnis = chooser.showDialog(null, "Rechnung wählen");
+
+        if (Ergebnis == JFileChooser.APPROVE_OPTION) {
+            Filename = chooser.getSelectedFile().getPath();
+            if (manuell.isSelected()) {
+                Kunde = "-1";
+            } else {
+                String KdeID[] = cbKunde.getItemAt(cbKunde.getSelectedIndex()).split(",");
+                Kunde = KdeID[0];
+            }
+
+            String[] args = {Filename, 
+                                Kunde, 
+                                field_EMail.getText(), 
+                                field_DHL.getText(), 
+                                Modulhelferlein.printDateFormat("dd.MM.yyyy", field_Bestelldatum.getDate())};
+            ModulEMail.main(args);
+        }
+    }//GEN-LAST:event_MahnungActionPerformed
+
     private void BAnfangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAnfangActionPerformed
         // TODO add your handling code here:
         try {
@@ -3921,6 +3983,11 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
     private JButton Drucken;
     private JButton Mahnung;
     private JButton Schliessen;
+    private JLabel label2;
+    private JTextField field_EMail;
+    private JLabel label3;
+    private JTextField field_DHL;
+    private JButton EMail;
     // End of variables declaration//GEN-END:variables
 
     private JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
