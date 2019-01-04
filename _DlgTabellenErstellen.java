@@ -424,6 +424,8 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "BESTELLUNG_BEZAHLUNG BOOLEAN, ";
                         SQL = SQL + "BESTELLUNG_BEZAHLT DATE";
                         SQL = SQL + "BESTELLUNG_LINK TEXT";
+                        SQL = SQL + "BESTELLUNG_DHL TEXT";
+                        SQL = SQL + "BESTELLUNG_EMAIL TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
                         Modulhelferlein.Infomeldung("Tabelle BESTELLUNG wurde erstellt");
