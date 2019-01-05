@@ -1432,6 +1432,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             count = 1;
             field_count.setText(Integer.toString(count));
 
+            field_EMail.setText(resultB.getString("BESTELLUNG_EMAIL"));
+            field_DHL.setText(resultB.getString("BESTELLUNG_DHL"));
             field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
             field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
             field_Verrechnung.setSelected(resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
@@ -1696,6 +1698,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             resultB.updateBoolean("BESTELLUNG_BEZAHLUNG", false);
             resultB.updateBoolean("BESTELLUNG_STORNIERT", false);
             resultB.updateString("BESTELLUNG_TEXT", "");
+            resultB.updateString("BESTELLUNG_EMAIL", "");
+            resultB.updateString("BESTELLUNG_DHL", "");
             field_Land.setSelected(false);
             field_Sprache.setSelected(false);
             int BestNr = resultBNr.getInt("BESTELLNR_NUMMER");
@@ -1758,6 +1762,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Zeile6.setText(resultB.getString("BESTELLUNG_ZEILE_6"));
             field_UstrID.setText(resultB.getString("BESTELLUNG_USTR_ID"));
             field_Link.setText(resultB.getString("BESTELLUNG_LINK"));
+            field_EMail.setText(resultB.getString("BESTELLUNG_EMAIL"));
+            field_DHL.setText(resultB.getString("BESTELLUNG_DHL"));
             field_Versand.setText(Float.toString(resultB.getFloat("BESTELLUNG_VERSAND")));
             switch (resultB.getInt("BESTELLUNG_LAND")) {
                 case 0:
@@ -1866,6 +1872,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     resultB.updateString("BESTELLUNG_ZEILE_6", field_Zeile6.getText());
                     resultB.updateString("BESTELLUNG_USTR_ID", field_UstrID.getText());
                     resultB.updateString("BESTELLUNG_LINK", field_Link.getText());
+                    resultB.updateString("BESTELLUNG_EMAIL", field_EMail.getText());
+                    resultB.updateString("BESTELLUNG_DHL", field_DHL.getText());
                     resultB.updateFloat("BESTELLUNG_VERSAND", Float.parseFloat(field_Versand.getText()));
                     if (rbBestellung.isSelected()) {
                         resultB.updateInt("BESTELLUNG_TYP", 0);
@@ -1955,6 +1963,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                         rbBeleg.setSelected(true);
                         break;
                 }
+                field_EMail.setText(resultB.getString("BESTELLUNG_EMAIL"));
+                field_DHL.setText(resultB.getString("BESTELLUNG_DHL"));
                 field_Zahlungsziel.setText(resultB.getString("BESTELLUNG_ZAHLUNGSZIEL"));
                 field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
                 field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
@@ -2286,6 +2296,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     rbBeleg.setSelected(true);
                     break;
             }
+            field_EMail.setText(resultB.getString("BESTELLUNG_EMAIL"));
+            field_DHL.setText(resultB.getString("BESTELLUNG_DHL"));
             field_Zahlungsziel.setText(resultB.getString("BESTELLUNG_ZAHLUNGSZIEL"));
             field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
             field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
@@ -2526,6 +2538,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     rbBeleg.setSelected(true);
                     break;
             }
+            field_EMail.setText(resultB.getString("BESTELLUNG_EMAIL"));
+            field_DHL.setText(resultB.getString("BESTELLUNG_DHL"));
             field_Zahlungsziel.setText(resultB.getString("BESTELLUNG_ZAHLUNGSZIEL"));
             field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
             field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
@@ -2744,6 +2758,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     rbBeleg.setSelected(true);
                     break;
             }
+            field_EMail.setText(resultB.getString("BESTELLUNG_EMAIL"));
+            field_DHL.setText(resultB.getString("BESTELLUNG_DHL"));
             field_Zahlungsziel.setText(resultB.getString("BESTELLUNG_ZAHLUNGSZIEL"));
             field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
             field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
