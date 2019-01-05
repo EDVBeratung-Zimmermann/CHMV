@@ -173,6 +173,10 @@
            <string>height</string>
            <int>23</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>118</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -199,7 +203,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>240</int>
+           <int>255</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -262,11 +266,11 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>240</int>
+           <int>255</int>
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>64</int>
+           <int>65</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -320,11 +324,11 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>240</int>
+           <int>255</int>
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>92</int>
+           <int>95</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -410,7 +414,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>240</int>
+           <int>255</int>
           </void>
           <void method="setProperty">
            <string>y</string>

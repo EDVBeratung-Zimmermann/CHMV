@@ -120,13 +120,13 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             panel1.add(field_von);
             field_von.setBounds(0, 64, 118, 23);
             panel1.add(field_bis);
-            field_bis.setBounds(123, 64, field_bis.getPreferredSize().width, 23);
+            field_bis.setBounds(123, 64, 118, 23);
 
             //---- jLabel6 ----
             jLabel6.setText("Ausgabeformat");
             jLabel6.setFont(jLabel6.getFont().deriveFont(jLabel6.getFont().getStyle() | Font.BOLD));
             panel1.add(jLabel6);
-            jLabel6.setBounds(new Rectangle(new Point(240, 45), jLabel6.getPreferredSize()));
+            jLabel6.setBounds(new Rectangle(new Point(255, 45), jLabel6.getPreferredSize()));
 
             //---- jLabel7 ----
             jLabel7.setText("Sortierung");
@@ -138,7 +138,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             PDF.setSelected(true);
             PDF.setText("PDF");
             panel1.add(PDF);
-            PDF.setBounds(240, 64, 88, PDF.getPreferredSize().height);
+            PDF.setBounds(255, 65, 88, PDF.getPreferredSize().height);
 
             //---- rbAutor ----
             rbAutor.setSelected(true);
@@ -149,7 +149,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             //---- XLS ----
             XLS.setText("XLS");
             panel1.add(XLS);
-            XLS.setBounds(240, 92, 88, XLS.getPreferredSize().height);
+            XLS.setBounds(255, 95, 88, XLS.getPreferredSize().height);
 
             //---- rbTitel ----
             rbTitel.setText("Titel");
@@ -165,7 +165,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             //---- DOC ----
             DOC.setText("DOC");
             panel1.add(DOC);
-            DOC.setBounds(240, 120, 88, DOC.getPreferredSize().height);
+            DOC.setBounds(255, 120, 88, DOC.getPreferredSize().height);
 
             //---- rbISBN ----
             rbISBN.setText("ISBN");
