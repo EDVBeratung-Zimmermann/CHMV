@@ -31,12 +31,15 @@ import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.Address;
 import javax.mail.BodyPart;
+import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Store;
 import javax.mail.Transport;
+import javax.mail.URLName;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -73,39 +76,54 @@ public class ModulEMail {
         // change accordingly 
         String host = Modulhelferlein.MailHost;
         System.out.println("- host     " + host);
-        
+
         String port = Modulhelferlein.MailPort;
         System.out.println("- port     " + port);
-        
+
+        String IMAPhost = Modulhelferlein.MailIMAPHost;
+        System.out.println("- host     " + IMAPhost);
+
+        String IMAPport = Modulhelferlein.MailIMAPPort;
+        System.out.println("- port     " + IMAPport);
+
         String username = Modulhelferlein.MailUser;
         System.out.println("- username " + username);
-        
+
         String password = Modulhelferlein.MailPass;
         System.out.println("- password " + password);
-        
+
         String from = username;
         System.out.println("- from     " + from);
 
         String to = Empfaenger;
         System.out.println("- to       " + to);
-        
-        // Get the session object 
 
+        String record = Modulhelferlein.MailIMAPGesendet;   //"Sent Items"
+
+        // Get the session object 
         // Get system properties 
         Properties properties = System.getProperties();
 
         // Setup mail server 
         properties.setProperty("mail.smtp.host", host);
+        properties.setProperty("mail.imap.host", IMAPhost);
 
         // SSL Port 
-        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.port", port);
+        properties.put("mail.imap.port", IMAPport);
 
         // enable authentication 
         properties.put("mail.smtp.auth", "true");
+        //properties.put("mail.imap.auth", "true");
 
         // SSL Factory 
         properties.put("mail.smtp.socketFactory.class",
                 "javax.net.ssl.SSLSocketFactory");
+
+        properties.put("mail.imap.starttls.enable", "true");
+
+        properties.put("mail.transport.protocol", "smtp");
+        //properties.put("mail.store.protocol", "imap");
 
         // creating Session instance referenced to  
         // Authenticator object to pass in  
@@ -137,10 +155,10 @@ public class ModulEMail {
             //message.setRecipients(Message.RecipientType.TO, addresses);
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.addRecipient(Message.RecipientType.CC, new InternetAddress(from));
-            
+
             // Set Subject: header field
             message.setSubject("Ihre Bestellung vom " + Datum);
-            
+
             // Create a multipar message
             Multipart multipart = new MimeMultipart();
 
@@ -149,26 +167,26 @@ public class ModulEMail {
 
             // Fill the message
             String text = "Herzlichen Dank für Ihre Bestellung. \n";
-            
+
             if (DHL.equals("")) {
-                text = text + "Wir haben diese heute per Post/DHL versendet.\n"; 
+                text = text + "Wir haben diese heute per Post/DHL versendet.\n";
             } else {
-                text = text +  "Wir haben diese heute per Post/DHL versendet. Die Sendungsnummer lautet " + DHL + "\n";
+                text = text + "Wir haben diese heute per Post/DHL versendet. Die Sendungsnummer lautet " + DHL + "\n";
             }
             text = text + "\n"
-                        + "Die Rechnung haben wir als Anhang beigefügt."
-                        + "\n"
-                        + "\n"
-                        + "Mit freundlichen Grüßen\n"
-                        + Modulhelferlein.CHMVBenutzer+"\n"
-                        + "\n"
-                        + "Carola Hartmann Miles Verlag\n"
-                        + "George Caylay Straße 38\n"
-                        + "14089 Berlin\n"
-                        + "Telefon +49 (30) 36877788";
+                    + "Die Rechnung haben wir als Anhang beigefügt."
+                    + "\n"
+                    + "\n"
+                    + "Mit freundlichen Grüßen\n"
+                    + Modulhelferlein.CHMVBenutzer + "\n"
+                    + "\n"
+                    + "Carola Hartmann Miles Verlag\n"
+                    + "George Caylay Straße 38\n"
+                    + "14089 Berlin\n"
+                    + "Telefon +49 (30) 36877788";
 
             // Set text message part
-            messageBodyPart.setText(text);            
+            messageBodyPart.setText(text);
             multipart.addBodyPart(messageBodyPart);
 
             // Part two is attachment
@@ -184,110 +202,42 @@ public class ModulEMail {
 
             // Send the complete message parts
             message.setContent(multipart);
-            
+
             //message.setSubject("Ihre Bestellung vom " + Datum);
             //message.setText("Hello, aas is sending email ");
-
             // Send message 
             Transport.send(message);
             Modulhelferlein.Infomeldung("Mail wurde gesendet");
-            System.out.println("Yo it has been sent..");
-        } catch (MessagingException mex) {
-            Modulhelferlein.Fehlermeldung("E-Mail-versenden", mex.getMessage());
-        }
-    }
-/**
-        
-        // Get system properties
-        Properties properties = System.getProperties();
+            System.out.println("Mail wurde gesendet.");
 
-        // Setup mail server
-        properties.setProperty(
-                "mail.smtp.host", host);
-        properties.setProperty(
-                "mail.smtp.auth", "true");
-        properties.setProperty(
-                "mail.smtp.port", port);
-        properties.setProperty(
-                "mail.smtp.starttls.enable", "true");
-        properties.setProperty(
-                "mail.user", user);
-        properties.setProperty(
-                "mail.password", pass);
+            // Message im Ordner gesendet - sent ablegen
+            /*
+	     * Save a copy of the message
+             */
+            // get a store object
+            Store store = session.getStore("imaps");
+            store.connect(IMAPhost, username, password);
 
-        try {
-
-            // Get the default Session object.
-            Session session = Session.getDefaultInstance(properties);
-            Transport transport = session.getTransport("smtp");
-
-            transport.connect(host, Integer.parseInt(port), user, pass);
-
-            // Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);
-
-            message.setFrom(new InternetAddress(user));
-
-            // Set To: header field of the header.
-            // message.setRecipient(Message.RecipientType.TO, new InternetAddress(field_To.getText()));
-            String adressliste = "thomas@familiezimmermann.de," + Empfaenger;
-
-            Address[] addresses;
-
-            addresses = InternetAddress.parse(adressliste);
-            message.setRecipients(Message.RecipientType.TO, addresses);
-
-            // Set Subject: header field
-            message.setSubject("Ihre Bestellung vom " + Datum);
-
-            // Create the message part
-            BodyPart messageBodyPart = new MimeBodyPart();
-
-            // Fill the message
-            if (DHL.equals("")) {
-                messageBodyPart.setText("Herzlichen Dank für Ihre Bestellung. Wir haben diese heute per Post/DHL versendet.");
+            Folder folder = store.getFolder(record);
+            if (folder == null) {
+                System.err.println("Finde den gesendet-Ordner nicht.");
+                Modulhelferlein.Fehlermeldung("Finde den gesendet-Ordner nicht!");
+                //System.exit(1);
             } else {
-                messageBodyPart.setText("Herzlichen Dank für Ihre Bestellung. \n"
-                        + "Wir haben diese heute per Post/DHL versendet. Die Sendungsnummer lautet " + DHL + "\n"
-                        + "\n"
-                        + "\n"
-                        + "Carola Hartmann Miles Verlag\n"
-                        + "George Caylay Straße 38\n"
-                        + "14089 Berlin\n"
-                        + "Telefon +49 (30) 36877788"
-                );
+                Message[] msgs = new Message[1];
+                msgs[0] = message;
+                folder.appendMessages(msgs);
+
+                Modulhelferlein.Infomeldung("Mail wurde im Ordner '" + Modulhelferlein.MailIMAPGesendet + "' gespeichert");
+                System.out.println("Mail was recorded successfully.");
             }
 
-            // Create a multipar message
-            Multipart multipart = new MimeMultipart();
-
-            // Set text message part
-            multipart.addBodyPart(messageBodyPart);
-
-            // Part two is attachment
-            if (Filename.length() > 0) {
-                messageBodyPart = new MimeBodyPart();
-
-                DataSource source = new FileDataSource(Filename);
-
-                messageBodyPart.setDataHandler(new DataHandler(source));
-                messageBodyPart.setFileName(Filename);
-                multipart.addBodyPart(messageBodyPart);
-            }
-
-            // Send the complete message parts
-            message.setContent(multipart);
-            transport.sendMessage(message, addresses);
-            Modulhelferlein.Infomeldung("Mail wurde gesendet");
-            transport.close();
         } catch (MessagingException mex) {
             Modulhelferlein.Fehlermeldung("E-Mail-versenden", mex.getMessage());
         }
     }
-    */
-    
-// GEN-LAST:event_SendenActionPerformed
 
+// GEN-LAST:event_SendenActionPerformed
     /**
      * @param args the command line arguments
      */
