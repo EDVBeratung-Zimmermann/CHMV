@@ -233,6 +233,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                                             Modulhelferlein.MailPort = resultKonfiguration.getString("Konfiguration_Einnahmen");
                                             Modulhelferlein.MailIMAPHost = resultKonfiguration.getString("Konfiguration_Sicherung");
                                             Modulhelferlein.MailIMAPPort = resultKonfiguration.getString("Konfiguration_Mahnungen");
+                                            Modulhelferlein.MailIMAPGesendet = resultKonfiguration.getString("Konfiguration_Rechnungen");
                                             Modulhelferlein.MailUser = resultKonfiguration.getString("Konfiguration_Ausgaben");
                                             Modulhelferlein.MailPass = resultKonfiguration.getString("Konfiguration_Umsaetze");
                                             break;
