@@ -94,7 +94,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>22</int>
+           <int>40</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -123,6 +123,10 @@
            <string>height</string>
            <int>23</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>40</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -146,6 +150,10 @@
            <string>height</string>
            <int>23</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>40</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -163,7 +171,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>27</int>
+           <int>50</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -171,7 +179,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>313</int>
+           <int>315</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -194,7 +202,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>27</int>
+           <int>50</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -202,7 +210,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>313</int>
+           <int>315</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -225,7 +233,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>27</int>
+           <int>50</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -233,7 +241,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>313</int>
+           <int>315</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -252,7 +260,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>27</int>
+           <int>50</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -260,7 +268,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>313</int>
+           <int>315</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -279,7 +287,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>27</int>
+           <int>50</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -287,7 +295,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>313</int>
+           <int>315</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -306,7 +314,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>27</int>
+           <int>50</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -314,7 +322,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>313</int>
+           <int>315</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -333,7 +341,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>27</int>
+           <int>50</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -341,7 +349,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>313</int>
+           <int>315</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -360,7 +368,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>27</int>
+           <int>50</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -368,7 +376,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>313</int>
+           <int>315</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -387,7 +395,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>27</int>
+           <int>50</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -395,7 +403,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>313</int>
+           <int>315</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -972,6 +980,10 @@
            <string>y</string>
            <int>50</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>40</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -993,7 +1005,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>27</int>
+           <int>50</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -1001,7 +1013,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>313</int>
+           <int>315</int>
           </void>
          </object>
         </void>

@@ -178,44 +178,44 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
             //---- jLabel3 ----
             jLabel3.setText("Port");
             panel1.add(jLabel3);
-            jLabel3.setBounds(0, 73, 22, 22);
+            jLabel3.setBounds(0, 73, 40, 22);
 
             //---- jLabel4 ----
             jLabel4.setText("User");
             panel1.add(jLabel4);
-            jLabel4.setBounds(0, 100, jLabel4.getPreferredSize().width, 23);
+            jLabel4.setBounds(0, 100, 40, 23);
 
             //---- jLabel5 ----
             jLabel5.setText("Pass");
             panel1.add(jLabel5);
-            jLabel5.setBounds(0, 128, jLabel5.getPreferredSize().width, 23);
+            jLabel5.setBounds(0, 128, 40, 23);
 
             //---- field_Einnahmen ----
             field_Einnahmen.setToolTipText("Port");
             panel1.add(field_Einnahmen);
-            field_Einnahmen.setBounds(27, 73, 313, 22);
+            field_Einnahmen.setBounds(50, 73, 315, 22);
 
             //---- field_Ausgaben ----
             field_Ausgaben.setToolTipText("User-Name");
             panel1.add(field_Ausgaben);
-            field_Ausgaben.setBounds(27, 100, 313, 23);
+            field_Ausgaben.setBounds(50, 100, 315, 23);
 
             //---- field_Umsaetze ----
             field_Umsaetze.setToolTipText("Kennwort");
             panel1.add(field_Umsaetze);
-            field_Umsaetze.setBounds(27, 128, 313, 23);
+            field_Umsaetze.setBounds(50, 128, 315, 23);
             panel1.add(field_Sicherung);
-            field_Sicherung.setBounds(27, 156, 313, 23);
+            field_Sicherung.setBounds(50, 156, 315, 23);
             panel1.add(field_Mahnungen);
-            field_Mahnungen.setBounds(27, 184, 313, 23);
+            field_Mahnungen.setBounds(50, 184, 315, 23);
             panel1.add(field_Rechnungen);
-            field_Rechnungen.setBounds(27, 212, 313, 23);
+            field_Rechnungen.setBounds(50, 212, 315, 23);
             panel1.add(field_Termine);
-            field_Termine.setBounds(27, 240, 313, 23);
+            field_Termine.setBounds(50, 240, 315, 23);
             panel1.add(field_Schriftverkehr);
-            field_Schriftverkehr.setBounds(27, 268, 313, 23);
+            field_Schriftverkehr.setBounds(50, 268, 315, 23);
             panel1.add(field_Steuer);
-            field_Steuer.setBounds(27, 296, 313, 23);
+            field_Steuer.setBounds(50, 296, 315, 23);
 
             //---- jLabel6 ----
             jLabel6.setText("-");
@@ -330,13 +330,13 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
             //---- jLabel2 ----
             jLabel2.setText("Host");
             panel1.add(jLabel2);
-            jLabel2.setBounds(new Rectangle(new Point(0, 50), jLabel2.getPreferredSize()));
+            jLabel2.setBounds(0, 50, 40, jLabel2.getPreferredSize().height);
 
             //---- field_Stammdaten ----
             field_Stammdaten.setToolTipText("Adresse des Mailservers");
             field_Stammdaten.setFocusCycleRoot(true);
             panel1.add(field_Stammdaten);
-            field_Stammdaten.setBounds(27, 47, 313, field_Stammdaten.getPreferredSize().height);
+            field_Stammdaten.setBounds(50, 47, 315, field_Stammdaten.getPreferredSize().height);
 
             //---- btnStammdaten ----
             btnStammdaten.setText("...");
