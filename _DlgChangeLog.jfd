@@ -139,6 +139,9 @@
             <void method="setProperty">
              <string>text</string>
              <string>Feature
+* Mail aus dem Bestelldialog heraus versenden
+
+Feature
 * Benutzerverwaltung
 
 Feature
