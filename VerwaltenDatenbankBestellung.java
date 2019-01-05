@@ -1355,7 +1355,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
             //---- EMail ----
             EMail.setText("E");
-            EMail.setToolTipText("Druckt eine Mahnung f\u00fcr die aktuelle Bestellung");
+            EMail.setToolTipText("Versendet eine E-Mail mit einer Rechnung und DHL-Nummer");
             EMail.addActionListener(e -> EMailActionPerformed(e));
             panel1.add(EMail);
             EMail.setBounds(580, 656, 49, 23);
@@ -3049,7 +3049,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         UpdateActionPerformed(evt);
 
         FileFilter filter = new FileNameExtensionFilter("Rechnungsdatei", "PDF", "DOC", "XML");
-        JFileChooser chooser = new JFileChooser(Modulhelferlein.pathBerichte);
+        JFileChooser chooser = new JFileChooser(Modulhelferlein.pathRechnungen);
+        chooser.setAcceptAllFileFilterUsed(false);
         chooser.setMultiSelectionEnabled(false);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.addChoosableFileFilter(filter);

@@ -3736,7 +3736,7 @@
           </void>
           <void method="setProperty">
            <string>toolTipText</string>
-           <string>Druckt eine Mahnung für die aktuelle Bestellung</string>
+           <string>Versendet eine E-Mail mit einer Rechnung und DHL-Nummer</string>
           </void>
           <void property="name">
            <string>EMail</string>
