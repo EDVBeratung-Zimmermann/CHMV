@@ -107,6 +107,7 @@ public class Modulhelferlein {
     public static String MailPort = "";
     public static String MailIMAPHost = "";
     public static String MailIMAPPort = "";
+    public static String MailIMAPGesendet = "";
     public static String MailUser = "";
     public static String MailPass = "";
     public static Float USD = 0F;
