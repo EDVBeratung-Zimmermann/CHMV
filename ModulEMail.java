@@ -131,8 +131,12 @@ public class ModulEMail {
             // header field of the header. 
             message.setFrom(new InternetAddress(from));
 
-            InternetAddress[] addresses = {new InternetAddress(to), new InternetAddress(from)};            
-            message.setRecipients(Message.RecipientType.TO, addresses);
+            //InternetAddress[] addresses = new InternetAddress[2];
+            //addresses[0] = new InternetAddress(to);
+            //addresses[1] = new InternetAddress(from);            
+            //message.setRecipients(Message.RecipientType.TO, addresses);
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.addRecipient(Message.RecipientType.CC, new InternetAddress(from));
             
             // Set Subject: header field
             message.setSubject("Ihre Bestellung vom " + Datum);
