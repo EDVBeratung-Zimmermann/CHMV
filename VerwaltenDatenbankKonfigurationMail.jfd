@@ -416,7 +416,7 @@
           <string>javax.swing.JLabel</string>
           <void method="setProperty">
            <string>text</string>
-           <string>-</string>
+           <string>IMAP</string>
           </void>
           <void property="name">
            <string>jLabel6</string>
@@ -430,7 +430,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>22</int>
+           <int>40</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -443,7 +443,7 @@
           <string>javax.swing.JLabel</string>
           <void method="setProperty">
            <string>text</string>
-           <string>-</string>
+           <string>Port</string>
           </void>
           <void property="name">
            <string>jLabel7</string>
@@ -457,7 +457,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>22</int>
+           <int>40</int>
           </void>
           <void method="setProperty">
            <string>height</string>
