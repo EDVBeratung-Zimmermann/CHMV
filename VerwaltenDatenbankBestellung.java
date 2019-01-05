@@ -1130,7 +1130,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             //---- jLabel27 ----
             jLabel27.setText("Brutto-Preis");
             panel1.add(jLabel27);
-            jLabel27.setBounds(737, 451, jLabel27.getPreferredSize().width, 25);
+            jLabel27.setBounds(737, 451, 93, 25);
 
             //---- field_B_Sonstiges ----
             field_B_Sonstiges.setText("Sonstiges");

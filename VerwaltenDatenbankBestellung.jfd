@@ -2382,6 +2382,10 @@
            <string>height</string>
            <int>25</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>93</int>
+          </void>
          </object>
         </void>
         <void method="add">
