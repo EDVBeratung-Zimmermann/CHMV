@@ -30,10 +30,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.*;
-import javax.swing.GroupLayout;
 import javax.swing.JFileChooser;
-import info.clearthought.layout.*;
-import net.miginfocom.swing.*;
 
 /**
  *
@@ -228,9 +225,9 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
             jLabel7.setBounds(0, 184, 40, 23);
 
             //---- jLabel8 ----
-            jLabel8.setText("-");
+            jLabel8.setText("Sent");
             panel1.add(jLabel8);
-            jLabel8.setBounds(0, 212, 22, 23);
+            jLabel8.setBounds(0, 212, 45, 23);
 
             //---- jLabel9 ----
             jLabel9.setText("-");
@@ -406,6 +403,7 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
             result.updateString("Konfiguration_Umsaetze", field_Umsaetze.getText());
             result.updateString("Konfiguration_Sicherung", field_Sicherung.getText());
             result.updateString("Konfiguration_Mahnungen", field_Mahnungen.getText());
+            result.updateString("Konfiguration_Rechnungen", field_Rechnungen.getText());
             if (resultIsEmpty) {
                 result.insertRow();
                 resultIsEmpty = false;
@@ -417,6 +415,7 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
             Modulhelferlein.MailPort = field_Einnahmen.getText();
             Modulhelferlein.MailIMAPHost = field_Sicherung.getText();
             Modulhelferlein.MailIMAPPort = field_Mahnungen.getText();
+            Modulhelferlein.MailIMAPGesendet = field_Rechnungen.getText();
             Modulhelferlein.MailUser = field_Ausgaben.getText();
             Modulhelferlein.MailPass = field_Umsaetze.getText();
         } catch (SQLException exept) {

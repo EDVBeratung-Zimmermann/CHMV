@@ -470,7 +470,7 @@
           <string>javax.swing.JLabel</string>
           <void method="setProperty">
            <string>text</string>
-           <string>-</string>
+           <string>Sent</string>
           </void>
           <void property="name">
            <string>jLabel8</string>
@@ -484,7 +484,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>22</int>
+           <int>45</int>
           </void>
           <void method="setProperty">
            <string>height</string>
