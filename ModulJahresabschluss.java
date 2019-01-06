@@ -23,32 +23,44 @@ public class ModulJahresabschluss {
 
         Connection conn;
         Statement SQLAnfrage;
+        Statement SQLAnfrageDetail;
         ResultSet result;
+        
+        String SQL = "";
+        String SQLDetail = "";
 
         if (JOptionPane.showConfirmDialog(null,
-                "Soll der Jahreswechsel wirklich getan werden?",
+                "<html>Soll der Jahreswechsel mit dem <br>"
+                        + "Zurücksetzen der Datenbanken <br>"
+                        + " - Bestellnummer<br>"
+                        + " - Einnahmen<br>"
+                        + " - Ausgaben<br>"
+                        + " - Bestellung<br>"
+                        + " - Bestelldetails<br>"
+                        + "wirklich durchgeführt werden?</html>",
                 "Bestätigung",
                 JOptionPane.YES_NO_OPTION) == 0) {
 
-        // Sicherungskopie der gesamten Datenbank mit neuem Namen
+            // Sicherungskopie der gesamten Datenbank mit neuem Namen
+            String Jahr = String.valueOf(Integer.parseInt(Modulhelferlein.printSimpleDateFormat("yyyy")) - 1);
             String cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P3063 -uroot -pclausewitz milesverlag > "
                     + "\""
                     + Modulhelferlein.pathSicherung
                     + "\""
                     + "\\"
                     + "miles-verlag."
-                    + Modulhelferlein.printSimpleDateFormat("yyyy") 
-                    + "Jahressicherung"
+                    + Jahr
+                    + ".Jahressicherung"
                     + ".sql";
             try {
                 Runtime.getRuntime().exec("cmd /c " + cmdline);
-                Modulhelferlein.Infomeldung("Datenbank wurde gesichert!");
+                Modulhelferlein.Infomeldung("Jahressicherung " + Jahr + " wurde erstellt!");
+                System.out.println("Jahressicherung ist erstellt");
             } catch (IOException e) {
                 Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
             }
-            System.out.println("Jahressicherung ist erstellt");
 
-        // Bestellnummer zurücksetzen
+            // Bestellnummer zurücksetzen
             conn = null;
 
             // Datenbank-Treiber laden
@@ -77,51 +89,51 @@ public class ModulJahresabschluss {
                     if (result.next()) {
                         Boolean resultIsEmpty = false;
 
-                        result.updateString("BESTELLNR_NUMMER", "0");
+                        result.updateString("BESTELLNR_NUMMER", "1");
                         result.updateRow();
                     }
-
+                    Modulhelferlein.Infomeldung("Bestellnummer ist zurückgesetzt!");
                     System.out.println("Bestellnummer ist zurückgesetzt");
 
-                // Tabellen zurücksetzen
-                
-                // Einnahmen
-                    String SQL = "DELETE FROM TBL_EINNAHMEN WHERE EINNAHMEN_BEZAHLT <> '01.01.1970'";
+                    // Tabellen zurücksetzen
+                    // Einnahmen
+                    SQL = "DELETE FROM TBL_EINNAHMEN WHERE EINNAHMEN_BEZAHLT <> '1970-01-01'";
                     SQLAnfrage.executeUpdate(SQL);
 
                     System.out.println("Tabelle Einnahmen ist zurückgesetzt");
+                    Modulhelferlein.Infomeldung("Tabelle Einnahmen ist zurückgesetzt!");
 
-                // Ausgaben
-                    SQL = "DELETE FROM TBL_AUSGABEN WHERE AUSGABEN_BEZAHLT <> '01.01.1970'";
+                    // Ausgaben
+                    SQL = "DELETE FROM TBL_AUSGABEN WHERE AUSGABEN_BEZAHLT <> '1970-01-01'";
                     SQLAnfrage.executeUpdate(SQL);
-                    
-                    System.out.println("Tabelle Ausgaben ist zurückgesetzt");
 
-                // Bestellungen + BestellDetails
-                    SQLAnfrage = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);    
-                    result = SQLAnfrage.executeQuery("SELECT * FROM TBL_BESTELLUNG WHERE BESTELLUNG_BEZAHLT <> '01.01.1970'");    
+                    System.out.println("Tabelle Ausgaben ist zurückgesetzt");
+                    Modulhelferlein.Infomeldung("Tabelle Ausgaben ist zurückgesetzt!");
+
+                    // Bestellungen + BestellDetails
+                    SQLAnfrage = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    SQLAnfrageDetail = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    SQL = "SELECT * FROM TBL_BESTELLUNG WHERE BESTELLUNG_BEZAHLT <> '1970-01-01'";
+                    result = SQLAnfrage.executeQuery(SQL);
 
                     // gehe zum ersten Datensatz - wenn nicht leer
-                    if (result.first()) {
-                        while (result.next()) {
-                            String RechNr = result.getString("BESTELLUNG_RECHNR");
-                            SQL = "DELETE FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + RechNr + "'";
-                            SQLAnfrage.executeUpdate(SQL);
-                            
-                            result.deleteRow();
-                        }
-                    }
-                    
+                    while (result.next()) {
+                        // Suche Bestellungdetails und lösche diese
+                        String RechNr = result.getString("BESTELLUNG_RECHNR");
+                        System.out.println("Bearbeite bezahlte Bestellung "+RechNr);
+                        SQLDetail = "DELETE FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + RechNr + "'";
+                        SQLAnfrageDetail.executeUpdate(SQLDetail);
+                    } // while
+                    SQL = "DELETE FROM TBL_BESTELLUNG WHERE BESTELLUNG_BEZAHLT <> '1970-01-01'";
+                    SQLAnfrage.executeUpdate(SQL);
                     System.out.println("Tabelle Bestellungen ist zurückgesetzt");
-
+                    Modulhelferlein.Infomeldung("Tabelle Bestellungen ist zurückgesetzt!");
+                    
                 } catch (SQLException exept) {
                     Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. "
                             + exept.getMessage());
-
-                    // System.exit(1);
-                }    // try
-            }        // if
-        }
-
-    }
-}
+                } // try catch
+            }  // if conn != null
+        } // if optionPane
+    } // void
+} // class
