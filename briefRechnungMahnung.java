@@ -177,7 +177,8 @@ public class briefRechnungMahnung {
                 + "-"
                 + RechNr
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd");
+                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + "-";
 
         String ISBN = "";
 
