@@ -116,6 +116,8 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                 iresultB.updateString("BESTELLUNG_ZEILE_6", "");
                 iresultB.updateString("BESTELLUNG_USTR_ID", "");
                 iresultB.updateString("BESTELLUNG_LINK", "");
+                iresultB.updateString("BESTELLUNG_EMAIL", "");
+                iresultB.updateString("BESTELLUNG_DHL", "");
                 iresultB.updateFloat("BESTELLUNG_VERSAND", 0);
                 iresultB.updateInt("BESTELLUNG_LAND", 0);
                 iresultB.updateBoolean("BESTELLUNG_PRIVAT", true);
