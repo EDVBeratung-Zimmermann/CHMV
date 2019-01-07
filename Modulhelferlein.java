@@ -921,6 +921,8 @@ public class Modulhelferlein {
                 iresultB.updateString("BESTELLUNG_ZEILE_5", Zeile5);
                 iresultB.updateString("BESTELLUNG_ZEILE_6", Zeile6);
                 iresultB.updateString("BESTELLUNG_LINK", "");
+                iresultB.updateString("BESTELLUNG_EMAIL", "");
+                iresultB.updateString("BESTELLUNG_DHL", "");
                 iresultB.updateFloat("BESTELLUNG_VERSAND", 0);
                 iresultB.updateInt("BESTELLUNG_LAND", 0);
                 iresultB.updateBoolean("BESTELLUNG_PRIVAT", false);
