@@ -750,7 +750,17 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "HONORAR_ZAHLEN INT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle HONORAR wurde erstellt");
+                        
+                        SQL = "CREATE TABLE ";
+                        SQL = SQL + "TBL_VERRECHNUNG ( ";
+                        SQL = SQL + "VERRECHNUNG_ID INT PRIMARY KEY,";
+                        SQL = SQL + "VERRECHNUNG_ISBN TEXT,";
+                        SQL = SQL + "VERRECHNUNG_TITEL TEXT,";
+                        SQL = SQL + "VERRECHNUNG_BETRAG FLOAT,";
+                        SQL = SQL + "VERRECHNUNG_RECHNUNG BOOLEAN";
+                        SQL = SQL + ")";
+                        SQLAnfrage.executeUpdate(SQL);
+                        Modulhelferlein.Infomeldung("Tabelle HONORAR sowie VERRECHNUNG wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox19.isSelected()) {
