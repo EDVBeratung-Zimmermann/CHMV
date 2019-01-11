@@ -393,7 +393,9 @@ public class _DlgTabellenLoeschen extends javax.swing.JDialog {
                     if (jCheckBox17.isSelected()) {
                         SQL = "DROP TABLE TBL_HONORAR";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle Honorar wurde gelöscht");
+                        SQL = "DROP TABLE TBL_VERRECHNUNG";
+                        SQLAnfrage.executeUpdate(SQL);
+                        Modulhelferlein.Infomeldung("Tabelle Honorar, Verrechnung wurde gelöscht");
                     }
                     if (jCheckBox18.isSelected()) {
                         SQL = "DROP TABLE TBL_AUFGABEN";
