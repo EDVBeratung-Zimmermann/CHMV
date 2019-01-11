@@ -230,6 +230,7 @@ public class briefHonorar {
 
                 // Anrede
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 515, resultAdresse.getString("ADRESSEN_ANREDE")
+                        + " "
                         + Modulhelferlein.makeAnrede(resultAdresse.getString("ADRESSEN_NAMENSZUSATZ"),
                                 "",
                                 resultAdresse.getString("ADRESSEN_NAME"))
