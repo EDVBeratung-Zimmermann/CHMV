@@ -82,6 +82,12 @@ public class berVerkaufGesamt {
 
     static String AstrVon = "";
     static String AstrBis = "";
+    
+    static int BODAnzahl = 0;
+    static int GesAnzahl = 0;
+    static int MilesAnzahl = 0;
+    static int GesGesamt = 0;
+    static int MilesGesamt = 0;
 
     private static void berichtPDF(String Sortierung, String strVon, String strBis) {
         Integer zeile = 1;
@@ -404,7 +410,7 @@ public class berVerkaufGesamt {
     private static void berichtXLS(String Sortierung, String strVon, String strBis) {
         try {
             String outputFileName = Modulhelferlein.pathBerichte + "/Verkäufe/"
-                    + "Verkaufsstatistik-BOD"
+                    + "Verkaufsstatistik-Gesamt"
                     + "-"
                     + Sortierung
                     + "-"
@@ -672,40 +678,55 @@ public class berVerkaufGesamt {
                             sheet_Miles.addCell(label);
                             break;
                     }
-                    jxl.write.Number number = new jxl.write.Number(4, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_GESAMT") - resultVerkauf.getInt("VERKAUF_ANZAHL_AUTOR") - resultVerkauf.getInt("VERKAUF_ANZAHL_Geschenk"), arial10formatR);
+                    MilesAnzahl = resultVerkauf.getInt("VERKAUF_ANZAHL_GESAMT") - resultVerkauf.getInt("VERKAUF_ANZAHL_AUTOR") - resultVerkauf.getInt("VERKAUF_ANZAHL_Geschenk");
+                    jxl.write.Number number = new jxl.write.Number(4, zeile, MilesAnzahl, arial10formatR);
                     sheet_Miles.addCell(number);
-                    number = new jxl.write.Number(4, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_BOD"), arial10formatR);
+                    
+                    BODAnzahl = resultVerkauf.getInt("VERKAUF_ANZAHL_BOD");
+                    number = new jxl.write.Number(4, zeile, BODAnzahl, arial10formatR);
                     sheet_BOD.addCell(number);
-                    number = new jxl.write.Number(4, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_BOD") + resultVerkauf.getInt("VERKAUF_ANZAHL_GESAMT") - resultVerkauf.getInt("VERKAUF_ANZAHL_AUTOR") - resultVerkauf.getInt("VERKAUF_ANZAHL_Geschenk"), arial10formatR);
+                    
+                    GesAnzahl = resultVerkauf.getInt("VERKAUF_ANZAHL_BOD") + resultVerkauf.getInt("VERKAUF_ANZAHL_GESAMT") - resultVerkauf.getInt("VERKAUF_ANZAHL_AUTOR") - resultVerkauf.getInt("VERKAUF_ANZAHL_Geschenk");
+                    number = new jxl.write.Number(4, zeile, GesAnzahl, arial10formatR);
                     sheet_Gesamt.addCell(number);
                     
                     label = new Label(5, zeile, Float.toString(resultVerkauf.getFloat("VERKAUF_Umsatz")), arial10formatR);
                     sheet_Miles.addCell(label);
+                    
                     label = new Label(5, zeile, Float.toString(resultVerkauf.getFloat("VERKAUF_Umsatz_BOD")), arial10formatR);
                     sheet_BOD.addCell(label);
+                    
                     label = new Label(5, zeile, Float.toString(resultVerkauf.getFloat("VERKAUF_Umsatz") + resultVerkauf.getFloat("VERKAUF_Umsatz_BOD")), arial10formatR);
                     sheet_Gesamt.addCell(label);
                     
                     label = new Label(6, zeile, "EUR", arial10formatR);
                     sheet_Gesamt.addCell(label);
+                    
                     label = new Label(6, zeile, "EUR", arial10formatR);
                     sheet_BOD.addCell(label);
+                    
                     label = new Label(6, zeile, "EUR", arial10formatR);
                     sheet_Miles.addCell(label);
                     
                     number = new jxl.write.Number(7, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_AUTOR"), arial10formatR);
                     sheet_Miles.addCell(number);
+                    
                     number = new jxl.write.Number(7, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_AUTOR"), arial10formatR);
                     sheet_Gesamt.addCell(number);
                     
                     number = new jxl.write.Number(8, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_Geschenk"), arial10formatR);
                     sheet_Miles.addCell(number);
+                    
                     number = new jxl.write.Number(8, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_Geschenk"), arial10formatR);
                     sheet_Gesamt.addCell(number);
                     
-                    number = new jxl.write.Number(9, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_GESAMT"), arial10formatL);
+                    MilesGesamt = resultVerkauf.getInt("VERKAUF_ANZAHL_GESAMT");
+                    number = new jxl.write.Number(9, zeile, MilesGesamt, arial10formatL);
                     sheet_Miles.addCell(number);
-                    number = new jxl.write.Number(9, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_GESAMT"), arial10formatL);
+                    
+                    GesGesamt = BODAnzahl + MilesGesamt;
+                    //number = new jxl.write.Number(9, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_GESAMT"), arial10formatL);
+                    number = new jxl.write.Number(9, zeile, GesGesamt, arial10formatL);
                     sheet_Gesamt.addCell(number);
  
                     zeile = zeile + 1;
