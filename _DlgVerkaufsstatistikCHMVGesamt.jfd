@@ -251,12 +251,12 @@
          <object class="com.jformdesigner.model.FormComponent">
           <string>javax.swing.JRadioButton</string>
           <void method="setProperty">
-           <string>selected</string>
-           <boolean>true</boolean>
-          </void>
-          <void method="setProperty">
            <string>text</string>
            <string>PDF</string>
+          </void>
+          <void method="setProperty">
+           <string>enabled</string>
+           <boolean>false</boolean>
           </void>
           <void property="name">
            <string>PDF</string>
@@ -315,6 +315,10 @@
           <void method="setProperty">
            <string>text</string>
            <string>XLS</string>
+          </void>
+          <void method="setProperty">
+           <string>selected</string>
+           <boolean>true</boolean>
           </void>
           <void property="name">
            <string>XLS</string>
@@ -405,6 +409,10 @@
           <void method="setProperty">
            <string>text</string>
            <string>DOC</string>
+          </void>
+          <void method="setProperty">
+           <string>enabled</string>
+           <boolean>false</boolean>
           </void>
           <void property="name">
            <string>DOC</string>

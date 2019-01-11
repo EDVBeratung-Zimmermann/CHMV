@@ -135,8 +135,8 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             jLabel7.setBounds(358, 45, 85, jLabel7.getPreferredSize().height);
 
             //---- PDF ----
-            PDF.setSelected(true);
             PDF.setText("PDF");
+            PDF.setEnabled(false);
             panel1.add(PDF);
             PDF.setBounds(255, 65, 88, PDF.getPreferredSize().height);
 
@@ -148,6 +148,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
 
             //---- XLS ----
             XLS.setText("XLS");
+            XLS.setSelected(true);
             panel1.add(XLS);
             XLS.setBounds(255, 95, 88, XLS.getPreferredSize().height);
 
@@ -164,6 +165,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
 
             //---- DOC ----
             DOC.setText("DOC");
+            DOC.setEnabled(false);
             panel1.add(DOC);
             DOC.setBounds(255, 120, 88, DOC.getPreferredSize().height);
 
