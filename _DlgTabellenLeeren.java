@@ -389,7 +389,9 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
                     if (jCheckBox17.isSelected()) {
                         SQL = "DELETE FROM TBL_HONORAR";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle Honorar wurde geleert");
+                        SQL = "DELETE FROM TBL_VERRECHNUNG";
+                        SQLAnfrage.executeUpdate(SQL);
+                        Modulhelferlein.Infomeldung("Tabelle Honorar, Verrechnung wurde geleert");
                     }
                     if (jCheckBox18.isSelected()) {
                         SQL = "DELETE FROM TBL_AUFGABEN";
