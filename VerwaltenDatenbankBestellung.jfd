@@ -2930,18 +2930,18 @@
          <object class="com.jformdesigner.model.FormComponent">
           <string>javax.swing.JRadioButton</string>
           <void method="setProperty">
-           <string>$buttonGroup</string>
-           <object class="com.jformdesigner.model.FormReference">
-            <string>buttonGroupBezahlung</string>
-           </object>
-          </void>
-          <void method="setProperty">
            <string>selected</string>
            <boolean>true</boolean>
           </void>
           <void method="setProperty">
            <string>text</string>
            <string>Bezahlung per Überweisung in</string>
+          </void>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroup3</string>
+           </object>
           </void>
           <void property="name">
            <string>field_Ueberweisung</string>
@@ -3036,14 +3036,14 @@
          <object class="com.jformdesigner.model.FormComponent">
           <string>javax.swing.JRadioButton</string>
           <void method="setProperty">
-           <string>$buttonGroup</string>
-           <object class="com.jformdesigner.model.FormReference">
-            <string>buttonGroupBezahlung</string>
-           </object>
-          </void>
-          <void method="setProperty">
            <string>text</string>
            <string>Bezahlung per Verrechnung mit Honorar</string>
+          </void>
+          <void method="setProperty">
+           <string>$buttonGroup</string>
+           <object class="com.jformdesigner.model.FormReference">
+            <string>buttonGroup3</string>
+           </object>
           </void>
           <void property="name">
            <string>field_Verrechnung</string>
@@ -3834,24 +3834,6 @@
      <object class="com.jformdesigner.model.FormNonVisual">
       <string>javax.swing.ButtonGroup</string>
       <void property="name">
-       <string>buttonGroupBezahlung</string>
-      </void>
-     </object>
-     <object class="com.jformdesigner.model.FormLayoutConstraints">
-      <null/>
-      <void method="setProperty">
-       <string>location</string>
-       <object class="java.awt.Point">
-        <int>145</int>
-        <int>685</int>
-       </object>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="com.jformdesigner.model.FormNonVisual">
-      <string>javax.swing.ButtonGroup</string>
-      <void property="name">
        <string>buttonGroup1</string>
       </void>
      </object>
@@ -3880,6 +3862,24 @@
        <object class="java.awt.Point">
         <int>0</int>
         <int>810</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="com.jformdesigner.model.FormNonVisual">
+      <string>javax.swing.ButtonGroup</string>
+      <void property="name">
+       <string>buttonGroup3</string>
+      </void>
+     </object>
+     <object class="com.jformdesigner.model.FormLayoutConstraints">
+      <null/>
+      <void method="setProperty">
+       <string>location</string>
+       <object class="java.awt.Point">
+        <int>0</int>
+        <int>862</int>
        </object>
       </void>
      </object>

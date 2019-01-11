@@ -361,6 +361,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
                     field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
                     field_Verrechnung.setSelected(resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
+                    field_Ueberweisung.setSelected(!resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
                     field_Bestellzeichen.setText(resultB.getString("BESTELLUNG_BESTNR"));
                     field_RechNr.setText(resultB.getString("BESTELLUNG_RECHNR"));
                     field_RechDat.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
@@ -1407,10 +1408,10 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         buttonGroup2.add(rbGeschenk);
         buttonGroup2.add(rbBeleg);
 
-        //---- buttonGroupBezahlung ----
-        var buttonGroupBezahlung = new ButtonGroup();
-        buttonGroupBezahlung.add(field_Ueberweisung);
-        buttonGroupBezahlung.add(field_Verrechnung);
+        //---- buttonGroup3 ----
+        var buttonGroup3 = new ButtonGroup();
+        buttonGroup3.add(field_Ueberweisung);
+        buttonGroup3.add(field_Verrechnung);
     }// </editor-fold>//GEN-END:initComponents
 
     private void WSuchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WSuchenActionPerformed
@@ -1437,6 +1438,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
             field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
             field_Verrechnung.setSelected(resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
+            field_Ueberweisung.setSelected(!resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
             switch (resultB.getInt("BESTELLUNG_TYP")) {
                 case 0:
                     rbBestellung.setSelected(true);
@@ -1969,6 +1971,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
                 field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
                 field_Verrechnung.setSelected(resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
+                field_Ueberweisung.setSelected(!resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
                 field_Bestellzeichen.setText(resultB.getString("BESTELLUNG_BESTNR"));
                 field_RechNr.setText(resultB.getString("BESTELLUNG_RECHNR"));
                 field_Zeile1.setText(resultB.getString("BESTELLUNG_ZEILE_1"));
@@ -2302,6 +2305,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
             field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
             field_Verrechnung.setSelected(resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
+            field_Ueberweisung.setSelected(!resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
             field_Bestellzeichen.setText(resultB.getString("BESTELLUNG_BESTNR"));
             field_RechNr.setText(resultB.getString("BESTELLUNG_RECHNR"));
             field_Zeile1.setText(resultB.getString("BESTELLUNG_ZEILE_1"));
@@ -2544,6 +2548,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
             field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
             field_Verrechnung.setSelected(resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
+            field_Ueberweisung.setSelected(!resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
             field_Bestellzeichen.setText(resultB.getString("BESTELLUNG_BESTNR"));
             field_RechNr.setText(resultB.getString("BESTELLUNG_RECHNR"));
             field_Zeile1.setText(resultB.getString("BESTELLUNG_ZEILE_1"));
@@ -2764,6 +2769,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
             field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
             field_Verrechnung.setSelected(resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
+            field_Ueberweisung.setSelected(!resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
             field_Bestellzeichen.setText(resultB.getString("BESTELLUNG_BESTNR"));
             field_RechNr.setText(resultB.getString("BESTELLUNG_RECHNR"));
             field_Zeile1.setText(resultB.getString("BESTELLUNG_ZEILE_1"));
@@ -3635,6 +3641,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 field_Zusatz_Text.setText(resultB.getString("BESTELLUNG_TEXT"));
                 field_Zusatz_cb.setSelected(resultB.getBoolean("BESTELLUNG_TB"));
                 field_Verrechnung.setSelected(resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
+                field_Ueberweisung.setSelected(!resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
                 field_Bestellzeichen.setText(resultB.getString("BESTELLUNG_BESTNR"));
                 field_RechNr.setText(resultB.getString("BESTELLUNG_RECHNR"));
                 field_Zeile1.setText(resultB.getString("BESTELLUNG_ZEILE_1"));
