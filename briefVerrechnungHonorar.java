@@ -186,7 +186,7 @@ public class briefVerrechnungHonorar {
                 Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("George Caylay Straﬂe 38"));
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.de");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
                 Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
@@ -200,7 +200,7 @@ public class briefVerrechnungHonorar {
                 // Absenderzeile
                 Linie(cos, 1, 50, 749, 297, 749);
                 Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751,
-                        Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - George Cayley Straﬂe 38 - 14089 Berlin"));
+                        Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - George Caylay Straﬂe 38 - 14089 Berlin"));
 
                 // Datum
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655,
