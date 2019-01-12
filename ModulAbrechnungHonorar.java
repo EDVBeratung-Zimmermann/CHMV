@@ -104,6 +104,7 @@ public class ModulAbrechnungHonorar {
                 try {
                     SQLBestellungDetails = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     SQLBestellung = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    SQLBestellung2 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     SQLKunde = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     SQLVerrechnung = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     Filename = chooser.getSelectedFile().getCanonicalPath();
@@ -532,6 +533,7 @@ public class ModulAbrechnungHonorar {
 
                     // prüfen auf verrechnungen
                     System.out.println("Verrechnungen ermitteln");
+                    resultVerrechnung = SQLVerrechnung.executeQuery("SELECT * FROM TBL_VERRECHNUNG");
                     resultBestellung2 = SQLBestellung2.executeQuery("SELECT * FROM TBL_BESTELLUNG"
                             + " WHERE BESTELLUNG_BEZAHLUNG = '1'"
                             + " GROUP BY BESTELLUNG_KUNDE");
@@ -546,6 +548,8 @@ public class ModulAbrechnungHonorar {
                                 + " WHERE BESTELLUNG_KUNDE = '" + resultBestellung2.getString("BESTELLUNG_KUNDE") + "'");
                         System.out.println("   -> zu verrechnende Rechnungen des Autors ermittelt");
                         while (resultBestellung.next()) {
+                            Betrag19 = 0F;
+                            Betrag7 = 0F;
                             // Tabelle Verrechnung füllen mit Bestellungen    
 // Rechnungsbetrag ermitteln
                             resultBestellungDetails = SQLBestellungDetails.executeQuery(
