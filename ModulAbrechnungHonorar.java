@@ -51,13 +51,17 @@ public class ModulAbrechnungHonorar {
     private static Statement SQLAutor = null;
     private static Statement SQLKunde = null;
     private static Statement SQLBestellung = null;
+    private static Statement SQLBestellung2 = null;
+    private static Statement SQLVerrechnung = null;
 
     private static ResultSet resultBuch = null;
     private static ResultSet resultAutor = null;
     private static ResultSet resultKunde = null;
     private static ResultSet resultBestellung = null;
+    private static ResultSet resultBestellung2 = null;
     private static ResultSet resultHonorar = null;
     private static ResultSet resultBestellungDetails = null;
+    private static ResultSet resultVerrechnung = null;
 
     private static Integer ID = 0;
     private static Integer zeile = 0;
@@ -70,6 +74,10 @@ public class ModulAbrechnungHonorar {
 
     private static String strISBN = "";
     private static String strAnzahl = "";
+
+    private static Float Rechnungsbetrag = 0F;
+    private static Float Betrag19 = 0F;  // Bruttobetrag 19%
+    private static Float Betrag7 = 0F;   // Bruttobetrag  7%
 
     public static void honorar() {
 
@@ -97,6 +105,7 @@ public class ModulAbrechnungHonorar {
                     SQLBestellungDetails = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     SQLBestellung = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     SQLKunde = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    SQLVerrechnung = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     Filename = chooser.getSelectedFile().getCanonicalPath();
 // Tabelle Honorar leeren   
                     System.out.println("Tabelle Honorar leeren ...");
@@ -111,15 +120,15 @@ public class ModulAbrechnungHonorar {
                     System.out.println("Tabelle Honorar erstellen");
                     while (resultBuch.next()) {
                         String Titel = resultBuch.getString("BUCH_TITEL");
-                        Titel= Titel.replace(",", " ");
-                        Titel= Titel.replace("+", " ");
-                        Titel= Titel.replace("/", " ");
-                        Titel= Titel.replace("?", " ");
-                        Titel= Titel.replace("!", " ");
-                        Titel= Titel.replace("\"", " ");
-                        Titel= Titel.replace("'", " ");
-                        Titel= Titel.replace("*", " ");
-                        Titel= Titel.replace(";", " ");
+                        Titel = Titel.replace(",", " ");
+                        Titel = Titel.replace("+", " ");
+                        Titel = Titel.replace("/", " ");
+                        Titel = Titel.replace("?", " ");
+                        Titel = Titel.replace("!", " ");
+                        Titel = Titel.replace("\"", " ");
+                        Titel = Titel.replace("'", " ");
+                        Titel = Titel.replace("*", " ");
+                        Titel = Titel.replace(";", " ");
                         int c = 0;
                         c = 0x0027;
                         Titel = Titel.replace(Character.toString((char) c), " "); // '
@@ -520,6 +529,78 @@ public class ModulAbrechnungHonorar {
                             );
                         }
                     } // while 
+
+                    // prüfen auf verrechnungen
+                    System.out.println("Verrechnungen ermitteln");
+                    resultBestellung2 = SQLBestellung2.executeQuery("SELECT * FROM TBL_BESTELLUNG"
+                            + " WHERE BESTELLUNG_BEZAHLUNG = '1'"
+                            + " GROUP BY BESTELLUNG_KUNDE");
+                    System.out.println("-> zu verrechnende Autoren ermittelt");
+                    int ID = 1;
+                    while (resultBestellung2.next()) {
+                        SQLHonorar.executeUpdate("DELETE FROM TBL_VERRECHNUNG");
+                        System.out.println("   -> Tabelle Verrechnung ist geleert");
+                        ID = 1;
+
+                        resultBestellung = SQLBestellung.executeQuery("SELECT * FROM TBL_BESTELLUNG"
+                                + " WHERE BESTELLUNG_KUNDE = '" + resultBestellung2.getString("BESTELLUNG_KUNDE") + "'");
+                        System.out.println("   -> zu verrechnende Rechnungen des Autors ermittelt");
+                        while (resultBestellung.next()) {
+                            // Tabelle Verrechnung füllen mit Bestellungen    
+// Rechnungsbetrag ermitteln
+                            resultBestellungDetails = SQLBestellungDetails.executeQuery(
+                                    "SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + resultBestellung.getString("BESTELLUNG_RECHNR") + "'"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                            while (resultBestellungDetails.next()) {
+                                if (resultBestellungDetails.getBoolean("BESTELLUNG_DETAIL_SONST")) {
+                                    Betrag19 = Betrag19 + resultBestellungDetails.getFloat("BESTELLUNG_DETAIL_SONST_PREIS");
+                                } else {
+                                    resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID = '" + resultBestellungDetails.getString("BESTELLUNG_DETAIL_BUCH") + "'");
+                                    resultBuch.next();
+
+                                    Float ZPreis = resultBuch.getFloat("BUCH_PREIS");
+                                    ZPreis = ZPreis - ZPreis / 100 * resultBestellungDetails.getFloat("BESTELLUNG_DETAIL_RABATT");
+
+                                    Betrag7 = Betrag7 + resultBestellungDetails.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
+                                }
+                            }
+// Rechnungsbetrag festlegen
+// DEU:       Geschäft = Privat = Netto + UStr
+// EU:        Geschäft = Netto
+//            Privat   = Netto + UStr
+// Drittland: Geschäft = Privat = Netto
+                            Rechnungsbetrag = 0F;
+                            switch (resultBestellung.getInt("BESTELLUNG_LAND")) {
+                                case 0:
+                                    Rechnungsbetrag = Betrag7 + Betrag19;
+                                    break;
+                                case 10:
+                                case 11:
+                                    if (resultBestellung.getBoolean("BESTELLUNG_PRIVAT")) {
+                                        Rechnungsbetrag = Betrag7 + Betrag19;
+                                    } else {
+                                        Rechnungsbetrag = Betrag7 / 107 * 100 + Betrag19 / 119 * 100;
+                                    }
+                                    break;
+                                case 20:
+                                case 21:
+                                    Rechnungsbetrag = Betrag7 - Betrag7 / 107 * 100 + Betrag19 - Betrag19 / 119 * 100;
+                                    break;
+                            }
+                            Rechnungsbetrag = Rechnungsbetrag + resultBestellung.getFloat("BESTELLUNG_VERSAND");
+                            
+                            resultVerrechnung.moveToInsertRow();
+                            resultVerrechnung.updateInt("VERRECHNUNG_ID", ID);
+                            resultVerrechnung.updateFloat("VERRECHNUNG_BETRAG", Rechnungsbetrag);
+                            resultVerrechnung.updateString("VERRECHNUNG_ISBN", resultBestellung.getString("BESTELLUNG_RECHNR"));
+                            resultVerrechnung.updateBoolean("VERRECHNUNG_RECHNUNG", true);
+                            resultVerrechnung.insertRow();
+                    
+                            ID = ID + 1;
+                        } // while resultBestellung
+
+                        briefVerrechnungHonorar.briefPDF(resultBestellung2.getString("BESTELLUNG_KUNDE"));
+                    } // while resultVerrechnung.next
+
                     SQLHonorar.close();
                     SQLBuch.close();
 
