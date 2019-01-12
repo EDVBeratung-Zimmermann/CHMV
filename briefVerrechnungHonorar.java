@@ -82,8 +82,8 @@ public class briefVerrechnungHonorar {
     private static Float Honorar_EB = 0F;
     private static Float Honorar = 0F;
 
-    private static Float GesamtBetrag = 0F;
-    private static Float GesamtHonorar = 0F;
+    private static Double GesamtBetrag = 0D;
+    private static Double GesamtHonorar = 0D;
 
     private static Integer HONORAR_ZAHLEN; // 0
     //* 0 nichts, 1 Schwelle 1, 2 Schwelle 2
@@ -117,33 +117,33 @@ public class briefVerrechnungHonorar {
         try { // Verbindung zur Datenbank ?ber die JDBC-Br?cke
             conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Brief Rechnung", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
+            Modulhelferlein.Fehlermeldung("Brief Honorarverrechnung", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank ?ber die JDBC-Br?cke
 
         if (conn != null) {
             try {
-                SQLAdresse = conn.createStatement();
-                SQLHonorar = conn.createStatement();
-                SQLVerrechnung = conn.createStatement();
+                SQLAdresse = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                SQLHonorar = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                SQLVerrechnung = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 resultVerrechnung = SQLVerrechnung.executeQuery("SELECT * FROM TBL_VERRECHNUNG");
                 resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR WHERE HONORAR_AUTOR_1 = '" + HONORAR_AUTOR + "'");
                 resultAdresse = SQLAdresse.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID='" + HONORAR_AUTOR + "'");
                 resultAdresse.next();
-
+                
                 System.out.println("Schreibe Honorarabrechnung für " + HONORAR_AUTOR);
                 String Titel = "";
                 Integer Anzahl = 1;
-                if (HONORAR_TITEL.contains(" ")) {
-                    String[] Titelparts = HONORAR_TITEL.split(" ");
-                    Titel = Titelparts[0];
-                    while ((Anzahl < Titelparts.length) && (Anzahl < 8)) {
-                        Titel = Titel + " " + Titelparts[Anzahl];
-                        Anzahl = Anzahl + 1;
-                    }
-                } else {
-                    Titel = HONORAR_TITEL;
-                }
+                //if (HONORAR_TITEL.contains(" ")) {
+                //    String[] Titelparts = HONORAR_TITEL.split(" ");
+                //    Titel = Titelparts[0];
+                //    while ((Anzahl < Titelparts.length) && (Anzahl < 8)) {
+                //        Titel = Titel + " " + Titelparts[Anzahl];
+                //        Anzahl = Anzahl + 1;
+                //    }
+                //} else {
+                //    Titel = HONORAR_TITEL;
+                //}
 
                 // Create a document and add a page to it
                 PDDocument document = new PDDocument();
@@ -249,16 +249,19 @@ public class briefVerrechnungHonorar {
                 Float Betrag = 0F;
                 ZeilenNr = 1;
                 while (resultVerrechnung.next()) {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470 - 15 * ZeilenNr, resultVerrechnung.getString("VERRECHNUNG_ISBN"));
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470 - 15 * ZeilenNr, resultVerrechnung.getString("VERRECHNUNG_BETRAG"));
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 455 - 15 * ZeilenNr, "Rechnung Nr. " + resultVerrechnung.getString("VERRECHNUNG_ISBN"));
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 337, 455 - 15 * ZeilenNr, "Betrag:" );
+                    AusgabeDB(cos, fontPlain, 12, Color.BLACK, 397, 455 - 15 * ZeilenNr, resultVerrechnung.getString("VERRECHNUNG_BETRAG"));
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 425, 455 - 15 * ZeilenNr, "€");
                     Betrag = Betrag + resultVerrechnung.getFloat("VERRECHNUNG_BETRAG");
                     ZeilenNr = ZeilenNr + 1;
                 }
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Im vergangenen Jahr haben Sie Bücher im Gesamtwert von " + Float.toString(Betrag) + " Euro erworben:");
+                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 455, "Im vergangenen Jahr haben Sie Bücher im Gesamtwert von " + Float.toString(Betrag) + " Euro erworben:");
 
                 ZeilenNr = ZeilenNr + 2;
                 Honorarzeile = 470 - 15 * ZeilenNr;
                 Startzeile = Honorarzeile - 20;
+                ZeilenNr = 0;
 
                 while (resultHonorar.next()) {
                     HONORAR_ANZAHL_PB = resultHonorar.getInt("HONORAR_ANZAHL_PB");
@@ -273,11 +276,14 @@ public class briefVerrechnungHonorar {
                     HONORAR_ANZAHL_EB = resultHonorar.getInt("HONORAR_ANZAHL_EB");
                     HONORAR_ANZAHL_PB = resultHonorar.getInt("HONORAR_ANZAHL_PB");
                     HONORAR_ZAHLEN = resultHonorar.getInt("HONORAR_ZAHLEN");
+                    HONORAR_ISBN_PB = resultHonorar.getString("HONORAR_ISBN_PB");
+                    HONORAR_ISBN_EB = resultHonorar.getString("HONORAR_ISBN_EB");
+                    HONORAR_ISBN_HC = resultHonorar.getString("HONORAR_ISBN_HC");
 
                     Anzahl = HONORAR_ANZAHL_PB + HONORAR_ANZAHL_HC + HONORAR_ANZAHL_EB;
                     Integer Schwelle = 0;
                     if (HONORAR_ZAHLEN == 0) { // keine Zahlung - Schwelle 1 nicht erreicht
-                        GesamtHonorar = 0F;
+                        GesamtHonorar = 0D;
                     } else {
                         Netto_VP_PB = HONORAR_PREIS_PB / 107 * 100;
                         Netto_VP_HC = HONORAR_PREIS_HC / 107 * 100;
@@ -293,7 +299,7 @@ public class briefVerrechnungHonorar {
                             Honorar_EB = HONORAR_PREIS_EB / 107 * HONORAR_PROZENT_2;
                             Honorar = (HONORAR_ANZAHL_PB * Honorar_PB + HONORAR_ANZAHL_HC * Honorar_HC + HONORAR_ANZAHL_EB * Honorar_EB);
                         }
-                        GesamtHonorar = GesamtHonorar + Honorar;
+                        GesamtHonorar = GesamtHonorar + Honorar*1D;
 
                         String[] ZeilenInhalt = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
                         Integer Zeile = 0;
@@ -329,50 +335,50 @@ public class briefVerrechnungHonorar {
                         }
 
                         for (int i = 1; i <= Zeile; i++) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 20 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 0]);
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, Startzeile - 20 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 1]);
-                            AusgabeRB(cos, fontPlain, 12, Color.BLACK, 260, Startzeile - 20 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 2]);
-                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 320, Startzeile - 20 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 3]);
-                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 410, Startzeile - 20 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 4]);
-                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 500, Startzeile - 20 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 5]);
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 0]);
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 1]);
+                            AusgabeRB(cos, fontPlain, 12, Color.BLACK, 260, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 2]);
+                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 320, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 3]);
+                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 410, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 4]);
+                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 500, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 5]);
 
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 340, Startzeile - 20 * ZeilenNr - i * 15, "€");
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 430, Startzeile - 20 * ZeilenNr - i * 15, "€");
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 520, Startzeile - 20 * ZeilenNr - i * 15, "€");
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 340, Startzeile - 15 * ZeilenNr - i * 15, "€");
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 430, Startzeile - 15 * ZeilenNr - i * 15, "€");
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 520, Startzeile - 15 * ZeilenNr - i * 15, "€");
                         }
-                        ZeilenNr = ZeilenNr + 1;
+                        ZeilenNr = ZeilenNr + Zeile;
                     } // if Schwelle erreicht
 
                 } // while (resultHonorar.next()) {
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Honorarzeile, "Dem gegenüber stehen Honoraransprüche in Höhe von " + Float.toString(GesamtHonorar) + " Euro:");
+                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Honorarzeile, "Dem gegenüber stehen Honoraransprüche in Höhe von " + Modulhelferlein.str2dec(GesamtHonorar) + " Euro:");
                 if (HONORAR_ZAHLEN > 0) { // keine Zahlung - Schwelle 1 nicht erreicht
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile, "Die Abrechnung lautet wie folgt:");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15, "ISBN");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, Startzeile - 15, "Typ");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 230, Startzeile - 15, "Anzahl");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 300, Startzeile - 15, "Netto-VK");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 400, Startzeile - 15, "Honorar");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, Startzeile - 15, "Gesamt");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile , "ISBN");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, Startzeile, "Typ");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 230, Startzeile, "Anzahl");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 300, Startzeile, "Netto-VK");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 400, Startzeile, "Honorar");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, Startzeile, "Gesamt");
 
-                    Linie(cos, 1, 55, Startzeile - 93, 540, Startzeile - 18);
+                    Linie(cos, 1, 55, Startzeile - 3, 540, Startzeile - 3);
                 }
 
                 // Abrechnung
                 ZeilenNr = ZeilenNr + 1;
-                Startzeile = 470 - 15 * ZeilenNr;
-                GesamtBetrag = GesamtHonorar - Betrag;  // Gesamtbetrag positiv = auszahlen sonst einzahlen
-
-                if (GesamtBetrag > 0) {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile, "Den Differenzbetrag in Höhe ");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, Startzeile, Float.toString(GesamtBetrag) + " Euro ");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 255, Startzeile, "überweisen wir auf Ihr Konto bei der");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 255, Startzeile - 20, resultAdresse.getString("ADRESSEN_BANK") + " IBAN: " + resultAdresse.getString("ADRESSEN_IBAN"));
+                Startzeile = Honorarzeile - 40 - 15 * ZeilenNr;
+                
+                if (GesamtHonorar - Betrag < 0) {
+                    GesamtBetrag = -1D * (GesamtHonorar - Betrag);  // Gesamtbetrag negativ = einzahlen
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile, "Den Differenzbetrag in Höhe von");
+                    Ausgabe(cos, fontBold, 12, Color.RED, 235, Startzeile, Modulhelferlein.str2dec(GesamtBetrag) + " Euro ");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 310, Startzeile, "bitten wir auf unser Konto zu überweisen");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15, "bei der     Volksbank Berlin,    IBAN: DE61 1009 0000 2233 8320 17,    BIC: BEV0DEBB");  
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 30, "innerhalb der nächsten 14 Tage.");
                 } else {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile, "Den Differenzbetrag in Höhe ");
-                    Ausgabe(cos, fontPlain, 12, Color.RED, 155, Startzeile, Float.toString(GesamtBetrag) + " Euro ");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 255, Startzeile, "bitten wir auf unser Konto bei der ");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 400, Startzeile - 15, "Volksbank Berlin, IBAN: DE61 1009 0000 2233 8320 17, BIC: BEV0DEBB");  
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 255, Startzeile - 30, "innerhalb der nächsten 14 Tage zu überweisen.");
+                    GesamtBetrag = 1D * (GesamtHonorar - Betrag);  // Gesamtbetrag positiv = auszahlen  
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile, "Den Differenzbetrag in Höhe von");
+                    Ausgabe(cos, fontBold, 12, Color.GREEN, 235, Startzeile, Modulhelferlein.str2dec(GesamtBetrag) + " Euro ");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 310, Startzeile, "überweisen wir auf Ihr Konto bei der");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 20, resultAdresse.getString("ADRESSEN_BANK") + " IBAN: " + resultAdresse.getString("ADRESSEN_IBAN"));
                 }
 
                 // Schlussformel
