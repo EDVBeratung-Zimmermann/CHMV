@@ -174,7 +174,7 @@ public class briefHonorar {
                 Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("George Caylay Straße 38"));
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.de");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
                 Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
@@ -188,7 +188,7 @@ public class briefHonorar {
                 // Absenderzeile
                 Linie(cos, 1, 50, 749, 297, 749);
                 Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751,
-                        Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - George Cayley Straße 38 - 14089 Berlin"));
+                        Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - George Caylay Straße 38 - 14089 Berlin"));
 
                 // Datum
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655,
@@ -280,7 +280,7 @@ public class briefHonorar {
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 440, " - " + HONORAR_PROZENT_2.toString() + "% bei mehr als " + HONORAR_ANZAHL_2.toString() + " verkauften Exemplaren");
                         Startzeile = 420;
                     }
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile, "Eigenbestellungen sind jedoch davon ausgenommen.");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile, "Eigenbestellungen sind hiervon ausgenommen.");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile-20, "Im vergangenen Jahr wurden insgesamt " + Anzahl.toString() + " Exemplare verkauft.");
 
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile-45, "Ich freue mich daher, Ihnen ein Honorar in Höhe von " + Modulhelferlein.str2dec(Honorar) + " Euro vergüten zu können.");
@@ -342,10 +342,10 @@ public class briefHonorar {
                     }
 
                     if (HONORAR_VERTEILEN) {
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 210, "Ich werde das fällige, Ihnen zustehende hälftige Honorar in Höhe "+ Modulhelferlein.str2dec(Honorar/2) + " EURO auf Ihr Konto");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 210, "Das Ihnen zustehende hälftige Honorar in Höhe "+ Modulhelferlein.str2dec(Honorar/2) + " EURO werden wir auf Ihr Konto");
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 195, "mit der IBAN " + resultAdresse.getString("ADRESSEN_IBAN") + ", " + resultAdresse.getString("ADRESSEN_BANK") + " überweisen.");
                     } else {
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 210, "Ich werde das Ihnen zustehende fällige Honorar in Höhe "+ Modulhelferlein.str2dec(Honorar) + " EURO auf Ihr Konto mit der ");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 210, "Das Ihnen zustehende fällige Honorar in Höhe "+ Modulhelferlein.str2dec(Honorar) + " EURO werden wir auf Ihr Konto mit der ");
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 195, "IBAN " + resultAdresse.getString("ADRESSEN_IBAN") + ", " + resultAdresse.getString("ADRESSEN_BANK") + " überweisen.");
                     }
                 }
