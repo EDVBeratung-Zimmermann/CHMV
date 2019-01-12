@@ -199,7 +199,7 @@ public class briefBelegexemplar {
         Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("George Caylay Straﬂe 38"));
         Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
         Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.de");
+        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
 
         Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
         Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
@@ -213,7 +213,7 @@ public class briefBelegexemplar {
 
         // Absenderzeile
         Linie(cos,1,50, 749, 297, 749);
-        Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - George Cayley Straﬂe 38 - 14089 Berlin"));
+        Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - George Caylay Straﬂe 38 - 14089 Berlin"));
 
         // Datum
         Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
@@ -582,7 +582,7 @@ public class briefBelegexemplar {
             String[] strFooter1 = {"Carola Hartmann Miles Verlag", "George Caylay Straﬂe 38", "14089 Berlin"};
             String[] strFooter2 = {"Dipl.Kff. Carola Hartmann", "Telefon +49 (0)30 36 28 86 77", "Volksbank Berlin"};
             String[] strFooter3 = {"StrNr 19 332 6006 5", "E-Mail miles-verlag@t-online.de", "IBAN DE61 1009 0000 2233 8320 17"};
-            String[] strFooter4 = {"UStrID DE 269 369 5", "www.miles-verlag.jimdo.de", "BIC BEV0DEBB"};
+            String[] strFooter4 = {"UStrID DE 269 369 5", "www.miles-verlag.jimdo.com", "BIC BEV0DEBB"};
 
             XWPFTableRow tableFooterrow1 = tableFooter.createRow();
             for (int i = 0; i < 3; i++) {
