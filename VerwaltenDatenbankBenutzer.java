@@ -520,7 +520,7 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
                     result.updateInt("BENUTZER_RECHTE", Integer.parseInt(Rechte[0]));
                     result.updateRow();
                     // Konfiguration KONFIGURATION_BENUTZER anpassen
-                    resultKonfiguration = SQLAnfrage.executeQuery("SELECT * FROM tbl_konfiguration WHERE KONFIGURATION_BENUTZER ='" + Modulhelferlein.CHMVBenutzer + "'");
+                    resultKonfiguration = SQLAnfrageKonfiguration.executeQuery("SELECT * FROM tbl_konfiguration WHERE KONFIGURATION_BENUTZER ='" + Modulhelferlein.CHMVBenutzer + "'");
                     resultKonfiguration.first();
                     resultKonfiguration.updateString("KONFIGURATION_BENUTZER", field_Beschreibung.getText());
                     resultKonfiguration.updateRow();
