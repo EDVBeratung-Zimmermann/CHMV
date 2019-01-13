@@ -103,14 +103,16 @@ public class _DlgUebersichtMahnungen extends javax.swing.JDialog {
             jLabelBis.setText("... bis");
 
             //---- jRadioButtonPDF ----
-            jRadioButtonPDF.setSelected(true);
             jRadioButtonPDF.setText("PDF");
+            jRadioButtonPDF.setEnabled(false);
 
             //---- jRadioButtonXLS ----
             jRadioButtonXLS.setText("XLS");
+            jRadioButtonXLS.setSelected(true);
 
             //---- jRadioButtonDoc ----
             jRadioButtonDoc.setText("DOC");
+            jRadioButtonDoc.setEnabled(false);
 
             //---- label1 ----
             label1.setText("Offene Rechnungen identifizieren");
