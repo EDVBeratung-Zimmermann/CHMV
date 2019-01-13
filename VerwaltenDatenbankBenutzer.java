@@ -24,6 +24,9 @@ package milesVerlagMain;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -245,14 +248,18 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
         WSuchen = new JButton();
         Drucken = new JButton();
         Schliessen = new JButton();
+        jLabel4 = new JLabel();
+        field_Kennwort = new JTextField();
+        jLabel5 = new JLabel();
+        field_Rechte = new JComboBox<>();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        setFont(new Font("Dialog", Font.BOLD, 12));
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
         setMinimumSize(new Dimension(685, 220));
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -315,12 +322,12 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
             //---- jLabel3 ----
             jLabel3.setText("Benutzer - Vorname Name");
             panel1.add(jLabel3);
-            jLabel3.setBounds(0, 50, 658, jLabel3.getPreferredSize().height);
+            jLabel3.setBounds(0, 50, 175, jLabel3.getPreferredSize().height);
 
             //---- field_Beschreibung ----
             field_Beschreibung.setPreferredSize(new Dimension(645, 25));
             panel1.add(field_Beschreibung);
-            field_Beschreibung.setBounds(0, 69, 658, field_Beschreibung.getPreferredSize().height);
+            field_Beschreibung.setBounds(0, 69, 245, field_Beschreibung.getPreferredSize().height);
 
             //---- Anfang ----
             Anfang.setText("<<");
@@ -431,6 +438,31 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
             panel1.add(Schliessen);
             Schliessen.setBounds(new Rectangle(new Point(550, 124), Schliessen.getPreferredSize()));
 
+            //---- jLabel4 ----
+            jLabel4.setText("Kennwort");
+            panel1.add(jLabel4);
+            jLabel4.setBounds(255, 50, 175, 14);
+
+            //---- field_Kennwort ----
+            field_Kennwort.setPreferredSize(new Dimension(645, 25));
+            panel1.add(field_Kennwort);
+            field_Kennwort.setBounds(255, 70, 175, 25);
+
+            //---- jLabel5 ----
+            jLabel5.setText("Rechte");
+            panel1.add(jLabel5);
+            jLabel5.setBounds(440, 50, 175, 14);
+
+            //---- field_Rechte ----
+            field_Rechte.setModel(new DefaultComboBoxModel<>(new String[] {
+                "1 Berichtswesen",
+                "2 Bewegungsdaten",
+                "4 Stammdaten",
+                "8 Administrator"
+            }));
+            panel1.add(field_Rechte);
+            field_Rechte.setBounds(440, 70, 160, field_Rechte.getPreferredSize().height);
+
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
@@ -457,7 +489,7 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(panel1, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                     .addContainerGap())
@@ -472,15 +504,34 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
             if (resultIsEmpty) {
                 Modulhelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
             } else {
-                result.updateString("BENUTZER_NAME", field_Beschreibung.getText());
-                result.updateRow();
-                // Konfiguration KONFIGURATION_BENUTZER anpassen
-                resultKonfiguration = SQLAnfrage.executeQuery("SELECT * FROM tbl_konfiguration WHERE KONFIGURATION_BENUTZER ='" + Modulhelferlein.CHMVBenutzer +"'");
-                resultKonfiguration.first();
-                resultKonfiguration.updateString("KONFIGURATION_BENUTZER", field_Beschreibung.getText());
-                resultKonfiguration.updateRow();            }
+                String password = JOptionPane.showInputDialog("Bestätigung Kennwort?");
+                if (password.equals(field_Kennwort.getText())) {
+                    MessageDigest md = MessageDigest.getInstance("MD5");
+                    byte[] messageDigest = md.digest(password.getBytes());
+                    BigInteger no = new BigInteger(1, messageDigest);
+                    String hashtext = no.toString(16);
+                    while (hashtext.length() < 32) {
+                        hashtext = "0" + hashtext;
+                    }
+                    System.out.println("MD5-HashCode is: " + hashtext);
+                    result.updateString("BENUTZER_KENNWORT", hashtext);
+                    result.updateString("BENUTZER_NAME", field_Beschreibung.getText());
+                    String Rechte[] = field_Rechte.getItemAt(field_Rechte.getSelectedIndex()).split(" ");
+                    result.updateInt("BENUTZER_RECHTE", Integer.parseInt(Rechte[0]));
+                    result.updateRow();
+                    // Konfiguration KONFIGURATION_BENUTZER anpassen
+                    resultKonfiguration = SQLAnfrage.executeQuery("SELECT * FROM tbl_konfiguration WHERE KONFIGURATION_BENUTZER ='" + Modulhelferlein.CHMVBenutzer + "'");
+                    resultKonfiguration.first();
+                    resultKonfiguration.updateString("KONFIGURATION_BENUTZER", field_Beschreibung.getText());
+                    resultKonfiguration.updateRow();
+                } else {
+                    Modulhelferlein.Fehlermeldung("Die Kennwörter stimmen nicht überein!");
+                }
+            }
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+        } catch (NoSuchAlgorithmException exept) {
+            Modulhelferlein.Fehlermeldung("NoSuchAlgorithm-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -886,6 +937,10 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
     private JButton WSuchen;
     private JButton Drucken;
     private JButton Schliessen;
+    private JLabel jLabel4;
+    private JTextField field_Kennwort;
+    private JLabel jLabel5;
+    private JComboBox<String> field_Rechte;
     // End of variables declaration//GEN-END:variables
 
     Integer count = 0;
