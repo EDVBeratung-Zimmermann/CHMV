@@ -139,16 +139,16 @@
          <object class="com.jformdesigner.model.FormComponent">
           <string>javax.swing.JRadioButton</string>
           <void method="setProperty">
-           <string>selected</string>
-           <boolean>true</boolean>
-          </void>
-          <void method="setProperty">
            <string>text</string>
            <string>PDF</string>
           </void>
           <void method="setProperty">
            <string>toolTipText</string>
            <string>Ausgabe als ODF-Dokument</string>
+          </void>
+          <void method="setProperty">
+           <string>enabled</string>
+           <boolean>false</boolean>
           </void>
           <void property="name">
            <string>jRadioButtonPDF</string>
@@ -166,6 +166,10 @@
            <string>toolTipText</string>
            <string>Ausgabe als Excel-Dokument</string>
           </void>
+          <void method="setProperty">
+           <string>selected</string>
+           <boolean>true</boolean>
+          </void>
           <void property="name">
            <string>jRadioButtonXLS</string>
           </void>
@@ -181,6 +185,10 @@
           <void method="setProperty">
            <string>toolTipText</string>
            <string>Ausgabe als Word-Dokument</string>
+          </void>
+          <void method="setProperty">
+           <string>enabled</string>
+           <boolean>false</boolean>
           </void>
           <void property="name">
            <string>jRadioButtonDOC</string>

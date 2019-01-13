@@ -77,7 +77,7 @@ public class _DlgAusgabeAdressen extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carol Hartmann Miles Verlag");
         setResizable(false);
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -102,17 +102,19 @@ public class _DlgAusgabeAdressen extends javax.swing.JDialog {
             jComboBoxAdressArt.setToolTipText("Auswahlliste f\u00fcr die auszugebenden Adress-Typen");
 
             //---- jRadioButtonPDF ----
-            jRadioButtonPDF.setSelected(true);
             jRadioButtonPDF.setText("PDF");
             jRadioButtonPDF.setToolTipText("Ausgabe als ODF-Dokument");
+            jRadioButtonPDF.setEnabled(false);
 
             //---- jRadioButtonXLS ----
             jRadioButtonXLS.setText("XLS");
             jRadioButtonXLS.setToolTipText("Ausgabe als Excel-Dokument");
+            jRadioButtonXLS.setSelected(true);
 
             //---- jRadioButtonDOC ----
             jRadioButtonDOC.setText("DOC");
             jRadioButtonDOC.setToolTipText("Ausgabe als Word-Dokument");
+            jRadioButtonDOC.setEnabled(false);
 
             //---- jLabel4 ----
             jLabel4.setText("Ausgabeformat");
