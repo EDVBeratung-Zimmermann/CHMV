@@ -591,14 +591,14 @@ public class ModulAbrechnungHonorar {
                                     break;
                             }
                             Rechnungsbetrag = Rechnungsbetrag + resultBestellung.getFloat("BESTELLUNG_VERSAND");
-                            
+
                             resultVerrechnung.moveToInsertRow();
                             resultVerrechnung.updateInt("VERRECHNUNG_ID", ID);
                             resultVerrechnung.updateFloat("VERRECHNUNG_BETRAG", Rechnungsbetrag);
                             resultVerrechnung.updateString("VERRECHNUNG_ISBN", resultBestellung.getString("BESTELLUNG_RECHNR"));
                             resultVerrechnung.updateBoolean("VERRECHNUNG_RECHNUNG", true);
                             resultVerrechnung.insertRow();
-                    
+
                             ID = ID + 1;
                         } // while resultBestellung
 
