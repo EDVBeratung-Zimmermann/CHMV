@@ -102,7 +102,7 @@ public class _DlgAusgabeFormat extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -125,6 +125,7 @@ public class _DlgAusgabeFormat extends javax.swing.JDialog {
 
             //---- jRadioButtonDOC ----
             jRadioButtonDOC.setText("DOC");
+            jRadioButtonDOC.setEnabled(false);
 
             //---- jLabel2 ----
             jLabel2.setText("im Format");
@@ -197,7 +198,7 @@ public class _DlgAusgabeFormat extends javax.swing.JDialog {
         setLocationRelativeTo(getOwner());
 
         //---- buttonGroup1 ----
-        ButtonGroup buttonGroup1 = new ButtonGroup();
+        var buttonGroup1 = new ButtonGroup();
         buttonGroup1.add(jRadioButtonPDF);
         buttonGroup1.add(jRadioButtonDOC);
         buttonGroup1.add(jRadioButtonXML);
