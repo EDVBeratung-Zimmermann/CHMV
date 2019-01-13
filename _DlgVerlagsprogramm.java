@@ -133,6 +133,7 @@ public class _DlgVerlagsprogramm extends javax.swing.JDialog {
 
             //---- jRadioButtonDOC ----
             jRadioButtonDOC.setText("DOC");
+            jRadioButtonDOC.setEnabled(false);
             panel1.add(jRadioButtonDOC);
             jRadioButtonDOC.setBounds(0, 92, 88, jRadioButtonDOC.getPreferredSize().height);
 
@@ -149,6 +150,7 @@ public class _DlgVerlagsprogramm extends javax.swing.JDialog {
 
             //---- jRadioButtonXLS ----
             jRadioButtonXLS.setText("XLS");
+            jRadioButtonXLS.setEnabled(false);
             panel1.add(jRadioButtonXLS);
             jRadioButtonXLS.setBounds(0, 120, 88, jRadioButtonXLS.getPreferredSize().height);
 
@@ -193,7 +195,7 @@ public class _DlgVerlagsprogramm extends javax.swing.JDialog {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(13, Short.MAX_VALUE))
+                    .addContainerGap(7, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
