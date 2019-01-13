@@ -110,8 +110,8 @@ public class _DlgUebersichtZahlungen extends javax.swing.JDialog {
             jLabelBis.setBounds(108, 64, 96, 23);
 
             //---- jRadioButtonPDF ----
-            jRadioButtonPDF.setSelected(true);
             jRadioButtonPDF.setText("PDF");
+            jRadioButtonPDF.setEnabled(false);
             panel1.add(jRadioButtonPDF);
             jRadioButtonPDF.setBounds(230, 64, 82, jRadioButtonPDF.getPreferredSize().height);
             panel1.add(jDateChooserVon);
@@ -121,11 +121,13 @@ public class _DlgUebersichtZahlungen extends javax.swing.JDialog {
 
             //---- jRadioButtonXLS ----
             jRadioButtonXLS.setText("XLS");
+            jRadioButtonXLS.setSelected(true);
             panel1.add(jRadioButtonXLS);
             jRadioButtonXLS.setBounds(230, 92, 82, jRadioButtonXLS.getPreferredSize().height);
 
             //---- jRadioButtonDoc ----
             jRadioButtonDoc.setText("DOC");
+            jRadioButtonDoc.setEnabled(false);
             panel1.add(jRadioButtonDoc);
             jRadioButtonDoc.setBounds(230, 120, 82, jRadioButtonDoc.getPreferredSize().height);
 
