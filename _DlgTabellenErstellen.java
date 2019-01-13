@@ -660,6 +660,8 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "BENUTZER_ID INT PRIMARY KEY, ";
                         SQL = SQL + "BENUTZER_ID INT, ";
                         SQL = SQL + "BENUTZER_NAME TEXT";
+                        SQL = SQL + "BENUTZER_RECHTE INT, ";
+                        SQL = SQL + "BENUTZER_KENNWORT TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
                         Modulhelferlein.Infomeldung("Tabelle BENUTZER wurde erstellt");
