@@ -39,11 +39,11 @@
          <class>org.jdesktop.layout.GroupLayout</class>
          <void method="setProperty">
           <string>$horizontalGroup</string>
-          <string>par l {seq l {space :::p, par l {comp jLabel2:::p::p, seq l {comp jLabel3:::p::p, space :241:241:p, comp jLabel4:::p::p}, seq l {comp jRadioButtonArtAlle:::p::p, space :197:197:p, comp jRadioButtonPDF:::p::p}, seq l {comp jRadioButtonArtAuswahl:::p::p, space :213:213:p, comp jRadioButtonXLS:::p::p}, seq l {space :21:21:p, comp jComboBoxAdressArt:::p:137:p, space :130:130:p, comp jRadioButtonDOC:::p::p}, comp jRadioButtonArtEtikett:::p::p, seq l {comp jButtonDrucken:::p::p, space :18:18:p, comp jButtonSchliessen:::p::p}}, space ::26:x}}</string>
+          <string>par l {seq {par l {seq {space :::p, par l {par l:::p {seq l {space :21:21:p, comp jComboBoxAdressArt:::p:137:p}, comp jRadioButtonArtAuswahl::l:::x, comp jRadioButtonArtAlle::l:::x}, comp jLabel3::t:p:154:p}, space :p:130:p, par l {comp jRadioButtonDOC:1:l:p::p, comp jRadioButtonXLS:1:l:p::p, comp jLabel4:1:l:p::p, comp jRadioButtonPDF:1:l:p:66:p}}, seq {space :10:10:p, par l {comp jLabel2:::p::p, seq l {comp jButtonDrucken:::p::p, space :18:18:p, comp jButtonSchliessen:::p::p}, comp jRadioButtonArtEtikett::l:p:154:p}}}, space ::30:x}}</string>
          </void>
          <void method="setProperty">
           <string>$verticalGroup</string>
-          <string>par l {seq t {space :::x, comp jLabel2:::p::p, space :18:18:p, par l {comp jLabel3:::p::p, comp jLabel4:::p::p}, space :18:18:p, par l {comp jRadioButtonArtAlle:::p::p, comp jRadioButtonPDF:::p::p}, par l {comp jRadioButtonArtAuswahl:::p::p, comp jRadioButtonXLS:::p::p}, space :1:1:p, par l {seq l {space :1:1:p, comp jComboBoxAdressArt:::p::p}, comp jRadioButtonDOC:::p::p}, space :47:47:p, comp jRadioButtonArtEtikett:::p::p, space :18:18:p, par l {comp jButtonDrucken:::p::p, comp jButtonSchliessen:::p::p}, space :::p}}</string>
+          <string>par l {seq t {space :::x, comp jLabel2:::p::p, space :18:18:p, par l {comp jLabel4:::p::p, comp jLabel3:::p::p}, space :18:18:p, par l {comp jRadioButtonPDF:::p::p, comp jRadioButtonArtAlle:::p::p}, space :::p, par l {comp jRadioButtonXLS:::p::p, comp jRadioButtonArtAuswahl:::p::p}, space :1:1:p, par l {seq l {space :1:1:p, comp jComboBoxAdressArt:::p::p}, comp jRadioButtonDOC:::p::p}, space :p:47:p, comp jRadioButtonArtEtikett:::p::p, space :p:18:p, par l {comp jButtonDrucken:::p::p, comp jButtonSchliessen:::p::p}, space :::p}}</string>
          </void>
         </object>
         <void property="name">
