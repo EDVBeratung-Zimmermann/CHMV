@@ -121,8 +121,8 @@ public class _DlgRezensionErzeugen extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        setFont(this.getFont().deriveFont(this.getFont().getStyle() | Font.BOLD));
-        Container contentPane = getContentPane();
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -185,6 +185,7 @@ public class _DlgRezensionErzeugen extends javax.swing.JDialog {
 
             //---- rbDOC ----
             rbDOC.setText("DOC");
+            rbDOC.setEnabled(false);
             panel1.add(rbDOC, "cell 5 4");
 
             //---- Initiative ----
@@ -236,7 +237,7 @@ public class _DlgRezensionErzeugen extends javax.swing.JDialog {
         setLocationRelativeTo(getOwner());
 
         //---- buttonGroup1 ----
-        ButtonGroup buttonGroup1 = new ButtonGroup();
+        var buttonGroup1 = new ButtonGroup();
         buttonGroup1.add(Anfrage);
         buttonGroup1.add(Wunsch);
         buttonGroup1.add(Initiative);

@@ -13,7 +13,7 @@
        <class>org.jdesktop.layout.GroupLayout</class>
        <void method="setProperty">
         <string>$horizontalGroup</string>
-        <string>par l {seq l {space :::p, comp panel1:::p:453:p, space ::-5:x}}</string>
+        <string>par l {seq l {space :::p, comp panel1:::p:453:p, space :::x}}</string>
        </void>
        <void method="setProperty">
         <string>$verticalGroup</string>
@@ -38,11 +38,10 @@
       </void>
       <void method="setProperty">
        <string>font</string>
-       <object class="com.jformdesigner.model.SwingDerivedFont">
-        <null/>
+       <object class="java.awt.Font">
+        <string>Dialog</string>
         <int>1</int>
-        <int>0</int>
-        <boolean>false</boolean>
+        <int>12</int>
        </object>
       </void>
       <void method="add">
@@ -261,6 +260,10 @@
           <void method="setProperty">
            <string>text</string>
            <string>DOC</string>
+          </void>
+          <void method="setProperty">
+           <string>enabled</string>
+           <boolean>false</boolean>
           </void>
           <void property="name">
            <string>rbDOC</string>
