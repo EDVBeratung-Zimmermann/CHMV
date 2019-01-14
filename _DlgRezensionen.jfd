@@ -172,10 +172,6 @@
          <object class="com.jformdesigner.model.FormComponent">
           <string>javax.swing.JRadioButton</string>
           <void method="setProperty">
-           <string>selected</string>
-           <boolean>true</boolean>
-          </void>
-          <void method="setProperty">
            <string>text</string>
            <string>PDF</string>
           </void>
@@ -184,6 +180,10 @@
            <object class="com.jformdesigner.model.FormReference">
             <string>btnGroupFormat</string>
            </object>
+          </void>
+          <void method="setProperty">
+           <string>enabled</string>
+           <boolean>false</boolean>
           </void>
           <void property="name">
            <string>rbPDF</string>
@@ -234,6 +234,10 @@
            <object class="com.jformdesigner.model.FormReference">
             <string>btnGroupFormat</string>
            </object>
+          </void>
+          <void method="setProperty">
+           <string>enabled</string>
+           <boolean>false</boolean>
           </void>
           <void property="name">
            <string>rbDOC</string>
@@ -288,6 +292,10 @@
            <object class="com.jformdesigner.model.FormReference">
             <string>btnGroupFormat</string>
            </object>
+          </void>
+          <void method="setProperty">
+           <string>selected</string>
+           <boolean>true</boolean>
           </void>
           <void property="name">
            <string>rbXLS</string>

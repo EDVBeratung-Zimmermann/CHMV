@@ -122,7 +122,7 @@ public class _DlgRezensionen extends javax.swing.JDialog {
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
         setFont(this.getFont().deriveFont(this.getFont().getStyle() | Font.BOLD));
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -165,8 +165,8 @@ public class _DlgRezensionen extends javax.swing.JDialog {
             panel1.add(rbZeitschrift, "cell 0 3 2 1");
 
             //---- rbPDF ----
-            rbPDF.setSelected(true);
             rbPDF.setText("PDF");
+            rbPDF.setEnabled(false);
             panel1.add(rbPDF, "cell 4 3");
 
             //---- rbRezensent ----
@@ -175,6 +175,7 @@ public class _DlgRezensionen extends javax.swing.JDialog {
 
             //---- rbDOC ----
             rbDOC.setText("DOC");
+            rbDOC.setEnabled(false);
             panel1.add(rbDOC, "cell 4 4");
 
             //---- rbBuch ----
@@ -184,6 +185,7 @@ public class _DlgRezensionen extends javax.swing.JDialog {
 
             //---- rbXLS ----
             rbXLS.setText("XLS");
+            rbXLS.setSelected(true);
             panel1.add(rbXLS, "cell 4 5");
 
             //---- field_ISBN ----
@@ -223,13 +225,13 @@ public class _DlgRezensionen extends javax.swing.JDialog {
         setLocationRelativeTo(getOwner());
 
         //---- btnGroupSortierung ----
-        ButtonGroup btnGroupSortierung = new ButtonGroup();
+        var btnGroupSortierung = new ButtonGroup();
         btnGroupSortierung.add(rbZeitschrift);
         btnGroupSortierung.add(rbRezensent);
         btnGroupSortierung.add(rbBuch);
 
         //---- btnGroupFormat ----
-        ButtonGroup btnGroupFormat = new ButtonGroup();
+        var btnGroupFormat = new ButtonGroup();
         btnGroupFormat.add(rbPDF);
         btnGroupFormat.add(rbDOC);
         btnGroupFormat.add(rbXLS);
