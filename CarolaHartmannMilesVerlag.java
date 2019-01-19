@@ -43,8 +43,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-//import org.apache.pdfbox.exceptions.COSVisitorException;
 
+//import org.apache.pdfbox.exceptions.COSVisitorException;
 /**
  *
  * @author thomas
@@ -82,14 +82,14 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.setContentPane(new ModulBackground("background.jpg"));
-        
+
         ImageIcon img = new ImageIcon("CarolaHartmannMilesVerlag.png");
         this.setIconImage(img.getImage());
 
         Modulhelferlein.CurDate = new Date();
 
         Modulhelferlein.dbUrl = Modulhelferlein.dbUrl + ":" + Modulhelferlein.dbPort + "/" + Modulhelferlein.dbName;
-        
+
         Modulhelferlein.pathUserDir = System.getProperty("user.dir");
         System.out.println("UserDir = " + Modulhelferlein.pathUserDir);
 
@@ -288,7 +288,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                         Modulhelferlein.Fehlermeldung("Tabelle Benutzer muss erstellt werden!");
                         Modulhelferlein.CHMVBenutzer = "";
                     } // tbl_benutzer existiert nicht
-                    
+
                     PrintWriter pWriter = null;
                     try {
                         pWriter = new PrintWriter(new BufferedWriter(new FileWriter(Modulhelferlein.Semaphore)));
@@ -1251,6 +1251,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             file.delete();
         }
         System.out.println("Semaphore gelöscht");
+        ModulAusgabe.ausgabeSchliessen();
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
