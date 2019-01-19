@@ -1804,6 +1804,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Bestelldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
             field_Bezahldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
             field_RechDat.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
+            manuell.setSelected(true);
 
             // Schalterzustände setzen Bestelldetails   
             countB = 0;
