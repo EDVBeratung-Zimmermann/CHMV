@@ -74,6 +74,7 @@ public class ModulAbrechnungHonorar {
 
     private static String strISBN = "";
     private static String strAnzahl = "";
+    private static String Buchtitel = "";
 
     private static Float Rechnungsbetrag = 0F;
     private static Float Betrag19 = 0F;  // Bruttobetrag 19%
@@ -565,6 +566,7 @@ public class ModulAbrechnungHonorar {
                                     ZPreis = ZPreis - ZPreis / 100 * resultBestellungDetails.getFloat("BESTELLUNG_DETAIL_RABATT");
 
                                     Betrag7 = Betrag7 + resultBestellungDetails.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
+                                    Buchtitel = resultBuch.getString("BUCH_TITEL");
                                 }
                             }
 // Rechnungsbetrag festlegen
@@ -596,6 +598,7 @@ public class ModulAbrechnungHonorar {
                             resultVerrechnung.updateInt("VERRECHNUNG_ID", ID);
                             resultVerrechnung.updateFloat("VERRECHNUNG_BETRAG", Rechnungsbetrag);
                             resultVerrechnung.updateString("VERRECHNUNG_ISBN", resultBestellung.getString("BESTELLUNG_RECHNR"));
+                            resultVerrechnung.updateString("VERRECHNUNG_TITEL", Buchtitel);
                             resultVerrechnung.updateBoolean("VERRECHNUNG_RECHNUNG", true);
                             resultVerrechnung.insertRow();
 
