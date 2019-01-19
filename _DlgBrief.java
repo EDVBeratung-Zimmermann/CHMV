@@ -120,13 +120,14 @@ public class _DlgBrief extends javax.swing.JDialog {
         jTextFieldBezug = new JTextField();
         jLabel5 = new JLabel();
         jCheckBoxAnrede = new JCheckBox();
+        jCheckBoxSchlussformel = new JCheckBox();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setMinimumSize(new Dimension(560, 560));
         setResizable(false);
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -180,7 +181,7 @@ public class _DlgBrief extends javax.swing.JDialog {
                 );
                 jPanel1Layout.setVerticalGroup(
                     jPanel1Layout.createParallelGroup()
-                        .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
                 );
             }
 
@@ -190,6 +191,9 @@ public class _DlgBrief extends javax.swing.JDialog {
             //---- jCheckBoxAnrede ----
             jCheckBoxAnrede.setText("Anrede ");
 
+            //---- jCheckBoxSchlussformel ----
+            jCheckBoxSchlussformel.setText("Schlussformel");
+
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
             panel1Layout.setHorizontalGroup(
@@ -197,6 +201,7 @@ public class _DlgBrief extends javax.swing.JDialog {
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panel1Layout.createParallelGroup()
+                            .addComponent(jCheckBoxSchlussformel)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jComboBoxAdresse, GroupLayout.PREFERRED_SIZE, 530, GroupLayout.PREFERRED_SIZE)
@@ -206,11 +211,11 @@ public class _DlgBrief extends javax.swing.JDialog {
                             .addComponent(jTextFieldBezug, GroupLayout.PREFERRED_SIZE, 530, GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCheckBoxAnrede)
                             .addComponent(jLabel4)
-                            .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addComponent(jButtonDrucken)
                                 .addGap(19, 19, 19)
-                                .addComponent(jButtonSchliessen)))
+                                .addComponent(jButtonSchliessen))
+                            .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(19, Short.MAX_VALUE))
             );
             panel1Layout.setVerticalGroup(
@@ -234,9 +239,11 @@ public class _DlgBrief extends javax.swing.JDialog {
                         .addComponent(jCheckBoxAnrede)
                         .addGap(17, 17, 17)
                         .addComponent(jLabel4)
-                        .addGap(6, 6, 6)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBoxSchlussformel)
+                        .addGap(19, 19, 19)
                         .addGroup(panel1Layout.createParallelGroup()
                             .addComponent(jButtonDrucken)
                             .addComponent(jButtonSchliessen))
@@ -413,9 +420,11 @@ public class _DlgBrief extends javax.swing.JDialog {
                 }
 
 // Schlussformel
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 5), Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
+                if (jCheckBoxSchlussformel.isSelected()) {
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 5), Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
+                }
 
 // Make sure that the content stream is closed:
 //helferlein.Infomeldung(outputFileName);                    
@@ -434,7 +443,7 @@ public class _DlgBrief extends javax.swing.JDialog {
                 Modulhelferlein.Fehlermeldung("SQL-Exception: " + ex.getMessage());
             }
             // Adressetikett drucken
-    }//GEN-LAST:event_jButtonDruckenActionPerformed
+        }//GEN-LAST:event_jButtonDruckenActionPerformed
     }
 
     /**
@@ -493,6 +502,7 @@ public class _DlgBrief extends javax.swing.JDialog {
     private JTextField jTextFieldBezug;
     private JLabel jLabel5;
     private JCheckBox jCheckBoxAnrede;
+    private JCheckBox jCheckBoxSchlussformel;
     // End of variables declaration//GEN-END:variables
 
     private Connection conn;

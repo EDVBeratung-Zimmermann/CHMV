@@ -46,11 +46,11 @@
          <class>org.jdesktop.layout.GroupLayout</class>
          <void method="setProperty">
           <string>$horizontalGroup</string>
-          <string>par l {seq l {space :::p, par l {comp jLabel1:::p::p, comp jLabel2:::p::p, comp jComboBoxAdresse:::p:530:p, comp jLabel3:::p::p, comp jTextFieldBetreff:::p:530:p, comp jLabel5:::p::p, comp jTextFieldBezug:::p:530:p, comp jCheckBoxAnrede:::p::p, comp jLabel4:::p::p, comp jPanel1:::p::p, seq l {comp jButtonDrucken:::p::p, space :19:19:p, comp jButtonSchliessen:::p::p}}, space ::19:x}}</string>
+          <string>par l {seq l {space :::p, par l {comp jCheckBoxSchlussformel:::p::p, comp jLabel1:::p::p, comp jLabel2:::p::p, comp jComboBoxAdresse:::p:530:p, comp jLabel3:::p::p, comp jTextFieldBetreff:::p:530:p, comp jLabel5:::p::p, comp jTextFieldBezug:::p:530:p, comp jCheckBoxAnrede:::p::p, comp jLabel4:::p::p, seq l {comp jButtonDrucken:::p::p, space :19:19:p, comp jButtonSchliessen:::p::p}, comp jPanel1::l:p::p}, space ::19:x}}</string>
          </void>
          <void method="setProperty">
           <string>$verticalGroup</string>
-          <string>par l {seq l {space :::p, comp jLabel1:::p::p, space :15:15:p, comp jLabel2:::p::p, space :6:6:p, comp jComboBoxAdresse:::p::p, space :20:20:p, comp jLabel3:::p::p, space :6:6:p, comp jTextFieldBetreff:::p::p, space :10:10:p, comp jLabel5:::p::p, space :6:6:p, comp jTextFieldBezug:::p::p, space :20:20:p, comp jCheckBoxAnrede:::p::p, space :17:17:p, comp jLabel4:::p::p, space :6:6:p, comp jPanel1:::p::p, space :20:20:p, par l {comp jButtonDrucken:::p::p, comp jButtonSchliessen:::p::p}, space ::14:x}}</string>
+          <string>par l {seq l {space :::p, comp jLabel1:::p::p, space :15:15:p, comp jLabel2:::p::p, space :6:6:p, comp jComboBoxAdresse:::p::p, space :20:20:p, comp jLabel3:::p::p, space :6:6:p, comp jTextFieldBetreff:::p::p, space :10:10:p, comp jLabel5:::p::p, space :6:6:p, comp jTextFieldBezug:::p::p, space :20:20:p, comp jCheckBoxAnrede:::p::p, space :17:17:p, comp jLabel4:::p::p, space :::p, comp jPanel1:::p::p, space s:::p, comp jCheckBoxSchlussformel:::p::p, space :p:19:p, par l {comp jButtonDrucken:::p::p, comp jButtonSchliessen:::p::p}, space ::14:x}}</string>
          </void>
         </object>
         <void property="name">
@@ -189,7 +189,7 @@
            </void>
            <void method="setProperty">
             <string>$verticalGroup</string>
-            <string>par l {comp jScrollPane1::l::160:x}</string>
+            <string>par l {comp jScrollPane1:::p:120:p}</string>
            </void>
           </object>
           <void property="name">
@@ -269,6 +269,18 @@
           </void>
           <void property="name">
            <string>jCheckBoxAnrede</string>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Schlussformel</string>
+          </void>
+          <void property="name">
+           <string>jCheckBoxSchlussformel</string>
           </void>
          </object>
         </void>
