@@ -142,8 +142,8 @@ public class Modulhelferlein {
         "BELGIEN", "FRANKREICH", "IRLAND", "ITALIEN", "NIEDERLANDE", "ÖSTERREICH", "PORTUGAL",
         "BULGARIEN", "DÄNEMARK", "ESTLAND", "FINNLAND", "GRIECHENLAND", "KROATIEN",
         "LETTLAND", "LITAUEN", "LUXEMBURG", "MALTA", "POLEN", "RUMÄNIEN", "SCHWEDEN",
-        "SLOWAKEI", "SLOWENIEN", "SPANIEN", "TSCHECHIEN", "UNGARN", "ZYPERN",
-        "SCHWEIZ",};
+        "SLOWAKEI", "SLOWENIEN", "SPANIEN", "TSCHECHIEN", "UNGARN", "ZYPERN", "GROßBRITANNIEN",
+        "SCHWEIZ"};
     // in ERechnung die Ländercodes ergänzen!
 
     public static String[] SpracheRechnung = {"Rechnung", "Invoice"};
