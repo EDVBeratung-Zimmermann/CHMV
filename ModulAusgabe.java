@@ -14,6 +14,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import java.awt.datatransfer.StringSelection;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Properties;
 import javax.mail.BodyPart;
 import javax.mail.Folder;
@@ -200,6 +204,33 @@ public class ModulAusgabe extends JFrame {
                 new StringSelection(AusgabeTextArea.getText()), null);
     }
 
+    private void thisWindowClosed(WindowEvent e) {
+        // TODO add your code here
+        String message = "Soll die Log-Datei gespeichert werden?";
+        String title = "Wirklich speichern?";
+        // display the JOptionPane showConfirmDialog
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            String Filename = Modulhelferlein.pathSicherung
+                    + "\""
+                    + "\\"
+                    + "miles-verlag.log-"
+                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + ".log";
+            PrintWriter pWriter = null;
+            try {
+                pWriter = new PrintWriter(new BufferedWriter(new FileWriter(Filename)));
+                pWriter.println(AusgabeTextArea.getText());
+            } catch (IOException ioe) {
+                JOptionPane.showMessageDialog(null, ioe.getMessage(), "Achtung Fehler", JOptionPane.WARNING_MESSAGE);
+            } finally {
+                if (pWriter != null) {
+                    pWriter.flush();
+                    pWriter.close();
+                } // if
+            } // finally
+        } // if
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         dialogPane = new JPanel();
@@ -215,6 +246,12 @@ public class ModulAusgabe extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setAutoRequestFocus(false);
         setResizable(false);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                thisWindowClosed(e);
+            }
+        });
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
