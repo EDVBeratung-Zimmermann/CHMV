@@ -290,6 +290,10 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                     } // tbl_benutzer existiert nicht
 
                     PrintWriter pWriter = null;
+                    
+                    ModulAusgabe.main(null);
+                    //ModulAusgabe.ausgabeAdd("Programm ist gestartet");
+                    System.out.println("Programm ist gestartet");
                     try {
                         pWriter = new PrintWriter(new BufferedWriter(new FileWriter(Modulhelferlein.Semaphore)));
                         pWriter.println(Modulhelferlein.CHMVBenutzer);
@@ -1244,14 +1248,13 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        backupDatenbank();
         // semaphore löschen
         File file = new File(Modulhelferlein.Semaphore);
         if (file.exists()) {
             file.delete();
         }
         System.out.println("Semaphore gelöscht");
-        ModulAusgabe.ausgabeSchliessen();
+        backupDatenbank();
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
