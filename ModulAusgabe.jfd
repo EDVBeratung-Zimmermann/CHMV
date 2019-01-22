@@ -34,14 +34,6 @@
         <int>10</int>
        </void>
       </void>
-      <void method="addEvent">
-       <object class="com.jformdesigner.model.FormEvent">
-        <string>java.awt.event.WindowListener</string>
-        <string>windowClosing</string>
-        <string>thisWindowClosing</string>
-        <boolean>true</boolean>
-       </object>
-      </void>
       <void method="add">
        <object class="com.jformdesigner.model.FormContainer" id="FormContainer0">
         <string>javax.swing.JPanel</string>

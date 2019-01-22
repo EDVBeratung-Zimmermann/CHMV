@@ -204,10 +204,7 @@ public class ModulAusgabe extends JFrame {
                 new StringSelection(AusgabeTextArea.getText()), null);
     }
 
-    private void thisWindowClosed(WindowEvent e) {
-    }
-
-    private void thisWindowClosing(WindowEvent e) {
+    public static void AusgabeSchliessen() {
         // TODO add your code here
         // TODO add your code here
         String message = "Soll die Log-Datei gespeichert werden?";
@@ -216,9 +213,8 @@ public class ModulAusgabe extends JFrame {
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
             String Filename = Modulhelferlein.pathSicherung
-                    + "\""
                     + "\\"
-                    + "miles-verlag.log-"
+                    + "miles-verlag-"
                     + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + ".log";
             PrintWriter pWriter = null;
             try {
@@ -251,12 +247,6 @@ public class ModulAusgabe extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setAutoRequestFocus(false);
         setResizable(false);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                thisWindowClosing(e);
-            }
-        });
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
