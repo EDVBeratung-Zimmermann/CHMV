@@ -205,6 +205,10 @@ public class ModulAusgabe extends JFrame {
     }
 
     private void thisWindowClosed(WindowEvent e) {
+    }
+
+    private void thisWindowClosing(WindowEvent e) {
+        // TODO add your code here
         // TODO add your code here
         String message = "Soll die Log-Datei gespeichert werden?";
         String title = "Wirklich speichern?";
@@ -240,6 +244,7 @@ public class ModulAusgabe extends JFrame {
         panel1 = new JPanel();
         button2 = new JButton();
         button3 = new JButton();
+        vSpacer1 = new JPanel(null);
 
         //======== this ========
         setTitle("Carola Hartmann Miles Verlag");
@@ -248,8 +253,8 @@ public class ModulAusgabe extends JFrame {
         setResizable(false);
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosed(WindowEvent e) {
-                thisWindowClosed(e);
+            public void windowClosing(WindowEvent e) {
+                thisWindowClosing(e);
             }
         });
         var contentPane = getContentPane();
@@ -311,6 +316,8 @@ public class ModulAusgabe extends JFrame {
             button3.addActionListener(e -> buttonMailActionPerformed(e));
             panel1.add(button3);
             button3.setBounds(105, 10, 70, button3.getPreferredSize().height);
+            panel1.add(vSpacer1);
+            vSpacer1.setBounds(40, 35, 30, 10);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -340,6 +347,7 @@ public class ModulAusgabe extends JFrame {
     private JPanel panel1;
     private JButton button2;
     private JButton button3;
+    private JPanel vSpacer1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     private PrintStream standardOut;
 }

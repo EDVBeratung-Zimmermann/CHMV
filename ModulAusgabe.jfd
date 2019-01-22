@@ -37,8 +37,8 @@
       <void method="addEvent">
        <object class="com.jformdesigner.model.FormEvent">
         <string>java.awt.event.WindowListener</string>
-        <string>windowClosed</string>
-        <string>thisWindowClosed</string>
+        <string>windowClosing</string>
+        <string>thisWindowClosing</string>
         <boolean>true</boolean>
        </object>
       </void>
@@ -249,6 +249,33 @@
           <void method="setProperty">
            <string>width</string>
            <int>70</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>com.jformdesigner.designer.wrapper.VSpacer</string>
+          <void property="name">
+           <string>vSpacer1</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>40</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>35</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>30</int>
+          </void>
+          <void method="setProperty">
+           <string>height</string>
+           <int>10</int>
           </void>
          </object>
         </void>
