@@ -53,23 +53,6 @@ public class ModulAusgabe extends JFrame {
         System.setErr(printStream);
     }
 
-//    public static void ausgabeClear() {
-//        AusgabeTextArea.setText("");
-//    }
-//    public static void ausgabeAdd(String zeile) {
-    //String hilfString = "";
-    //hilfString = AusgabeTextArea.getText();
-    //hilfString = hilfString + "\\n" + zeile;
-    //AusgabeTextArea.setText(hilfString);
-//        AusgabeTextArea.append(zeile);
-//    }
-//    public static void ausgabeSchliessen() {
-    //this.dispose();
-//    }
-    public static void ausgabeAnzeigen() {
-
-    }
-
     private void buttonMailActionPerformed(ActionEvent e) {
         // TODO add your code here
 
@@ -157,7 +140,6 @@ public class ModulAusgabe extends JFrame {
             //addresses[1] = new InternetAddress(from);            
             //message.setRecipients(Message.RecipientType.TO, addresses);
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.addRecipient(Message.RecipientType.CC, new InternetAddress(from));
 
             // Set Subject: header field
             message.setSubject("Log-Daten vom " + Modulhelferlein.CurDate);
@@ -232,6 +214,7 @@ public class ModulAusgabe extends JFrame {
         setTitle("Carola Hartmann Miles Verlag");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setAutoRequestFocus(false);
+        setResizable(false);
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
@@ -284,13 +267,13 @@ public class ModulAusgabe extends JFrame {
             button2.setText("Copy");
             button2.addActionListener(e -> buttonCopyActionPerformed(e));
             panel1.add(button2);
-            button2.setBounds(20, 20, 70, button2.getPreferredSize().height);
+            button2.setBounds(20, 10, 70, button2.getPreferredSize().height);
 
             //---- button3 ----
             button3.setText("Mail");
             button3.addActionListener(e -> buttonMailActionPerformed(e));
             panel1.add(button3);
-            button3.setBounds(110, 20, 70, button3.getPreferredSize().height);
+            button3.setBounds(105, 10, 70, button3.getPreferredSize().height);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();

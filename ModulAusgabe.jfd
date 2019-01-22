@@ -24,6 +24,10 @@
        <string>autoRequestFocus</string>
        <boolean>false</boolean>
       </void>
+      <void method="setProperty">
+       <string>resizable</string>
+       <boolean>false</boolean>
+      </void>
       <void method="auxiliary">
        <void method="setProperty">
         <string>JavaCodeGenerator.variableModifiers</string>
@@ -197,7 +201,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>20</int>
+           <int>10</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -228,11 +232,11 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>110</int>
+           <int>105</int>
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>20</int>
+           <int>10</int>
           </void>
           <void method="setProperty">
            <string>width</string>
