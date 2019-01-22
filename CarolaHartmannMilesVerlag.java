@@ -90,6 +90,8 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
         Modulhelferlein.dbUrl = Modulhelferlein.dbUrl + ":" + Modulhelferlein.dbPort + "/" + Modulhelferlein.dbName;
 
+        ModulAusgabe.main(null);
+
         Modulhelferlein.pathUserDir = System.getProperty("user.dir");
         System.out.println("UserDir = " + Modulhelferlein.pathUserDir);
 
@@ -226,47 +228,44 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                                 resultKonfiguration = SQLAnfrage.executeQuery("SELECT * FROM tbl_konfiguration");
                                 while (resultKonfiguration.next()) {
                                     Modulhelferlein.pathBenutzer = resultKonfiguration.getString("Konfiguration_Benutzer");
-                                    switch (Modulhelferlein.pathBenutzer) {
-                                        case "Mailkonfiguration":
-                                            // 6. Datensatz Mailkonfiguration
-                                            Modulhelferlein.MailHost = resultKonfiguration.getString("Konfiguration_Stammdaten");
-                                            Modulhelferlein.MailPort = resultKonfiguration.getString("Konfiguration_Einnahmen");
-                                            Modulhelferlein.MailIMAPHost = resultKonfiguration.getString("Konfiguration_Sicherung");
-                                            Modulhelferlein.MailIMAPPort = resultKonfiguration.getString("Konfiguration_Mahnungen");
-                                            Modulhelferlein.MailIMAPGesendet = resultKonfiguration.getString("Konfiguration_Rechnungen");
-                                            Modulhelferlein.MailUser = resultKonfiguration.getString("Konfiguration_Ausgaben");
-                                            Modulhelferlein.MailPass = resultKonfiguration.getString("Konfiguration_Umsaetze");
-                                            break;
-                                        case "Waehrung":
-                                            // 4. Datensatz Konfigurationsdaten für Währungsumrechnung
-                                            Modulhelferlein.USD = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Stammdaten"));
-                                            Modulhelferlein.GBP = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Einnahmen"));
-                                            Modulhelferlein.CHF = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Ausgaben"));
-                                            Modulhelferlein.NOK = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Umsaetze"));
-                                            Modulhelferlein.ILS = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Rechnungen"));
-                                            Modulhelferlein.DKK = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Sicherung"));
-                                            Modulhelferlein.CAD = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Mahnungen"));
-                                            break;
-                                        case "Datensicherung":
-                                            // 5. Datensatz Konfigurationsdaten für onfiguration der  Datensicherung
-                                            Modulhelferlein.pathQuelle = resultKonfiguration.getString("Konfiguration_Stammdaten");
-                                            Modulhelferlein.pathZiel = resultKonfiguration.getString("Konfiguration_Einnahmen");
-                                            break;
-                                        default:
-                                            if (Modulhelferlein.pathBenutzer.equals(Modulhelferlein.CHMVBenutzer)) {
-                                                // 1. Datensatz Konfigurationsdaten für Pfade
-                                                Modulhelferlein.pathBerichte = resultKonfiguration.getString("Konfiguration_Stammdaten");
-                                                Modulhelferlein.pathEinnahmen = resultKonfiguration.getString("Konfiguration_Einnahmen");
-                                                Modulhelferlein.pathAusgaben = resultKonfiguration.getString("Konfiguration_Ausgaben");
-                                                Modulhelferlein.pathUmsaetze = resultKonfiguration.getString("Konfiguration_Umsaetze");
-                                                Modulhelferlein.pathRechnungen = resultKonfiguration.getString("Konfiguration_Rechnungen");
-                                                Modulhelferlein.pathSicherung = resultKonfiguration.getString("Konfiguration_Sicherung");
-                                                Modulhelferlein.pathRezensionen = resultKonfiguration.getString("Konfiguration_Mahnungen");
-                                                Modulhelferlein.pathKonfiguration = resultKonfiguration.getString("Konfiguration_Termine");
-                                                Modulhelferlein.pathBuchprojekte = resultKonfiguration.getString("Konfiguration_Schriftverkehr");
-                                                Modulhelferlein.pathSteuer = resultKonfiguration.getString("Konfiguration_Steuer");
-                                            } // if
-                                    } // switch
+                                    if (Modulhelferlein.pathBenutzer.equals("Mailkonfiguration")) {
+                                        System.out.println("Mailkonfiguration gelesen");
+                                        Modulhelferlein.MailHost = resultKonfiguration.getString("Konfiguration_Stammdaten");
+                                        Modulhelferlein.MailPort = resultKonfiguration.getString("Konfiguration_Einnahmen");
+                                        Modulhelferlein.MailIMAPHost = resultKonfiguration.getString("Konfiguration_Sicherung");
+                                        Modulhelferlein.MailIMAPPort = resultKonfiguration.getString("Konfiguration_Mahnungen");
+                                        Modulhelferlein.MailIMAPGesendet = resultKonfiguration.getString("Konfiguration_Rechnungen");
+                                        Modulhelferlein.MailUser = resultKonfiguration.getString("Konfiguration_Ausgaben");
+                                        Modulhelferlein.MailPass = resultKonfiguration.getString("Konfiguration_Umsaetze");
+                                    }
+                                    if (Modulhelferlein.pathBenutzer.equals("Waehrung")) {
+                                        System.out.println("Währungsdaten gelesen");
+                                        Modulhelferlein.USD = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Stammdaten"));
+                                        Modulhelferlein.GBP = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Einnahmen"));
+                                        Modulhelferlein.CHF = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Ausgaben"));
+                                        Modulhelferlein.NOK = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Umsaetze"));
+                                        Modulhelferlein.ILS = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Rechnungen"));
+                                        Modulhelferlein.DKK = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Sicherung"));
+                                        Modulhelferlein.CAD = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Mahnungen"));
+                                    }
+                                    if (Modulhelferlein.pathBenutzer.equals("Datensicherung")) {
+                                        System.out.println("Konfiguration Datensicherung gelesen");
+                                        Modulhelferlein.pathQuelle = resultKonfiguration.getString("Konfiguration_Stammdaten");
+                                        Modulhelferlein.pathZiel = resultKonfiguration.getString("Konfiguration_Einnahmen");
+                                    }
+                                    if (Modulhelferlein.pathBenutzer.equals(Modulhelferlein.CHMVBenutzer)) {
+                                        System.out.println("Benutzerkonfiguration gelesen");
+                                        Modulhelferlein.pathBerichte = resultKonfiguration.getString("Konfiguration_Stammdaten");
+                                        Modulhelferlein.pathEinnahmen = resultKonfiguration.getString("Konfiguration_Einnahmen");
+                                        Modulhelferlein.pathAusgaben = resultKonfiguration.getString("Konfiguration_Ausgaben");
+                                        Modulhelferlein.pathUmsaetze = resultKonfiguration.getString("Konfiguration_Umsaetze");
+                                        Modulhelferlein.pathRechnungen = resultKonfiguration.getString("Konfiguration_Rechnungen");
+                                        Modulhelferlein.pathSicherung = resultKonfiguration.getString("Konfiguration_Sicherung");
+                                        Modulhelferlein.pathRezensionen = resultKonfiguration.getString("Konfiguration_Mahnungen");
+                                        Modulhelferlein.pathKonfiguration = resultKonfiguration.getString("Konfiguration_Termine");
+                                        Modulhelferlein.pathBuchprojekte = resultKonfiguration.getString("Konfiguration_Schriftverkehr");
+                                        Modulhelferlein.pathSteuer = resultKonfiguration.getString("Konfiguration_Steuer");
+                                    } // if
                                 } // while
                             } // if
                         } else { // tbl_konfiguration existiert nicht
@@ -290,9 +289,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                     } // tbl_benutzer existiert nicht
 
                     PrintWriter pWriter = null;
-                    
-                    ModulAusgabe.main(null);
-                    //ModulAusgabe.ausgabeAdd("Programm ist gestartet");
+
                     System.out.println("Programm ist gestartet");
                     try {
                         pWriter = new PrintWriter(new BufferedWriter(new FileWriter(Modulhelferlein.Semaphore)));
@@ -1255,6 +1252,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         }
         System.out.println("Semaphore gelöscht");
         backupDatenbank();
+        ModulAusgabe.AusgabeSchliessen();
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
