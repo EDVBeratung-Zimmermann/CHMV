@@ -715,25 +715,7 @@ public class Modulhelferlein {
         String Ausgabe = "";
         Ausgabe = "<html>" + Meldung1 + "<br>" + Meldung2 + "<br>" + Meldung3 + "</html>";
         JOptionPane.showMessageDialog(null, Ausgabe, "Achtung Fehler", JOptionPane.WARNING_MESSAGE);
-//        String Zeile = "";
-//        String hAusgabe[] = Meldung.split(" ");
-//        Integer i = 0;
-//
-//        if (Meldung.length() > 60) {
-//            Ausgabe = "<html>";
-//            for (i = 0; i<hAusgabe.length; i++) {
-//                if (Zeile.length() + hAusgabe[i].length() < 60) {
-//                    Zeile = Zeile + hAusgabe[i] + " ";
-//                } else {
-//                    Ausgabe = Ausgabe + Zeile + "<br>" + hAusgabe[i];
-//                    Zeile = "";
-//                }
-//            }
-//            Ausgabe = Ausgabe + "</html>";
-//            JOptionPane.showMessageDialog(null, Ausgabe, "Achtung Fehler", JOptionPane.WARNING_MESSAGE);
-//        } else {
-//            JOptionPane.showMessageDialog(null, Meldung, "Achtung Fehler", JOptionPane.WARNING_MESSAGE);
-//        }
+        System.out.println(Ausgabe);
     }
 
     /**
@@ -768,27 +750,7 @@ public class Modulhelferlein {
         String Ausgabe = "";
         Ausgabe = "<html>" + Meldung1 + "<br>" + Meldung2 + "<br>" + Meldung3 + "</html>";
         JOptionPane.showMessageDialog(null, Ausgabe, "Information", JOptionPane.INFORMATION_MESSAGE);
-        //    String Zeile = "";
-        //    String hAusgabe[] = Meldung.split(" ");
-        //    Integer i = 0;
-
-        //    if (Meldung.length() > 60) {
-        //        Ausgabe = "<html>";
-        //        while (i < hAusgabe.length) {
-        //            //JOptionPane.showMessageDialog(null, hAusgabe[i] + " - " + Zeile, "Information", JOptionPane.INFORMATION_MESSAGE);
-        //            if (Zeile.length() + hAusgabe[i].length() < 60) {
-        //                Zeile = Zeile + hAusgabe[i] + " ";
-        //            } else {
-        //                Ausgabe = Ausgabe + Zeile + "<br>" + hAusgabe[i];
-        //                Zeile = "";
-        //            }
-        //            i = i + 1;
-        //        }
-        //        Ausgabe = Ausgabe + "</html>";
-        //        JOptionPane.showMessageDialog(null, Ausgabe, "Information", JOptionPane.INFORMATION_MESSAGE);
-        //    } else {
-        //        JOptionPane.showMessageDialog(null, Meldung, "Information", JOptionPane.INFORMATION_MESSAGE);
-        //    }
+        System.out.println(Ausgabe);
     }
 
     /**
