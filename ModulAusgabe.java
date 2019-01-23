@@ -57,6 +57,7 @@ public class ModulAusgabe extends JFrame {
         System.setErr(printStream);
     }
 
+    
     private void buttonMailActionPerformed(ActionEvent e) {
         // TODO add your code here
 
@@ -204,6 +205,10 @@ public class ModulAusgabe extends JFrame {
                 new StringSelection(AusgabeTextArea.getText()), null);
     }
 
+    public static void AusgabeHintegrund() {
+       
+    }
+    
     public static void AusgabeSchliessen() {
         // TODO add your code here
         // TODO add your code here
@@ -247,6 +252,7 @@ public class ModulAusgabe extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setAutoRequestFocus(false);
         setResizable(false);
+        setUndecorated(true);
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
@@ -325,7 +331,6 @@ public class ModulAusgabe extends JFrame {
         }
         contentPane.add(panel1, BorderLayout.CENTER);
         pack();
-        setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
