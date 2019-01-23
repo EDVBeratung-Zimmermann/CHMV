@@ -24,6 +24,13 @@
        <string>resizable</string>
        <boolean>false</boolean>
       </void>
+      <void method="setProperty">
+       <string>iconImage</string>
+       <object class="com.jformdesigner.model.SwingIcon">
+        <int>0</int>
+        <string>/milesVerlagMain/CarolaHartmannMilesVerlag.jpg</string>
+       </object>
+      </void>
       <void method="addEvent">
        <object class="com.jformdesigner.model.FormEvent">
         <string>java.awt.event.WindowListener</string>

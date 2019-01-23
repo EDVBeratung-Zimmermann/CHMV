@@ -197,19 +197,17 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                             result.insertRow();
                             System.err.println("Benutzer ist " + Modulhelferlein.CHMVBenutzer);
                         } else {
-                            Modulhelferlein.CHMVBenutzer = (String) JOptionPane.showInputDialog(null,
+                            Modulhelferlein.CHMVBenutzer = (String) JOptionPane.showInputDialog(
+                                    null,
                                     "Wer ist der Benutzer?",
                                     "Benutzerauswahl",
-                                    JOptionPane.QUESTION_MESSAGE,
+                                    JOptionPane.QUESTION_MESSAGE ,
                                     null,
                                     BenutzerOption,
                                     BenutzerOption[0]);
-
-//                        BenutzerZahl = JOptionPane.showOptionDialog(null, "Wer ist der Benutzer?", "Benutzerauswahl",
-//                                JOptionPane.DEFAULT_OPTION,
-//                                JOptionPane.QUESTION_MESSAGE, null,
-//                                BenutzerOption, null);
-//                        Modulhelferlein.CHMVBenutzer = BenutzerOption[BenutzerZahl];
+                            if (Modulhelferlein.CHMVBenutzer == null) {
+                                Modulhelferlein.CHMVBenutzer = BenutzerOption[0];
+                            }
                         } //
                         resultKonfiguration = SQLAnfrageKonfiguration.executeQuery("SHOW TABLES LIKE 'tbl_konfiguration'");
 
@@ -413,6 +411,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
+        setIconImage(new ImageIcon(getClass().getResource("/milesVerlagMain/CarolaHartmannMilesVerlag.jpg")).getImage());
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
