@@ -36,6 +36,13 @@
        <string>$locationPolicy</string>
        <int>2</int>
       </void>
+      <void method="setProperty">
+       <string>iconImage</string>
+       <object class="com.jformdesigner.model.SwingIcon">
+        <int>0</int>
+        <string>/milesVerlagMain/CarolaHartmannMilesVerlag.jpg</string>
+       </object>
+      </void>
       <void method="auxiliary">
        <void method="setProperty">
         <string>JavaCodeGenerator.variableModifiers</string>

@@ -18,7 +18,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -35,29 +38,46 @@ import javax.mail.internet.MimeMultipart;
 
 /**
  * @author Thomas Zimmermann
+ *
+ * Erstellt ein Ausgabefenster f¸r Debug-Informationen. Der Fensterinhalt kann
+ * wahlweise in die Zwischenablage kopiert oder Mail versendet werden.
  */
 public class ModulAusgabe extends JFrame {
 
+    /**
+     *
+     * @param args sind null
+     *
+     * Erzeugt ein neues Ausgabefenster
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new ModulAusgabe().setVisible(true);
         });
     }
 
+    /**
+     * Generiert das Ausgabefenster
+     */
     public ModulAusgabe() {
         super("Carola Hartmann Miles Verlag");
         initComponents();
-        PrintStream printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea));
+        //PrintStream printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea));
+        PrintStream printStream;
+        try {
+            printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea), true, "UTF-8");
+            // keeps reference of standard output stream
+            standardOut = System.out;
 
-        // keeps reference of standard output stream
-        standardOut = System.out;
+            // re-assigns standard output stream and error output stream
+            System.setOut(printStream);
+            System.setErr(printStream);
+        } catch (UnsupportedEncodingException ex) {
+            Modulhelferlein.Fehlermeldung("Modul Ausgabe", "UnsupportedEncodingException", ex.getMessage());
+        }
 
-        // re-assigns standard output stream and error output stream
-        System.setOut(printStream);
-        System.setErr(printStream);
     }
 
-    
     private void buttonMailActionPerformed(ActionEvent e) {
         // TODO add your code here
 
@@ -205,10 +225,9 @@ public class ModulAusgabe extends JFrame {
                 new StringSelection(AusgabeTextArea.getText()), null);
     }
 
-    public static void AusgabeHintegrund() {
-       
-    }
-    
+    /**
+     * Schlieﬂt das Ausgabefenster und speichert ggf. die Log-Datei
+     */
     public static void AusgabeSchliessen() {
         // TODO add your code here
         // TODO add your code here
@@ -253,6 +272,7 @@ public class ModulAusgabe extends JFrame {
         setAutoRequestFocus(false);
         setResizable(false);
         setUndecorated(true);
+        setIconImage(new ImageIcon(getClass().getResource("/milesVerlagMain/CarolaHartmannMilesVerlag.jpg")).getImage());
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
