@@ -3066,6 +3066,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             args[2] = "2";
         } else if (rbBeleg.isSelected()) {
             args[2] = "3";
+        } else if (rbRemittende.isSelected()) {
+            args[2] = "5";
         } else {
             args[2] = "4";
         }
