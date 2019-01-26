@@ -79,6 +79,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         buttonGroupTyp.add(rbRezension);
         buttonGroupTyp.add(rbGeschenk);
         buttonGroupTyp.add(rbBeleg);
+        buttonGroupTyp.add(rbRemittende);
 
         buttonGroupAdresse.add(KDB);
         buttonGroupAdresse.add(manuell);
@@ -972,7 +973,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             rbRezension.setText("Rezensionsexemplar");
             rbRezension.addActionListener(e -> rbRezensionActionPerformed(e));
             panel1.add(rbRezension);
-            rbRezension.setBounds(455, 197, 278, 25);
+            rbRezension.setBounds(455, 200, 278, 25);
 
             //---- field_Bezahldatum ----
             field_Bezahldatum.setPreferredSize(new Dimension(120, 25));
@@ -994,7 +995,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             rbPflicht.setText("Pflichtexemplar");
             rbPflicht.addActionListener(e -> rbPflichtActionPerformed(e));
             panel1.add(rbPflicht);
-            rbPflicht.setBounds(455, 216, 278, 25);
+            rbPflicht.setBounds(455, 222, 278, 25);
 
             //---- jLabel9 ----
             jLabel9.setText("Zeile 3");
@@ -1011,7 +1012,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             rbGeschenk.setText("Geschenk");
             rbGeschenk.addActionListener(e -> rbGeschenkActionPerformed(e));
             panel1.add(rbGeschenk);
-            rbGeschenk.setBounds(455, 236, 278, 25);
+            rbGeschenk.setBounds(455, 244, 278, 25);
 
             //---- field_storniert ----
             field_storniert.setText("storniert");
@@ -1033,7 +1034,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             rbBeleg.setText("Belegexemplar");
             rbBeleg.addActionListener(e -> rbBelegActionPerformed(e));
             panel1.add(rbBeleg);
-            rbBeleg.setBounds(455, 256, 278, 25);
+            rbBeleg.setBounds(455, 266, 278, 25);
 
             //---- jLabel12 ----
             jLabel12.setText("PLZ, Ort");
@@ -1373,7 +1374,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             rbRemittende.setText("Remittende");
             rbRemittende.addActionListener(e -> rbRemittendeActionPerformed(e));
             panel1.add(rbRemittende);
-            rbRemittende.setBounds(455, 276, 235, rbRemittende.getPreferredSize().height);
+            rbRemittende.setBounds(455, 288, 235, rbRemittende.getPreferredSize().height);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();

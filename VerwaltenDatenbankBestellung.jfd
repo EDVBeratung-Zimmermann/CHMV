@@ -1339,7 +1339,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>197</int>
+           <int>200</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -1486,7 +1486,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>216</int>
+           <int>222</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -1603,7 +1603,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>236</int>
+           <int>244</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -1751,7 +1751,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>256</int>
+           <int>266</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -3807,7 +3807,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>276</int>
+           <int>288</int>
           </void>
           <void method="setProperty">
            <string>width</string>
