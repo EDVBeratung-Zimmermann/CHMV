@@ -1907,7 +1907,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                         resultB.updateInt("BESTELLUNG_TYP", 3);
                     } else if (rbRemittende.isSelected()) {
                         resultB.updateInt("BESTELLUNG_TYP", 5);
-                    } else {
+                    } else { // rbGeschenk
                         resultB.updateInt("BESTELLUNG_TYP", 4);
                     }
                     if (field_Land.isSelected()) { // Ausland
