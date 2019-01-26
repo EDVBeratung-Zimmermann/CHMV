@@ -874,6 +874,9 @@ public class berUmsatz {
 
 // Bemerkungsfeld bestimmen
                         switch (resultBestellung.getInt("BESTELLUNG_TYP")) {
+                            case 5:
+                                Bemerkung = "Ersatzexemplar/Remittende";
+                                break;
                             case 4:
                                 Bemerkung = "Belegexemplar";
                                 break;
