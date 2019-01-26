@@ -90,6 +90,7 @@ public class _DlgBrief extends javax.swing.JDialog {
                             + resultK.getString("ADRESSEN_Vorname");
                     jComboBoxAdresse.addItem(eintrag);
                 } // while
+                System.out.println("Adressen eingelesen");
             } catch (SQLException exept) {
                 Modulhelferlein.Fehlermeldung("DB-Bestellung", "Verbindung nicht moeglich: ", exept.getMessage());
             } // try Verbindung zur Datenbank über die JDBC-Brücke
@@ -278,6 +279,7 @@ public class _DlgBrief extends javax.swing.JDialog {
             Modulhelferlein.Infomeldung("Sie haben keine Adresse gewählt!");
         } else {
             try {
+                System.out.println("Adresse: " + Adresse[0]);
                 resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE "
                         + "WHERE ADRESSEN_ID = '" + Adresse[0] + "'");
                 resultK.next();
@@ -323,18 +325,22 @@ public class _DlgBrief extends javax.swing.JDialog {
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEV0DEBB");
+                System.out.println("Fußzeile geschrieben");
 
 // Faltmarke, Lochmarke, Faltmarke
                 Linie(cos, 1, 0, 595, 15, 595);
                 Linie(cos, 1, 0, 415, 25, 415);
                 Linie(cos, 1, 0, 285, 15, 285);
+                System.out.println("Faltmarken geschrieben");
 
 // Absenderzeile
                 Linie(cos, 1, 50, 749, 297, 749);
                 Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - George Cayley Straße 38 - 14089 Berlin"));
-
+                System.out.println("Absender geschrieben");
+                
 // Datum
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                System.out.println("Datum geschrieben");
 
 // Adresse
                 String[] AdressZeile = {"", "", "", "", "", "", ""};
@@ -361,6 +367,7 @@ public class _DlgBrief extends javax.swing.JDialog {
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
+                System.out.println("Adresse geschrieben");
 
 // Dateiname
                 String outputFileName = Modulhelferlein.pathBerichte + "/"
@@ -373,13 +380,16 @@ public class _DlgBrief extends javax.swing.JDialog {
 
 // Betreff
                 Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, jTextFieldBetreff.getText());
-
+                System.out.println("Betreff geschrieben");
+                
 // Bezug
                 Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 555, jTextFieldBezug.getText());
+                System.out.println("Bezug geschrieben");
 
 // Anrede
                 if (jCheckBoxAnrede.isSelected()) {
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 515, Modulhelferlein.makeAnrede(resultK.getString("ADRESSEN_ANREDE"), resultK.getString("ADRESSEN_NAMENSZUSATZ"), resultK.getString("ADRESSEN_NAME")) + ",");
+                    System.out.println("Anrede geschrieben");
                 }
 
 // Text
@@ -418,20 +428,22 @@ public class _DlgBrief extends javax.swing.JDialog {
                     i = i + 1;
                     ZeilenNr = ZeilenNr + 1;
                 }
+                System.out.println("Text geschrieben");
 
 // Schlussformel
                 if (jCheckBoxSchlussformel.isSelected()) {
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 5), Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
+                    System.out.println("Schlussformel geschrieben");
                 }
-
+                
 // Make sure that the content stream is closed:
 //helferlein.Infomeldung(outputFileName);                    
                 cos.close();
                 document.save(outputFileName);
                 document.close();
-
+                System.out.println("Brief gespeichert unter " + outputFileName);
                 Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\""); // try Brief ausgeben
 
                 String[] argumente = {AdressZeile[1], AdressZeile[2], AdressZeile[3], AdressZeile[4], AdressZeile[5], AdressZeile[6]};
