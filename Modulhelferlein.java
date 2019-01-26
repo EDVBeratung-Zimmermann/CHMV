@@ -149,8 +149,9 @@ public class Modulhelferlein {
     public static String[] SpracheRechnung = {"Rechnung", "Invoice"};
     public static String[] SpracheMahnung = {"Mahnung", "Reminder"};
     public static String[] SpracheGeschenk = {"Geschenk", "Gift"};
-    public static String[] SpracheRezensionsexemplar = {"Rezensionsexemplar", ""};
-    public static String[] SpracheBelegexemplar = {"Belegexemplar", "author's copy"};
+    public static String[] SpracheRezensionsexemplar = {"Rezensionsexemplar", "For Review"};
+    public static String[] SpracheRemittende = {"Remittende", "Replacement"};
+    public static String[] SpracheBelegexemplar = {"Belegexemplar", "Author's copy"};
     public static String[] SprachePflichtexempar = {"Pflichtexemplar", ""};
     public static String[] SpracheRechnungsnummer = {"Rechnungsnummer", "Invoice No."};
     public static String[] SpracheRechnungsdatum = {"Rechnungsdatum", "Date of Invoice"};
