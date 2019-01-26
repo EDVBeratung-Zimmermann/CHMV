@@ -18,7 +18,11 @@ import javax.swing.JTextArea;
 public class CustomOutputStream extends OutputStream {
 	private JTextArea textArea;
 
-	public CustomOutputStream(JTextArea textArea) {
+    /**
+     *
+     * @param textArea  Textarea, in den der Outputstream schreibt.
+     */
+    public CustomOutputStream(JTextArea textArea) {
 		this.textArea = textArea;
 	}
 
