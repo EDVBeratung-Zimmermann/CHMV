@@ -113,7 +113,7 @@ public class berEinnahmen {
             WritableSheet sheet_VGWort = workbook.createSheet("VG Wort", 4);
             WritableSheet sheet_MargeBOD = workbook.createSheet("Margenabrechnung BOD", 5);
             WritableSheet sheet_Sonstig = workbook.createSheet("Sonstiges", 6);
-            
+
             // A3 = 0, 2
             // D5 = 3, 4
             // Number number = new Number(3, 4, 3.1459);
@@ -157,13 +157,13 @@ public class berEinnahmen {
                 try { // Datenbank-Treiber laden
                     Class.forName(Modulhelferlein.dbDriver);
                 } catch (ClassNotFoundException exept) {
-                    Modulhelferlein.Fehlermeldung("Bericht Einnahmen","ClassNotFoundException: Treiber nicht gefunden: " , exept.getMessage());
+                    Modulhelferlein.Fehlermeldung("Bericht Einnahmen", "ClassNotFoundException: Treiber nicht gefunden: ", exept.getMessage());
                 } // try Datenbank-Treiber laden
 
                 try { // Verbindung zur Datenbank über die JDBC-Brücke
                     conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("Bericht Einnahmen","SQL-Exception: Verbindung nicht moeglich: " , exept.getMessage());
+                    Modulhelferlein.Fehlermeldung("Bericht Einnahmen", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
                 } // try Verbindung zur Datenbank über die JDBC-Brücke
 
                 final Connection conn2 = conn;
@@ -202,8 +202,8 @@ public class berEinnahmen {
 
                         String Sql = "SELECT * FROM TBL_BESTELLUNG";
                         if (Umfang) {
-                            Sql = Sql + " WHERE BESTELLUNG_RECHDAT BETWEEN '" + strVon + "'  AND '" + strBis + "'" 
-                                      + " OR BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "'";
+                            Sql = Sql + " WHERE BESTELLUNG_RECHDAT BETWEEN '" + strVon + "'  AND '" + strBis + "'"
+                                    + " OR BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "'";
                         } else {
                             Sql = Sql + " WHERE BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "'";
                         }
@@ -224,6 +224,9 @@ public class berEinnahmen {
 
                             // Bemerkungsfeld bestimmen
                             switch (resultBestellung.getInt("BESTELLUNG_TYP")) {
+                                case 5:
+                                    Bemerkung = "Ersatzexemplar/Remittende";
+                                    break;
                                 case 4:
                                     Bemerkung = "Belegexemplar";
                                     break;
@@ -256,7 +259,7 @@ public class berEinnahmen {
                             }
                             if (resultBestellung.getBoolean("BESTELLUNG_STORNIERT")) {
                                 Bemerkung = "storniert";
-                            }    
+                            }
                             // Buchdaten holen aus BESTELLUNG_DETAILS
                             resultBestellungDetails = SQLBestellungDetails.executeQuery("SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + resultBestellung.getString("BESTELLUNG_RECHNR") + "'");
 
@@ -278,7 +281,7 @@ public class berEinnahmen {
                                     Buchpreis = (double) resultBuch.getFloat("BUCH_PREIS");
                                     Gesamt7 = Gesamt7 + Anzahl * Buchpreis / 100 * (100 - Rabatt);
                                 }
-                                
+
                                 // Gesamtzeile berechnen
                                 Gesamtzeile = Gesamtzeile + Anzahl * Buchpreis / 100 * (100 - Rabatt);
                             } // while bestellung details
@@ -334,7 +337,7 @@ public class berEinnahmen {
                         sheet_Buecher.addCell(label);
                         label = new Label(3, zeile, Modulhelferlein.str2dec(Gesamtsumme), arial10formatBold);
                         sheet_Buecher.addCell(label);
-                            
+
                         Gesamteinnahmen = Gesamteinnahmen + Gesamtsumme;
                         label = new Label(3, 2, Modulhelferlein.str2dec(Gesamtsumme), arial10formatR);
                         sheet_Uebersicht.addCell(label);
@@ -538,7 +541,7 @@ public class berEinnahmen {
                         label = new Label(3, 5, Modulhelferlein.str2dec(Gesamtsumme), arial10formatR);
                         sheet_Uebersicht.addCell(label);
 
-                       // Aufbau des Tabellenblattes sheet_Sonstig
+                        // Aufbau des Tabellenblattes sheet_Sonstig
 //helferlein.Infomeldung("sheet sonstiges");
                         label = new Label(0, 0, "Sonstige Einnahmen", arial14formatBold);
                         sheet_Sonstig.addCell(label);
@@ -596,7 +599,7 @@ public class berEinnahmen {
                         label = new Label(3, 6, Modulhelferlein.str2dec(Gesamtsumme), arial10formatR);
                         sheet_Uebersicht.addCell(label);
 
-                       // Aufbau des Tabellenblattes sheet_Kunde
+                        // Aufbau des Tabellenblattes sheet_Kunde
 //helferlein.Infomeldung("sheet sonstiges");
                         label = new Label(0, 0, "Einnahmen aus Kundenbestellungen", arial14formatBold);
                         sheet_Kunde.addCell(label);
@@ -621,7 +624,7 @@ public class berEinnahmen {
                         while (resultBestellung.next()) { // geht durch alle zeilen
                             Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
                             einKunde = einKunde + Gesamtzeile;
-                            
+
                             // Ausgabe RechNr, Kunde, Betrag
                             label = new Label(0, zeile, SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")), arial10formatL);
                             sheet_Kunde.addCell(label);
@@ -664,19 +667,19 @@ public class berEinnahmen {
                         try {// workbook write
                             workbook.write();
                         } catch (IOException e) {
-                            Modulhelferlein.Fehlermeldung("XLS-Bericht Einnahmen: IO-Exception: " , e.getMessage());
+                            Modulhelferlein.Fehlermeldung("XLS-Bericht Einnahmen: IO-Exception: ", e.getMessage());
                         } // workbook write
 
                         try { // try workbook close
                             workbook.close();
                         } catch (IOException e) {
-                            Modulhelferlein.Fehlermeldung("XLS-Bericht: IO-Exception: " , e.getMessage());
+                            Modulhelferlein.Fehlermeldung("XLS-Bericht: IO-Exception: ", e.getMessage());
                         } // try workbook close
 
                         try { // try XLS anzeigen
                             Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                         } catch (IOException exept) {
-                            Modulhelferlein.Fehlermeldung("Bericht Einnahmen","Anzeige XLS-Export: Exception: " , exept.getMessage());
+                            Modulhelferlein.Fehlermeldung("Bericht Einnahmen", "Anzeige XLS-Export: Exception: ", exept.getMessage());
                         } // try XLS anzeigen
 
                         if (SQLBuch != null) {
@@ -711,17 +714,17 @@ public class berEinnahmen {
                         }
 
                     } catch (SQLException exept) {
-                        Modulhelferlein.Fehlermeldung("Bericht Einnahmen","XLS-Export: SQL-Exception: SQL-Anfrage nicht moeglich: " , exept.getMessage());
+                        Modulhelferlein.Fehlermeldung("Bericht Einnahmen", "XLS-Export: SQL-Exception: SQL-Anfrage nicht moeglich: ", exept.getMessage());
 
                     } // try Datenbankabfrage
                 } // Datenbankverbindung steht
 
             } catch (WriteException e) {
-                Modulhelferlein.Fehlermeldung("Bericht Einnahmen","XLS-Bericht: Write-Exception: " , e.getMessage());
+                Modulhelferlein.Fehlermeldung("Bericht Einnahmen", "XLS-Bericht: Write-Exception: ", e.getMessage());
             } // try Tabellenblätter schreiben
 
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("Bericht Einnahmen","XLS-Bericht: IO-Exception: " , e.getMessage());
+            Modulhelferlein.Fehlermeldung("Bericht Einnahmen", "XLS-Bericht: IO-Exception: ", e.getMessage());
         } // try Workbook create
 
         Modulhelferlein.Infomeldung("Liste der Einnahmen ist als XLS gespeichert!");
@@ -824,13 +827,13 @@ public class berEinnahmen {
             try { // Datenbank-Treiber laden
                 Class.forName(Modulhelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Einnahmen","ClassNotFoundException: Treiber nicht gefunden: " , exept.getMessage());
+                Modulhelferlein.Fehlermeldung("Bericht Einnahmen", "ClassNotFoundException: Treiber nicht gefunden: ", exept.getMessage());
             } // try Datenbank-Treiber laden
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
                 conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Einnahmen","SQL-Exception: Verbindung nicht moeglich: " , exept.getMessage());
+                Modulhelferlein.Fehlermeldung("Bericht Einnahmen", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
             } // try Verbindung zur Datenbank über die JDBC-Brücke
 
             final Connection conn2 = conn;
@@ -850,8 +853,8 @@ public class berEinnahmen {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 550, 740, "Bemerkung");
 
-                    Linie(cos,1,56, 735, 539, 735);
-                    
+                    Linie(cos, 1, 56, 735, 539, 735);
+
                     SQLBuch = conn2.createStatement();
                     SQLKunde = conn2.createStatement();
                     SQLBestellung = conn2.createStatement();
@@ -860,7 +863,7 @@ public class berEinnahmen {
                     String Sql = "SELECT * FROM TBL_BESTELLUNG";
                     if (Umfang) {
                         Sql = Sql + " WHERE BESTELLUNG_RECHDAT BETWEEN '" + strVon + "'  AND '" + strBis + "'"
-                                  + " OR BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "' AND '" + strBis + "'";
+                                + " OR BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "' AND '" + strBis + "'";
                     } else {
                         Sql = Sql + " WHERE BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "'";
                     }
@@ -887,14 +890,14 @@ public class berEinnahmen {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 550, 740, "Bemerkung");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                            
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         // Kundendaten holen
                         String strKunde = "";
                         String strLand = "";
-                        
+
                         if (resultBestellung.getInt("BESTELLUNG_KUNDE") > 0) {
                             resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
                             resultKunde.next();
@@ -905,33 +908,33 @@ public class berEinnahmen {
                             strLand = resultBestellung.getString("BESTELLUNG_ZEILE_6");
                         }
 
-                            // Buchdaten holen aus BESTELLUNG_DETAILS
-                            resultBestellungDetails = SQLBestellungDetails.executeQuery("SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + resultBestellung.getString("BESTELLUNG_RECHNR") + "'");
+                        // Buchdaten holen aus BESTELLUNG_DETAILS
+                        resultBestellungDetails = SQLBestellungDetails.executeQuery("SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + resultBestellung.getString("BESTELLUNG_RECHNR") + "'");
 
-                            Gesamtzeile = 0D;
-                            Gesamt19 = 0D;
-                            Gesamt7 = 0D;
+                        Gesamtzeile = 0D;
+                        Gesamt19 = 0D;
+                        Gesamt7 = 0D;
 
-                            while (resultBestellungDetails.next()) {
-                                resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID = '" + resultBestellungDetails.getString("BESTELLUNG_DETAIL_BUCH") + "'");
-                                resultBuch.next();
-                                if (resultBestellungDetails.getBoolean("BESTELLUNG_DETAIL_SONST")) {
-                                    Anzahl = 1;
-                                    Rabatt = 0;
-                                    Buchpreis = (double) resultBestellungDetails.getFloat("BESTELLUNG_DETAIL_SONST_PREIS");
-                                    Gesamt19 = Gesamt19 + Anzahl * Buchpreis / 100 * (100 - Rabatt);
-                                } else {
-                                    Anzahl = resultBestellungDetails.getInt("BESTELLUNG_DETAIL_ANZAHL");
-                                    Rabatt = resultBestellungDetails.getInt("BESTELLUNG_DETAIL_RABATT");
-                                    Buchpreis = (double) resultBuch.getFloat("BUCH_PREIS");
-                                    Gesamt7 = Gesamt7 + Anzahl * Buchpreis / 100 * (100 - Rabatt);
-                                }
-                                
-                                // Gesamtzeile berechnen
-                                Gesamtzeile = Gesamtzeile + Anzahl * Buchpreis / 100 * (100 - Rabatt);
-                            } // while bestellung details
-                            
-                            // Abzug der Umsatzsteuer bei Drittland etc.
+                        while (resultBestellungDetails.next()) {
+                            resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID = '" + resultBestellungDetails.getString("BESTELLUNG_DETAIL_BUCH") + "'");
+                            resultBuch.next();
+                            if (resultBestellungDetails.getBoolean("BESTELLUNG_DETAIL_SONST")) {
+                                Anzahl = 1;
+                                Rabatt = 0;
+                                Buchpreis = (double) resultBestellungDetails.getFloat("BESTELLUNG_DETAIL_SONST_PREIS");
+                                Gesamt19 = Gesamt19 + Anzahl * Buchpreis / 100 * (100 - Rabatt);
+                            } else {
+                                Anzahl = resultBestellungDetails.getInt("BESTELLUNG_DETAIL_ANZAHL");
+                                Rabatt = resultBestellungDetails.getInt("BESTELLUNG_DETAIL_RABATT");
+                                Buchpreis = (double) resultBuch.getFloat("BUCH_PREIS");
+                                Gesamt7 = Gesamt7 + Anzahl * Buchpreis / 100 * (100 - Rabatt);
+                            }
+
+                            // Gesamtzeile berechnen
+                            Gesamtzeile = Gesamtzeile + Anzahl * Buchpreis / 100 * (100 - Rabatt);
+                        } // while bestellung details
+
+                        // Abzug der Umsatzsteuer bei Drittland etc.
 //                            switch (resultBestellung.getInt("BESTELLUNG_LAND")) {
 //                                case 20 : Gesamtzeile = Gesamtzeile / 107 * 100;
 //                                    break;
@@ -946,11 +949,11 @@ public class berEinnahmen {
 //                                          }
 //                                    break;
 //                            }
-                            // Versandkosten addieren
-                            Gesamtzeile = Gesamtzeile + resultBestellung.getFloat("BESTELLUNG_VERSAND") * 1D;
+                        // Versandkosten addieren
+                        Gesamtzeile = Gesamtzeile + resultBestellung.getFloat("BESTELLUNG_VERSAND") * 1D;
 
-                            // Gesamtsumme berechnen
-                            Gesamtsumme = Gesamtsumme + Gesamtzeile;
+                        // Gesamtsumme berechnen
+                        Gesamtsumme = Gesamtsumme + Gesamtzeile;
 
                         // Ausgabe RechNr, Kunde, Betrag    
                         Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("BESTELLUNG_DATUM")));
@@ -968,7 +971,7 @@ public class berEinnahmen {
                         zeile = zeile + 1;
                     } // while bestellungen
 
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
                     zeile = zeile + 1;
                     Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -993,8 +996,8 @@ public class berEinnahmen {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                    Linie(cos,1,56, 735, 539, 735);
-                    
+                    Linie(cos, 1, 56, 735, 539, 735);
+
                     if (Umfang) {
                         Sql = "SELECT * FROM TBL_EINNAHMEN"
                                 + " WHERE (EINNAHMEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "'"
@@ -1026,8 +1029,8 @@ public class berEinnahmen {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                            
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
@@ -1046,7 +1049,7 @@ public class berEinnahmen {
                         zeile = zeile + 1;
                     } // while
 
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1070,8 +1073,8 @@ public class berEinnahmen {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                    Linie(cos,1,56, 735, 539, 735);
-                    
+                    Linie(cos, 1, 56, 735, 539, 735);
+
                     if (Umfang) {
                         Sql = "SELECT * FROM TBL_EINNAHMEN"
                                 + " WHERE (EINNAHMEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "'"
@@ -1103,8 +1106,8 @@ public class berEinnahmen {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                            
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
@@ -1123,8 +1126,8 @@ public class berEinnahmen {
                         zeile = zeile + 1;
                     } // while
 
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1149,8 +1152,8 @@ public class berEinnahmen {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                    Linie(cos,1,56, 735, 539, 735);
-                    
+                    Linie(cos, 1, 56, 735, 539, 735);
+
                     if (Umfang) {
                         Sql = "SELECT * FROM TBL_EINNAHMEN"
                                 + " WHERE (EINNAHMEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "'"
@@ -1183,8 +1186,8 @@ public class berEinnahmen {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                    
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
@@ -1203,8 +1206,8 @@ public class berEinnahmen {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                     } // while
 
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1227,7 +1230,7 @@ public class berEinnahmen {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                    Linie(cos,1,56, 735, 539, 735);
+                    Linie(cos, 1, 56, 735, 539, 735);
 
                     if (Umfang) {
                         Sql = "SELECT * FROM TBL_EINNAHMEN"
@@ -1259,8 +1262,8 @@ public class berEinnahmen {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                            
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
@@ -1273,8 +1276,8 @@ public class berEinnahmen {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                     } // while
 
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1299,8 +1302,8 @@ public class berEinnahmen {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                    Linie(cos,1,56, 735, 539, 735);
-                    
+                    Linie(cos, 1, 56, 735, 539, 735);
+
                     if (Umfang) {
                         Sql = "SELECT * FROM TBL_EINNAHMEN"
                                 + " WHERE (EINNAHMEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "'"
@@ -1333,8 +1336,8 @@ public class berEinnahmen {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                            
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
@@ -1352,8 +1355,8 @@ public class berEinnahmen {
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                     } // while
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1407,7 +1410,7 @@ public class berEinnahmen {
                     try {
                         Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung("Bericht Einnamen","Anzeige PDF: IO-Exception: " , exept.getMessage());
+                        Modulhelferlein.Fehlermeldung("Bericht Einnamen", "Anzeige PDF: IO-Exception: ", exept.getMessage());
                     } // try PDF anzeigen
 
                     if (SQLBuch != null) {
@@ -1442,11 +1445,11 @@ public class berEinnahmen {
                     }
 
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("Bericht Einnahmen","SQL-Exception: SQL-Anfrage nicht moeglich: " , exept.getMessage());
+                    Modulhelferlein.Fehlermeldung("Bericht Einnahmen", "SQL-Exception: SQL-Anfrage nicht moeglich: ", exept.getMessage());
                 } // try 
             }
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("Bericht Einnahmen","IO-Exception: " , e.getMessage());
+            Modulhelferlein.Fehlermeldung("Bericht Einnahmen", "IO-Exception: ", e.getMessage());
         } // try
 
     } // void
