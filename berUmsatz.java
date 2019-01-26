@@ -189,7 +189,7 @@ public class berUmsatz {
                                     + " ORDER BY BESTELLUNG_RECHNR, BESTELLUNG_DATUM";
                         }
 //helferlein.Infomeldung(Sql);                        
-                        resultBestellung = SQLBestellung.executeQuery(Sql); 
+                        resultBestellung = SQLBestellung.executeQuery(Sql);
                         Gesamtsumme = 0D;
                         while (resultBestellung.next()) { // geht durch alle zeilen
                             // Kundendaten holen
@@ -205,6 +205,9 @@ public class berUmsatz {
 
                             // Bemerkungsfeld bestimmen
                             switch (resultBestellung.getInt("BESTELLUNG_TYP")) {
+                                case 5:
+                                    Bemerkung = "Ersatzexemplar/Remittende";
+                                    break;
                                 case 4:
                                     Bemerkung = "Belegexemplar";
                                     break;
@@ -269,17 +272,21 @@ public class berUmsatz {
 
                             // Abzug der Umsatzsteuer bei Drittland etc.
                             switch (resultBestellung.getInt("BESTELLUNG_LAND")) {
-                                case 20 : Gesamtzeile = Gesamtzeile / 107 * 100;
+                                case 20:
+                                    Gesamtzeile = Gesamtzeile / 107 * 100;
                                     break;
-                                case 21 : Gesamtzeile = Gesamtzeile / 107 * 100;
+                                case 21:
+                                    Gesamtzeile = Gesamtzeile / 107 * 100;
                                     break;
-                                case 10 : if (!resultBestellung.getBoolean("BESTELLUNG_PRIVAT")) {
-                                                Gesamtzeile = Gesamtzeile / 107 * 100;
-                                          }
+                                case 10:
+                                    if (!resultBestellung.getBoolean("BESTELLUNG_PRIVAT")) {
+                                        Gesamtzeile = Gesamtzeile / 107 * 100;
+                                    }
                                     break;
-                                case 11 : if (!resultBestellung.getBoolean("BESTELLUNG_PRIVAT")) {
-                                                Gesamtzeile = Gesamtzeile / 107 * 100;
-                                          }
+                                case 11:
+                                    if (!resultBestellung.getBoolean("BESTELLUNG_PRIVAT")) {
+                                        Gesamtzeile = Gesamtzeile / 107 * 100;
+                                    }
                                     break;
                             }
                             // Versandkosten addieren
@@ -839,8 +846,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 550, 740, "Bemerkung");
 
-                    Linie(cos,1,56, 735, 539, 735);
-                    
+                    Linie(cos, 1, 56, 735, 539, 735);
+
                     SQLBuch = conn2.createStatement();
                     SQLKunde = conn2.createStatement();
                     SQLBestellung = conn2.createStatement();
@@ -929,8 +936,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 550, 740, "Bemerkung");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                            
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         // Buchdaten holen aus BESTELLUNG_DETAILS
@@ -1001,8 +1008,8 @@ public class berUmsatz {
                         zeile = zeile + 1;
                     } // while bestellungen
 
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1028,8 +1035,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                    Linie(cos,1,56, 735, 539, 735);
-                    
+                    Linie(cos, 1, 56, 735, 539, 735);
+
                     if (Umfang) {
                         Sql = "SELECT * FROM TBL_EINNAHMEN"
                                 + " WHERE (EINNAHMEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "'"
@@ -1061,8 +1068,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                            
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
@@ -1082,8 +1089,8 @@ public class berUmsatz {
                         zeile = zeile + 1;
                     } // while
 
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1107,8 +1114,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                    Linie(cos,1,56, 735, 539, 735);
-                    
+                    Linie(cos, 1, 56, 735, 539, 735);
+
                     if (Umfang) {
                         Sql = "SELECT * FROM TBL_EINNAHMEN"
                                 + " WHERE (EINNAHMEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "'"
@@ -1140,8 +1147,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                            
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
@@ -1160,8 +1167,8 @@ public class berUmsatz {
                         zeile = zeile + 1;
                     } // while
 
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1186,8 +1193,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                    Linie(cos,1,56, 735, 539, 735);
-                    
+                    Linie(cos, 1, 56, 735, 539, 735);
+
                     if (Umfang) {
                         Sql = "SELECT * FROM TBL_EINNAHMEN"
                                 + " WHERE (EINNAHMEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "'"
@@ -1220,8 +1227,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                            
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
@@ -1241,8 +1248,8 @@ public class berUmsatz {
                         zeile = zeile + 1;
                     } // while
 
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1265,8 +1272,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                    Linie(cos,1,56, 735, 539, 735);
-                    
+                    Linie(cos, 1, 56, 735, 539, 735);
+
                     if (Umfang) {
                         Sql = "SELECT * FROM TBL_EINNAHMEN"
                                 + " WHERE (EINNAHMEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "'"
@@ -1297,8 +1304,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                            
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
@@ -1312,8 +1319,8 @@ public class berUmsatz {
                         zeile = zeile + 1;
                     } // while
 
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1338,8 +1345,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                    Linie(cos,1,56, 735, 539, 735);
-                    
+                    Linie(cos, 1, 56, 735, 539, 735);
+
                     if (Umfang) {
                         Sql = "SELECT * FROM TBL_EINNAHMEN"
                                 + " WHERE (EINNAHMEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "'"
@@ -1372,8 +1379,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
                             Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
-                            Linie(cos,1,56, 735, 539, 735);
-                            
+                            Linie(cos, 1, 56, 735, 539, 735);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
@@ -1392,8 +1399,8 @@ public class berUmsatz {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
                     } // while
-                    Linie(cos,1,56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
                     AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1477,8 +1484,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                    Linie(cos,1,56, 725, 539, 725);
-                    
+                    Linie(cos, 1, 56, 725, 539, 725);
+
                     if (Umfang) {
                         Sql = "SELECT * FROM TBL_AUSGABEN"
                                 + " WHERE ((AUSGABEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "')"
@@ -1511,8 +1518,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                            Linie(cos,1,56, 725, 539, 725);
-                            
+                            Linie(cos, 1, 56, 725, 539, 725);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
@@ -1531,8 +1538,8 @@ public class berUmsatz {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
                     } // while
-                    Linie(cos,1,56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Porto: ");
                     AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1560,8 +1567,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                    Linie(cos,1,56, 725, 539, 725);
-                    
+                    Linie(cos, 1, 56, 725, 539, 725);
+
                     SQLBestellung = conn2.createStatement();
 
                     if (Umfang) {
@@ -1597,8 +1604,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                            Linie(cos,1,56, 725, 539, 725);
-                            
+                            Linie(cos, 1, 56, 725, 539, 725);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
@@ -1617,8 +1624,8 @@ public class berUmsatz {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
                     } // while
-                    Linie(cos,1,56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Büromaterial: ");
                     AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1646,8 +1653,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                    Linie(cos,1,56, 725, 539, 725);
-                    
+                    Linie(cos, 1, 56, 725, 539, 725);
+
                     SQLBestellung = conn2.createStatement();
 
                     if (Umfang) {
@@ -1683,8 +1690,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                            Linie(cos,1,56, 725, 539, 725);
-                            
+                            Linie(cos, 1, 56, 725, 539, 725);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
@@ -1703,8 +1710,8 @@ public class berUmsatz {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
                     } // while
-                    Linie(cos,1,56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Buchbestellungen bei BoD: ");
                     AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1731,8 +1738,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                    Linie(cos,1,56, 725, 539, 725);
-                    
+                    Linie(cos, 1, 56, 725, 539, 725);
+
                     SQLBestellung = conn2.createStatement();
 
                     if (Umfang) {
@@ -1767,8 +1774,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                            Linie(cos,1,56, 725, 539, 725);
-                            
+                            Linie(cos, 1, 56, 725, 539, 725);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
@@ -1786,8 +1793,8 @@ public class berUmsatz {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
                     } // while
-                    Linie(cos,1,56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Honorarabrechnung: ");
                     AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1814,8 +1821,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                    Linie(cos,1,56, 725, 539, 725);
-                    
+                    Linie(cos, 1, 56, 725, 539, 725);
+
                     SQLBestellung = conn2.createStatement();
 
                     if (Umfang) {
@@ -1850,8 +1857,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                            Linie(cos,1,56, 725, 539, 725);
-                            
+                            Linie(cos, 1, 56, 725, 539, 725);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
@@ -1869,8 +1876,8 @@ public class berUmsatz {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
                     } // while
-                    Linie(cos,1,56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Kontoführung: ");
                     ausKonto = Gesamtsumme;
@@ -1896,8 +1903,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                    Linie(cos,1,56, 725, 539, 725);
-                    
+                    Linie(cos, 1, 56, 725, 539, 725);
+
                     SQLBestellung = conn2.createStatement();
 
                     if (Umfang) {
@@ -1932,8 +1939,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                            Linie(cos,1,56, 725, 539, 725);
-                            
+                            Linie(cos, 1, 56, 725, 539, 725);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
@@ -1951,8 +1958,8 @@ public class berUmsatz {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
                     } // while
-                    Linie(cos,1,56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Telefonkosten: ");
                     AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -1979,8 +1986,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                    Linie(cos,1,56, 725, 539, 725);
-                   
+                    Linie(cos, 1, 56, 725, 539, 725);
+
                     SQLBestellung = conn2.createStatement();
 
                     if (Umfang) {
@@ -2015,8 +2022,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                            Linie(cos,1,56, 725, 539, 725);
-                            
+                            Linie(cos, 1, 56, 725, 539, 725);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
@@ -2034,8 +2041,8 @@ public class berUmsatz {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
                     } // while
-                    Linie(cos,1,56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Büro- und Lagerräume inkl. Nebenkosten: ");
                     AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -2063,8 +2070,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                    Linie(cos,1,56, 725, 539, 725);
-                    
+                    Linie(cos, 1, 56, 725, 539, 725);
+
                     SQLBestellung = conn2.createStatement();
 
                     if (Umfang) {
@@ -2100,8 +2107,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                            Linie(cos,1,56, 725, 539, 725);
-                            
+                            Linie(cos, 1, 56, 725, 539, 725);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
@@ -2120,8 +2127,8 @@ public class berUmsatz {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
                     } // while
-                    Linie(cos,1,56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Bucherstellung: ");
                     AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
@@ -2148,8 +2155,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                    Linie(cos,1,56, 725, 539, 725);
-                    
+                    Linie(cos, 1, 56, 725, 539, 725);
+
                     SQLBestellung = conn2.createStatement();
 
                     if (Umfang) {
@@ -2184,8 +2191,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                            Linie(cos,1,56, 725, 539, 725);
-                            
+                            Linie(cos, 1, 56, 725, 539, 725);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
@@ -2203,8 +2210,8 @@ public class berUmsatz {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
                     } // while
-                    Linie(cos,1,56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Kfz-/Fahrtkosten: ");
                     ausFahrt = Gesamtsumme;
@@ -2231,8 +2238,8 @@ public class berUmsatz {
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                    Linie(cos,1,56, 725, 539, 725);
-                    
+                    Linie(cos, 1, 56, 725, 539, 725);
+
                     SQLBestellung = conn2.createStatement();
 
                     if (Umfang) {
@@ -2268,8 +2275,8 @@ public class berUmsatz {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
-                            Linie(cos,1,56, 725, 539, 725);
-                            
+                            Linie(cos, 1, 56, 725, 539, 725);
+
                         } // if
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
@@ -2288,8 +2295,8 @@ public class berUmsatz {
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
                     } // while
-                    Linie(cos,1,56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
-                    
+                    Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
+
                     zeile = zeile + 1;
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für sonstige Ausgaben: ");
                     ausSonst = Gesamtsumme;
