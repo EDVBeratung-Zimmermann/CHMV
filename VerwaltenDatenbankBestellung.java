@@ -63,6 +63,13 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
      * @param modal
      */
     @SuppressWarnings("OverridableMethodCallInConstructor")
+    private void rbRemittendeActionPerformed(ActionEvent e) {
+      // TODO add your handling code here:
+        if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected() || rbRemittende.isSelected()) {
+            field_B_Rabatt.setText("100");
+            field_Bezahldatum.setDate(CurDate);
+        }    }
+
     public VerwaltenDatenbankBestellung(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -718,6 +725,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         label3 = new JLabel();
         field_DHL = new JTextField();
         EMail = new JButton();
+        rbRemittende = new JRadioButton();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -942,7 +950,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             rbBestellung.setText("Bestellung");
             rbBestellung.addActionListener(e -> rbBestellungActionPerformed(e));
             panel1.add(rbBestellung);
-            rbBestellung.setBounds(454, 178, 240, 25);
+            rbBestellung.setBounds(455, 178, 240, 25);
 
             //---- jLabel19 ----
             jLabel19.setText("bezahlt am");
@@ -964,7 +972,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             rbRezension.setText("Rezensionsexemplar");
             rbRezension.addActionListener(e -> rbRezensionActionPerformed(e));
             panel1.add(rbRezension);
-            rbRezension.setBounds(454, 208, 278, 25);
+            rbRezension.setBounds(455, 197, 278, 25);
 
             //---- field_Bezahldatum ----
             field_Bezahldatum.setPreferredSize(new Dimension(120, 25));
@@ -986,7 +994,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             rbPflicht.setText("Pflichtexemplar");
             rbPflicht.addActionListener(e -> rbPflichtActionPerformed(e));
             panel1.add(rbPflicht);
-            rbPflicht.setBounds(454, 238, 278, 25);
+            rbPflicht.setBounds(455, 216, 278, 25);
 
             //---- jLabel9 ----
             jLabel9.setText("Zeile 3");
@@ -1003,7 +1011,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             rbGeschenk.setText("Geschenk");
             rbGeschenk.addActionListener(e -> rbGeschenkActionPerformed(e));
             panel1.add(rbGeschenk);
-            rbGeschenk.setBounds(454, 268, 278, 25);
+            rbGeschenk.setBounds(455, 236, 278, 25);
 
             //---- field_storniert ----
             field_storniert.setText("storniert");
@@ -1025,7 +1033,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             rbBeleg.setText("Belegexemplar");
             rbBeleg.addActionListener(e -> rbBelegActionPerformed(e));
             panel1.add(rbBeleg);
-            rbBeleg.setBounds(454, 298, 278, 25);
+            rbBeleg.setBounds(455, 256, 278, 25);
 
             //---- jLabel12 ----
             jLabel12.setText("PLZ, Ort");
@@ -1105,7 +1113,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             //---- jLabel23 ----
             jLabel23.setText("Rabatt");
             panel1.add(jLabel23);
-            jLabel23.setBounds(new Rectangle(new Point(699, 432), jLabel23.getPreferredSize()));
+            jLabel23.setBounds(699, 432, 91, jLabel23.getPreferredSize().height);
 
             //---- cbBuch ----
             cbBuch.setFont(new Font("Courier New", Font.BOLD, 14));
@@ -1361,6 +1369,12 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             panel1.add(EMail);
             EMail.setBounds(580, 656, 49, 23);
 
+            //---- rbRemittende ----
+            rbRemittende.setText("Remittende");
+            rbRemittende.addActionListener(e -> rbRemittendeActionPerformed(e));
+            panel1.add(rbRemittende);
+            rbRemittende.setBounds(455, 276, 235, rbRemittende.getPreferredSize().height);
+
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
@@ -1407,6 +1421,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         buttonGroup2.add(rbPflicht);
         buttonGroup2.add(rbGeschenk);
         buttonGroup2.add(rbBeleg);
+        buttonGroup2.add(rbRemittende);
 
         //---- buttonGroup3 ----
         var buttonGroup3 = new ButtonGroup();
@@ -1454,6 +1469,9 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     break;
                 case 4:
                     rbBeleg.setSelected(true);
+                    break;
+                case 5:
+                    rbRemittende.setSelected(true);
                     break;
             }
             field_Zahlungsziel.setText(resultB.getString("BESTELLUNG_ZAHLUNGSZIEL"));
@@ -1886,6 +1904,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                         resultB.updateInt("BESTELLUNG_TYP", 2);
                     } else if (rbBeleg.isSelected()) {
                         resultB.updateInt("BESTELLUNG_TYP", 3);
+                    } else if (rbRemittende.isSelected()) {
+                        resultB.updateInt("BESTELLUNG_TYP", 5);
                     } else {
                         resultB.updateInt("BESTELLUNG_TYP", 4);
                     }
@@ -1964,6 +1984,9 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                         break;
                     case 4:
                         rbBeleg.setSelected(true);
+                        break;
+                    case 5:
+                        rbRemittende.setSelected(true);
                         break;
                 }
                 field_EMail.setText(resultB.getString("BESTELLUNG_EMAIL"));
@@ -2299,6 +2322,9 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 case 4:
                     rbBeleg.setSelected(true);
                     break;
+                case 5:
+                    rbRemittende.setSelected(true);
+                    break;
             }
             field_EMail.setText(resultB.getString("BESTELLUNG_EMAIL"));
             field_DHL.setText(resultB.getString("BESTELLUNG_DHL"));
@@ -2542,6 +2568,9 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 case 4:
                     rbBeleg.setSelected(true);
                     break;
+                case 5:
+                    rbRemittende.setSelected(true);
+                    break;
             }
             field_EMail.setText(resultB.getString("BESTELLUNG_EMAIL"));
             field_DHL.setText(resultB.getString("BESTELLUNG_DHL"));
@@ -2762,6 +2791,9 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     break;
                 case 4:
                     rbBeleg.setSelected(true);
+                    break;
+                case 5:
+                    rbRemittende.setSelected(true);
                     break;
             }
             field_EMail.setText(resultB.getString("BESTELLUNG_EMAIL"));
@@ -3537,7 +3569,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void rbBestellungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBestellungActionPerformed
         // TODO add your handling code here:
-        if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected()) {
+        if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected() || rbRemittende.isSelected()) {
             field_B_Rabatt.setText("100");
             field_Bezahldatum.setDate(CurDate);
         }
@@ -3545,7 +3577,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void rbRezensionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbRezensionActionPerformed
         // TODO add your handling code here:
-        if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected()) {
+        if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected() || rbRemittende.isSelected()) {
             field_B_Rabatt.setText("100");
             field_Bezahldatum.setDate(CurDate);
         }
@@ -3553,7 +3585,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void rbPflichtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPflichtActionPerformed
         // TODO add your handling code here:
-        if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected()) {
+        if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected() || rbRemittende.isSelected()) {
             field_B_Rabatt.setText("100");
             field_Bezahldatum.setDate(CurDate);
         }
@@ -3561,7 +3593,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void rbGeschenkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbGeschenkActionPerformed
         // TODO add your handling code here:
-        if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected()) {
+        if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected() || rbRemittende.isSelected()) {
             field_B_Rabatt.setText("100");
             field_Bezahldatum.setDate(CurDate);
         }
@@ -3569,7 +3601,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void rbBelegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBelegActionPerformed
         // TODO add your handling code here:
-        if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected()) {
+        if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected() || rbRemittende.isSelected()) {
             field_B_Rabatt.setText("100");
             field_Bezahldatum.setDate(CurDate);
         }
@@ -4013,6 +4045,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
     private JLabel label3;
     private JTextField field_DHL;
     private JButton EMail;
+    private JRadioButton rbRemittende;
     // End of variables declaration//GEN-END:variables
 
     private JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
