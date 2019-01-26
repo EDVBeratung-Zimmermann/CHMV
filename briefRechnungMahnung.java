@@ -1846,7 +1846,7 @@ public class briefRechnungMahnung {
                             String zeile = "";
                             Integer i = 0;
                             Integer laenge = 0;
-                            ZeilenNr = 0;
+                            ZeilenNr = 1;
                             while (i < woerter - 1) {
                                 zeile = splitBeschreibung[i];
                                 laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
@@ -1974,6 +1974,7 @@ public class briefRechnungMahnung {
                             String zeile = "";
                             Integer i = 0;
                             Integer laenge = 0;
+                            ZeilenNr = 1;
                             while (i < woerter - 1) {
                                 zeile = splitBeschreibung[i];
                                 laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
@@ -1983,7 +1984,7 @@ public class briefRechnungMahnung {
                                     laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
                                 }
                                 //helferlein.Infomeldung(Float.toString(laenge) + " => " + zeile);                                
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 165 - 15 * (ZeilenNr - 1), zeile);
+                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 180 - 15 * (ZeilenNr - 1), zeile);
                                 i = i + 1;
                                 ZeilenNr = ZeilenNr + 1;
                             }
