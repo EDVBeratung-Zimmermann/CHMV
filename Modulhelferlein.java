@@ -166,7 +166,7 @@ public class Modulhelferlein {
         "We would appreciate your visit of our website at www.miles-verlag.jimdo.com"};
     public static String[] SpracheEinMahnung1 = {"für Ihre Bestellung danken wir Ihnen sehr herzlich. ",
         "thank you very much for your order."};
-    public static String[] SpracheEinMahnung2 = {"Leider konnten wir bisher keinen Zahlungseingang verzeichnen..",
+    public static String[] SpracheEinMahnung2 = {"Leider konnten wir bisher keinen Zahlungseingang verzeichnen.",
         "Unfortunately we could not identify any payments."};
     public static String[] SpracheAnzahl = {"Anzahl", "Amount"};
     public static String[] SpracheAutor = {"ISBN/Autor/Herausgeber", "ISBN/Author/Editor"};
