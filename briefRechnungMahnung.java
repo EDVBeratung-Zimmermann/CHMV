@@ -1837,7 +1837,7 @@ public class briefRechnungMahnung {
                         System.out.println("Bezahlhinweis geschrieben");
 // Schlusstext Hinweis
                         if (result.getBoolean("BESTELLUNG_TB")) {
-                            String Beschreibung = result.getString("BESTELLUNG_TEXT") + " ENDE ENDE";
+                            String Beschreibung = "Hinweis: " + result.getString("BESTELLUNG_TEXT") + " ENDE ENDE";
                             String[] splitBeschreibung = Beschreibung.split(" ");
                             Integer woerter = splitBeschreibung.length;
                             //helferlein.Infomeldung("woerter - 1", splitBeschreibung[woerter-1]);
@@ -1846,6 +1846,7 @@ public class briefRechnungMahnung {
                             String zeile = "";
                             Integer i = 0;
                             Integer laenge = 0;
+                            ZeilenNr = 0;
                             while (i < woerter - 1) {
                                 zeile = splitBeschreibung[i];
                                 laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
@@ -1855,7 +1856,7 @@ public class briefRechnungMahnung {
                                     laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
                                 }
                                 //helferlein.Infomeldung(Float.toString(laenge) + " => " + zeile);                                
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 165 - 15 * (ZeilenNr - 1), zeile);
+                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 180 - 15 * (ZeilenNr - 1), zeile);
                                 i = i + 1;
                                 ZeilenNr = ZeilenNr + 1;
                             }
@@ -1878,7 +1879,7 @@ public class briefRechnungMahnung {
 
 // Make sure that the content stream is closed:
                         cos.close();
-                    } else { // die bestellungen werden auf der 2. Seite im Detail aufgeführt
+                    } else { // zweiseitige Bestellung die bestellungen werden auf der 2. Seite im Detail aufgeführt
                         System.out.println("Schreibe Hinweis auf Anlage");
 
 // Schreibe Hinweis auf Anlage
