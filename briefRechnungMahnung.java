@@ -86,6 +86,7 @@ import static milesVerlagMain.Modulhelferlein.SpracheSchluss3;
 import static milesVerlagMain.Modulhelferlein.SpracheSteuerfrei1;
 import static milesVerlagMain.Modulhelferlein.SpracheSteuerfrei2;
 import static milesVerlagMain.Modulhelferlein.SpracheStorniert;
+import static milesVerlagMain.Modulhelferlein.SpracheRemittende;
 import static milesVerlagMain.Modulhelferlein.SpracheTitel;
 import static milesVerlagMain.Modulhelferlein.SpracheUmsatzsteuer;
 import static milesVerlagMain.Modulhelferlein.SpracheUstrID;
@@ -1161,7 +1162,7 @@ public class briefRechnungMahnung {
                     String[] strFooter1 = {"Carola Hartmann Miles Verlag", "George Caylay Straﬂe 38", "14089 Berlin"};
                     String[] strFooter2 = {"Dipl.Kff. Carola Hartmann", "Telefon +49 (0)30 36 28 86 77", "Volksbank Berlin"};
                     String[] strFooter3 = {"StrNr 19 332 6006 5", "E-Mail miles-verlag@t-online.de", "IBAN DE61 1009 0000 2233 8320 17"};
-                    String[] strFooter4 = {"UStrID DE 269 369 5", "www.miles-verlag.jimdo.de", "BIC BEV0DEBB"};
+                    String[] strFooter4 = {"UStrID DE 269 369 5", "www.miles-verlag.jimdo.com", "BIC BEV0DEBB"};
 
                     XWPFTableRow tableFooterrow1 = tableFooter.createRow();
                     for (int i = 0; i < 3; i++) {
@@ -1362,7 +1363,7 @@ public class briefRechnungMahnung {
                     Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, "George Caylay Straﬂe 38");
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.de");
+                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
                     Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
@@ -1398,19 +1399,27 @@ public class briefRechnungMahnung {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
                             break;
                         case 1:
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRezensionsexemplar[Sprache]);
+                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
+                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheRezensionsexemplar[Sprache]);
                             break;
                         case 2:
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SprachePflichtexempar[Sprache]);
+                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
+                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 354, 705, SprachePflichtexempar[Sprache]);
                             break;
                         case 3:
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheBelegexemplar[Sprache]);
+                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
+                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheBelegexemplar[Sprache]);
                             break;
                         case 4:
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheGeschenk[Sprache]);
+                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
+                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheGeschenk[Sprache]);
+                            break;
+                        case 5:
+                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
+                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheRemittende[Sprache]);
                             break;
                         case 99:
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, MahnNr + ". " + SpracheMahnung[Sprache]);
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 720, MahnNr + ". " + SpracheMahnung[Sprache]);
                             break;
                     }
 
@@ -2023,7 +2032,7 @@ public class briefRechnungMahnung {
                         Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, "George Caylay Straﬂe 38");
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.de");
+                        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
                         Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
