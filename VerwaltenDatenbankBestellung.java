@@ -1773,6 +1773,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     rbBeleg.setSelected(true);
                     break;
             }
+            
+            field_Ueberweisung.setSelected(true);
             field_Bestellzeichen.setText(resultB.getString("BESTELLUNG_BESTNR"));
             field_RechNr.setText(resultB.getString("BESTELLUNG_RECHNR"));
             field_Zeile1.setText(resultB.getString("BESTELLUNG_ZEILE_1"));
