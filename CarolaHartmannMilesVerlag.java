@@ -411,7 +411,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        setIconImage(new ImageIcon(getClass().getResource("/milesVerlagMain/CarolaHartmannMilesVerlag.jpg")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/milesVerlagMain/CarolaHartmannMilesVerlag.png")).getImage());
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

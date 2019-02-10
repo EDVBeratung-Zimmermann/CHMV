@@ -28,7 +28,7 @@
        <string>iconImage</string>
        <object class="com.jformdesigner.model.SwingIcon">
         <int>0</int>
-        <string>/milesVerlagMain/CarolaHartmannMilesVerlag.jpg</string>
+        <string>/milesVerlagMain/CarolaHartmannMilesVerlag.png</string>
        </object>
       </void>
       <void method="addEvent">
