@@ -65,7 +65,8 @@ public class ModulAusgabe extends JFrame {
         //PrintStream printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea));
         PrintStream printStream;
         try {
-            printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea), true, "UTF-8");
+            printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea), true, "ISO8859_1");
+            printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea));
             // keeps reference of standard output stream
             standardOut = System.out;
 
@@ -272,7 +273,7 @@ public class ModulAusgabe extends JFrame {
         setAutoRequestFocus(false);
         setResizable(false);
         setUndecorated(true);
-        setIconImage(new ImageIcon(getClass().getResource("/milesVerlagMain/CarolaHartmannMilesVerlag.jpg")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/milesVerlagMain/CarolaHartmannMilesVerlag.png")).getImage());
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
