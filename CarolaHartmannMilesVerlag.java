@@ -1187,6 +1187,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemBewegungsdatenBuchbestellungenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBewegungsdatenBuchbestellungenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Menue Bestellungen bearbeiten");
         VerwaltenDatenbankBestellung.main(null);
         //dbBestellung fenster = new dbBestellung();
         //fenster.dbbestellung();
@@ -1194,11 +1195,13 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
+        System.out.println("Menue Einnahmen bearbeiten");
         VerwaltenDatenbankEinnahmen.main(null);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItemBewegungsdatenAusgabenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBewegungsdatenAusgabenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Menue Ausgaben bearbeiten");
         VerwaltenDatenbankAusgaben.main(null);
     }//GEN-LAST:event_jMenuItemBewegungsdatenAusgabenActionPerformed
 
