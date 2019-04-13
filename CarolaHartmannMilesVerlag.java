@@ -924,11 +924,13 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemHilfeUeberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHilfeUeberActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Hilfe ueber");
         _DlgUeber.main(null);
     }//GEN-LAST:event_jMenuItemHilfeUeberActionPerformed
 
     private void jMenuItemHilfeHilfeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHilfeHilfeActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Hilfe");
         try {
             Runtime.getRuntime().exec("cmd /c start " + System.getProperty("user.dir") + "/miles-Verlag-Handbuch.html");
         } catch (IOException exept) {
@@ -938,10 +940,12 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemBerichteVerkaufsstatistikGesamtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBerichteVerkaufsstatistikGesamtActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Bericht Verkaufsstatistik gesamt");
         _DlgVerkaufsstatistikCHMVGesamt.main(null);
     }//GEN-LAST:event_jMenuItemBerichteVerkaufsstatistikGesamtActionPerformed
 
     private void jMenuItemBerichteKonfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBerichteKonfigurationActionPerformed
+        System.out.println("Dialog Bericht Konfiguration");
         try {
             // TODO add your handling code here:
             berKonfiguration.bericht();
@@ -953,6 +957,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemBerichteTermineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBerichteTermineActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Bericht Termine");
         berTermine.bericht();
     }//GEN-LAST:event_jMenuItemBerichteTermineActionPerformed
 
@@ -960,6 +965,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         // TODO add your handling code here:
         //dbBuch fenster = new dbBuch();
         //fenster.dbbuch();
+        System.out.println("Dialog Verwalten Buchprojekte");
         VerwaltenDatenbankBuch.main(null);
     }//GEN-LAST:event_jMenuItemStammdatenBuchprojekteActionPerformed
 
@@ -967,16 +973,19 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         // TODO add your handling code here:
         // dbAdresse fenster = new dbAdresse();
         // fenster.dbadressen();
+        System.out.println("Dialog Verwalten Adressen");
         VerwaltenDatenbankAdressen.main(null);
     }//GEN-LAST:event_jMenuItemStammdatenAdressenActionPerformed
 
     private void jMenuItemVerlagsführungDatensicherungKonfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsführungDatensicherungKonfigurationActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Konfiguration Sicherung");
         VerwaltenDatenbankKonfigurationSicherung.main(null);
     }//GEN-LAST:event_jMenuItemVerlagsführungDatensicherungKonfigurationActionPerformed
 
     private void jMenuItemVerlagsfuehrungInternetBODActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungInternetBODActionPerformed
         // TODO add your handling code here:
+        System.out.println("Webseite bod aufrufen");
         try {
             Runtime.getRuntime().exec("cmd /c start  https://www.bod.de/mybod.html");
         } catch (IOException e) {
@@ -986,6 +995,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemVerlagsfuehrungInternetVolksbankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungInternetVolksbankActionPerformed
         // TODO add your handling code here:
+        System.out.println("Webseite volksbank aufrufen");
         try {
             Runtime.getRuntime().exec(
                     "cmd /c start https://www.berliner-volksbank.de/banking-private/entry?trackid=piwik908caf721f22c378");
@@ -996,6 +1006,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemVerlagsfuehrungInternetPrintusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungInternetPrintusActionPerformed
         // TODO add your handling code here:
+        System.out.println("Webseite printus aufrufen");
         try {
             Runtime.getRuntime().exec(
                     "cmd /c start http://www.printus.de");
@@ -1006,6 +1017,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemVerlagsfuehrungInternetVistaprintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungInternetVistaprintActionPerformed
         // TODO add your handling code here:
+        System.out.println("Webseite vistaprint aufrufen");
         try {
             Runtime.getRuntime().exec(
                     "cmd /c start http://www.vistaprint.de");
@@ -1016,6 +1028,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemVerlagsfuehrungInternetAmazonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungInternetAmazonActionPerformed
         // TODO add your handling code here:
+        System.out.println("Webseite amazon aufrufen");
         try {
             Runtime.getRuntime().exec(
                     "cmd /c start http://www.amazon.de");
@@ -1026,6 +1039,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemVerlagsfuehrungInternetVLBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungInternetVLBActionPerformed
         // TODO add your handling code here:
+        System.out.println("Webseite VLB aufrufen");
         try {
             Runtime.getRuntime().exec("cmd /c start https://www.vlb.de/login.html");
         } catch (IOException e) {
@@ -1035,6 +1049,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemEndeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEndeActionPerformed
         // TODO add your handling code here:
+        System.out.println("Programm beenden");
         try {
             result.close();
             SQLAnfrage.close();
@@ -1048,38 +1063,45 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemServerBestellnummerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemServerBestellnummerActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Bestellnummer verwalten");
         VerwaltenDatenbankBestellnummer.main(null);
     }//GEN-LAST:event_jMenuItemServerBestellnummerActionPerformed
 
     private void jMenuItemServerKonfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemServerKonfigurationActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Konfiguration verwalten");
         String[] args = {Modulhelferlein.CHMVBenutzer};
         VerwaltenDatenbankKonfigurationPfade.main(args);
     }//GEN-LAST:event_jMenuItemServerKonfigurationActionPerformed
 
     private void jMenuItemVerlagsfuehrungSteuerEURActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungSteuerEURActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Einnahmenueberschussrechnung");
         Modulhelferlein.Infomeldung("noch nicht implementiert");
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungSteuerEURActionPerformed
 
     private void jMenuItemVerlagsfuehrungSteuerUstrEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungSteuerUstrEActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Umsatzsteuererklärung");
         Modulhelferlein.Infomeldung("noch nicht implementiert");
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungSteuerUstrEActionPerformed
 
     private void jMenuItemVerlagsfuehrungSteuerUstrVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungSteuerUstrVAActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Umsatzsteuervoranmeldung");
         ModulAbrechnungUSteuerVorA fenster = new ModulAbrechnungUSteuerVorA();
         fenster.dlgUStrVor();
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungSteuerUstrVAActionPerformed
 
     private void jMenuItemVerlagsfuehrungSteuerKonfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungSteuerKonfigurationActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Konfiguration Steuerdaten");
         VerwaltenDatenbankKonfigurationSteuer.main(null);
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungSteuerKonfigurationActionPerformed
 
     private void jMenuItemSoftwareXAMPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSoftwareXAMPPActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog XAMPP starten");
         try {
             Runtime.getRuntime().exec("C:/xampp/xampp-control.exe");
         } catch (IOException e) {
@@ -1089,6 +1111,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemSoftwareSQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSoftwareSQLActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Datenbank verwalten");
         try {
             Runtime.getRuntime().exec(
                     "cmd /c start http://localhost:8888/phpmyadmin/");
@@ -1099,21 +1122,25 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemSoftwareDBErstellenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSoftwareDBErstellenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Datenbank erstellen");
         _DlgDatenbankErstellen.main(null);
     }//GEN-LAST:event_jMenuItemSoftwareDBErstellenActionPerformed
 
     private void jMenuItemSoftwareDBLoeschenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSoftwareDBLoeschenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Datenbank löschen");
         _DlgDatenbankLoeschen.main(null);
     }//GEN-LAST:event_jMenuItemSoftwareDBLoeschenActionPerformed
 
     private void jMenuItemSoftwareDBSichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSoftwareDBSichernActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Datenbank sichern");
         backupDatenbank();
     }//GEN-LAST:event_jMenuItemSoftwareDBSichernActionPerformed
 
     private void jMenuItemSoftwareDBWiederherstellenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSoftwareDBWiederherstellenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Datenbank wiederherstellen");
         String Filename = "";
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "Datenbanksicherung", "sql");
@@ -1141,53 +1168,62 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemTabellenLeerenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTabellenLeerenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Tabellen leeren");
         _DlgTabellenLeeren.main(null);
     }//GEN-LAST:event_jMenuItemTabellenLeerenActionPerformed
 
     private void jMenuItemSoftwareTabellenLoeschenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSoftwareTabellenLoeschenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Tabellen löschen");
         _DlgTabellenLoeschen.main(null);
     }//GEN-LAST:event_jMenuItemSoftwareTabellenLoeschenActionPerformed
 
     private void jMenuItemSoftwareTabellenErstellenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSoftwareTabellenErstellenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Tabellen erstellen");
         _DlgTabellenErstellen.main(null);
     }//GEN-LAST:event_jMenuItemSoftwareTabellenErstellenActionPerformed
 
     private void jMenuItemVerlagsführungDatensicherungDatensicherungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsführungDatensicherungDatensicherungActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Datensicherung");
         _DlgDatensicherung fenster = new _DlgDatensicherung();
         fenster.Dialog();
     }//GEN-LAST:event_jMenuItemVerlagsführungDatensicherungDatensicherungActionPerformed
 
     private void jMenuItemVerlagsfuehrungWerbungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungWerbungActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Werbung versenden");
         _DlgMail.main(null);
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungWerbungActionPerformed
 
     private void jMenuItemVerlagsfuehrungTermineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungTermineActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Termine verwalten");
         VerwaltenDatenbankTermine.main(null);
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungTermineActionPerformed
 
     private void jMenuItemVerlagsfuehrungFremdwaehrungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungFremdwaehrungActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Waehrungen verwalten");
         VerwaltenDatenbankKonfigurationWaehrung.main(null);
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungFremdwaehrungActionPerformed
 
     private void jMenuItemStammdatenEMailVerteilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStammdatenEMailVerteilerActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Mailverteiler verwalten");
         VerwaltenDatenbankMailverteiler.main(null);
     }//GEN-LAST:event_jMenuItemStammdatenEMailVerteilerActionPerformed
 
     private void jMenuItemStammdatenEMailAdressenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStammdatenEMailAdressenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Mailadressen verwalten");
         VerwaltenDatenbankMailadressen.main(null);
     }//GEN-LAST:event_jMenuItemStammdatenEMailAdressenActionPerformed
 
     private void jMenuItemBewegungsdatenBuchbestellungenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBewegungsdatenBuchbestellungenActionPerformed
         // TODO add your handling code here:
-        System.out.println("Menue Bestellungen bearbeiten");
+        System.out.println("Dialog Bestellungen bearbeiten");
         VerwaltenDatenbankBestellung.main(null);
         //dbBestellung fenster = new dbBestellung();
         //fenster.dbbestellung();
@@ -1195,53 +1231,61 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        System.out.println("Menue Einnahmen bearbeiten");
+        System.out.println("Dialog Einnahmen bearbeiten");
         VerwaltenDatenbankEinnahmen.main(null);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItemBewegungsdatenAusgabenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBewegungsdatenAusgabenActionPerformed
         // TODO add your handling code here:
-        System.out.println("Menue Ausgaben bearbeiten");
+        System.out.println("Dialog Ausgaben bearbeiten");
         VerwaltenDatenbankAusgaben.main(null);
     }//GEN-LAST:event_jMenuItemBewegungsdatenAusgabenActionPerformed
 
     private void jMenuItemBewegungsdatenRezensionenErfassenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBewegungsdatenRezensionenErfassenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Rezensionen erfassen");
         VerwaltenDatenbankRezensionen.main(null);
     }//GEN-LAST:event_jMenuItemBewegungsdatenRezensionenErfassenActionPerformed
 
     private void jMenuItemVerlagsfuehrungHonorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungHonorarActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Honorarabrechnung");
         ModulAbrechnungHonorar.honorar();
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungHonorarActionPerformed
 
     private void jMenuItemBerichteZahlungenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBerichteZahlungenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Bericht offene Zahlungen");
         _DlgUebersichtZahlungen.main(null);
     }//GEN-LAST:event_jMenuItemBerichteZahlungenActionPerformed
 
     private void jMenuItemBerichteMahnungenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBerichteMahnungenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Bericht offene Rechnungen/Mahnungen");
         _DlgUebersichtMahnungen.main(null);
     }//GEN-LAST:event_jMenuItemBerichteMahnungenActionPerformed
 
     private void jMenuItemBerichteUmsaetzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBerichteUmsaetzeActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Bericht Umsaetze");
         _DlgUebersichtUmsaetze.main(null);
     }//GEN-LAST:event_jMenuItemBerichteUmsaetzeActionPerformed
 
     private void jMenuItemBerichteAusgabenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBerichteAusgabenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Bericht Uebersicht Ausgaben");
         _DlgUebersichtAusgaben.main(null);
     }//GEN-LAST:event_jMenuItemBerichteAusgabenActionPerformed
 
     private void jMenuItemBerichteEinnahmenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBerichteEinnahmenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Bericht Uebersicht Einnahmen");
         _DlgUebersichtEinnahmen.main(null);
     }//GEN-LAST:event_jMenuItemBerichteEinnahmenActionPerformed
 
     private void jMenuItemBewegungsdatenRezensionenVersendenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBewegungsdatenRezensionenVersendenActionPerformed
         // TODO add your handling code here:
+        System.out.println("Dialog Rezensionen erfassen");
         VerwaltenDatenbankRezensionAus.main(null);
     }//GEN-LAST:event_jMenuItemBewegungsdatenRezensionenVersendenActionPerformed
 
