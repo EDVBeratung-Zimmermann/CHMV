@@ -1242,7 +1242,7 @@ public class briefRechnungMahnung {
      * @throws Exception
      */
     public static void briefPDF(String RechNr, Integer Typ, String MahnNr, Integer ERechnung) throws Exception {
-        System.out.println("Starte Erstellung Rechnung");
+        System.out.println("- Starte Erstellung Rechnung");
         String InvoiceNumber = RechNr;
         String InvoiceLanguage = "de";
         String InvoiceDate = "";
@@ -1281,7 +1281,7 @@ public class briefRechnungMahnung {
                 + "-";
 
         String ISBN = "";
-        System.out.println("Dateiname ist " + outputFileName);
+        System.out.println("- Dateiname ist " + outputFileName);
 //helferlein.Infomeldung("Dateiname " + outputFileName);
         try { // Datenbank-Treiber laden
             Class.forName(Modulhelferlein.dbDriver);
@@ -1289,7 +1289,7 @@ public class briefRechnungMahnung {
             Modulhelferlein.Fehlermeldung("Brief Rechnung", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
-        System.out.println("Datenbanktreiber geladen");
+        System.out.println("- Datenbanktreiber geladen");
         try { // Verbindung zur Datenbank ?ber die JDBC-Br?cke
             conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
         } catch (SQLException exept) {
@@ -1298,7 +1298,7 @@ public class briefRechnungMahnung {
         } // try Verbindung zur Datenbank ?ber die JDBC-Br?cke
 
         if (conn != null) {
-            System.out.println("Datenbankverbindung steht");
+            System.out.println("- Datenbankverbindung steht");
             SQLAnfrage = null; // Anfrage erzeugen    Bestellungen
             SQLAnfrageK = null; // Anfrage erzeugen    Kundenadresse
             SQLAnfrageA = null; // Anfrage erzeugen    Adresse
@@ -1315,12 +1315,12 @@ public class briefRechnungMahnung {
                 // Bestellung lesen
                 result = SQLAnfrage.executeQuery("SELECT * FROM TBL_BESTELLUNG WHERE BESTELLUNG_RECHNR = '" + RechNr + "'");
                 result.next();
-                System.out.println("Bestellung ist eingelesen");
+                System.out.println("- Bestellung ist eingelesen");
                 // Kunde lesen
                 if (result.getInt("BESTELLUNG_KUNDE") > 0) {
                     resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Integer.toString(result.getInt("BESTELLUNG_KUNDE")) + "'");
                     resultK.next();
-                    System.out.println("Kundendaten sind eingelesen");
+                    System.out.println("- Kundendaten sind eingelesen");
                 }
 
                 try ( // Create a document and add a page to it
@@ -1351,10 +1351,10 @@ public class briefRechnungMahnung {
                         cos.drawImage(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                         //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                     } catch (FileNotFoundException fnfex) {
-                        System.out.println("No image for you");
+                        System.out.println("- No image for you");
                         Modulhelferlein.Fehlermeldung("Rechnung erzeugen - Header", "FileNotFound-Exception", fnfex.getMessage());
                     }
-                    System.out.println("Kopfzeile erzeugt");
+                    System.out.println("- Kopfzeile erzeugt");
 // Fu?zeile
                     Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
@@ -1368,18 +1368,18 @@ public class briefRechnungMahnung {
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEV0DEBB");
-                    System.out.println("Fußzeile erzeugt");
+                    System.out.println("- Fußzeile erzeugt");
 // Faltmarke, Lochmarke, Faltmarke
                     Linie(cos, 1, 0, 595, 15, 595);
                     Linie(cos, 1, 0, 415, 25, 415);
                     Linie(cos, 1, 0, 285, 15, 285);
 
-                    System.out.println("Faltmarke erzeugt");
+                    System.out.println("- Faltmarke erzeugt");
 // Absenderzeile
                     Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, "C. Hartmann Miles-Verlag - George Caylay Straße 38 - 14089 Berlin");
                     Linie(cos, 1, 50, 749, 297, 749);
 
-                    System.out.println("Absenderzeile erzeugt");
+                    System.out.println("- Absenderzeile erzeugt");
 // Datum, Rechnungsnummer, Bestell-Typ
                     InvoiceDate = Modulhelferlein.printDateFormat("dd.MM.yyyy", Modulhelferlein.SQLDate2Date(result.getDate("BESTELLUNG_RECHDAT")));
                     Integer Sprache = 0;
@@ -1423,12 +1423,12 @@ public class briefRechnungMahnung {
                             break;
                     }
 
-                    System.out.println("Datum, Rechnungsnummer geschrieben");
+                    System.out.println("- Datum, Rechnungsnummer geschrieben");
 // Adresse
                     String[] AdressZeile = {"", "", "", "", "", "", ""};
                     String[] args = {"", "", "", "", "", "", ""};
                     if (result.getInt("BESTELLUNG_KUNDE") > 0) {
-                        System.out.println("erzeuge Adresse aus Kundendatenbank");
+                        System.out.println("- erzeuge Adresse aus Kundendatenbank");
                         args[0] = resultK.getString("ADRESSEN_ZUSATZ_1");
                         args[1] = Modulhelferlein.makeAnrede(resultK.getString("ADRESSEN_NAMENSZUSATZ"),
                                 resultK.getString("ADRESSEN_VORNAME"),
@@ -1449,7 +1449,7 @@ public class briefRechnungMahnung {
                             BuyerLand = args[5];
                         }
                     } else {
-                        System.out.println("erzeuge Adresse aus Bestellung");
+                        System.out.println("- erzeuge Adresse aus Bestellung");
                         args[0] = result.getString("BESTELLUNG_ZEILE_1");
                         args[1] = result.getString("BESTELLUNG_ZEILE_2");
                         args[2] = result.getString("BESTELLUNG_ZEILE_3");
@@ -1472,7 +1472,7 @@ public class briefRechnungMahnung {
                         BuyerStrasse = result.getString("BESTELLUNG_ZEILE_4");
                         BuyerUID = result.getString("BESTELLUNG_USTR_ID");
                     } // if
-                    System.out.println("komprimiere Adresse - lösche Leerzeilen");
+                    System.out.println("- komprimiere Adresse - lösche Leerzeilen");
                     if (BuyerLand.equals("DEUTSCHLAND")) {
                         args[5] = "";
                     }
@@ -1489,7 +1489,7 @@ public class briefRechnungMahnung {
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
-                    System.out.println("Adresse erzeugt");
+                    System.out.println("- Adresse erzeugt");
 // Betreff, Anrede
                     BuyerBestellzeichen = result.getString("BESTELLUNG_BESTNR");
                     Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, SpracheBestelldatum[Sprache] + " "
@@ -1508,7 +1508,7 @@ public class briefRechnungMahnung {
                         } // if
                     } else {
                     }
-                    System.out.println("Anrede erzeugt");
+                    System.out.println("- Anrede erzeugt");
 // Text
                     switch (Typ) {
                         case 99:  // Mahnung
@@ -1531,16 +1531,16 @@ public class briefRechnungMahnung {
 // Bestellungdetails holen und ausgeben
                     String Sql = "";
                     Sql = "SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + result.getString("BESTELLUNG_RECHNR") + "'";
-                    System.out.println("Brief Rechnung: hole Bestellungsdetails");
+                    System.out.println("- Brief Rechnung: hole Bestellungsdetails");
 
                     resultBD = SQLAnfrageBD.executeQuery(Sql);
                     resultBD.last();
                     Integer itemcount = resultBD.getRow();
                     Boolean Einseitig = (itemcount <= 8);
-                    System.out.println("Die Bestellung enthält " + Integer.toString(itemcount) + " Positionen");
+                    System.out.println("- Die Bestellung enthält " + Integer.toString(itemcount) + " Positionen");
                     if (result.getFloat("BESTELLUNG_VERSAND") > 0) {
                         itemcount = itemcount + 1;
-                        System.out.println("Die Bestellung enthält Versandkosten");
+                        System.out.println("- Die Bestellung enthält Versandkosten");
                         itemcount = itemcount * 6;
                         Produkte = new String[itemcount];
                         itemcount = 6;
@@ -1657,7 +1657,7 @@ public class briefRechnungMahnung {
                                 Produkte[itemcount + 4] = resultBD.getString("BESTELLUNG_DETAIL_ANZAHL");
                                 Produkte[itemcount + 5] = resultBuch.getString("BUCH_ISBN");
                             }
-                            System.out.println("Schreibe Position " + itemcount.toString() + ": " + Produkte[itemcount] + ", " + Produkte[itemcount + 1] + ", " + Produkte[itemcount + 2] + ", " + Produkte[itemcount + 3] + ", " + Produkte[itemcount + 4] + ", " + Produkte[itemcount + 5]);
+                            System.out.println("- Schreibe Position " + itemcount.toString() + ": " + Produkte[itemcount] + ", " + Produkte[itemcount + 1] + ", " + Produkte[itemcount + 2] + ", " + Produkte[itemcount + 3] + ", " + Produkte[itemcount + 4] + ", " + Produkte[itemcount + 5]);
                             Betrag = Betrag + ZBetrag;
                             zeilenNr = zeilenNr + 1;
                             Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
@@ -1816,7 +1816,7 @@ public class briefRechnungMahnung {
                         } // switch
 
                         Betrag = Modulhelferlein.round2dec(Betrag);
-                        System.out.println("Gesamtsumme/Steuer geschrieben");
+                        System.out.println("- Gesamtsumme/Steuer geschrieben");
 
 // Schlusstext Bezahlung
                         if (result.getBoolean("BESTELLUNG_BEZAHLUNG")) {
@@ -1834,7 +1834,7 @@ public class briefRechnungMahnung {
                                     + Math.round(fontPlain.getStringWidth(" Euro ") / 1000 * 12), 215, SpracheSchluss21[Sprache] + result.getString("BESTELLUNG_ZAHLUNGSZIEL") + SpracheSchluss22[Sprache]);
                             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 200, SpracheSchluss3[Sprache]);
                         }
-                        System.out.println("Bezahlhinweis geschrieben");
+                        System.out.println("- Bezahlhinweis geschrieben");
 // Schlusstext Hinweis
                         if (result.getBoolean("BESTELLUNG_TB")) {
                             String Beschreibung = "Hinweis: " + result.getString("BESTELLUNG_TEXT") + " ENDE ENDE";
@@ -1860,14 +1860,14 @@ public class briefRechnungMahnung {
                                 i = i + 1;
                                 ZeilenNr = ZeilenNr + 1;
                             }
-                            System.out.println("Hinweis geschrieben");
+                            System.out.println("- Hinweis geschrieben");
                         }
 
 // Schlussformel
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 150, SpracheGruss[Sprache]);
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 85, "Carola Hartmann");
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 70, SpracheBeruf[Sprache]);
-                        System.out.println("Schlussformel geschrieben");
+                        System.out.println("- Schlussformel geschrieben");
 
 //helferlein.Infomeldung("Fertig") ;                      
                         if (result.getBoolean("BESTELLUNG_STORNIERT")) {
@@ -1880,7 +1880,7 @@ public class briefRechnungMahnung {
 // Make sure that the content stream is closed:
                         cos.close();
                     } else { // zweiseitige Bestellung die bestellungen werden auf der 2. Seite im Detail aufgeführt
-                        System.out.println("Schreibe Hinweis auf Anlage");
+                        System.out.println("- Schreibe Hinweis auf Anlage");
 
 // Schreibe Hinweis auf Anlage
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 400, SpracheAnlage1[Sprache]);
@@ -1944,7 +1944,7 @@ public class briefRechnungMahnung {
 
 // Schreibe Bezahlung 
                         Betrag = Modulhelferlein.round2dec(Betrag);
-                        System.out.println("Gesamtsumme/Steuer geschrieben");
+                        System.out.println("- Gesamtsumme/Steuer geschrieben");
 
 // Schlusstext Bezahlung
                         if (result.getBoolean("BESTELLUNG_BEZAHLUNG")) {
@@ -1962,7 +1962,7 @@ public class briefRechnungMahnung {
                                     + Math.round(fontPlain.getStringWidth(" Euro ") / 1000 * 12), 215, SpracheSchluss21[Sprache] + result.getString("BESTELLUNG_ZAHLUNGSZIEL") + SpracheSchluss22[Sprache]);
                             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 200, SpracheSchluss3[Sprache]);
                         }
-                        System.out.println("Bezahlhinweis geschrieben");
+                        System.out.println("- Bezahlhinweis geschrieben");
 // Schlusstext Hinweis
                         if (result.getBoolean("BESTELLUNG_TB")) {
                             String Beschreibung = result.getString("BESTELLUNG_TEXT") + " ENDE ENDE";
@@ -1988,14 +1988,14 @@ public class briefRechnungMahnung {
                                 i = i + 1;
                                 ZeilenNr = ZeilenNr + 1;
                             }
-                            System.out.println("Hinweis geschrieben");
+                            System.out.println("- Hinweis geschrieben");
                         }
 
 // Schlussformel
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 150, SpracheGruss[Sprache]);
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 85, "Carola Hartmann");
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 70, SpracheBeruf[Sprache]);
-                        System.out.println("Schlussformel geschrieben");
+                        System.out.println("- Schlussformel geschrieben");
 
 //helferlein.Infomeldung("Fertig") ;                      
                         if (result.getBoolean("BESTELLUNG_STORNIERT")) {
@@ -2023,7 +2023,7 @@ public class briefRechnungMahnung {
                             cos.drawImage(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                             //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                         } catch (FileNotFoundException fnfex) {
-                            System.out.println("No image for you");
+                            System.out.println("- No image for you");
                             Modulhelferlein.Fehlermeldung("Rechnung erzeugen - Header", "FileNotFound-Exception", fnfex.getMessage());
                         }
 // Fu?zeile
@@ -2039,7 +2039,7 @@ public class briefRechnungMahnung {
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEV0DEBB");
-                        System.out.println("Fußzeile erzeugt");
+                        System.out.println("- Fußzeile erzeugt");
 
 // Faltmarke, Lochmarke, Faltmarke
                         Linie(cos, 1, 0, 595, 15, 595);
@@ -2139,7 +2139,7 @@ public class briefRechnungMahnung {
                                 Produkte[itemcount + 4] = resultBD.getString("BESTELLUNG_DETAIL_ANZAHL");
                                 Produkte[itemcount + 5] = resultBuch.getString("BUCH_ISBN");
                             }
-                            System.out.println("Schreibe Position " + itemcount.toString() + ": " + Produkte[itemcount] + ", " + Produkte[itemcount + 1] + ", " + Produkte[itemcount + 2] + ", " + Produkte[itemcount + 3] + ", " + Produkte[itemcount + 4] + ", " + Produkte[itemcount + 5]);
+                            System.out.println("- Schreibe Position " + itemcount.toString() + ": " + Produkte[itemcount] + ", " + Produkte[itemcount + 1] + ", " + Produkte[itemcount + 2] + ", " + Produkte[itemcount + 3] + ", " + Produkte[itemcount + 4] + ", " + Produkte[itemcount + 5]);
                             Betrag = Betrag + ZBetrag;
                             zeilenNr = zeilenNr + 1;
                             Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
@@ -2290,7 +2290,7 @@ public class briefRechnungMahnung {
                         } // switch
                         cos.close();
                     } // if - Else-Zweig mehr als 8 Bestellungen
-                    System.out.println("alle Bestelldetails geschrieben");
+                    System.out.println("- alle Bestelldetails geschrieben");
                     setLineTotal = Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt19 / 119 * 100 + Gesamt7 / 107 * 100 + result.getFloat("BESTELLUNG_VERSAND")));
                     setChargeTotal = "0";
                     setAllowanceTotal = "0";
@@ -2465,7 +2465,7 @@ public class briefRechnungMahnung {
                     } catch (TransformerException ex) {
                         Modulhelferlein.Fehlermeldung("PDF/A-Erstellung Honorabrechung", "TransformerException-Exception: " + ex.getMessage());
                     }
-                    System.out.println("XMP Metadata geschrieben");
+                    System.out.println("- XMP Metadata geschrieben");
 // sRGB output intent
                     //InputStream colorProfile = briefRechnungMahnung.class.getResourceAsStream("/org/apache/pdfbox/resources/pdfa/sRGB.icc");
                     InputStream colorProfile = briefRechnungMahnung.class.getResourceAsStream("sRGB.icc");
@@ -2476,7 +2476,7 @@ public class briefRechnungMahnung {
                     intent.setRegistryName("http://www.color.org");
                     document.getDocumentCatalog().addOutputIntent(intent);
 
-                    System.out.println("Colorprofil geschrieben");
+                    System.out.println("- Colorprofil geschrieben");
 // Save the results and ensure that the document is properly closed:
                     document.save(outputFileName);
                     document.close();
