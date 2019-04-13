@@ -43,7 +43,10 @@ import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.border.*;
+import javax.swing.event.*;
 import com.toedter.calendar.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.ActionMapUIResource;
@@ -64,11 +67,32 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
      */
     @SuppressWarnings("OverridableMethodCallInConstructor")
     private void rbRemittendeActionPerformed(ActionEvent e) {
-      // TODO add your handling code here:
+        // TODO add your handling code here:
         if (rbRezension.isSelected() || rbPflicht.isSelected() || rbGeschenk.isSelected() || rbBeleg.isSelected() || rbRemittende.isSelected()) {
             field_B_Rabatt.setText("100");
             field_Bezahldatum.setDate(CurDate);
-        }    }
+        }
+    }
+
+    private void field_storniertStateChanged(ChangeEvent e) {
+        // TODO add your code here
+        if (field_storniert.isSelected()) {
+            try {
+                field_B_Anzahl.setText("0");
+                field_B_Rabatt.setText("0");
+                resultBD = SQLAnfrageBD.executeQuery(
+                        "SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + resultB.getString("BESTELLUNG_RECHNR") + "'");
+                while (resultBD.next()) {
+                    resultBD.updateFloat("BESTELLUNG_DETAIL_RABATT", 0F);
+                    resultBD.updateInt("BESTELLUNG_DETAIL_ANZAHL", 0);
+                    resultBD.updateRow();
+                }
+            } catch (SQLException ex) {
+                //Logger.getLogger(VerwaltenDatenbankBestellung.class.getName()).log(Level.SEVERE, null, ex);
+                Modulhelferlein.Fehlermeldung("Stornierung Rechnung","SQL-Exception",ex.getMessage());
+            }
+        }
+    }
 
     public VerwaltenDatenbankBestellung(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -1016,6 +1040,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
             //---- field_storniert ----
             field_storniert.setText("storniert");
+            field_storniert.addChangeListener(e -> field_storniertStateChanged(e));
             panel1.add(field_storniert);
             field_storniert.setBounds(737, 268, 122, 25);
 
@@ -1444,6 +1469,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void AnfangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnfangActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung zum Anfang");
         try {
             resultB.first();
             count = 1;
@@ -1682,6 +1708,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void EinfuegenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EinfuegenActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestelung einfuegen");
         int ID;
 
         ID = maxID + 1;
@@ -1773,7 +1800,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     rbBeleg.setSelected(true);
                     break;
             }
-            
+
             field_Ueberweisung.setSelected(true);
             field_Bestellzeichen.setText(resultB.getString("BESTELLUNG_BESTNR"));
             field_RechNr.setText(resultB.getString("BESTELLUNG_RECHNR"));
@@ -1862,6 +1889,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung update");
         try {
             if (Modulhelferlein.checkNumberFormatFloat(field_Versand.getText()) < 0) {
                 Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Versandkosten", "es ist keine korrekte Zahl");
@@ -1953,6 +1981,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void LoeschenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoeschenActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung löschen");
         if (JOptionPane.showConfirmDialog(null, "Soll der Datensatz wirklich gelöscht werden?") == JOptionPane.YES_OPTION) {
             try {
                 // Bestellungdetails lesen   
@@ -2201,6 +2230,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void SchliessenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SchliessenActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung schliessen");
         try {
             if (resultB != null) {
                 resultB.close();
@@ -2283,6 +2313,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void ZurueckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZurueckActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung zurueck");
         try {
             if (resultB.previous()) {
                 count = count - 1;
@@ -2529,6 +2560,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void VorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VorActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung vor");
         try {
             if (resultB.next()) {
                 count = count + 1;
@@ -2775,6 +2807,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void EndeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EndeActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung zum Ende gehen");
         try {
             resultB.last();
             count = countMax;
@@ -3012,7 +3045,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void DruckenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DruckenActionPerformed
         // TODO add your handling code here:
-        BUpdateActionPerformed(evt);
+        //BUpdateActionPerformed(evt);
+        System.out.println("- Drucken der Rechnung");
         UpdateActionPerformed(evt);
 
         Integer iBestand = 0;
@@ -3081,7 +3115,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void MahnungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MahnungActionPerformed
         // TODO add your handling code here:
-        BUpdateActionPerformed(evt);
+        System.out.println("- Mahnung erzeugen");
+        //BUpdateActionPerformed(evt);
         UpdateActionPerformed(evt);
         String[] args = {field_RechNr.getText()};
         _DlgMahnungNr.main(args);
@@ -3089,7 +3124,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void EMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EMailActionPerformed
         // TODO add your handling code here:
-        BUpdateActionPerformed(evt);
+        System.out.println("- Rechnung per Mail versenden");
+        //BUpdateActionPerformed(evt);
         UpdateActionPerformed(evt);
 
         FileFilter filter = new FileNameExtensionFilter("Rechnungsdatei", "PDF", "DOC", "XML");
@@ -3113,17 +3149,18 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 Kunde = KdeID[0];
             }
 
-            String[] args = {Filename, 
-                                Kunde, 
-                                field_EMail.getText(), 
-                                field_DHL.getText(), 
-                                Modulhelferlein.printDateFormat("dd.MM.yyyy", field_Bestelldatum.getDate())};
+            String[] args = {Filename,
+                Kunde,
+                field_EMail.getText(),
+                field_DHL.getText(),
+                Modulhelferlein.printDateFormat("dd.MM.yyyy", field_Bestelldatum.getDate())};
             ModulEMail.main(args);
         }
     }//GEN-LAST:event_MahnungActionPerformed
 
     private void BAnfangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAnfangActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung Detail zum Anfang");
         try {
             if (resultBD.first()) {
                 Anzahl = resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL");
@@ -3188,6 +3225,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void BZurueckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BZurueckActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestelllung Detail zurück");
         try {
 //            if (resultBD.previous()) {
             if (countB > 1) {
@@ -3263,6 +3301,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void BVorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BVorActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung Detail vor");
         try {
             if (resultBD.next()) {
                 Anzahl = resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL");
@@ -3330,6 +3369,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void BEndeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEndeActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung Detail zum Ende");
         try {
             resultBD.last();
             Anzahl = resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL");
@@ -3389,6 +3429,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void BUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUpdateActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung Detail Update");
         try {
             if (Modulhelferlein.checkNumberFormatFloat(field_B_Rabatt.getText()) < 0) {
                 Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Rabattes - es ist keine korrekte Zahl");
@@ -3399,10 +3440,14 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     if (Modulhelferlein.checkNumberFormatFloat(field_B_Preis.getText()) < 0) {
                         Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Preises - es ist keine korrekte Zahl");
                     } else {
+                        System.out.println("- Anzahl: " + field_B_Anzahl.getText());
                         resultBD.updateInt("BESTELLUNG_DETAIL_ANZAHL", Integer.parseInt(field_B_Anzahl.getText()));
+                        System.out.println("- Rabatt: " + field_B_Rabatt.getText());
                         resultBD.updateFloat("BESTELLUNG_DETAIL_RABATT", Float.parseFloat(field_B_Rabatt.getText()));
                         String buch[] = cbBuch.getItemAt(cbBuch.getSelectedIndex()).split(",");
+                        System.out.println("- Buch: " + buch[0]);
                         resultBD.updateInt("BESTELLUNG_DETAIL_BUCH", Integer.parseInt(buch[0]));
+                        System.out.println("- RechnR: " + field_RechNr.getText());
                         resultBD.updateString("BESTELLUNG_DETAIL_RECHNR", field_RechNr.getText());
                         resultBD.updateDate("BESTELLUNG_DETAIL_DATUM", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
                         resultBD.updateBoolean("BESTELLUNG_DETAIL_SONST", field_B_Sonstiges.isSelected());
@@ -3411,7 +3456,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                         if (field_B_Sonstiges.isSelected()) {
                             resultBD.updateInt("BESTELLUNG_DETAIL_ANZAHL", 1);
                             resultBD.updateFloat("BESTELLUNG_DETAIL_RABATT", 0F);
-                        };
+                        }
                         resultBD.updateRow();
                     }
                 }
@@ -3423,6 +3468,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void BEinfuegenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEinfuegenActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung Detail einfuegen");
         int ID;
         ResultSet rb;
         Statement sb;
@@ -3484,6 +3530,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void BLoeschenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BLoeschenActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Bestellung Detail löschen");
         if (JOptionPane.showConfirmDialog(null, "Soll der Datensatz wirklich gelöscht werden?") == JOptionPane.YES_OPTION) {
             try {
                 resultBD.deleteRow();
@@ -3540,6 +3587,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void BDateiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BDateiActionPerformed
         // TODO add your handling code here:
+        System.out.println("- Datei der Bestellung verlinken");
         int Ergebnis = chooser.showDialog(null, "Datei mit der Rechnung wählen");
         if (Ergebnis == JFileChooser.APPROVE_OPTION) {
             String sFilePathAndName = "";
