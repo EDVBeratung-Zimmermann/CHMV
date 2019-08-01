@@ -77,8 +77,8 @@ public class _DlgUeber extends javax.swing.JDialog {
         setTitle("\u00dcber");
         setModal(true);
         setResizable(false);
-        setFont(this.getFont().deriveFont(this.getFont().getStyle() | Font.BOLD));
-        Container contentPane = getContentPane();
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -110,7 +110,7 @@ public class _DlgUeber extends javax.swing.JDialog {
             panel1.add(jBtnSchliessen, "cell 0 11 2 1");
 
             //---- jLabel1 ----
-            jLabel1.setFont(new Font("Tahoma", Font.BOLD, 18));
+            jLabel1.setFont(new Font("Tahoma", Font.BOLD, 14));
             jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
             jLabel1.setText("Carola Hartmann Miles Verlag");
             panel1.add(jLabel1, "cell 0 0 2 1");
