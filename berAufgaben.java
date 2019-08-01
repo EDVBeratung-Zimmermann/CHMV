@@ -173,7 +173,7 @@ public class berAufgaben {
                         document.close();
 
                         Modulhelferlein.Infomeldung(
-                                "Liste der Termine ist als PDF gespeichert!");
+                                "Liste der Aufgaben ist als PDF gespeichert!");
                         try {
                             Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                         } catch (IOException exept) {
