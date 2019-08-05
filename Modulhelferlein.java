@@ -187,8 +187,8 @@ public class Modulhelferlein {
     public static String[] SpracheSchluss22 = {" Tagen auf unser Konto", " days to our bank account"};
     public static String[] SpracheSchluss3 = {"bei der Berliner Volksbank zu überweisen.", "at the Berliner Volksbank."};
     public static String[] SpracheVerrechnung1 = {"Den Rechnungsbetrag von", "The amount of"};
-    public static String[] SpracheVerrechnung2 = {"verrechnen wird mit der Honorarabrechnung", "will be charged with your author's fees"};
-    public static String[] SpracheVerrechnung3 = {"des aktuellen Jahres.", "for the current year."};
+    public static String[] SpracheVerrechnung2 = {"verrechnen wir mit der kommenden Honorarabrechnung", "will be charged with your author's fees"};
+    public static String[] SpracheVerrechnung3 = {"für das aktuelle Geschäftsjahr.", "for the current year."};
     public static String[] SpracheGruss = {"Mit freundlichen Grüßen", "Yours sincerely"};
     public static String[] SpracheBeruf = {"Diplom Kauffrau", "Master of Science in Business Administration"};
     public static String[] SpracheAnlage1 = {"Dite Details Ihrer Bestellung entnehmen Sie bitte der Anlage.", "Please find the details of your order on the next page."};
