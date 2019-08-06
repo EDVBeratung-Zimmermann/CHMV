@@ -30,8 +30,6 @@ import java.sql.Statement;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle;
-import net.miginfocom.swing.*;
 
 /**
  *
@@ -489,6 +487,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "BUCH_TITEL TEXT,";
                         SQL = SQL + "BUCH_PREIS FLOAT,";
                         SQL = SQL + "BUCH_EK FLOAT,";
+                        SQL = SQL + "BUCH_MARGE FLOAT,";
                         SQL = SQL + "BUCH_ISBN TEXT,";
                         SQL = SQL + "BUCH_SEITEN INT,";
                         SQL = SQL + "BUCH_JAHR TEXT,";
