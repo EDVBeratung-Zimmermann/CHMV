@@ -121,107 +121,116 @@ public class _DlgRezensionen extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        setFont(this.getFont().deriveFont(this.getFont().getStyle() | Font.BOLD));
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
         var contentPane = getContentPane();
+        contentPane.setLayout(null);
 
         //======== panel1 ========
         {
-            panel1.setLayout(new MigLayout(
-                "insets 0,hidemode 3,gap 5 5",
-                // columns
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]",
-                // rows
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[fill]" +
-                "[]" +
-                "[]"));
+            panel1.setLayout(null);
 
             //---- jLabel1 ----
             jLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
             jLabel1.setText("Rezensionen");
-            panel1.add(jLabel1, "cell 0 0");
+            panel1.add(jLabel1);
+            jLabel1.setBounds(new Rectangle(new Point(0, 0), jLabel1.getPreferredSize()));
 
             //---- jLabel2 ----
             jLabel2.setText("Umfang/Sortierung");
             jLabel2.setFont(new Font("Tahoma", Font.BOLD, 11));
-            panel1.add(jLabel2, "cell 0 2 2 1");
+            panel1.add(jLabel2);
+            jLabel2.setBounds(new Rectangle(new Point(0, 45), jLabel2.getPreferredSize()));
 
             //---- jLabel3 ----
             jLabel3.setText("Ausgabeformat");
             jLabel3.setFont(new Font("Tahoma", Font.BOLD, 11));
-            panel1.add(jLabel3, "cell 4 2");
+            panel1.add(jLabel3);
+            jLabel3.setBounds(new Rectangle(new Point(217, 45), jLabel3.getPreferredSize()));
 
             //---- rbZeitschrift ----
             rbZeitschrift.setText("nach Zeitschrift");
-            panel1.add(rbZeitschrift, "cell 0 3 2 1");
+            panel1.add(rbZeitschrift);
+            rbZeitschrift.setBounds(0, 64, 109, rbZeitschrift.getPreferredSize().height);
 
             //---- rbPDF ----
             rbPDF.setText("PDF");
             rbPDF.setEnabled(false);
-            panel1.add(rbPDF, "cell 4 3");
+            panel1.add(rbPDF);
+            rbPDF.setBounds(217, 64, 85, rbPDF.getPreferredSize().height);
 
             //---- rbRezensent ----
             rbRezensent.setText("nach Rezensent");
-            panel1.add(rbRezensent, "cell 0 4 2 1");
+            panel1.add(rbRezensent);
+            rbRezensent.setBounds(0, 92, 109, rbRezensent.getPreferredSize().height);
 
             //---- rbDOC ----
             rbDOC.setText("DOC");
             rbDOC.setEnabled(false);
-            panel1.add(rbDOC, "cell 4 4");
+            panel1.add(rbDOC);
+            rbDOC.setBounds(217, 92, 85, rbDOC.getPreferredSize().height);
 
             //---- rbBuch ----
             rbBuch.setSelected(true);
             rbBuch.setText("nach Buch");
-            panel1.add(rbBuch, "cell 0 5");
+            panel1.add(rbBuch);
+            rbBuch.setBounds(0, 120, 76, rbBuch.getPreferredSize().height);
 
             //---- rbXLS ----
             rbXLS.setText("XLS");
             rbXLS.setSelected(true);
-            panel1.add(rbXLS, "cell 4 5");
+            panel1.add(rbXLS);
+            rbXLS.setBounds(217, 120, 85, rbXLS.getPreferredSize().height);
 
             //---- field_ISBN ----
             field_ISBN.setModel(new DefaultComboBoxModel<>(new String[] {
 
             }));
-            panel1.add(field_ISBN, "cell 0 6 4 1");
+            panel1.add(field_ISBN);
+            field_ISBN.setBounds(0, 148, 302, field_ISBN.getPreferredSize().height);
 
             //---- jButton1 ----
             jButton1.setText("Drucken");
             jButton1.addActionListener(e -> jButton1ActionPerformed(e));
-            panel1.add(jButton1, "cell 3 8");
+            panel1.add(jButton1);
+            jButton1.setBounds(85, 200, 100, jButton1.getPreferredSize().height);
 
             //---- jButton2 ----
             jButton2.setText("Schlie\u00dfen");
             jButton2.addActionListener(e -> jButton2ActionPerformed(e));
-            panel1.add(jButton2, "cell 4 8");
-        }
+            panel1.add(jButton2);
+            jButton2.setBounds(200, 200, 102, jButton2.getPreferredSize().height);
 
-        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
-        contentPane.setLayout(contentPaneLayout);
-        contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(14, Short.MAX_VALUE))
-        );
-        contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        setSize(330, 275);
+            { // compute preferred size
+                Dimension preferredSize = new Dimension();
+                for(int i = 0; i < panel1.getComponentCount(); i++) {
+                    Rectangle bounds = panel1.getComponent(i).getBounds();
+                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                }
+                Insets insets = panel1.getInsets();
+                preferredSize.width += insets.right;
+                preferredSize.height += insets.bottom;
+                panel1.setMinimumSize(preferredSize);
+                panel1.setPreferredSize(preferredSize);
+            }
+        }
+        contentPane.add(panel1);
+        panel1.setBounds(10, 5, 320, panel1.getPreferredSize().height);
+
+        { // compute preferred size
+            Dimension preferredSize = new Dimension();
+            for(int i = 0; i < contentPane.getComponentCount(); i++) {
+                Rectangle bounds = contentPane.getComponent(i).getBounds();
+                preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+            }
+            Insets insets = contentPane.getInsets();
+            preferredSize.width += insets.right;
+            preferredSize.height += insets.bottom;
+            contentPane.setMinimumSize(preferredSize);
+            contentPane.setPreferredSize(preferredSize);
+        }
+        setSize(350, 275);
         setLocationRelativeTo(getOwner());
 
         //---- btnGroupSortierung ----
