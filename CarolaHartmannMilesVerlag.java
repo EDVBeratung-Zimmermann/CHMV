@@ -201,7 +201,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                                     null,
                                     "Wer ist der Benutzer?",
                                     "Benutzerauswahl",
-                                    JOptionPane.QUESTION_MESSAGE ,
+                                    JOptionPane.QUESTION_MESSAGE,
                                     null,
                                     BenutzerOption,
                                     BenutzerOption[0]);
@@ -931,11 +931,17 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
     private void jMenuItemHilfeHilfeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHilfeHilfeActionPerformed
         // TODO add your handling code here:
         System.out.println("Dialog Hilfe");
+        //
+        //try {
+        //    Runtime.getRuntime().exec("cmd /c start " + System.getProperty("user.dir") + "/miles-Verlag-Handbuch.html");
+        //} catch (IOException exept) {
+        //    Modulhelferlein.Fehlermeldung("Exception: " + exept.getMessage());
+        //}
         try {
-            Runtime.getRuntime().exec("cmd /c start " + System.getProperty("user.dir") + "/miles-Verlag-Handbuch.html");
+            Runtime.getRuntime().exec("cmd.exe /c CarolaHartmannMilesVerlagHandbuch.pdf");
         } catch (IOException exept) {
-            Modulhelferlein.Fehlermeldung("Exception: " + exept.getMessage());
-        }
+                    Modulhelferlein.Fehlermeldung("Hilfe", "Handbuch öffen: IO-Exception: ", exept.getMessage());
+        } // try Handbuch öffnen
     }//GEN-LAST:event_jMenuItemHilfeHilfeActionPerformed
 
     private void jMenuItemBerichteVerkaufsstatistikGesamtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBerichteVerkaufsstatistikGesamtActionPerformed
