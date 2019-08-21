@@ -275,7 +275,7 @@ public class _DlgVerkaufsstatistikCHMVEinzel extends javax.swing.JDialog {
             strBis = Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate);
         }
 
-        String buch[] = jComboBoxBuch.getItemAt(jComboBoxBuch.getSelectedIndex()).split(",");
+        String buch[] = jComboBoxBuch.getItemAt(jComboBoxBuch.getSelectedIndex()).split(", ");
         String buchISBN = buch[1];
 
         System.out.println("Bericht für " + buchISBN + " von " + strVon + " bis " + strBis);
