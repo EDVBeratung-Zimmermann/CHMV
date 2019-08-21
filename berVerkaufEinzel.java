@@ -22,7 +22,6 @@
  */
 package milesVerlagMain;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -30,7 +29,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Calendar;
 import jxl.Workbook;
 import static jxl.format.Alignment.LEFT;
 import static jxl.format.Alignment.RIGHT;
@@ -40,18 +38,6 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import static milesVerlagMain.briefHonorar.conn;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.AusgabeDB;
-import static milesVerlagMain.Modulhelferlein.AusgabeRB;
-import static milesVerlagMain.Modulhelferlein.Linie;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDDocumentInformation;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 /**
  * Klasse zur Erzeugung einer Liste von offenen Einnahmen
@@ -135,18 +121,18 @@ public class berVerkaufEinzel {
             final Connection conn2 = conn;
 
             if (conn2 != null) { // Datenbankverbindung steht
-                SQLBuch = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                SQLKunde = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                SQLAutor = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                SQLBestellung = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                SQLBestellungDetails = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                SQLBuch = conn2.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                SQLKunde = conn2.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                SQLAutor = conn2.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                SQLBestellung = conn2.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                SQLBestellungDetails = conn2.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
                 if (buchISBN.contains("---")) {
                     resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID <> '0' ORDER BY BUCH_ISBN");
                     System.out.println("Ausgabe für alle Bücher von " + strVon + " bis " + strBis);   
                 } else {
-                    resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ISBN = '" + buchISBN + "' ORDER BY BUCH_ISBN");
-                    System.out.println("Ausgabe für " + buchISBN + " von " + strVon + " bis " + strBis);   
+                    resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ISBN = '" + buchISBN + "'");
+                    System.out.println("Ausgabe für >" + buchISBN + "< von " + strVon + " bis " + strBis);   
                 }
 
                 Label label = new Label(0, 0, "Carola Hartmann Miles-Verlag", arial14formatBold);
