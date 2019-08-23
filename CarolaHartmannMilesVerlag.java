@@ -402,7 +402,6 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         jMenuItemHilfeHilfe = new JMenuItem();
         jMenuItemHilfeUeber = new JMenuItem();
         jMenuItemHilfeChanges = new JMenuItem();
-        jMenuItem1 = new JMenuItem();
         menuItemBenutzer = new JMenuItem();
         jMenuItem6 = new JMenuItem();
         jMenuItem7 = new JMenuItem();
@@ -883,11 +882,6 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                 jMenuItemHilfeChanges.setText("Change-Log ...");
                 jMenuItemHilfeChanges.addActionListener(e -> jMenuItemHilfeChangesActionPerformed(e));
                 jMenuHilfe.add(jMenuItemHilfeChanges);
-
-                //---- jMenuItem1 ----
-                jMenuItem1.setText("Test ...");
-                jMenuItem1.addActionListener(e -> jMenuItem1ActionPerformed(e));
-                jMenuHilfe.add(jMenuItem1);
             }
             jMenuBar1.add(jMenuHilfe);
 
@@ -1543,7 +1537,6 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
     private JMenuItem jMenuItemHilfeHilfe;
     private JMenuItem jMenuItemHilfeUeber;
     private JMenuItem jMenuItemHilfeChanges;
-    private JMenuItem jMenuItem1;
     private JMenuItem menuItemBenutzer;
     private JMenuItem jMenuItem6;
     private JMenuItem jMenuItem7;
