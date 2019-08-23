@@ -491,6 +491,12 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
         Schliessen = new JButton();
         label9 = new JLabel();
         field_Marge = new JTextField();
+        field_Gesamtbetrachtung = new JRadioButton();
+        radioButton2 = new JRadioButton();
+        field_BoDFix = new JTextField();
+        textField2 = new JTextField();
+        label10 = new JLabel();
+        label11 = new JLabel();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -865,9 +871,10 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             VertragBODAdd.setBounds(595, 505, 50, VertragBODAdd.getPreferredSize().height);
 
             //---- field_Honorar ----
-            field_Honorar.setText("Honorar vertraglich vereinbart ab");
+            field_Honorar.setText("Honorar auf der Basis");
+            field_Honorar.setActionCommand("Honorar");
             panel1.add(field_Honorar);
-            field_Honorar.setBounds(0, 533, 195, 30);
+            field_Honorar.setBounds(0, 540, 155, 23);
 
             //---- field_Honorar_Anzahl ----
             field_Honorar_Anzahl.setMaximumSize(new Dimension(33, 25));
@@ -875,115 +882,115 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Honorar_Anzahl.setPreferredSize(new Dimension(33, 25));
             field_Honorar_Anzahl.addActionListener(e -> field_Honorar_AnzahlActionPerformed(e));
             panel1.add(field_Honorar_Anzahl);
-            field_Honorar_Anzahl.setBounds(new Rectangle(new Point(200, 536), field_Honorar_Anzahl.getPreferredSize()));
+            field_Honorar_Anzahl.setBounds(175, 570, field_Honorar_Anzahl.getPreferredSize().width, 20);
 
             //---- jLabel22 ----
             jLabel22.setText("St\u00fcck mit je");
             panel1.add(jLabel22);
-            jLabel22.setBounds(242, 533, 83, 30);
+            jLabel22.setBounds(220, 570, 83, 20);
 
             //---- field_Honorar_Prozent ----
             field_Honorar_Prozent.setMinimumSize(new Dimension(25, 30));
             field_Honorar_Prozent.setPreferredSize(new Dimension(25, 25));
             field_Honorar_Prozent.addActionListener(e -> field_Honorar_ProzentActionPerformed(e));
             panel1.add(field_Honorar_Prozent);
-            field_Honorar_Prozent.setBounds(330, 533, 37, 30);
+            field_Honorar_Prozent.setBounds(305, 570, 33, 20);
 
             //---- jLabel23 ----
             jLabel23.setText("% des Netto-VK pro St\u00fcck");
             panel1.add(jLabel23);
-            jLabel23.setBounds(372, 533, 163, 30);
+            jLabel23.setBounds(350, 570, 163, 20);
             panel1.add(field_Honorar_2_Anzahl);
-            field_Honorar_2_Anzahl.setBounds(200, 568, 37, field_Honorar_2_Anzahl.getPreferredSize().height);
+            field_Honorar_2_Anzahl.setBounds(175, 600, 33, 20);
 
             //---- label8 ----
-            label8.setText("Dt\u00fcck mit je");
+            label8.setText("St\u00fcck mit je");
             panel1.add(label8);
-            label8.setBounds(242, 568, 83, 20);
+            label8.setBounds(220, 600, 83, 20);
             panel1.add(field_Honorar_2_Prozent);
-            field_Honorar_2_Prozent.setBounds(330, 568, 37, field_Honorar_2_Prozent.getPreferredSize().height);
+            field_Honorar_2_Prozent.setBounds(305, 600, 33, 20);
 
             //---- label7 ----
             label7.setText("% des Netto-VK pro St\u00fcck");
             panel1.add(label7);
-            label7.setBounds(372, 568, 163, 20);
+            label7.setBounds(350, 600, 163, 20);
 
             //---- Anfang ----
             Anfang.setText("<<");
             Anfang.setToolTipText("gehe zum ersten Datensatz");
             Anfang.addActionListener(e -> AnfangActionPerformed(e));
             panel1.add(Anfang);
-            Anfang.setBounds(new Rectangle(new Point(0, 618), Anfang.getPreferredSize()));
+            Anfang.setBounds(new Rectangle(new Point(0, 635), Anfang.getPreferredSize()));
 
             //---- Zurueck ----
             Zurueck.setText("<");
             Zurueck.setToolTipText("gehe zum vorherigen Datensatz");
             Zurueck.addActionListener(e -> ZurueckActionPerformed(e));
             panel1.add(Zurueck);
-            Zurueck.setBounds(48, 618, 49, Zurueck.getPreferredSize().height);
+            Zurueck.setBounds(50, 635, 49, Zurueck.getPreferredSize().height);
 
             //---- Vor ----
             Vor.setText(">");
             Vor.setToolTipText("gehe zum n\u00e4chsten Datensatz");
             Vor.addActionListener(e -> VorActionPerformed(e));
             panel1.add(Vor);
-            Vor.setBounds(96, 618, 49, Vor.getPreferredSize().height);
+            Vor.setBounds(95, 635, 49, Vor.getPreferredSize().height);
 
             //---- Ende ----
             Ende.setText(">>");
             Ende.setToolTipText("gehe zum letzten Datensatz");
             Ende.addActionListener(e -> EndeActionPerformed(e));
             panel1.add(Ende);
-            Ende.setBounds(144, 618, 49, Ende.getPreferredSize().height);
+            Ende.setBounds(145, 635, 49, Ende.getPreferredSize().height);
 
             //---- Update ----
             Update.setText("!");
             Update.setToolTipText("Datensatz aktualisieren");
             Update.addActionListener(e -> UpdateActionPerformed(e));
             panel1.add(Update);
-            Update.setBounds(205, 618, 49, Update.getPreferredSize().height);
+            Update.setBounds(205, 635, 49, Update.getPreferredSize().height);
 
             //---- Einfuegen ----
             Einfuegen.setText("+");
             Einfuegen.setToolTipText("Datensatz einf\u00fcgen");
             Einfuegen.addActionListener(e -> EinfuegenActionPerformed(e));
             panel1.add(Einfuegen);
-            Einfuegen.setBounds(255, 618, 49, Einfuegen.getPreferredSize().height);
+            Einfuegen.setBounds(255, 635, 49, Einfuegen.getPreferredSize().height);
 
             //---- Loeschen ----
             Loeschen.setText("-");
             Loeschen.setToolTipText("Datensatz l\u00f6schen");
             Loeschen.addActionListener(e -> LoeschenActionPerformed(e));
             panel1.add(Loeschen);
-            Loeschen.setBounds(305, 618, 49, Loeschen.getPreferredSize().height);
+            Loeschen.setBounds(305, 635, 49, Loeschen.getPreferredSize().height);
 
             //---- Suchen ----
             Suchen.setText("?");
             Suchen.setToolTipText("Suche nach Autor, Titel, ISBN oder Druckereinummer");
             Suchen.addActionListener(e -> SuchenActionPerformed(e));
             panel1.add(Suchen);
-            Suchen.setBounds(365, 618, 49, Suchen.getPreferredSize().height);
+            Suchen.setBounds(365, 635, 49, Suchen.getPreferredSize().height);
 
             //---- WSuchen ----
             WSuchen.setText("...");
             WSuchen.setToolTipText("Weitersuchen");
             WSuchen.addActionListener(e -> WSuchenActionPerformed(e));
             panel1.add(WSuchen);
-            WSuchen.setBounds(415, 618, 49, WSuchen.getPreferredSize().height);
+            WSuchen.setBounds(415, 635, 49, WSuchen.getPreferredSize().height);
 
             //---- Drucken ----
             Drucken.setText("D");
             Drucken.setToolTipText("Druckt das aktuelle Buchprojekt als PDF");
             Drucken.addActionListener(e -> DruckenActionPerformed(e));
             panel1.add(Drucken);
-            Drucken.setBounds(475, 618, 49, Drucken.getPreferredSize().height);
+            Drucken.setBounds(475, 635, 49, Drucken.getPreferredSize().height);
 
             //---- Schliessen ----
             Schliessen.setText("X");
             Schliessen.setToolTipText("Schlie\u00dft den Dialog");
             Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
             panel1.add(Schliessen);
-            Schliessen.setBounds(530, 618, 49, Schliessen.getPreferredSize().height);
+            Schliessen.setBounds(530, 635, 49, Schliessen.getPreferredSize().height);
 
             //---- label9 ----
             label9.setText("Marge");
@@ -991,6 +998,31 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             label9.setBounds(new Rectangle(new Point(485, 165), label9.getPreferredSize()));
             panel1.add(field_Marge);
             field_Marge.setBounds(485, 185, 45, field_Marge.getPreferredSize().height);
+
+            //---- field_Gesamtbetrachtung ----
+            field_Gesamtbetrachtung.setText("Gesamtumfang");
+            field_Gesamtbetrachtung.setSelected(true);
+            panel1.add(field_Gesamtbetrachtung);
+            field_Gesamtbetrachtung.setBounds(155, 540, 225, field_Gesamtbetrachtung.getPreferredSize().height);
+
+            //---- radioButton2 ----
+            radioButton2.setText("BoD getrennt betrachtet");
+            panel1.add(radioButton2);
+            radioButton2.setBounds(new Rectangle(new Point(500, 540), radioButton2.getPreferredSize()));
+            panel1.add(field_BoDFix);
+            field_BoDFix.setBounds(520, 570, 30, 20);
+            panel1.add(textField2);
+            textField2.setBounds(520, 600, 30, textField2.getPreferredSize().height);
+
+            //---- label10 ----
+            label10.setText("Fix-Betrag BoD");
+            panel1.add(label10);
+            label10.setBounds(560, 570, label10.getPreferredSize().width, 20);
+
+            //---- label11 ----
+            label11.setText("% BoD-Marge");
+            panel1.add(label11);
+            label11.setBounds(560, 600, label11.getPreferredSize().width, 20);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -1024,6 +1056,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
         }
         setSize(860, 710);
         setLocationRelativeTo(getOwner());
+
+        //---- buttonGroup1 ----
+        var buttonGroup1 = new ButtonGroup();
+        buttonGroup1.add(field_Gesamtbetrachtung);
+        buttonGroup1.add(radioButton2);
     }// </editor-fold>//GEN-END:initComponents
 
     private void AnfangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnfangActionPerformed
@@ -2607,6 +2644,12 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
     private JButton Schliessen;
     private JLabel label9;
     private JTextField field_Marge;
+    private JRadioButton field_Gesamtbetrachtung;
+    private JRadioButton radioButton2;
+    private JTextField field_BoDFix;
+    private JTextField textField2;
+    private JLabel label10;
+    private JLabel label11;
     // End of variables declaration//GEN-END:variables
 
     private JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
