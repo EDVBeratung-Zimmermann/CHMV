@@ -489,6 +489,8 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
         WSuchen = new JButton();
         Drucken = new JButton();
         Schliessen = new JButton();
+        label9 = new JLabel();
+        field_Marge = new JTextField();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -658,7 +660,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Seiten.setPreferredSize(new Dimension(42, 25));
             field_Seiten.addActionListener(e -> field_SeitenActionPerformed(e));
             panel1.add(field_Seiten);
-            field_Seiten.setBounds(new Rectangle(new Point(485, 133), field_Seiten.getPreferredSize()));
+            field_Seiten.setBounds(485, 133, field_Seiten.getPreferredSize().width, 25);
 
             //---- field_Auflage ----
             field_Auflage.setText("jTextField3");
@@ -667,24 +669,24 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Auflage.setPreferredSize(new Dimension(50, 25));
             field_Auflage.addActionListener(e -> field_AuflageActionPerformed(e));
             panel1.add(field_Auflage);
-            field_Auflage.setBounds(540, 136, field_Auflage.getPreferredSize().width, 20);
+            field_Auflage.setBounds(540, 133, 35, 25);
             panel1.add(field_Jahr);
             field_Jahr.setBounds(595, 133, 50, 25);
 
             //---- label4 ----
             label4.setText("VK");
             panel1.add(label4);
-            label4.setBounds(372, 163, 46, label4.getPreferredSize().height);
+            label4.setBounds(372, 165, 46, label4.getPreferredSize().height);
 
             //---- label5 ----
             label5.setText("EK");
             panel1.add(label5);
-            label5.setBounds(423, 163, 57, label5.getPreferredSize().height);
+            label5.setBounds(423, 165, 57, label5.getPreferredSize().height);
 
             //---- jLabel15 ----
             jLabel15.setText("Bestand");
             panel1.add(jLabel15);
-            jLabel15.setBounds(540, 163, 50, jLabel15.getPreferredSize().height);
+            jLabel15.setBounds(595, 165, 50, jLabel15.getPreferredSize().height);
 
             //---- jLabel24 ----
             jLabel24.setText("Pflichtexemplare");
@@ -692,11 +694,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             panel1.add(jLabel24);
             jLabel24.setBounds(675, 163, 156, jLabel24.getPreferredSize().height);
             panel1.add(field_Preis);
-            field_Preis.setBounds(372, 183, 46, field_Preis.getPreferredSize().height);
+            field_Preis.setBounds(375, 185, 46, field_Preis.getPreferredSize().height);
             panel1.add(field_EK);
-            field_EK.setBounds(423, 183, 57, field_EK.getPreferredSize().height);
+            field_EK.setBounds(425, 185, 57, field_EK.getPreferredSize().height);
             panel1.add(field_Bestand);
-            field_Bestand.setBounds(540, 183, 50, field_Bestand.getPreferredSize().height);
+            field_Bestand.setBounds(595, 185, 50, field_Bestand.getPreferredSize().height);
 
             //---- field_BLB ----
             field_BLB.setText("Berl.Land.Bibl.");
@@ -983,6 +985,13 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             panel1.add(Schliessen);
             Schliessen.setBounds(530, 618, 49, Schliessen.getPreferredSize().height);
 
+            //---- label9 ----
+            label9.setText("Marge");
+            panel1.add(label9);
+            label9.setBounds(new Rectangle(new Point(485, 165), label9.getPreferredSize()));
+            panel1.add(field_Marge);
+            field_Marge.setBounds(485, 185, 45, field_Marge.getPreferredSize().height);
+
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
@@ -1045,6 +1054,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Titel.setText(result.getString("Buch_Titel"));
             field_Preis.setText(Float.toString(result.getFloat("Buch_Preis")));
             field_EK.setText(Float.toString(result.getFloat("Buch_EK")));
+            field_Marge.setText(Float.toString(result.getFloat("Buch_Marge")));
             field_ISBN.setText(result.getString("Buch_ISBN"));
             field_Seiten.setText(Integer.toString(result.getInt("BUCH_SEITEN")));
             field_Beschreibung.setText(result.getString("BUCH_BESCHREIBUNG"));
@@ -1151,6 +1161,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Titel.setText(result.getString("Buch_Titel"));
                 field_Preis.setText(Float.toString(result.getFloat("Buch_Preis")));
                 field_EK.setText(Float.toString(result.getFloat("Buch_EK")));
+                field_Marge.setText(Float.toString(result.getFloat("Buch_Marge")));
                 field_ISBN.setText(result.getString("Buch_ISBN"));
                 field_Seiten.setText(Integer.toString(result.getInt("BUCH_SEITEN")));
                 field_Beschreibung.setText(result.getString("BUCH_BESCHREIBUNG"));
@@ -1260,6 +1271,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Titel.setText(result.getString("Buch_Titel"));
                 field_Preis.setText(Float.toString(result.getFloat("Buch_Preis")));
                 field_EK.setText(Float.toString(result.getFloat("Buch_EK")));
+                field_Marge.setText(Float.toString(result.getFloat("Buch_Marge")));
                 field_ISBN.setText(result.getString("Buch_ISBN"));
                 field_Seiten.setText(Integer.toString(result.getInt("BUCH_SEITEN")));
                 field_Beschreibung.setText(result.getString("BUCH_BESCHREIBUNG"));
@@ -1364,6 +1376,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Titel.setText(result.getString("Buch_Titel"));
             field_Preis.setText(Float.toString(result.getFloat("Buch_Preis")));
             field_EK.setText(Float.toString(result.getFloat("Buch_EK")));
+            field_Marge.setText(Float.toString(result.getFloat("Buch_Marge")));
             field_ISBN.setText(result.getString("Buch_ISBN"));
             field_Seiten.setText(Integer.toString(result.getInt("BUCH_SEITEN")));
             field_Beschreibung.setText(result.getString("BUCH_BESCHREIBUNG"));
@@ -1455,66 +1468,75 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                             if (Modulhelferlein.checkNumberFormatFloat(field_Preis.getText()) < 0) {
                                 Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Preises - es ist keine korrekte Zahl");
                             } else {
-                                if (Modulhelferlein.checkNumberFormatInt(field_Honorar_Prozent.getText()) < 0) {
-                                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Prozentwertes für Honorare - es ist keine korrekte Ganzzahl");
+                                if (Modulhelferlein.checkNumberFormatFloat(field_EK.getText()) < 0) {
+                                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe des EK-Preises - es ist keine korrekte Zahl");
                                 } else {
-                                    if (Modulhelferlein.checkNumberFormatInt(field_Honorar_Anzahl.getText()) < 0) {
-                                        Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Verkeuafsanzahl für Honorare - es ist keine korrekte Ganzzahl");
+                                    if (Modulhelferlein.checkNumberFormatFloat(field_Marge.getText()) < 0) {
+                                        Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Marge - es ist keine korrekte Zahl");
                                     } else {
-                                        if (Modulhelferlein.checkNumberFormatInt(field_Honorar_2_Prozent.getText()) < 0) {
+                                        if (Modulhelferlein.checkNumberFormatInt(field_Honorar_Prozent.getText()) < 0) {
                                             Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Prozentwertes für Honorare - es ist keine korrekte Ganzzahl");
                                         } else {
-                                            if (Modulhelferlein.checkNumberFormatInt(field_Honorar_2_Anzahl.getText()) < 0) {
+                                            if (Modulhelferlein.checkNumberFormatInt(field_Honorar_Anzahl.getText()) < 0) {
                                                 Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Verkeuafsanzahl für Honorare - es ist keine korrekte Ganzzahl");
                                             } else {
-                                                result.updateString("Buch_Titel", field_Titel.getText());
-                                                result.updateFloat("Buch_EK", Float.parseFloat(field_EK.getText()));
-                                                result.updateFloat("Buch_Preis", Float.parseFloat(field_Preis.getText()));
-                                                result.updateString("Buch_ISBN", field_ISBN.getText());
-                                                result.updateInt("Buch_Seiten", Integer.parseInt(field_Seiten.getText()));
-                                                result.updateString("Buch_Beschreibung", field_Beschreibung.getText());
-                                                result.updateInt("Buch_Auflage", Integer.parseInt(field_Auflage.getText()));
-                                                result.updateString("BUCH_JAHR", field_Jahr.getText());
-                                                result.updateString("Buch_Druckereinummer", field_DruckNr.getText());
-                                                result.updateBoolean("Buch_DeuNatBibl", field_DNB.isSelected());
-                                                result.updateBoolean("Buch_BerlLBibl", field_BLB.isSelected());
-                                                result.updateBoolean("Buch_VLB", field_VLB.isSelected());
-                                                result.updateInt("Buch_Bestand", Integer.parseInt(field_Bestand.getText()));
-                                                result.updateString("Buch_Cover", field_Cover.getText());
-                                                result.updateString("Buch_Flyer", field_Flyer.getText());
-                                                result.updateString("Buch_Vertrag", field_Vertrag.getText());
-                                                result.updateString("Buch_BOD_Vertrag", field_VertragBOD.getText());
-                                                result.updateString("Buch_Text", field_Text.getText());
-                                                result.updateInt("Buch_Druckerei", Integer.parseInt(field_Druckerei.split(",")[0]));
-                                                result.updateBoolean("Buch_Honorar", field_Honorar.isSelected());
-                                                result.updateInt("Buch_Honorar_Prozent", Integer.parseInt(field_Honorar_Prozent.getText()));
-                                                result.updateInt("Buch_Honorar_Anzahl", Integer.parseInt(field_Honorar_Anzahl.getText()));
-                                                result.updateInt("Buch_Honorar_2_Prozent", Integer.parseInt(field_Honorar_2_Prozent.getText()));
-                                                result.updateInt("Buch_Honorar_2_Anzahl", Integer.parseInt(field_Honorar_2_Anzahl.getText()));
-                                                result.updateBoolean("BUCH_AKTIV", field_Aktiv.isSelected());
-                                                result.updateBoolean("Buch_HERAUSGEBER", cbHerausgeber.isSelected());
-                                                if (rbPB.isSelected()) {
-                                                    result.updateInt("BUCH_HC", 0);
-                                                } else if (rbHC.isSelected()) {
-                                                    result.updateInt("BUCH_HC", 1);
+                                                if (Modulhelferlein.checkNumberFormatInt(field_Honorar_2_Prozent.getText()) < 0) {
+                                                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Prozentwertes für Honorare - es ist keine korrekte Ganzzahl");
                                                 } else {
-                                                    result.updateInt("BUCH_HC", 2);
-                                                }
+                                                    if (Modulhelferlein.checkNumberFormatInt(field_Honorar_2_Anzahl.getText()) < 0) {
+                                                        Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Verkeuafsanzahl für Honorare - es ist keine korrekte Ganzzahl");
+                                                    } else {
+                                                        result.updateString("Buch_Titel", field_Titel.getText());
+                                                        result.updateFloat("Buch_EK", Float.parseFloat(field_EK.getText()));
+                                                        result.updateFloat("Buch_Marge", Float.parseFloat(field_Marge.getText()));
+                                                        result.updateFloat("Buch_Preis", Float.parseFloat(field_Preis.getText()));
+                                                        result.updateString("Buch_ISBN", field_ISBN.getText());
+                                                        result.updateInt("Buch_Seiten", Integer.parseInt(field_Seiten.getText()));
+                                                        result.updateString("Buch_Beschreibung", field_Beschreibung.getText());
+                                                        result.updateInt("Buch_Auflage", Integer.parseInt(field_Auflage.getText()));
+                                                        result.updateString("BUCH_JAHR", field_Jahr.getText());
+                                                        result.updateString("Buch_Druckereinummer", field_DruckNr.getText());
+                                                        result.updateBoolean("Buch_DeuNatBibl", field_DNB.isSelected());
+                                                        result.updateBoolean("Buch_BerlLBibl", field_BLB.isSelected());
+                                                        result.updateBoolean("Buch_VLB", field_VLB.isSelected());
+                                                        result.updateInt("Buch_Bestand", Integer.parseInt(field_Bestand.getText()));
+                                                        result.updateString("Buch_Cover", field_Cover.getText());
+                                                        result.updateString("Buch_Flyer", field_Flyer.getText());
+                                                        result.updateString("Buch_Vertrag", field_Vertrag.getText());
+                                                        result.updateString("Buch_BOD_Vertrag", field_VertragBOD.getText());
+                                                        result.updateString("Buch_Text", field_Text.getText());
+                                                        result.updateInt("Buch_Druckerei", Integer.parseInt(field_Druckerei.split(",")[0]));
+                                                        result.updateBoolean("Buch_Honorar", field_Honorar.isSelected());
+                                                        result.updateInt("Buch_Honorar_Prozent", Integer.parseInt(field_Honorar_Prozent.getText()));
+                                                        result.updateInt("Buch_Honorar_Anzahl", Integer.parseInt(field_Honorar_Anzahl.getText()));
+                                                        result.updateInt("Buch_Honorar_2_Prozent", Integer.parseInt(field_Honorar_2_Prozent.getText()));
+                                                        result.updateInt("Buch_Honorar_2_Anzahl", Integer.parseInt(field_Honorar_2_Anzahl.getText()));
+                                                        result.updateBoolean("BUCH_AKTIV", field_Aktiv.isSelected());
+                                                        result.updateBoolean("Buch_HERAUSGEBER", cbHerausgeber.isSelected());
+                                                        if (rbPB.isSelected()) {
+                                                            result.updateInt("BUCH_HC", 0);
+                                                        } else if (rbHC.isSelected()) {
+                                                            result.updateInt("BUCH_HC", 1);
+                                                        } else {
+                                                            result.updateInt("BUCH_HC", 2);
+                                                        }
 
-                                                List<String> ListeAutoren = lbAutor.getSelectedValuesList();
-                                                String EintragAutor = "";
-                                                String strAuswahl = "";
-                                                for (int i = 0, n = ListeAutoren.size(); i < n; i++) {
-                                                    strAuswahl = ListeAutoren.get(i);
-                                                    String[] splitAutor = strAuswahl.split(",");
-                                                    EintragAutor = EintragAutor + splitAutor[0] + ",";
-                                                }
-                                                EintragAutor = EintragAutor.substring(0, EintragAutor.length() - 1);
-                                                result.updateString("Buch_Autor", EintragAutor);
+                                                        List<String> ListeAutoren = lbAutor.getSelectedValuesList();
+                                                        String EintragAutor = "";
+                                                        String strAuswahl = "";
+                                                        for (int i = 0, n = ListeAutoren.size(); i < n; i++) {
+                                                            strAuswahl = ListeAutoren.get(i);
+                                                            String[] splitAutor = strAuswahl.split(",");
+                                                            EintragAutor = EintragAutor + splitAutor[0] + ",";
+                                                        }
+                                                        EintragAutor = EintragAutor.substring(0, EintragAutor.length() - 1);
+                                                        result.updateString("Buch_Autor", EintragAutor);
 
-                                                result.updateRow();
-                                                LabelBild.setIcon(new ImageIcon(result.getString("BUCH_COVER")));
-                                                //Bild = new Background(result.getString("Buch_COVER"));this.add(Bild); Bild.setBounds(520, 350, 120, 160);
+                                                        result.updateRow();
+                                                        LabelBild.setIcon(new ImageIcon(result.getString("BUCH_COVER")));
+                                                        //Bild = new Background(result.getString("Buch_COVER"));this.add(Bild); Bild.setBounds(520, 350, 120, 160);
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -1581,6 +1603,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 result.updateString("Buch_Titel", "");
                 result.updateFloat("Buch_Preis", 0);
                 result.updateFloat("Buch_EK", 0);
+                result.updateFloat("Buch_Marge", 0);
                 result.updateString("Buch_ISBN", eingabeISBN);
                 result.updateInt("Buch_Seiten", 0);
                 result.updateString("Buch_Beschreibung", "");
@@ -1634,6 +1657,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Titel.setText(result.getString("Buch_Titel"));
                 field_Preis.setText(Float.toString(result.getFloat("Buch_Preis")));
                 field_EK.setText(Float.toString(result.getFloat("Buch_EK")));
+                field_Marge.setText(Float.toString(result.getFloat("Buch_Marge")));
                 field_ISBN.setText(result.getString("Buch_ISBN"));
                 field_Seiten.setText(Integer.toString(result.getInt("BUCH_SEITEN")));
                 field_Beschreibung.setText(result.getString("BUCH_BESCHREIBUNG"));
@@ -1742,6 +1766,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_Titel.setText(result.getString("Buch_Titel"));
                     field_Preis.setText(Float.toString(result.getFloat("Buch_Preis")));
                     field_EK.setText(Float.toString(result.getFloat("Buch_EK")));
+                    field_Marge.setText(Float.toString(result.getFloat("Buch_Marge")));
                     field_ISBN.setText(result.getString("Buch_ISBN"));
                     field_Seiten.setText(Integer.toString(result.getInt("BUCH_SEITEN")));
                     field_Beschreibung.setText(result.getString("BUCH_BESCHREIBUNG"));
@@ -1945,6 +1970,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_Titel.setText(result.getString("Buch_Titel"));
                     field_Preis.setText(Float.toString(result.getFloat("Buch_Preis")));
                     field_EK.setText(Float.toString(result.getFloat("Buch_EK")));
+                    field_Marge.setText(Float.toString(result.getFloat("Buch_Marge")));
                     field_ISBN.setText(result.getString("Buch_ISBN"));
                     field_Seiten.setText(Integer.toString(result.getInt("BUCH_SEITEN")));
                     field_Beschreibung.setText(result.getString("BUCH_BESCHREIBUNG"));
@@ -2094,6 +2120,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Titel.setText(result.getString("Buch_Titel"));
                 field_Preis.setText(Float.toString(result.getFloat("Buch_Preis")));
                 field_EK.setText(Float.toString(result.getFloat("Buch_EK")));
+                field_Marge.setText(Float.toString(result.getFloat("Buch_Marge")));
                 field_ISBN.setText(result.getString("Buch_ISBN"));
                 field_Seiten.setText(Integer.toString(result.getInt("BUCH_SEITEN")));
                 field_Beschreibung.setText(result.getString("BUCH_BESCHREIBUNG"));
@@ -2176,7 +2203,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 
     private void DruckenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DruckenActionPerformed
         // TODO add your handling code here:
-        berBuch.Buch(field_ID.getText());
+        berBuch.Buch(field_ID.getText(), 1);
     }//GEN-LAST:event_DruckenActionPerformed
 
     private void SchliessenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SchliessenActionPerformed
@@ -2294,7 +2321,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 System.out.println("-> " + Modulhelferlein.pathUserDir);
                 System.out.println("-> " + Modulhelferlein.pathBuchprojekte);
                 System.out.println("-> " + Dateiname);
-                
+
                 field_Cover.setText(Dateiname);
             } catch (IOException e) {
                 Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
@@ -2578,6 +2605,8 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
     private JButton WSuchen;
     private JButton Drucken;
     private JButton Schliessen;
+    private JLabel label9;
+    private JTextField field_Marge;
     // End of variables declaration//GEN-END:variables
 
     private JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
