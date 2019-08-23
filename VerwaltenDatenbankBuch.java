@@ -349,6 +349,9 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_Honorar_2_Anzahl.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_ANZAHL")));
                     field_Honorar_2_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_PROZENT")));
                     field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
+                    field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                    field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
+                    field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                     switch (result.getInt("Buch_HC")) {
                         case 0:
                             rbPB.setSelected(true);
@@ -1098,6 +1101,9 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Auflage.setText(Integer.toString(result.getInt("BUCH_AUFLAGE")));
             field_DruckNr.setText(result.getString("Buch_Druckereinummer"));
             field_Jahr.setText(result.getString("Buch_JAHR"));
+            field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+            field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
+            field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
             field_DNB.setSelected(result.getBoolean("Buch_DEUNATBIBL"));
             field_BLB.setSelected(result.getBoolean("Buch_BERLLBIBL"));
             field_VLB.setSelected(result.getBoolean("Buch_VLB"));
@@ -1216,6 +1222,9 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Text.setText(result.getString("Buch_TEXT"));
                 field_Honorar.setSelected(result.getBoolean("Buch_HONORAR"));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
+                field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
+                field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
                     case 0:
                         rbPB.setSelected(true);
@@ -1326,6 +1335,9 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Text.setText(result.getString("Buch_TEXT"));
                 field_Honorar.setSelected(result.getBoolean("Buch_HONORAR"));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
+                field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
+                field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
                     case 0:
                         rbPB.setSelected(true);
@@ -1431,6 +1443,9 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Text.setText(result.getString("Buch_TEXT"));
             field_Honorar.setSelected(result.getBoolean("Buch_HONORAR"));
             field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
+            field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+            field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
+            field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
             switch (result.getInt("Buch_HC")) {
                 case 0:
                     rbPB.setSelected(true);
@@ -1523,55 +1538,66 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                                                     if (Modulhelferlein.checkNumberFormatInt(field_Honorar_2_Anzahl.getText()) < 0) {
                                                         Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Verkeuafsanzahl für Honorare - es ist keine korrekte Ganzzahl");
                                                     } else {
-                                                        result.updateString("Buch_Titel", field_Titel.getText());
-                                                        result.updateFloat("Buch_EK", Float.parseFloat(field_EK.getText()));
-                                                        result.updateFloat("Buch_Marge", Float.parseFloat(field_Marge.getText()));
-                                                        result.updateFloat("Buch_Preis", Float.parseFloat(field_Preis.getText()));
-                                                        result.updateString("Buch_ISBN", field_ISBN.getText());
-                                                        result.updateInt("Buch_Seiten", Integer.parseInt(field_Seiten.getText()));
-                                                        result.updateString("Buch_Beschreibung", field_Beschreibung.getText());
-                                                        result.updateInt("Buch_Auflage", Integer.parseInt(field_Auflage.getText()));
-                                                        result.updateString("BUCH_JAHR", field_Jahr.getText());
-                                                        result.updateString("Buch_Druckereinummer", field_DruckNr.getText());
-                                                        result.updateBoolean("Buch_DeuNatBibl", field_DNB.isSelected());
-                                                        result.updateBoolean("Buch_BerlLBibl", field_BLB.isSelected());
-                                                        result.updateBoolean("Buch_VLB", field_VLB.isSelected());
-                                                        result.updateInt("Buch_Bestand", Integer.parseInt(field_Bestand.getText()));
-                                                        result.updateString("Buch_Cover", field_Cover.getText());
-                                                        result.updateString("Buch_Flyer", field_Flyer.getText());
-                                                        result.updateString("Buch_Vertrag", field_Vertrag.getText());
-                                                        result.updateString("Buch_BOD_Vertrag", field_VertragBOD.getText());
-                                                        result.updateString("Buch_Text", field_Text.getText());
-                                                        result.updateInt("Buch_Druckerei", Integer.parseInt(field_Druckerei.split(",")[0]));
-                                                        result.updateBoolean("Buch_Honorar", field_Honorar.isSelected());
-                                                        result.updateInt("Buch_Honorar_Prozent", Integer.parseInt(field_Honorar_Prozent.getText()));
-                                                        result.updateInt("Buch_Honorar_Anzahl", Integer.parseInt(field_Honorar_Anzahl.getText()));
-                                                        result.updateInt("Buch_Honorar_2_Prozent", Integer.parseInt(field_Honorar_2_Prozent.getText()));
-                                                        result.updateInt("Buch_Honorar_2_Anzahl", Integer.parseInt(field_Honorar_2_Anzahl.getText()));
-                                                        result.updateBoolean("BUCH_AKTIV", field_Aktiv.isSelected());
-                                                        result.updateBoolean("Buch_HERAUSGEBER", cbHerausgeber.isSelected());
-                                                        if (rbPB.isSelected()) {
-                                                            result.updateInt("BUCH_HC", 0);
-                                                        } else if (rbHC.isSelected()) {
-                                                            result.updateInt("BUCH_HC", 1);
+                                                        if (Modulhelferlein.checkNumberFormatFloat(field_BoDFix.getText()) < 0) {
+                                                            Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Fix-Anteils der BoD-Marge - es ist keine korrekte Zahl");
                                                         } else {
-                                                            result.updateInt("BUCH_HC", 2);
-                                                        }
+                                                            if (Modulhelferlein.checkNumberFormatInt(field_Honorar_Prozent.getText()) < 0) {
+                                                                Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Prozentwertes der BoD-Marge - es ist keine korrekte Ganzzahl");
+                                                            } else {
+                                                                result.updateString("Buch_Titel", field_Titel.getText());
+                                                                result.updateFloat("Buch_EK", Float.parseFloat(field_EK.getText()));
+                                                                result.updateFloat("Buch_Marge", Float.parseFloat(field_Marge.getText()));
+                                                                result.updateFloat("Buch_Preis", Float.parseFloat(field_Preis.getText()));
+                                                                result.updateString("Buch_ISBN", field_ISBN.getText());
+                                                                result.updateInt("Buch_Seiten", Integer.parseInt(field_Seiten.getText()));
+                                                                result.updateString("Buch_Beschreibung", field_Beschreibung.getText());
+                                                                result.updateInt("Buch_Auflage", Integer.parseInt(field_Auflage.getText()));
+                                                                result.updateString("BUCH_JAHR", field_Jahr.getText());
+                                                                result.updateString("Buch_Druckereinummer", field_DruckNr.getText());
+                                                                result.updateBoolean("Buch_DeuNatBibl", field_DNB.isSelected());
+                                                                result.updateBoolean("Buch_BerlLBibl", field_BLB.isSelected());
+                                                                result.updateBoolean("Buch_VLB", field_VLB.isSelected());
+                                                                result.updateBoolean("Buch_GESAMTBETRACHUNG", field_Gesamtbetrachtung.isSelected());
+                                                                result.updateFloat("Buch_BODFIX", Float.parseFloat(field_BoDFix.getText()));
+                                                                result.updateInt("Buch_Bestand", Integer.parseInt(field_Bestand.getText()));
+                                                                result.updateInt("Buch_BODPROZENT", Integer.parseInt(field_BoDProzent.getText()));
+                                                                result.updateString("Buch_Cover", field_Cover.getText());
+                                                                result.updateString("Buch_Flyer", field_Flyer.getText());
+                                                                result.updateString("Buch_Vertrag", field_Vertrag.getText());
+                                                                result.updateString("Buch_BOD_Vertrag", field_VertragBOD.getText());
+                                                                result.updateString("Buch_Text", field_Text.getText());
+                                                                result.updateInt("Buch_Druckerei", Integer.parseInt(field_Druckerei.split(",")[0]));
+                                                                result.updateBoolean("Buch_Honorar", field_Honorar.isSelected());
+                                                                result.updateInt("Buch_Honorar_Prozent", Integer.parseInt(field_Honorar_Prozent.getText()));
+                                                                result.updateInt("Buch_Honorar_Anzahl", Integer.parseInt(field_Honorar_Anzahl.getText()));
+                                                                result.updateInt("Buch_Honorar_2_Prozent", Integer.parseInt(field_Honorar_2_Prozent.getText()));
+                                                                result.updateInt("Buch_Honorar_2_Anzahl", Integer.parseInt(field_Honorar_2_Anzahl.getText()));
+                                                                result.updateBoolean("BUCH_AKTIV", field_Aktiv.isSelected());
+                                                                result.updateBoolean("Buch_HERAUSGEBER", cbHerausgeber.isSelected());
+                                                                if (rbPB.isSelected()) {
+                                                                    result.updateInt("BUCH_HC", 0);
+                                                                } else if (rbHC.isSelected()) {
+                                                                    result.updateInt("BUCH_HC", 1);
+                                                                } else {
+                                                                    result.updateInt("BUCH_HC", 2);
+                                                                }
 
-                                                        List<String> ListeAutoren = lbAutor.getSelectedValuesList();
-                                                        String EintragAutor = "";
-                                                        String strAuswahl = "";
-                                                        for (int i = 0, n = ListeAutoren.size(); i < n; i++) {
-                                                            strAuswahl = ListeAutoren.get(i);
-                                                            String[] splitAutor = strAuswahl.split(",");
-                                                            EintragAutor = EintragAutor + splitAutor[0] + ",";
-                                                        }
-                                                        EintragAutor = EintragAutor.substring(0, EintragAutor.length() - 1);
-                                                        result.updateString("Buch_Autor", EintragAutor);
+                                                                List<String> ListeAutoren = lbAutor.getSelectedValuesList();
+                                                                String EintragAutor = "";
+                                                                String strAuswahl = "";
+                                                                for (int i = 0, n = ListeAutoren.size(); i < n; i++) {
+                                                                    strAuswahl = ListeAutoren.get(i);
+                                                                    String[] splitAutor = strAuswahl.split(",");
+                                                                    EintragAutor = EintragAutor + splitAutor[0] + ",";
+                                                                }
+                                                                EintragAutor = EintragAutor.substring(0, EintragAutor.length() - 1);
+                                                                result.updateString("Buch_Autor", EintragAutor);
 
-                                                        result.updateRow();
-                                                        LabelBild.setIcon(new ImageIcon(result.getString("BUCH_COVER")));
-                                                        //Bild = new Background(result.getString("Buch_COVER"));this.add(Bild); Bild.setBounds(520, 350, 120, 160);
+                                                                result.updateRow();
+                                                                LabelBild.setIcon(new ImageIcon(result.getString("BUCH_COVER")));
+                                                                //Bild = new Background(result.getString("Buch_COVER"));this.add(Bild); Bild.setBounds(520, 350, 120, 160);
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -1658,7 +1684,10 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 result.updateBoolean("Buch_Honorar", true);
                 result.updateBoolean("Buch_Herausgeber", false);
                 result.updateBoolean("Buch_VLB", false);
+                result.updateBoolean("Buch_GESAMTBETRACHTUNG", true);
                 result.updateInt("Buch_Honorar_Anzahl", 0);
+                result.updateInt("Buch_BODPROZENT", 0);
+                result.updateFloat("Buch_BODFIX", 0);
                 result.updateInt("Buch_Honorar_Prozent", 0);
                 result.updateInt("Buch_Honorar_2_Anzahl", 0);
                 result.updateInt("Buch_Honorar_2_Prozent", 0);
@@ -1714,6 +1743,9 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Honorar_Anzahl.setText(Integer.toString(result.getInt("BUCH_HONORAR_ANZAHL")));
                 field_Honorar_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_PROZENT")));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
+                field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
+                field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
                     case 0:
                         rbPB.setSelected(true);
@@ -1825,6 +1857,9 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_Honorar_2_Anzahl.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_ANZAHL")));
                     field_Honorar_2_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_PROZENT")));
                     field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
+                    field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                    field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
+                    field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                     switch (result.getInt("Buch_HC")) {
                         case 0:
                             rbPB.setSelected(true);
@@ -2030,6 +2065,9 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_Honorar_2_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_PROZENT")));
                     field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
                     cbHerausgeber.setSelected(result.getBoolean("BUCH_HERAUSGEBER"));
+                    field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                    field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
+                    field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                     switch (result.getInt("Buch_HC")) {
                         case 0:
                             rbPB.setSelected(true);
@@ -2179,6 +2217,9 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Honorar_2_Anzahl.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_ANZAHL")));
                 field_Honorar_2_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_PROZENT")));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
+                field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
+                field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
                     case 0:
                         rbPB.setSelected(true);
