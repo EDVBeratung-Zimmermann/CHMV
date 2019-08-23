@@ -59,7 +59,7 @@ public class _DlgInventur extends javax.swing.JDialog {
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -90,6 +90,7 @@ public class _DlgInventur extends javax.swing.JDialog {
 
             //---- jRadioButtonDOC ----
             jRadioButtonDOC.setText("DOC");
+            jRadioButtonDOC.setEnabled(false);
 
             //---- jButtonDrucken ----
             jButtonDrucken.setText("Drucken");
@@ -104,29 +105,31 @@ public class _DlgInventur extends javax.swing.JDialog {
             panel1Layout.setHorizontalGroup(
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(panel1Layout.createParallelGroup()
-                            .addComponent(jLabel1)
                             .addGroup(panel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panel1Layout.createParallelGroup()
+                                    .addComponent(jRadioButtonAutor)
+                                    .addComponent(jRadioButtonISBN))
+                                .addGap(108, 108, 108)
+                                .addGroup(panel1Layout.createParallelGroup()
+                                    .addComponent(jRadioButtonXLS)
+                                    .addComponent(jRadioButtonPDF)
+                                    .addComponent(jRadioButtonDOC)))
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jButtonDrucken)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonAbbrechen))
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addComponent(jLabel2)
                                 .addGap(111, 111, 111)
                                 .addComponent(jLabel3))
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jRadioButtonAutor)
-                                .addGap(108, 108, 108)
-                                .addComponent(jRadioButtonPDF))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jRadioButtonISBN)
-                                .addGap(112, 112, 112)
-                                .addComponent(jRadioButtonXLS))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(161, 161, 161)
-                                .addComponent(jRadioButtonDOC))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jButtonDrucken)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonAbbrechen)))
-                        .addContainerGap(25, Short.MAX_VALUE))
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel1)))
+                        .addContainerGap(31, Short.MAX_VALUE))
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
@@ -169,12 +172,12 @@ public class _DlgInventur extends javax.swing.JDialog {
         setLocationRelativeTo(getOwner());
 
         //---- buttonGroupSortierung ----
-        ButtonGroup buttonGroupSortierung = new ButtonGroup();
+        var buttonGroupSortierung = new ButtonGroup();
         buttonGroupSortierung.add(jRadioButtonAutor);
         buttonGroupSortierung.add(jRadioButtonISBN);
 
         //---- buttonGroupFormat ----
-        ButtonGroup buttonGroupFormat = new ButtonGroup();
+        var buttonGroupFormat = new ButtonGroup();
         buttonGroupFormat.add(jRadioButtonPDF);
         buttonGroupFormat.add(jRadioButtonXLS);
         buttonGroupFormat.add(jRadioButtonDOC);

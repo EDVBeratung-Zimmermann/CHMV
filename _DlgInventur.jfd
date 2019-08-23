@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_192" class="java.beans.XMLDecoder">
+<java version="11.0.1" class="java.beans.XMLDecoder">
  <object class="com.jformdesigner.model.FormModel">
   <void property="contentType">
    <string>form/swing</string>
@@ -35,7 +35,7 @@
          <class>org.jdesktop.layout.GroupLayout</class>
          <void method="setProperty">
           <string>$horizontalGroup</string>
-          <string>par l {seq l {space :::p, par l {comp jLabel1:::p::p, seq l {comp jLabel2:::p::p, space :111:111:p, comp jLabel3:::p::p}, seq l {comp jRadioButtonAutor:::p::p, space :108:108:p, comp jRadioButtonPDF:::p::p}, seq l {comp jRadioButtonISBN:::p::p, space :112:112:p, comp jRadioButtonXLS:::p::p}, seq l {space :161:161:p, comp jRadioButtonDOC:::p::p}, seq l {comp jButtonDrucken:::p::p, space :18:18:p, comp jButtonAbbrechen:::p::p}}, space ::25:x}}</string>
+          <string>par l {seq {par l {seq l {space :::p, par l {comp jRadioButtonAutor::l:p::p, comp jRadioButtonISBN::l:p::p}, space :p:108:p, par l {comp jRadioButtonXLS::l:p::p, comp jRadioButtonPDF::l:p::p, comp jRadioButtonDOC::l:p::p}}, seq l {space :10:10:p, comp jButtonDrucken:::p::p, space :18:18:p, comp jButtonAbbrechen:::p::p}, seq l {space :10:10:p, comp jLabel2:::p::p, space :111:111:p, comp jLabel3:::p::p}, seq {space :10:10:p, comp jLabel1:::p::p}}, space ::31:x}}</string>
          </void>
          <void method="setProperty">
           <string>$verticalGroup</string>
@@ -181,6 +181,10 @@
           <void method="setProperty">
            <string>text</string>
            <string>DOC</string>
+          </void>
+          <void method="setProperty">
+           <string>enabled</string>
+           <boolean>false</boolean>
           </void>
           <void property="name">
            <string>jRadioButtonDOC</string>
