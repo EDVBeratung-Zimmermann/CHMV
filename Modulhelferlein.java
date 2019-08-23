@@ -102,6 +102,7 @@ public class Modulhelferlein {
     public static String dbPort = "";
     public static String dbName = "";
     public static String dbUser = "";
+    public static Boolean dbLive = true;
     public static String dbPassword = "";
     public static String MailHost = "";
     public static String MailPort = "";
