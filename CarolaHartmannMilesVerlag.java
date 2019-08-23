@@ -52,13 +52,25 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void backupDatenbank() {
-        String cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P3063 -uroot -pclausewitz milesverlag > "
-                + "\""
-                + Modulhelferlein.pathSicherung
-                + "\""
-                + "\\"
-                + "miles-verlag.backup-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + ".sql";
+        String cmdline = "";
+        if (Modulhelferlein.dbLive) {
+            cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P3063 -uroot -pclausewitz milesverlag > "
+                    + "\""
+                    + Modulhelferlein.pathSicherung
+                    + "\""
+                    + "\\"
+                    + "miles-verlag.backup-"
+                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + ".sql";
+        } else {
+            cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P3063 -uroot -pclausewitz milesverlag-train > "
+                    + "\""
+                    + Modulhelferlein.pathSicherung
+                    + "\""
+                    + "\\"
+                    + "miles-verlag.backup-"
+                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + ".sql";
+        }
+
         try {
             Runtime.getRuntime().exec("cmd /c " + cmdline);
             Modulhelferlein.Infomeldung("Datenbank wurde gesichert!");
@@ -76,12 +88,27 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
      * Creates new form CHMV
      */
     public CarolaHartmannMilesVerlag() {
+        //prüfe, ob die Parameter stimmen:
+        // 0    Adresse für den Datenbankserver
+        // 1    Port für den Datenbankserver
+        // 2    Name der Datenbank 
+        // 3    Benutzername 
+        // 4    Kennwort
+        if (parameter != 6) {
+            Modulhelferlein.Fehlermeldung("Die Anzahl der Parameter stimmt nicht!");
+            System.exit(-1);
+        }
+
         initComponents();
 
         this.setSize(650, 210);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.setContentPane(new ModulBackground("background.jpg"));
+        if (Modulhelferlein.dbLive) {
+            this.setContentPane(new ModulBackground("background.jpg"));
+        } else {
+            this.setContentPane(new ModulBackground("BackgroundTraining.jpg"));
+        }
 
         ImageIcon img = new ImageIcon("CarolaHartmannMilesVerlag.png");
         this.setIconImage(img.getImage());
@@ -94,17 +121,6 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
         Modulhelferlein.pathUserDir = System.getProperty("user.dir");
         System.out.println("UserDir = " + Modulhelferlein.pathUserDir);
-
-        //prüfe, ob die Parameter stimmen:
-        // 0    Adresse für den Datenbankserver
-        // 1    Port für den Datenbankserver
-        // 2    Name der Datenbank 
-        // 3    Benutzername 
-        // 4    Kennwort
-        if (parameter != 5) {
-            Modulhelferlein.Fehlermeldung("Die Anzahl der Parameter stimmt nicht!");
-            System.exit(-1);
-        }
 
         // prüfe, ob ein Nutzer aktiv ist
         File file = new File(Modulhelferlein.Semaphore);
@@ -934,7 +950,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         try {
             Runtime.getRuntime().exec("cmd.exe /c CarolaHartmannMilesVerlagHandbuch.pdf");
         } catch (IOException exept) {
-                    Modulhelferlein.Fehlermeldung("Hilfe", "Handbuch öffen: IO-Exception: ", exept.getMessage());
+            Modulhelferlein.Fehlermeldung("Hilfe", "Handbuch öffen: IO-Exception: ", exept.getMessage());
         } // try Handbuch öffnen
     }//GEN-LAST:event_jMenuItemHilfeHilfeActionPerformed
 
@@ -1154,10 +1170,17 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
         if (Ergebnis == JFileChooser.APPROVE_OPTION) {
             Filename = chooser.getSelectedFile().getName();
+            String cmdline = "";
             try {
-                String cmdline = "C:\\xampp\\mysql\\bin\\mysql.exe -P3063 -uroot -pclausewitz milesverlag < " + Modulhelferlein.pathSicherung
-                        + "\\"
-                        + Filename;
+                if (Modulhelferlein.dbLive) {
+                    cmdline = "C:\\xampp\\mysql\\bin\\mysql.exe -P3063 -uroot -pclausewitz milesverlag < " + Modulhelferlein.pathSicherung
+                            + "\\"
+                            + Filename;
+                } else {
+                    cmdline = "C:\\xampp\\mysql\\bin\\mysql.exe -P3063 -uroot -pclausewitz milesverlag-train < " + Modulhelferlein.pathSicherung
+                            + "\\"
+                            + Filename;
+                }
                 Runtime.getRuntime().exec("cmd /c " + cmdline);
                 Modulhelferlein.Infomeldung("Datenbank wurde wiederhergestellt");
             } catch (IOException e) {
@@ -1423,7 +1446,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
         parameter = args.length;
 
-        if (parameter != 5) {
+        if (parameter != 6) {
             Modulhelferlein.Fehlermeldung("Die Anzahl der Parameter stimmt nicht!");
             System.exit(-1);
         }
@@ -1432,6 +1455,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         Modulhelferlein.dbName = args[2];
         Modulhelferlein.dbUser = args[3];
         Modulhelferlein.dbPassword = args[4];
+        Modulhelferlein.dbLive = "live".equals(args[5]);
 
         /**
          * try { for (javax.swing.UIManager.LookAndFeelInfo info :
