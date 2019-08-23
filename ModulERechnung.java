@@ -384,7 +384,7 @@ public class ModulERechnung {
             writer.write(System.getProperty("line.separator"));
             writer.write("                    <ram:PostcodeCode>14089</ram:PostcodeCode>");
             writer.write(System.getProperty("line.separator"));
-            writer.write("                    <ram:LineOne>George Caylay Straﬂe 38</ram:LineOne>");
+            writer.write("                    <ram:LineOne>Alt Kladow 16d</ram:LineOne>");
             writer.write(System.getProperty("line.separator"));
             writer.write("                    <ram:LineTwo></ram:LineTwo>");
             writer.write(System.getProperty("line.separator"));

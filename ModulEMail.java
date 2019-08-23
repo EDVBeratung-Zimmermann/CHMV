@@ -181,7 +181,7 @@ public class ModulEMail {
                     + Modulhelferlein.CHMVBenutzer + "\n"
                     + "\n"
                     + "Carola Hartmann Miles Verlag\n"
-                    + "George Caylay Straﬂe 38\n"
+                    + "Alt Kladow 16d\n"
                     + "14089 Berlin\n"
                     + "Telefon +49 (30) 36877788";
 

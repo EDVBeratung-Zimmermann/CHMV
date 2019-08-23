@@ -406,7 +406,7 @@ public class briefRezension {
                     XmlCursor cursor = paragraphFooter.getCTP().newCursor();
                     XWPFTable tableFooter = footer.insertNewTbl(cursor);
 
-                    String[] strFooter1 = {"Carola Hartmann Miles Verlag", "George Caylay Straße 38", "14089 Berlin"};
+                    String[] strFooter1 = {"Carola Hartmann Miles Verlag", "Alt Kladow 16d", "14089 Berlin"};
                     String[] strFooter2 = {"Dipl.Kff. Carola Hartmann", "Telefon +49 (0)30 36 28 86 77", "Volksbank Berlin"};
                     String[] strFooter3 = {"StrNr 19 332 6006 5", "E-Mail miles-verlag@t-online.de", "IBAN DE61 1009 0000 2233 8320 17"};
                     String[] strFooter4 = {"UStrID DE 269 369 5", "www.miles-verlag.jimdo.com", "BIC BEV0DEBB"};
@@ -624,7 +624,7 @@ public class briefRezension {
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-                    Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("George Caylay Straße 38"));
+                    Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
                     Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
@@ -641,7 +641,7 @@ public class briefRezension {
 
                     // Absenderzeile
                     Linie(cos, 1, 50, 749, 297, 749);
-                    Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - George Caylay Straße 38 - 14089 Berlin"));
+                    Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
 
                     // Datum
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
@@ -962,7 +962,7 @@ public class briefRezension {
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-                        Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("George Caylay Straße 38"));
+                        Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
                         Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
@@ -1155,7 +1155,7 @@ public class briefRezension {
         Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
         Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-        Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("George Caylay Straße 38"));
+        Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
         Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
         Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
         Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
@@ -1172,7 +1172,7 @@ public class briefRezension {
 
         // Absenderzeile
         Linie(cos, 1, 50, 749, 297, 749);
-        Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - George Caylay Straße 38 - 14089 Berlin"));
+        Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
 
         // Datum
         Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
@@ -1238,10 +1238,27 @@ public class briefRezension {
             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 1), "");
         } else {
             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere Neuerscheinung in der Zeitschrift");
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 1), "'" + Zeitschrift + "' besprechen würden.");
+            
+            zeilenNr = zeilenNr + 1;
+            
+            String ZeileZeitschrift = "'" + Zeitschrift + "' besprechen würden.";
+            splitBeschreibung = Beschreibung.split(" ");
+            woerter = splitBeschreibung.length;
+            i = 0;
+            while (i < woerter) {
+                zeile = "";
+                while ((zeile.length() < 60) && (i < woerter)) {
+                    zeile = zeile + " " + splitBeschreibung[i];
+                    i = i + 1;
+                }
+                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr), zeile);
+                zeilenNr = zeilenNr + 1;
+            }
+
+            // Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 1), ZeileZeitschrift );
         }
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 2), "Für Fragen stehe ich gerne zur Verfügung, ebenso sende ich Ihnen bei Bedarf");
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 3), "eine Bild-Datei des Buchcovers zu.");
+        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 0), "Für Fragen stehe ich gerne zur Verfügung, ebenso sende ich Ihnen bei Bedarf");
+        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 1), "eine Bild-Datei des Buchcovers zu.");
 
         // Schlussformel
         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 5), Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
@@ -1566,7 +1583,7 @@ public class briefRezension {
             XmlCursor cursor = paragraphFooter.getCTP().newCursor();
             XWPFTable tableFooter = footer.insertNewTbl(cursor);
 
-            String[] strFooter1 = {"Carola Hartmann Miles Verlag", "George Caylay Straße 38", "14089 Berlin"};
+            String[] strFooter1 = {"Carola Hartmann Miles Verlag", "Alt Kladow 16d", "14089 Berlin"};
             String[] strFooter2 = {"Dipl.Kff. Carola Hartmann", "Telefon +49 (0)30 36 28 86 77", "Volksbank Berlin"};
             String[] strFooter3 = {"StrNr 19 332 6006 5", "E-Mail miles-verlag@t-online.de", "IBAN DE61 1009 0000 2233 8320 17"};
             String[] strFooter4 = {"UStrID DE 269 369 5", "www.miles-verlag.jimdo.com", "BIC BEV0DEBB"};
