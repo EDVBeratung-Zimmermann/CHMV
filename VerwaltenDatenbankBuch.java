@@ -496,7 +496,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
         field_BoDFix = new JTextField();
         textField2 = new JTextField();
         label10 = new JLabel();
-        label11 = new JLabel();
+        field_BoDProzent = new JLabel();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -578,7 +578,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             label1.setText("von");
             label1.setHorizontalAlignment(SwingConstants.RIGHT);
             panel1.add(label1);
-            label1.setBounds(540, 0, 50, 25);
+            label1.setBounds(540, 0, 40, 25);
 
             //---- field_countMax ----
             field_countMax.setEditable(false);
@@ -596,7 +596,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             jLabel4.setText("ID");
             jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
             panel1.add(jLabel4);
-            jLabel4.setBounds(675, 0, jLabel4.getPreferredSize().width, 25);
+            jLabel4.setBounds(655, 0, 25, 25);
 
             //---- field_ID ----
             field_ID.setEditable(false);
@@ -604,7 +604,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_ID.setEnabled(false);
             field_ID.setFocusable(false);
             panel1.add(field_ID);
-            field_ID.setBounds(691, 0, 79, 25);
+            field_ID.setBounds(691, 0, 64, 25);
 
             //---- field_Aktiv ----
             field_Aktiv.setText("Aktiv");
@@ -1008,7 +1008,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             //---- radioButton2 ----
             radioButton2.setText("BoD getrennt betrachtet");
             panel1.add(radioButton2);
-            radioButton2.setBounds(new Rectangle(new Point(500, 540), radioButton2.getPreferredSize()));
+            radioButton2.setBounds(500, 540, 170, radioButton2.getPreferredSize().height);
             panel1.add(field_BoDFix);
             field_BoDFix.setBounds(520, 570, 30, 20);
             panel1.add(textField2);
@@ -1017,12 +1017,12 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             //---- label10 ----
             label10.setText("Fix-Betrag BoD");
             panel1.add(label10);
-            label10.setBounds(560, 570, label10.getPreferredSize().width, 20);
+            label10.setBounds(560, 570, 100, 20);
 
-            //---- label11 ----
-            label11.setText("% BoD-Marge");
-            panel1.add(label11);
-            label11.setBounds(560, 600, label11.getPreferredSize().width, 20);
+            //---- field_BoDProzent ----
+            field_BoDProzent.setText("% BoD-Marge");
+            panel1.add(field_BoDProzent);
+            field_BoDProzent.setBounds(560, 600, 110, 20);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -1039,7 +1039,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             }
         }
         contentPane.add(panel1);
-        panel1.setBounds(10, 10, 970, 710);
+        panel1.setBounds(10, 10, 970, 670);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -1054,7 +1054,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             contentPane.setMinimumSize(preferredSize);
             contentPane.setPreferredSize(preferredSize);
         }
-        setSize(860, 710);
+        setSize(860, 720);
         setLocationRelativeTo(getOwner());
 
         //---- buttonGroup1 ----
@@ -2649,7 +2649,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
     private JTextField field_BoDFix;
     private JTextField textField2;
     private JLabel label10;
-    private JLabel label11;
+    private JLabel field_BoDProzent;
     // End of variables declaration//GEN-END:variables
 
     private JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));

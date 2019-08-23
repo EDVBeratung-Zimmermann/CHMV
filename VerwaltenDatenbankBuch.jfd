@@ -357,7 +357,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>50</int>
+           <int>40</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -437,10 +437,18 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>675</int>
+           <int>655</int>
           </void>
           <void method="setProperty">
            <string>height</string>
+           <int>25</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>0</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
            <int>25</int>
           </void>
          </object>
@@ -476,7 +484,7 @@
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>79</int>
+           <int>64</int>
           </void>
           <void method="setProperty">
            <string>height</string>
@@ -2928,6 +2936,10 @@
            <string>y</string>
            <int>540</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>170</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -3005,6 +3017,10 @@
            <string>height</string>
            <int>20</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>100</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -3015,7 +3031,7 @@
            <string>% BoD-Marge</string>
           </void>
           <void property="name">
-           <string>label11</string>
+           <string>field_BoDProzent</string>
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
@@ -3031,6 +3047,10 @@
           <void method="setProperty">
            <string>height</string>
            <int>20</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>110</int>
           </void>
          </object>
         </void>
@@ -3051,7 +3071,7 @@
         </void>
         <void method="setProperty">
          <string>height</string>
-         <int>710</int>
+         <int>670</int>
         </void>
        </object>
       </void>
@@ -3065,7 +3085,7 @@
        <string>size</string>
        <object class="java.awt.Dimension">
         <int>860</int>
-        <int>710</int>
+        <int>720</int>
        </object>
       </void>
       <void method="setProperty">
