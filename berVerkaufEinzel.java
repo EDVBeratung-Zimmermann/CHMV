@@ -216,7 +216,7 @@ System.out.println("WHILE BUCH -> " + ISBN);
                                 sheet_Verkauf.addCell(label);
                                 break;
                             case 3: //Geschenk
-                                label = new Label(3, zeile, "Geschenk", arial10formatL);
+                                label = new Label(3, zeile, "Werbeexemplar", arial10formatL);
                                 sheet_Verkauf.addCell(label);
                                 break;
                             case 4: //Beleg
