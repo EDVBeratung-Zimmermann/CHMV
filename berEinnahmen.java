@@ -231,7 +231,7 @@ public class berEinnahmen {
                                     Bemerkung = "Belegexemplar";
                                     break;
                                 case 3:
-                                    Bemerkung = "Geschenk";
+                                    Bemerkung = "Werbeexemplar";
                                     break;
                                 case 2:
                                     Bemerkung = "Pflichtexemplar";
