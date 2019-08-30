@@ -2937,7 +2937,7 @@
            </object>
           </void>
           <void property="name">
-           <string>radioButton2</string>
+           <string>field_BODgetrennt</string>
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
@@ -2987,7 +2987,7 @@
          <object class="com.jformdesigner.model.FormComponent">
           <string>javax.swing.JTextField</string>
           <void property="name">
-           <string>textField2</string>
+           <string>field_BoDProzent</string>
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
@@ -3042,10 +3042,10 @@
           <string>javax.swing.JLabel</string>
           <void method="setProperty">
            <string>text</string>
-           <string>% BoD-Marge</string>
+           <string>% Marge BoD</string>
           </void>
           <void property="name">
-           <string>field_BoDProzent</string>
+           <string>label11</string>
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
@@ -3059,12 +3059,12 @@
            <int>600</int>
           </void>
           <void method="setProperty">
-           <string>height</string>
-           <int>20</int>
+           <string>width</string>
+           <int>80</int>
           </void>
           <void method="setProperty">
-           <string>width</string>
-           <int>150</int>
+           <string>height</string>
+           <int>20</int>
           </void>
          </object>
         </void>

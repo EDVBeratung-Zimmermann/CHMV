@@ -495,11 +495,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
         label9 = new JLabel();
         field_Marge = new JTextField();
         field_Gesamtbetrachtung = new JRadioButton();
-        radioButton2 = new JRadioButton();
+        field_BODgetrennt = new JRadioButton();
         field_BoDFix = new JTextField();
-        textField2 = new JTextField();
+        field_BoDProzent = new JTextField();
         label10 = new JLabel();
-        field_BoDProzent = new JLabel();
+        label11 = new JLabel();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -1010,24 +1010,24 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             panel1.add(field_Gesamtbetrachtung);
             field_Gesamtbetrachtung.setBounds(155, 540, 225, field_Gesamtbetrachtung.getPreferredSize().height);
 
-            //---- radioButton2 ----
-            radioButton2.setText("BoD getrennt betrachtet");
-            panel1.add(radioButton2);
-            radioButton2.setBounds(500, 540, 170, radioButton2.getPreferredSize().height);
+            //---- field_BODgetrennt ----
+            field_BODgetrennt.setText("BoD getrennt betrachtet");
+            panel1.add(field_BODgetrennt);
+            field_BODgetrennt.setBounds(500, 540, 170, field_BODgetrennt.getPreferredSize().height);
             panel1.add(field_BoDFix);
             field_BoDFix.setBounds(390, 570, 30, 20);
-            panel1.add(textField2);
-            textField2.setBounds(390, 600, 30, textField2.getPreferredSize().height);
+            panel1.add(field_BoDProzent);
+            field_BoDProzent.setBounds(390, 600, 30, field_BoDProzent.getPreferredSize().height);
 
             //---- label10 ----
             label10.setText("Fix-Betrag BoD");
             panel1.add(label10);
             label10.setBounds(430, 570, 100, 20);
 
-            //---- field_BoDProzent ----
-            field_BoDProzent.setText("% BoD-Marge");
-            panel1.add(field_BoDProzent);
-            field_BoDProzent.setBounds(430, 600, 150, 20);
+            //---- label11 ----
+            label11.setText("% Marge BoD");
+            panel1.add(label11);
+            label11.setBounds(430, 600, 80, 20);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -1065,7 +1065,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
         //---- buttonGroup1 ----
         var buttonGroup1 = new ButtonGroup();
         buttonGroup1.add(field_Gesamtbetrachtung);
-        buttonGroup1.add(radioButton2);
+        buttonGroup1.add(field_BODgetrennt);
     }// </editor-fold>//GEN-END:initComponents
 
     private void AnfangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnfangActionPerformed
@@ -2688,11 +2688,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
     private JLabel label9;
     private JTextField field_Marge;
     private JRadioButton field_Gesamtbetrachtung;
-    private JRadioButton radioButton2;
+    private JRadioButton field_BODgetrennt;
     private JTextField field_BoDFix;
-    private JTextField textField2;
+    private JTextField field_BoDProzent;
     private JLabel label10;
-    private JLabel field_BoDProzent;
+    private JLabel label11;
     // End of variables declaration//GEN-END:variables
 
     private JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
