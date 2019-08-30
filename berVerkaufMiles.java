@@ -138,7 +138,7 @@ public class berVerkaufMiles {
 
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Geschenk");
+                        Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                         Linie(cos,1,55, 490, 800, 490);
@@ -174,7 +174,7 @@ public class berVerkaufMiles {
                                     Ausgabe(cos, fontBold, 12, Color.BLACK, 465, 495, "ISBN");
                                     Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
                                     Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Geschenk");
+                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
                                     Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                                     Linie(cos,1,55, 490, 800, 490);
@@ -214,7 +214,7 @@ public class berVerkaufMiles {
                                     Ausgabe(cos, fontBold, 12, Color.BLACK, 465, 495, "ISBN");
                                     Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
                                     Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Geschenk");
+                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
                                     Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                                     Linie(cos,1,55, 490, 800, 490);
@@ -243,7 +243,7 @@ public class berVerkaufMiles {
 
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Geschenk");
+                        Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                         Linie(cos,1,55, 490, 800, 490);
@@ -283,7 +283,7 @@ public class berVerkaufMiles {
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 265, 495, "Autor", 200);
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Geschenk");
+                                Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                                 Linie(cos,1,55, 490, 800, 490);
@@ -308,7 +308,7 @@ public class berVerkaufMiles {
 
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Geschenk");
+                        Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                         Linie(cos,1,55, 490, 800, 490);
@@ -348,7 +348,7 @@ public class berVerkaufMiles {
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 365, 495, "Autor", 200);
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Geschenk");
+                                Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                                 Linie(cos,1,55, 490, 800, 490);
