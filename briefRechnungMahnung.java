@@ -363,7 +363,7 @@ public class briefRechnungMahnung {
                                 run.setText("Pflichtexemplar");
                                 break;
                             case 3:
-                                run.setText("Geschenkexemplar");
+                                run.setText("Werbeexemplar");
                                 break;
                         }
                     } else {
