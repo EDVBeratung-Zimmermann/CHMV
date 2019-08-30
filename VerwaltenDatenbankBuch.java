@@ -513,6 +513,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 
         //======== panel1 ========
         {
+            panel1.setPreferredSize(new Dimension(800, 658));
             panel1.setLayout(null);
 
             //======== jScrollPane1 ========
@@ -802,6 +803,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             LabelBild.setFocusable(false);
             LabelBild.setHorizontalTextPosition(SwingConstants.CENTER);
             LabelBild.setIconTextGap(0);
+            LabelBild.setPreferredSize(new Dimension(120, 160));
             panel1.add(LabelBild);
             LabelBild.setBounds(691, 391, 120, 172);
 
@@ -885,38 +887,38 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Honorar_Anzahl.setPreferredSize(new Dimension(33, 25));
             field_Honorar_Anzahl.addActionListener(e -> field_Honorar_AnzahlActionPerformed(e));
             panel1.add(field_Honorar_Anzahl);
-            field_Honorar_Anzahl.setBounds(175, 570, field_Honorar_Anzahl.getPreferredSize().width, 20);
+            field_Honorar_Anzahl.setBounds(45, 570, field_Honorar_Anzahl.getPreferredSize().width, 20);
 
             //---- jLabel22 ----
             jLabel22.setText("St\u00fcck mit je");
             panel1.add(jLabel22);
-            jLabel22.setBounds(220, 570, 83, 20);
+            jLabel22.setBounds(90, 570, 83, 20);
 
             //---- field_Honorar_Prozent ----
             field_Honorar_Prozent.setMinimumSize(new Dimension(25, 30));
             field_Honorar_Prozent.setPreferredSize(new Dimension(25, 25));
             field_Honorar_Prozent.addActionListener(e -> field_Honorar_ProzentActionPerformed(e));
             panel1.add(field_Honorar_Prozent);
-            field_Honorar_Prozent.setBounds(305, 570, 33, 20);
+            field_Honorar_Prozent.setBounds(175, 570, 33, 20);
 
             //---- jLabel23 ----
             jLabel23.setText("% des Netto-VK pro St\u00fcck");
             panel1.add(jLabel23);
-            jLabel23.setBounds(350, 570, 163, 20);
+            jLabel23.setBounds(220, 570, 163, 20);
             panel1.add(field_Honorar_2_Anzahl);
-            field_Honorar_2_Anzahl.setBounds(175, 600, 33, 20);
+            field_Honorar_2_Anzahl.setBounds(45, 600, 33, 20);
 
             //---- label8 ----
             label8.setText("St\u00fcck mit je");
             panel1.add(label8);
-            label8.setBounds(220, 600, 83, 20);
+            label8.setBounds(90, 600, 83, 20);
             panel1.add(field_Honorar_2_Prozent);
-            field_Honorar_2_Prozent.setBounds(305, 600, 33, 20);
+            field_Honorar_2_Prozent.setBounds(175, 600, 33, 20);
 
             //---- label7 ----
             label7.setText("% des Netto-VK pro St\u00fcck");
             panel1.add(label7);
-            label7.setBounds(350, 600, 163, 20);
+            label7.setBounds(220, 600, 163, 20);
 
             //---- Anfang ----
             Anfang.setText("<<");
@@ -1013,19 +1015,19 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             panel1.add(radioButton2);
             radioButton2.setBounds(500, 540, 170, radioButton2.getPreferredSize().height);
             panel1.add(field_BoDFix);
-            field_BoDFix.setBounds(520, 570, 30, 20);
+            field_BoDFix.setBounds(390, 570, 30, 20);
             panel1.add(textField2);
-            textField2.setBounds(520, 600, 30, textField2.getPreferredSize().height);
+            textField2.setBounds(390, 600, 30, textField2.getPreferredSize().height);
 
             //---- label10 ----
             label10.setText("Fix-Betrag BoD");
             panel1.add(label10);
-            label10.setBounds(560, 570, 100, 20);
+            label10.setBounds(430, 570, 100, 20);
 
             //---- field_BoDProzent ----
             field_BoDProzent.setText("% BoD-Marge");
             panel1.add(field_BoDProzent);
-            field_BoDProzent.setBounds(560, 600, 110, 20);
+            field_BoDProzent.setBounds(430, 600, 150, 20);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -1557,7 +1559,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                                                                 result.updateBoolean("Buch_DeuNatBibl", field_DNB.isSelected());
                                                                 result.updateBoolean("Buch_BerlLBibl", field_BLB.isSelected());
                                                                 result.updateBoolean("Buch_VLB", field_VLB.isSelected());
-                                                                result.updateBoolean("Buch_GESAMTBETRACHUNG", field_Gesamtbetrachtung.isSelected());
+                                                                result.updateBoolean("Buch_GESAMTBETRACTUNG", field_Gesamtbetrachtung.isSelected());
                                                                 result.updateFloat("Buch_BODFIX", Float.parseFloat(field_BoDFix.getText()));
                                                                 result.updateInt("Buch_Bestand", Integer.parseInt(field_Bestand.getText()));
                                                                 result.updateInt("Buch_BODPROZENT", Integer.parseInt(field_BoDProzent.getText()));
@@ -1684,7 +1686,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 result.updateBoolean("Buch_Honorar", true);
                 result.updateBoolean("Buch_Herausgeber", false);
                 result.updateBoolean("Buch_VLB", false);
-                result.updateBoolean("Buch_GESAMTBETRACHTUNG", true);
+                result.updateBoolean("Buch_GESAMTBETRACTUNG", true);
                 result.updateInt("Buch_Honorar_Anzahl", 0);
                 result.updateInt("Buch_BODPROZENT", 0);
                 result.updateFloat("Buch_BODFIX", 0);
