@@ -108,7 +108,7 @@ public class ModulBriefpapierDrucken {
             document.close();
 
             try {
-                Runtime.getRuntime().exec("cmd.exe /c " + "\""  + outputFileName + "\"" );
+                Runtime.getRuntime().exec("cmd.exe /c " + "\""  + outputFileName );
             } catch (IOException exept) {
                 Modulhelferlein.Fehlermeldung("Ausgabe Blanko-Brief","IO-Exception: " , exept.getMessage());
             }// try Brief ausgeben
