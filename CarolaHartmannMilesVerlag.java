@@ -245,12 +245,19 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                                     if (Modulhelferlein.pathBenutzer.equals("Mailkonfiguration")) {
                                         System.out.println("Mailkonfiguration gelesen");
                                         Modulhelferlein.MailHost = resultKonfiguration.getString("Konfiguration_Stammdaten");
+                                        System.out.println("-> Host      "+Modulhelferlein.MailHost);
                                         Modulhelferlein.MailPort = resultKonfiguration.getString("Konfiguration_Einnahmen");
+                                        System.out.println("-> Port      "+Modulhelferlein.MailPort);
                                         Modulhelferlein.MailIMAPHost = resultKonfiguration.getString("Konfiguration_Sicherung");
+                                        System.out.println("-> IMAP-Host "+Modulhelferlein.MailIMAPHost);
                                         Modulhelferlein.MailIMAPPort = resultKonfiguration.getString("Konfiguration_Mahnungen");
+                                        System.out.println("-> IMAP-Port "+Modulhelferlein.MailIMAPPort);
                                         Modulhelferlein.MailIMAPGesendet = resultKonfiguration.getString("Konfiguration_Rechnungen");
+                                        System.out.println("-> IMAP-Sent "+Modulhelferlein.MailIMAPGesendet);
                                         Modulhelferlein.MailUser = resultKonfiguration.getString("Konfiguration_Ausgaben");
+                                        System.out.println("-> User      "+Modulhelferlein.MailUser);
                                         Modulhelferlein.MailPass = resultKonfiguration.getString("Konfiguration_Umsaetze");
+                                        System.out.println("-> Passwort  ****************");
                                     }
                                     if (Modulhelferlein.pathBenutzer.equals("Waehrung")) {
                                         System.out.println("Währungsdaten gelesen");
@@ -265,7 +272,9 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                                     if (Modulhelferlein.pathBenutzer.equals("Datensicherung")) {
                                         System.out.println("Konfiguration Datensicherung gelesen");
                                         Modulhelferlein.pathQuelle = resultKonfiguration.getString("Konfiguration_Stammdaten");
+                                        System.out.println("-> Quelle "+Modulhelferlein.pathQuelle);
                                         Modulhelferlein.pathZiel = resultKonfiguration.getString("Konfiguration_Einnahmen");
+                                        System.out.println("-> Ziel   "+Modulhelferlein.pathZiel);
                                     }
                                     if (Modulhelferlein.pathBenutzer.equals(Modulhelferlein.CHMVBenutzer)) {
                                         System.out.println("Benutzerkonfiguration gelesen");
