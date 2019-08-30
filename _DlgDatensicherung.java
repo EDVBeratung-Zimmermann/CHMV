@@ -80,7 +80,7 @@ public class _DlgDatensicherung extends javax.swing.JDialog {
             String[] command = {"cmd", "/c", "robocopy.exe",
                 Modulhelferlein.pathQuelle,
                 Modulhelferlein.pathZiel,
-                "/S", "/E", "/TS", "/FP", "/M"
+                "/S", "/E", "/TS", "/FP", "/M", "/R:3", "/W:3"
             };
             String OutFilename = Modulhelferlein.pathSicherung + "/"
                     + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
