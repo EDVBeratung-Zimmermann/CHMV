@@ -78,6 +78,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         }
 
         try {
+            System.out.println("Datenbanksicherung: cmd /c " + cmdline);
             Runtime.getRuntime().exec("cmd /c " + cmdline);
             Modulhelferlein.Infomeldung("Datenbank wurde gesichert!");
         } catch (IOException e) {
@@ -1202,6 +1203,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                             + "\\"
                             + Filename;
                 }
+                System.out.println("Datenbankwiederherstellung: cmd /c " + cmdline);
                 Runtime.getRuntime().exec("cmd /c " + cmdline);
                 Modulhelferlein.Infomeldung("Datenbank wurde wiederhergestellt");
             } catch (IOException e) {
