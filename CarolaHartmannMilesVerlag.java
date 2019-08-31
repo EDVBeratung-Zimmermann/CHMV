@@ -54,7 +54,10 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
     private void backupDatenbank() {
         String cmdline = "";
         if (Modulhelferlein.dbLive) {
-            cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P3063 -uroot -pclausewitz milesverlag > "
+            cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P"+Modulhelferlein.dbPort+
+                                                          " -u"+Modulhelferlein.dbUser+
+                                                          " -p"+Modulhelferlein.dbPassword+
+                                                          " milesverlag > "
                     + "\""
                     + Modulhelferlein.pathSicherung
                     + "\""
@@ -62,7 +65,10 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                     + "miles-verlag.backup-"
                     + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + ".sql";
         } else {
-            cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P3063 -uroot -pclausewitz milesverlag-train > "
+            cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P"+Modulhelferlein.dbPort+
+                                                          " -u"+Modulhelferlein.dbUser+
+                                                          " -p"+Modulhelferlein.dbPassword+
+                                                         "milesverlag-train > "
                     + "\""
                     + Modulhelferlein.pathSicherung
                     + "\""
