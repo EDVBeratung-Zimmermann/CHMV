@@ -1188,11 +1188,17 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             String cmdline = "";
             try {
                 if (Modulhelferlein.dbLive) {
-                    cmdline = "C:\\xampp\\mysql\\bin\\mysql.exe -P3063 -uroot -pclausewitz milesverlag < " + Modulhelferlein.pathSicherung
+                    cmdline = "C:\\xampp\\mysql\\bin\\mysql.exe -P"+Modulhelferlein.dbPort+
+                                                          " -u"+Modulhelferlein.dbUser+
+                                                          " -p"+Modulhelferlein.dbPassword
+                            + " milesverlag < " + Modulhelferlein.pathSicherung
                             + "\\"
                             + Filename;
                 } else {
-                    cmdline = "C:\\xampp\\mysql\\bin\\mysql.exe -P3063 -uroot -pclausewitz milesverlag-train < " + Modulhelferlein.pathSicherung
+                    cmdline = "C:\\xampp\\mysql\\bin\\mysql.exe -P"+Modulhelferlein.dbPort+
+                                                          " -u"+Modulhelferlein.dbUser+
+                                                          " -p"+Modulhelferlein.dbPassword
+                            + " milesverlag-train < " + Modulhelferlein.pathSicherung
                             + "\\"
                             + Filename;
                 }
