@@ -78,6 +78,10 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         // TODO add your code here
         if (field_storniert.isSelected()) {
             if (JOptionPane.showConfirmDialog(null, "Soll die Bestellung wirklich storniert werden?") == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(null, "Muss eine Gutschrift erstellt werden?") == JOptionPane.YES_OPTION) {
+                    // mit den aktuellen Rechnungsdaten eine Gutschrift erstellen
+                }
+                // Bestelldetails auf Null setzen
                 try {
                     field_B_Anzahl.setText("0");
                     field_B_Rabatt.setText("0");
@@ -86,6 +90,9 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     while (resultBD.next()) {
                         resultBD.updateFloat("BESTELLUNG_DETAIL_RABATT", 0F);
                         resultBD.updateInt("BESTELLUNG_DETAIL_ANZAHL", 0);
+                        resultBD.updateBoolean("BESTELLUNG_DETAIL_SONST", false);
+                        resultBD.updateString("BESTELLUNG_DETAIL_SONST_TEXT", "");
+                        resultBD.updateFloat("BESTELLUNG_DETAIL_SONST_PREIS", 0F);
                         resultBD.updateRow();
                     }
                 } catch (SQLException ex) {
