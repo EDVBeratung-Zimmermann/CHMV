@@ -92,6 +92,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     //Logger.getLogger(VerwaltenDatenbankBestellung.class.getName()).log(Level.SEVERE, null, ex);
                     Modulhelferlein.Fehlermeldung("Stornierung Rechnung","SQL-Exception",ex.getMessage());
                 }
+            } else {
+                field_storniert.setSelected(false);
             }
         }
     }
@@ -1471,7 +1473,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void AnfangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnfangActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestellung zum Anfang");
+        System.out.println("- Bestellung zum Anfang - " + field_RechNr.getText());
         try {
             resultB.first();
             count = 1;
@@ -1891,7 +1893,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestellung update");
+        System.out.println("- Bestellung update - " + field_RechNr.getText());
         try {
             if (Modulhelferlein.checkNumberFormatFloat(field_Versand.getText()) < 0) {
                 Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Versandkosten", "es ist keine korrekte Zahl");
@@ -2315,7 +2317,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void ZurueckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZurueckActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestellung zurueck");
+        System.out.println("- Bestellung zurueck - " + field_RechNr.getText());
         try {
             if (resultB.previous()) {
                 count = count - 1;
@@ -2562,7 +2564,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void VorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VorActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestellung vor");
+        System.out.println("- Bestellung vor - " + field_RechNr.getText());
         try {
             if (resultB.next()) {
                 count = count + 1;
@@ -2809,7 +2811,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void EndeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EndeActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestellung zum Ende gehen");
+        System.out.println("- Bestellung zum Ende gehen - " + field_RechNr.getText());
         try {
             resultB.last();
             count = countMax;
