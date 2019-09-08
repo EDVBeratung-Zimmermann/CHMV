@@ -77,19 +77,21 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
     private void field_storniertStateChanged(ChangeEvent e) {
         // TODO add your code here
         if (field_storniert.isSelected()) {
-            try {
-                field_B_Anzahl.setText("0");
-                field_B_Rabatt.setText("0");
-                resultBD = SQLAnfrageBD.executeQuery(
-                        "SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + resultB.getString("BESTELLUNG_RECHNR") + "'");
-                while (resultBD.next()) {
-                    resultBD.updateFloat("BESTELLUNG_DETAIL_RABATT", 0F);
-                    resultBD.updateInt("BESTELLUNG_DETAIL_ANZAHL", 0);
-                    resultBD.updateRow();
+            if (JOptionPane.showConfirmDialog(null, "Soll die Bestellung wirklich storniert werden?") == JOptionPane.YES_OPTION) {
+                try {
+                    field_B_Anzahl.setText("0");
+                    field_B_Rabatt.setText("0");
+                    resultBD = SQLAnfrageBD.executeQuery(
+                            "SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + resultB.getString("BESTELLUNG_RECHNR") + "'");
+                    while (resultBD.next()) {
+                        resultBD.updateFloat("BESTELLUNG_DETAIL_RABATT", 0F);
+                        resultBD.updateInt("BESTELLUNG_DETAIL_ANZAHL", 0);
+                        resultBD.updateRow();
+                    }
+                } catch (SQLException ex) {
+                    //Logger.getLogger(VerwaltenDatenbankBestellung.class.getName()).log(Level.SEVERE, null, ex);
+                    Modulhelferlein.Fehlermeldung("Stornierung Rechnung","SQL-Exception",ex.getMessage());
                 }
-            } catch (SQLException ex) {
-                //Logger.getLogger(VerwaltenDatenbankBestellung.class.getName()).log(Level.SEVERE, null, ex);
-                Modulhelferlein.Fehlermeldung("Stornierung Rechnung","SQL-Exception",ex.getMessage());
             }
         }
     }
