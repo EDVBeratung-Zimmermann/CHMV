@@ -871,8 +871,8 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
             Drucken.setEnabled(true);
             Schliessen.setEnabled(true);
 
-            field_ID.setText(Integer.toString(result.getInt("EINNAHMEN_ID")));
-            field_Beschreibung.setText(result.getString("EINNAHMEN_BESCHREIBUNG"));
+            field_ID.setText(Integer.toString(result.getInt("BENUTZER_ID")));
+            field_Beschreibung.setText(result.getString("BENUTZER_NAME"));
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
