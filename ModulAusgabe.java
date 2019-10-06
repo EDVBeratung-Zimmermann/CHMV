@@ -104,7 +104,7 @@ public class ModulAusgabe extends JFrame {
         String password = Modulhelferlein.MailPass;
         System.out.println("- password " + password);
 
-        String from = "miles-verlag@t-online.de";
+        String from = username;
         System.out.println("- from     " + from);
 
         String to = "kontakt@edv-beratung.familiezimmermann.de";
