@@ -40,17 +40,12 @@ import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
-import javax.swing.border.*;
 import javax.swing.event.*;
 import com.toedter.calendar.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.ActionMapUIResource;
-import net.miginfocom.swing.*;
 import static milesVerlagMain.ModulMyOwnFocusTraversalPolicy.newPolicy;
 
 /**
@@ -301,7 +296,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     count = count + 1;
                     eintrag = Integer.toString(resultK.getInt("ADRESSEN_ID")) + ", "
                             + resultK.getString("ADRESSEN_Name") + ", "
-                            + resultK.getString("ADRESSEN_Vorname");
+                            + resultK.getString("ADRESSEN_Vorname") + ", "
+                            + resultK.getString("ADRESSEN_ORT");
                     cbKunde.addItem(eintrag);
                 } // while
                 if (count == 0) {
@@ -3790,7 +3786,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
                     resultK = SQLAnfrageK.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'");
                     resultK.next();
-                    cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME"));
+                    cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME") + ", " + resultK.getString("ADRESSEN_ORT"));
                     manuell.setSelected(false);
                     KDB.setSelected(true);
                 } else {
