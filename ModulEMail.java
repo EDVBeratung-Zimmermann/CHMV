@@ -71,7 +71,7 @@ public class ModulEMail {
     private static void MailSenden() {
 
         // TODO add your handling code here:
-        System.out.println("TLSEmail Start");
+        System.out.println("TLS Email Start");
 
         // change accordingly 
         String host = Modulhelferlein.MailHost;
@@ -93,7 +93,7 @@ public class ModulEMail {
         System.out.println("- password " + password);
 
         String from = username;
-        System.out.println("- from     " + from);
+        System.out.println("- from     " + username);
 
         String to = Empfaenger;
         System.out.println("- to       " + to);
@@ -147,14 +147,14 @@ public class ModulEMail {
             MimeMessage message = new MimeMessage(session);
 
             // header field of the header. 
-            message.setFrom(new InternetAddress(from));
+            message.setFrom(new InternetAddress(username));
 
             //InternetAddress[] addresses = new InternetAddress[2];
             //addresses[0] = new InternetAddress(to);
             //addresses[1] = new InternetAddress(from);            
             //message.setRecipients(Message.RecipientType.TO, addresses);
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.addRecipient(Message.RecipientType.CC, new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.CC, new InternetAddress(username));
 
             // Set Subject: header field
             message.setSubject("Ihre Bestellung vom " + Datum);
