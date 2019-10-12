@@ -493,6 +493,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "BUCH_JAHR TEXT,";
                         SQL = SQL + "BUCH_BESCHREIBUNG TEXT,";
                         SQL = SQL + "BUCH_COVER TEXT,";
+                        SQL = SQL + "BUCH_COVER_GROSS TEXT,";
                         SQL = SQL + "BUCH_TEXT TEXT,";
                         SQL = SQL + "BUCH_FLYER TEXT,";
                         SQL = SQL + "BUCH_AUFLAGE INT,";
