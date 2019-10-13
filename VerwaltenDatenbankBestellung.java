@@ -1476,7 +1476,6 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void AnfangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnfangActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestellung zum Anfang - " + field_RechNr.getText());
         try {
             resultB.first();
             count = 1;
@@ -1708,6 +1707,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 BEinfuegen.setEnabled(true);
                 BLoeschen.setEnabled(true);
             }
+			System.out.println("- Bestellung zum Anfang - " + field_RechNr.getText());
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("Bestellung: zum Anfang", "SQL-Exception: ", exept.getMessage());
         }
@@ -1715,7 +1715,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void EinfuegenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EinfuegenActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestelung einfuegen");
+        System.out.println("- Bestellung einfuegen");
         int ID;
 
         ID = maxID + 1;
@@ -1896,7 +1896,6 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestellung update - " + field_RechNr.getText());
         try {
             if (Modulhelferlein.checkNumberFormatFloat(field_Versand.getText()) < 0) {
                 Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Versandkosten", "es ist keine korrekte Zahl");
@@ -1981,6 +1980,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     resultB.updateRow();
                 }
             }
+			System.out.println("- Bestellung update - " + field_RechNr.getText());
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("Bestellung: Update:", "SQL-Exception: ", exept.getMessage());
         }
@@ -2320,7 +2320,6 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void ZurueckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZurueckActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestellung zurueck - " + field_RechNr.getText());
         try {
             if (resultB.previous()) {
                 count = count - 1;
@@ -2560,6 +2559,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 BEinfuegen.setEnabled(true);
                 BLoeschen.setEnabled(true);
             }
+			System.out.println("- Bestellung zurueck - " + field_RechNr.getText());
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("Bestellung: zum vorherigen", "SQL-Exception: ", exept.getMessage());
         }
@@ -2567,7 +2567,6 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void VorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VorActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestellung vor - " + field_RechNr.getText());
         try {
             if (resultB.next()) {
                 count = count + 1;
@@ -2807,6 +2806,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 BEinfuegen.setEnabled(true);
                 BLoeschen.setEnabled(true);
             }
+			System.out.println("- Bestellung vor - " + field_RechNr.getText());
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("Bestellung: zum nächsten", "SQL-Exception: ", exept.getMessage());
         }
@@ -2814,7 +2814,6 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void EndeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EndeActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestellung zum Ende gehen - " + field_RechNr.getText());
         try {
             resultB.last();
             count = countMax;
@@ -3045,6 +3044,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 BEinfuegen.setEnabled(true);
                 BLoeschen.setEnabled(true);
             }
+			System.out.println("- Bestellung zum Ende gehen - " + field_RechNr.getText());
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("Bestellung: zum Ende", "SQL-Exception: ", exept.getMessage());
         }
@@ -3232,7 +3232,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void BZurueckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BZurueckActionPerformed
         // TODO add your handling code here:
-        System.out.println("- Bestelllung Detail zurück");
+        System.out.println("- Bestellung Detail zurück");
         try {
 //            if (resultBD.previous()) {
             if (countB > 1) {
