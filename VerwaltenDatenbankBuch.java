@@ -1101,7 +1101,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             result.first();
             count = 1;
             field_count.setText(Integer.toString(count));
-
+			
             // Schalterzustand anpassen
             Anfang.setEnabled(false);
             Zurueck.setEnabled(false);
@@ -1197,8 +1197,10 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     + result_d.getString("ADRESSEN_Name") + ", "
                     + result_d.getString("ADRESSEN_Vorname");
             cbDruckerei.setSelectedItem(field_Druckerei);
+			System.out.println("Anfang: ID: " + field_ID.getText() + ", ISBN: " + field_ISBN.getText());
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+			System.out.println("Anfang:");
         }
     }//GEN-LAST:event_AnfangActionPerformed
 
@@ -1310,8 +1312,10 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             } else {
                 result.next();
             }
+			System.out.println("Zurück auf ID: " + field_ID.getText() + ", ISBN: " + field_ISBN.getText());
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+			System.out.println("Zurück");
         }
     }//GEN-LAST:event_ZurueckActionPerformed
 
@@ -1424,8 +1428,10 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             } else {
                 result.previous();
             }
+			System.out.println("Vor auf ID: " + field_ID.getText() + ", ISBN: " + field_ISBN.getText());
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+			System.out.println("Vor");
         }
     }//GEN-LAST:event_VorActionPerformed
 
@@ -1530,8 +1536,10 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     + result_d.getString("ADRESSEN_Name") + ", "
                     + result_d.getString("ADRESSEN_Vorname");
             cbDruckerei.setSelectedItem(field_Druckerei);
+			System.out.println("Ende: ID: " + field_ID.getText() + ", ISBN: " + field_ISBN.getText());
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+			System.out.println("Ende");
         }
     }//GEN-LAST:event_EndeActionPerformed
 
@@ -1630,6 +1638,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                                                                 result.updateRow();
                                                                 LabelBild.setIcon(new ImageIcon(result.getString("BUCH_COVER")));
                                                                 //Bild = new Background(result.getString("Buch_COVER"));this.add(Bild); Bild.setBounds(520, 350, 120, 160);
+																System.out.println("Update: ID: " + field_ID.getText() + ", ISBN: " + field_ISBN.getText());
                                                             }
                                                         }
                                                     }
