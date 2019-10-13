@@ -45,6 +45,20 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.ActionMapUIResource;
 import static milesVerlagMain.ModulMyOwnFocusTraversalPolicy.newPolicy;
+import static milesVerlagMain.Modulhelferlein.Ausgabe;
+import static milesVerlagMain.Modulhelferlein.Linie;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 
 /**
  *
@@ -74,6 +88,172 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
             }
         }
+	}
+
+	private void FlyerActionPerformed(ActionEvent e) {
+	    // TODO add your code here
+		String outputFileName = "";
+		Integer Bildbreite = 226;
+		Integer BildY = 785;
+		Integer BildX = 312;
+		Integer RandUnten = 60;
+		Integer RandOben = 785;
+		Integer RandLinks = 57;
+		Integer RandRechts = 538;
+		Integer BeginnText = 665;
+
+        try {
+
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage(A4);
+            document.addPage(page);
+
+            // Create a new font object selecting one of the PDF base fonts
+            PDFont fontPlain = PDType1Font.HELVETICA;
+            PDFont fontBold = PDType1Font.HELVETICA_BOLD;
+            PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
+
+            // Start a new content stream which will "hold" the to be created content
+            PDPageContentStream cos = new PDPageContentStream(document, page);
+
+// Fu?zeile
+                Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+
+                Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.de");
+
+                Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEV0DEBB");
+                System.out.println("Fuﬂzeile geschrieben");
+
+// Cover
+            try {
+                BufferedImage awtImage = ImageIO.read(new File(field_Cover_gross.getText()));
+                //PDImageXObject  ximage = new PDPixelMap(document, awtImage);
+                PDImageXObject pdImage = PDImageXObject.createFromFile(field_Cover_gross.getText(), document);
+                float scalex = Bildbreite/pdImage.getWidth(); // alter this value to set the image size
+                cos.drawImage(pdImage, BildX, BildY, pdImage.getWidth() * scalex, pdImage.getHeight() * scalex);
+                //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
+            } catch (FileNotFoundException fnfex) {
+                Modulhelferlein.Fehlermeldung("Werbeflyer", "File not found-Exception", "Keine Bild-Datei gefunden " + fnfex.getMessage());
+                System.out.println("No image for you");
+            }
+
+// Rahmen Bestelladresse
+                Linie(cos, BildX, RandUnten, RandRechts, RandUnten);
+                Linie(cos, BildX, RandUnten, BildX, 200);
+                Linie(cos, BildX, 200, RandRechts, 200);
+                Linie(cos, RandRechts, 200, RandRechts, RandUnten);
+                System.out.println("Rahmen geschrieben");
+				Ausgabe(cos, fontBold,  9, Color.BLACK, BildX+5 , 198, Modulhelferlein.CheckStr("Absender"));
+				Linie(cos, BildX, 200, RandRechts, 175);
+                Ausgabe(cos, fontPlain, 8, Color.BLACK, BildX+5 , 176, Modulhelferlein.CheckStr("Name"));
+				Linie(cos, BildX, 200, RandRechts, 140);
+                Ausgabe(cos, fontPlain, 8, Color.BLACK, BildX+5 , 138, Modulhelferlein.CheckStr("Straﬂe"));
+				Linie(cos, BildX, 200, RandRechts, 105);
+                Ausgabe(cos, fontPlain, 8, Color.BLACK, BildX+5 , 103, Modulhelferlein.CheckStr("Postleitzahl, Ort"));
+				Linie(cos, BildX, 200, RandRechts,  70);
+                Ausgabe(cos, fontPlain, 8, Color.BLACK, BildX+5 ,  68, Modulhelferlein.CheckStr("Datum, Unterschrift"));
+                
+
+// Titel
+                // Autor holen
+                String[] col_Autorliste = resultBuch.getString("BUCH_AUTOR").split(",");
+                String AutorEintrag = "";
+                for (String strAutor : col_Autorliste) {
+                    resultA = SQLAnfrageA.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = " + strAutor);
+                    resultA.next();
+                    AutorEintrag = AutorEintrag
+                                + resultA.getString("ADRESSEN_Name") + ", "
+                                + resultA.getString("ADRESSEN_Vorname") + "; ";
+                }
+                AutorEintrag = AutorEintrag.substring(0, AutorEintrag.length() - 2);
+                if (resultBuch.getBoolean("BUCH_HERAUSGEBER")) {
+                    AutorEintrag = AutorEintrag + " (Hrsg.)";
+                }
+				
+				// Typ holen
+				String Typ = "";
+				switch (result.getInt("Buch_HC")) {
+					case 0: Typ = "Paperback"; break;
+					case 1: Typ = "Hardcover"; break;
+					case 2: Typ = "E-Book"; break;
+				}	
+
+				Ausgabe(cos, fontBold, 12, Color.BLACK, 50, RandOben, Modulhelferlein.CheckStr("Carola Hartmann Miles-Verlag"));
+				Ausgabe(cos, fontBold, 12, Color.RED, 50, RandOben-25, Modulhelferlein.CheckStr("NEUERSCHEINUNG"));
+				Ausgabe(cos, fontPlain, 10, Color.BLACK, 50, RandOben-50, Modulhelferlein.CheckStr(AutorEintrag));
+				Ausgabe(cos, fontBold, 10, Color.BLACK, 50, RandOben-65, Modulhelferlein.CheckStr(field_Titel.getText()));
+				Ausgabe(cos, fontPlain 10, Color.BLACK, 50, RandOben-80, Modulhelferlein.CheckStr(field_Seiten.getText()+", "+Typ+", Berlin "+field_Jahr.getText()));
+				Ausgabe(cos, fontPlain 10, Color.BLACK, 50, RandOben-95, Modulhelferlein.CheckStr(field_ISBN.getText()+", "+field_Preis.getText()+" Euro"));
+				
+                System.out.println("Titel geschrieben");
+                
+// Text
+                String Beschreibung = field_Beschreibung.getText() + " ENDE ENDE";
+                String[] splitBeschreibung = Beschreibung.split(" ");
+                Integer woerter = splitBeschreibung.length;
+                ZeilenNr = 1;
+                Integer Startzeile = BeginnText;
+                //helferlein.Infomeldung("woerter - 1", splitBeschreibung[woerter-1]);
+                splitBeschreibung[woerter - 1] = ""; //ENDE
+                woerter = woerter - 2;
+                String zeile = "";
+                Integer i = 0;
+                Integer laenge = 0;
+                while (i < woerter - 1) {
+                    if (splitBeschreibung[i].equals("[CRLF]")) {
+                        zeile = "";
+                        laenge = Bildbreite;
+                    } else {
+                        zeile = splitBeschreibung[i];
+                        laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 10);
+                    }
+
+                    while ((laenge < Bildbreite) && (zeile.length() < 40) && (i < woerter - 1)) {
+                        if (splitBeschreibung[i + 1].equals("[CRLF]")) {
+                            i = i + 1;
+                            laenge = Bildbreite;
+                        } else {
+                            zeile = zeile + " " + splitBeschreibung[i + 1];
+                            i = i + 1;
+                            laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 10);
+                        }
+                    }
+                    //helferlein.Infomeldung(Float.toString(laenge) + " => " + zeile);                                
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr - 1), zeile);
+                    i = i + 1;
+                    ZeilenNr = ZeilenNr + 1;
+                }
+                System.out.println("Text geschrieben");
+                
+// Dateiname
+                String outputFileName = Modulhelferlein.pathBuchprojekte + "/" + field_ISBN.getText() + "/"
+                        + "Flyer"
+                        + "-"
+                        + field_ISBN.getText()
+                        + "-"
+                        + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                        + ".pdf";
+				field_Cover_gross.setText(outputFileName);
+				//Update Datensatzfeld COVER_GROSS
+				result.updateString("Buch_Cover_gross", field_Cover_gross.getText());
+				result.updateRow();
+				
+				// Make sure that the content stream is closed:
+				//helferlein.Infomeldung(outputFileName);                    
+                cos.close();
+                document.save(outputFileName);
+                document.close();
+                System.out.println("Flyer gespeichert unter " + outputFileName);
+                Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\""); // try Brief ausgeben
 	}
 
     public VerwaltenDatenbankBuch(java.awt.Frame parent, boolean modal) {
@@ -520,6 +700,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 		label10 = new JLabel();
 		label11 = new JLabel();
 		field_Cover_gross = new JTextField();
+		Flyer = new JButton();
 
 		//======== this ========
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -1020,7 +1201,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 			Schliessen.setToolTipText("Schlie\u00dft den Dialog");
 			Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
 			panel1.add(Schliessen);
-			Schliessen.setBounds(530, 635, 49, Schliessen.getPreferredSize().height);
+			Schliessen.setBounds(595, 635, 49, Schliessen.getPreferredSize().height);
 
 			//---- label9 ----
 			label9.setText("Marge");
@@ -1055,6 +1236,13 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 			label11.setBounds(430, 600, 80, 20);
 			panel1.add(field_Cover_gross);
 			field_Cover_gross.setBounds(145, 390, 444, 23);
+
+			//---- Flyer ----
+			Flyer.setText("F");
+			Flyer.setToolTipText("Werbeflyer erstellen");
+			Flyer.addActionListener(e -> FlyerActionPerformed(e));
+			panel1.add(Flyer);
+			Flyer.setBounds(535, 635, 49, Flyer.getPreferredSize().height);
 
 			{ // compute preferred size
 				Dimension preferredSize = new Dimension();
@@ -2741,6 +2929,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 	private JLabel label10;
 	private JLabel label11;
 	private JTextField field_Cover_gross;
+	private JButton Flyer;
     // End of variables declaration//GEN-END:variables
 
     private JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
