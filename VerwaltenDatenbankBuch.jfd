@@ -1600,15 +1600,15 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>146</int>
+           <int>695</int>
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>391</int>
+           <int>560</int>
           </void>
           <void method="setProperty">
            <string>width</string>
-           <int>444</int>
+           <int>115</int>
           </void>
          </object>
         </void>
@@ -1702,6 +1702,14 @@
           </void>
           <void property="name">
            <string>LabelBild</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>IconAddActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
@@ -3092,6 +3100,33 @@
           <void method="setProperty">
            <string>height</string>
            <int>20</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JTextField</string>
+          <void property="name">
+           <string>field_Cover_gross</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>145</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>390</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>444</int>
+          </void>
+          <void method="setProperty">
+           <string>height</string>
+           <int>23</int>
           </void>
          </object>
         </void>
