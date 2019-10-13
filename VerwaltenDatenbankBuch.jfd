@@ -2863,7 +2863,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>530</int>
+           <int>595</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -3127,6 +3127,45 @@
           <void method="setProperty">
            <string>height</string>
            <int>23</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JButton</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>F</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string>Werbeflyer erstellen</string>
+          </void>
+          <void property="name">
+           <string>Flyer</string>
+          </void>
+          <void method="addEvent">
+           <object class="com.jformdesigner.model.FormEvent">
+            <string>java.awt.event.ActionListener</string>
+            <string>actionPerformed</string>
+            <string>FlyerActionPerformed</string>
+            <boolean>true</boolean>
+           </object>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>535</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>635</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>49</int>
           </void>
          </object>
         </void>
