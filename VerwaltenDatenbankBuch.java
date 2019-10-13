@@ -58,6 +58,24 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
+	private void IconAddActionPerformed(ActionEvent e) {
+		// TODO add your code here
+        String Dateiname = "";
+        if (chooser.showDialog(null, "Datei mit dem Icon wählen") == JFileChooser.APPROVE_OPTION) {
+            try {
+                Dateiname = chooser.getSelectedFile().getCanonicalPath();
+                System.out.println("Cover-Datei");
+                System.out.println("-> " + Modulhelferlein.pathUserDir);
+                System.out.println("-> " + Modulhelferlein.pathBuchprojekte);
+                System.out.println("-> " + Dateiname);
+
+                field_Cover.setText(Dateiname);
+            } catch (IOException e) {
+                Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            }
+        }
+	}
+
     public VerwaltenDatenbankBuch(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
@@ -79,7 +97,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
         order.add(field_Jahr);
         order.add(field_Bestand);
         order.add(cbDruckerei);
-        order.add(field_Cover);
+        order.add(field_Cover_gross);
         order.add(CoverAdd);
         order.add(field_Text);
         order.add(TextAdd);
@@ -339,6 +357,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_VLB.setSelected(result.getBoolean("Buch_VLB"));
                     field_Bestand.setText(Integer.toString(result.getInt("Buch_Bestand")));
                     field_Cover.setText(result.getString("Buch_COVER"));
+                    field_Cover_gross.setText(result.getString("Buch_COVER_GROSS"));
                     field_Flyer.setText(result.getString("Buch_FLYER"));
                     field_Vertrag.setText(result.getString("Buch_VERTRAG"));
                     field_VertragBOD.setText(result.getString("Buch_BOD_VERTRAG"));
@@ -500,6 +519,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 		field_BoDProzent = new JTextField();
 		label10 = new JLabel();
 		label11 = new JLabel();
+		field_Cover_gross = new JTextField();
 
 		//======== this ========
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -791,7 +811,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 			field_Cover.setText("jTextField11");
 			field_Cover.setPreferredSize(new Dimension(65, 25));
 			panel1.add(field_Cover);
-			field_Cover.setBounds(146, 391, 444, field_Cover.getPreferredSize().height);
+			field_Cover.setBounds(695, 560, 115, field_Cover.getPreferredSize().height);
 
 			//---- CoverAdd ----
 			CoverAdd.setText("...");
@@ -808,6 +828,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 			LabelBild.setMinimumSize(new Dimension(120, 160));
 			LabelBild.setMaximumSize(new Dimension(120, 160));
 			LabelBild.setMargin(new Insets(0, 0, 0, 0));
+			LabelBild.addActionListener(e -> IconAddActionPerformed(e));
 			panel1.add(LabelBild);
 			LabelBild.setBounds(691, 391, 120, 160);
 
@@ -1032,6 +1053,8 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 			label11.setText("% Marge BoD");
 			panel1.add(label11);
 			label11.setBounds(430, 600, 80, 20);
+			panel1.add(field_Cover_gross);
+			field_Cover_gross.setBounds(145, 390, 444, 23);
 
 			{ // compute preferred size
 				Dimension preferredSize = new Dimension();
@@ -1115,6 +1138,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_VLB.setSelected(result.getBoolean("Buch_VLB"));
             field_Bestand.setText(Integer.toString(result.getInt("Buch_Bestand")));
             field_Cover.setText(result.getString("Buch_COVER"));
+            field_Cover_gross.setText(result.getString("Buch_COVER_GROSS"));
             field_Flyer.setText(result.getString("Buch_FLYER"));
             field_Vertrag.setText(result.getString("Buch_VERTRAG"));
             field_VertragBOD.setText(result.getString("Buch_BOD_VERTRAG"));
@@ -1222,6 +1246,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_VLB.setSelected(result.getBoolean("Buch_VLB"));
                 field_Bestand.setText(Integer.toString(result.getInt("Buch_Bestand")));
                 field_Cover.setText(result.getString("Buch_COVER"));
+                field_Cover_gross.setText(result.getString("Buch_COVER_GROSS"));
                 field_Flyer.setText(result.getString("Buch_FLYER"));
                 field_Vertrag.setText(result.getString("Buch_VERTRAG"));
                 field_VertragBOD.setText(result.getString("Buch_BOD_VERTRAG"));
@@ -1335,6 +1360,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_VLB.setSelected(result.getBoolean("Buch_VLB"));
                 field_Bestand.setText(Integer.toString(result.getInt("Buch_Bestand")));
                 field_Cover.setText(result.getString("Buch_COVER"));
+                field_Cover_gross.setText(result.getString("Buch_COVER_GROSS"));
                 field_Flyer.setText(result.getString("Buch_FLYER"));
                 field_Vertrag.setText(result.getString("Buch_VERTRAG"));
                 field_VertragBOD.setText(result.getString("Buch_BOD_VERTRAG"));
@@ -1443,6 +1469,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_VLB.setSelected(result.getBoolean("Buch_VLB"));
             field_Bestand.setText(Integer.toString(result.getInt("Buch_Bestand")));
             field_Cover.setText(result.getString("Buch_COVER"));
+            field_Cover_gross.setText(result.getString("Buch_COVER_GROSS"));
             field_Flyer.setText(result.getString("Buch_FLYER"));
             field_Vertrag.setText(result.getString("Buch_VERTRAG"));
             field_VertragBOD.setText(result.getString("Buch_BOD_VERTRAG"));
@@ -1568,6 +1595,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                                                                 result.updateInt("Buch_Bestand", Integer.parseInt(field_Bestand.getText()));
                                                                 result.updateInt("Buch_BODPROZENT", Integer.parseInt(field_BoDProzent.getText()));
                                                                 result.updateString("Buch_Cover", field_Cover.getText());
+                                                                result.updateString("Buch_Cover_gross", field_Cover_gross.getText());
                                                                 result.updateString("Buch_Flyer", field_Flyer.getText());
                                                                 result.updateString("Buch_Vertrag", field_Vertrag.getText());
                                                                 result.updateString("Buch_BOD_Vertrag", field_VertragBOD.getText());
@@ -1683,6 +1711,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 result.updateBoolean("Buch_DeuNatBibl", false);
                 result.updateInt("Buch_Bestand", 0);
                 result.updateString("Buch_Cover", "Buch.jpg");
+                result.updateString("Buch_Cover_GROSS", "Buch.jpg");
                 result.updateString("Buch_Flyer", "");
                 result.updateString("Buch_Vertrag", "");
                 result.updateString("Buch_BOD_Vertrag", "");
@@ -1741,6 +1770,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_VLB.setSelected(result.getBoolean("Buch_VLB"));
                 field_Bestand.setText(Integer.toString(result.getInt("Buch_Bestand")));
                 field_Cover.setText(result.getString("Buch_COVER"));
+                field_Cover_gross.setText(result.getString("Buch_COVER_GROSS"));
                 field_Flyer.setText(result.getString("Buch_FLYER"));
                 field_Vertrag.setText(result.getString("Buch_VERTRAG"));
                 field_VertragBOD.setText(result.getString("Buch_BOD_VERTRAG"));
@@ -1853,6 +1883,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_VLB.setSelected(result.getBoolean("Buch_VLB"));
                     field_Bestand.setText(Integer.toString(result.getInt("Buch_Bestand")));
                     field_Cover.setText(result.getString("Buch_COVER"));
+                    field_Cover_gross.setText(result.getString("Buch_COVER_GROSS"));
                     field_Flyer.setText(result.getString("Buch_FLYER"));
                     field_Vertrag.setText(result.getString("Buch_VERTRAG"));
                     field_VertragBOD.setText(result.getString("Buch_BOD_VERTRAG"));
@@ -1926,6 +1957,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_VLB.setSelected(false);
                     field_Bestand.setText("");
                     field_Cover.setText("");
+					field_Cover_gross("");
                     field_Flyer.setText("");
                     field_Vertrag.setText("");
                     field_VertragBOD.setText("");
@@ -2060,6 +2092,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_VLB.setSelected(result.getBoolean("Buch_VLB"));
                     field_Bestand.setText(Integer.toString(result.getInt("Buch_Bestand")));
                     field_Cover.setText(result.getString("Buch_COVER"));
+                    field_Cover_gross.setText(result.getString("Buch_COVER_GROSS"));
                     field_Flyer.setText(result.getString("Buch_FLYER"));
                     field_Vertrag.setText(result.getString("Buch_VERTRAG"));
                     field_VertragBOD.setText(result.getString("Buch_BOD_VERTRAG"));
@@ -2213,6 +2246,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_VLB.setSelected(result.getBoolean("Buch_VLB"));
                 field_Bestand.setText(Integer.toString(result.getInt("Buch_Bestand")));
                 field_Cover.setText(result.getString("Buch_COVER"));
+                field_Cover_gross.setText(result.getString("Buch_COVER_GROSS"));
                 field_Flyer.setText(result.getString("Buch_FLYER"));
                 field_Vertrag.setText(result.getString("Buch_VERTRAG"));
                 field_VertragBOD.setText(result.getString("Buch_BOD_VERTRAG"));
@@ -2406,7 +2440,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 System.out.println("-> " + Modulhelferlein.pathBuchprojekte);
                 System.out.println("-> " + Dateiname);
 
-                field_Cover.setText(Dateiname);
+                field_Cover_gross.setText(Dateiname);
             } catch (IOException e) {
                 Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
             }
@@ -2697,6 +2731,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 	private JTextField field_BoDProzent;
 	private JLabel label10;
 	private JLabel label11;
+	private JTextField field_Cover_gross;
     // End of variables declaration//GEN-END:variables
 
     private JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
