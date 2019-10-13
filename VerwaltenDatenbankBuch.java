@@ -408,664 +408,668 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
      */
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-        panel1 = new JPanel();
-        jScrollPane1 = new JScrollPane();
-        field_Beschreibung = new JTextArea();
-        jLabel17 = new JLabel();
-        jScrollPane2 = new JScrollPane();
-        lbAutor = new JList<>();
-        cbHerausgeber = new JCheckBox();
-        jLabel5 = new JLabel();
-        jLabel1 = new JLabel();
-        jLabel2 = new JLabel();
-        field_count = new JTextField();
-        label1 = new JLabel();
-        field_countMax = new JTextField();
-        jLabel4 = new JLabel();
-        field_ID = new JTextField();
-        field_Aktiv = new JCheckBox();
-        field_Titel = new JTextField();
-        jbtnBelegexemplar = new JButton();
-        Rezension = new JButton();
-        label2 = new JLabel();
-        label3 = new JLabel();
-        jLabel9 = new JLabel();
-        jLabel14 = new JLabel();
-        field_VLB = new JCheckBox();
-        field_ISBN = new JTextField();
-        field_Seiten = new JTextField();
-        field_Auflage = new JTextField();
-        field_Jahr = new JTextField();
-        label4 = new JLabel();
-        label5 = new JLabel();
-        jLabel15 = new JLabel();
-        jLabel24 = new JLabel();
-        field_Preis = new JTextField();
-        field_EK = new JTextField();
-        field_Bestand = new JTextField();
-        field_BLB = new JCheckBox();
-        btnBLB = new JButton();
-        jLabel13 = new JLabel();
-        jLabel12 = new JLabel();
-        field_DNB = new JCheckBox();
-        btnDNB = new JButton();
-        field_DruckNr = new JTextField();
-        cbDruckerei = new JComboBox<>();
-        label6 = new JLabel();
-        rbPB = new JRadioButton();
-        rbHC = new JRadioButton();
-        rbKindle = new JRadioButton();
-        jLabel16 = new JLabel();
-        field_Cover = new JTextField();
-        CoverAdd = new JButton();
-        LabelBild = new JButton();
-        jLabel18 = new JLabel();
-        field_Text = new JTextField();
-        TextAdd = new JButton();
-        jLabel19 = new JLabel();
-        field_Flyer = new JTextField();
-        FlyerAdd = new JButton();
-        jLabel20 = new JLabel();
-        field_Vertrag = new JTextField();
-        VertragAdd = new JButton();
-        jLabel21 = new JLabel();
-        field_VertragBOD = new JTextField();
-        VertragBODAdd = new JButton();
-        field_Honorar = new JCheckBox();
-        field_Honorar_Anzahl = new JTextField();
-        jLabel22 = new JLabel();
-        field_Honorar_Prozent = new JTextField();
-        jLabel23 = new JLabel();
-        field_Honorar_2_Anzahl = new JTextField();
-        label8 = new JLabel();
-        field_Honorar_2_Prozent = new JTextField();
-        label7 = new JLabel();
-        Anfang = new JButton();
-        Zurueck = new JButton();
-        Vor = new JButton();
-        Ende = new JButton();
-        Update = new JButton();
-        Einfuegen = new JButton();
-        Loeschen = new JButton();
-        Suchen = new JButton();
-        WSuchen = new JButton();
-        Drucken = new JButton();
-        Schliessen = new JButton();
-        label9 = new JLabel();
-        field_Marge = new JTextField();
-        field_Gesamtbetrachtung = new JRadioButton();
-        field_BODgetrennt = new JRadioButton();
-        field_BoDFix = new JTextField();
-        field_BoDProzent = new JTextField();
-        label10 = new JLabel();
-        label11 = new JLabel();
-
-        //======== this ========
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Carola Hartmann Miles Verlag");
-        setMinimumSize(new Dimension(970, 710));
-        setResizable(false);
-        setSize(new Dimension(750, 700));
-        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
-        var contentPane = getContentPane();
-        contentPane.setLayout(null);
-
-        //======== panel1 ========
-        {
-            panel1.setPreferredSize(new Dimension(800, 658));
-            panel1.setLayout(null);
-
-            //======== jScrollPane1 ========
-            {
-
-                //---- field_Beschreibung ----
-                field_Beschreibung.setColumns(20);
-                field_Beschreibung.setLineWrap(true);
-                field_Beschreibung.setRows(5);
-                field_Beschreibung.setWrapStyleWord(true);
-                jScrollPane1.setViewportView(field_Beschreibung);
-            }
-            panel1.add(jScrollPane1);
-            jScrollPane1.setBounds(0, 282, 645, 104);
-
-            //---- jLabel17 ----
-            jLabel17.setText("Beschreibung");
-            panel1.add(jLabel17);
-            jLabel17.setBounds(0, 263, 141, jLabel17.getPreferredSize().height);
-
-            //======== jScrollPane2 ========
-            {
-
-                //---- lbAutor ----
-                lbAutor.setModel(listModel);
-                        lbAutor.setValueIsAdjusting(true);
-                jScrollPane2.setViewportView(lbAutor);
-            }
-            panel1.add(jScrollPane2);
-            jScrollPane2.setBounds(0, 105, 325, 153);
-
-            //---- cbHerausgeber ----
-            cbHerausgeber.setText("Herausgeber");
-            panel1.add(cbHerausgeber);
-            cbHerausgeber.setBounds(0, 77, 195, cbHerausgeber.getPreferredSize().height);
-
-            //---- jLabel5 ----
-            jLabel5.setText("Titel");
-            panel1.add(jLabel5);
-            jLabel5.setBounds(0, 30, 49, jLabel5.getPreferredSize().height);
-
-            //---- jLabel1 ----
-            jLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
-            jLabel1.setText("Verwalten der Buchprojekte");
-            panel1.add(jLabel1);
-            jLabel1.setBounds(0, 0, 367, 25);
-
-            //---- jLabel2 ----
-            jLabel2.setText("Datensatz");
-            jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
-            panel1.add(jLabel2);
-            jLabel2.setBounds(423, 0, 57, 25);
-
-            //---- field_count ----
-            field_count.setEditable(false);
-            field_count.setHorizontalAlignment(SwingConstants.CENTER);
-            field_count.setText("000");
-            field_count.setEnabled(false);
-            field_count.setFocusable(false);
-            field_count.setMinimumSize(new Dimension(50, 25));
-            field_count.setPreferredSize(new Dimension(50, 25));
-            panel1.add(field_count);
-            field_count.setBounds(new Rectangle(new Point(485, 0), field_count.getPreferredSize()));
-
-            //---- label1 ----
-            label1.setText("von");
-            label1.setHorizontalAlignment(SwingConstants.RIGHT);
-            panel1.add(label1);
-            label1.setBounds(540, 0, 40, 25);
-
-            //---- field_countMax ----
-            field_countMax.setEditable(false);
-            field_countMax.setHorizontalAlignment(SwingConstants.CENTER);
-            field_countMax.setText("000");
-            field_countMax.setEnabled(false);
-            field_countMax.setFocusable(false);
-            field_countMax.setMinimumSize(new Dimension(50, 25));
-            field_countMax.setName("");
-            field_countMax.setPreferredSize(new Dimension(50, 25));
-            panel1.add(field_countMax);
-            field_countMax.setBounds(new Rectangle(new Point(595, 0), field_countMax.getPreferredSize()));
-
-            //---- jLabel4 ----
-            jLabel4.setText("ID");
-            jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
-            panel1.add(jLabel4);
-            jLabel4.setBounds(655, 0, 25, 25);
-
-            //---- field_ID ----
-            field_ID.setEditable(false);
-            field_ID.setText("000");
-            field_ID.setEnabled(false);
-            field_ID.setFocusable(false);
-            panel1.add(field_ID);
-            field_ID.setBounds(691, 0, 64, 25);
-
-            //---- field_Aktiv ----
-            field_Aktiv.setText("Aktiv");
-            field_Aktiv.addActionListener(e -> field_AktivActionPerformed(e));
-            panel1.add(field_Aktiv);
-            field_Aktiv.setBounds(775, 0, 56, 25);
-            panel1.add(field_Titel);
-            field_Titel.setBounds(0, 49, 645, 23);
-
-            //---- jbtnBelegexemplar ----
-            jbtnBelegexemplar.setText("Belegexemplare");
-            jbtnBelegexemplar.addActionListener(e -> jbtnBelegexemplarActionPerformed(e));
-            panel1.add(jbtnBelegexemplar);
-            jbtnBelegexemplar.setBounds(675, 49, 156, jbtnBelegexemplar.getPreferredSize().height);
-
-            //---- Rezension ----
-            Rezension.setText("Rezension veranlassen");
-            Rezension.setToolTipText("Veranlasse eine Rezension f\u00fcr das aktuelle Buch");
-            Rezension.addActionListener(e -> RezensionActionPerformed(e));
-            panel1.add(Rezension);
-            Rezension.setBounds(675, 77, 156, Rezension.getPreferredSize().height);
-
-            //---- label2 ----
-            label2.setText("ISBN");
-            panel1.add(label2);
-            label2.setBounds(372, 105, 46, 23);
-
-            //---- label3 ----
-            label3.setText("Seiten");
-            panel1.add(label3);
-            label3.setBounds(485, 105, 50, 23);
-
-            //---- jLabel9 ----
-            jLabel9.setText("Auflage");
-            panel1.add(jLabel9);
-            jLabel9.setBounds(540, 105, 50, 23);
-
-            //---- jLabel14 ----
-            jLabel14.setText("Jahr");
-            panel1.add(jLabel14);
-            jLabel14.setBounds(595, 105, 50, 23);
-
-            //---- field_VLB ----
-            field_VLB.setText("Datensatz VLB angelegt");
-            panel1.add(field_VLB);
-            field_VLB.setBounds(675, 105, 156, field_VLB.getPreferredSize().height);
-
-            //---- field_ISBN ----
-            field_ISBN.setText("jTextField1");
-            field_ISBN.setMinimumSize(new Dimension(108, 25));
-            field_ISBN.setPreferredSize(new Dimension(108, 25));
-            panel1.add(field_ISBN);
-            field_ISBN.setBounds(new Rectangle(new Point(372, 133), field_ISBN.getPreferredSize()));
-
-            //---- field_Seiten ----
-            field_Seiten.setText("jTextField2");
-            field_Seiten.setMaximumSize(new Dimension(42, 25));
-            field_Seiten.setMinimumSize(new Dimension(42, 25));
-            field_Seiten.setPreferredSize(new Dimension(42, 25));
-            field_Seiten.addActionListener(e -> field_SeitenActionPerformed(e));
-            panel1.add(field_Seiten);
-            field_Seiten.setBounds(485, 133, field_Seiten.getPreferredSize().width, 25);
-
-            //---- field_Auflage ----
-            field_Auflage.setText("jTextField3");
-            field_Auflage.setMaximumSize(new Dimension(50, 20));
-            field_Auflage.setMinimumSize(new Dimension(50, 20));
-            field_Auflage.setPreferredSize(new Dimension(50, 25));
-            field_Auflage.addActionListener(e -> field_AuflageActionPerformed(e));
-            panel1.add(field_Auflage);
-            field_Auflage.setBounds(540, 133, 35, 25);
-            panel1.add(field_Jahr);
-            field_Jahr.setBounds(595, 133, 50, 25);
-
-            //---- label4 ----
-            label4.setText("VK");
-            panel1.add(label4);
-            label4.setBounds(372, 165, 46, label4.getPreferredSize().height);
-
-            //---- label5 ----
-            label5.setText("EK");
-            panel1.add(label5);
-            label5.setBounds(423, 165, 57, label5.getPreferredSize().height);
-
-            //---- jLabel15 ----
-            jLabel15.setText("Bestand");
-            panel1.add(jLabel15);
-            jLabel15.setBounds(595, 165, 50, jLabel15.getPreferredSize().height);
-
-            //---- jLabel24 ----
-            jLabel24.setText("Pflichtexemplare");
-            jLabel24.setFont(jLabel24.getFont().deriveFont(jLabel24.getFont().getStyle() | Font.BOLD));
-            panel1.add(jLabel24);
-            jLabel24.setBounds(675, 163, 156, jLabel24.getPreferredSize().height);
-            panel1.add(field_Preis);
-            field_Preis.setBounds(375, 185, 46, field_Preis.getPreferredSize().height);
-            panel1.add(field_EK);
-            field_EK.setBounds(425, 185, 57, field_EK.getPreferredSize().height);
-            panel1.add(field_Bestand);
-            field_Bestand.setBounds(595, 185, 50, field_Bestand.getPreferredSize().height);
-
-            //---- field_BLB ----
-            field_BLB.setText("Berl.Land.Bibl.");
-            panel1.add(field_BLB);
-            field_BLB.setBounds(new Rectangle(new Point(675, 182), field_BLB.getPreferredSize()));
-
-            //---- btnBLB ----
-            btnBLB.setText("D");
-            btnBLB.setToolTipText("Drucke Brief an die Berliner Landesbibliothek");
-            btnBLB.addActionListener(e -> btnBLBActionPerformed(e));
-            panel1.add(btnBLB);
-            btnBLB.setBounds(775, 182, 56, btnBLB.getPreferredSize().height);
-
-            //---- jLabel13 ----
-            jLabel13.setText("Druck.Nr.");
-            jLabel13.setVerticalAlignment(SwingConstants.BOTTOM);
-            panel1.add(jLabel13);
-            jLabel13.setBounds(372, 210, jLabel13.getPreferredSize().width, 23);
-
-            //---- jLabel12 ----
-            jLabel12.setText("Druckerei");
-            jLabel12.setVerticalAlignment(SwingConstants.BOTTOM);
-            panel1.add(jLabel12);
-            jLabel12.setBounds(485, 210, 50, 23);
-
-            //---- field_DNB ----
-            field_DNB.setText("Dt.Nat.Bibl.");
-            panel1.add(field_DNB);
-            field_DNB.setBounds(675, 210, 95, field_DNB.getPreferredSize().height);
-
-            //---- btnDNB ----
-            btnDNB.setText("D");
-            btnDNB.setToolTipText("Drucke Brief an die Deutsche Nationalbibliothek");
-            btnDNB.addActionListener(e -> btnDNBActionPerformed(e));
-            panel1.add(btnDNB);
-            btnDNB.setBounds(775, 210, 56, btnDNB.getPreferredSize().height);
-            panel1.add(field_DruckNr);
-            field_DruckNr.setBounds(372, 238, 108, field_DruckNr.getPreferredSize().height);
-
-            //---- cbDruckerei ----
-            cbDruckerei.setModel(new DefaultComboBoxModel<>(new String[] {
-                "Item 1",
-                "Item 2",
-                "Item 3",
-                "Item 4"
-            }));
-            cbDruckerei.addActionListener(e -> cbDruckereiActionPerformed(e));
-            panel1.add(cbDruckerei);
-            cbDruckerei.setBounds(485, 238, 160, cbDruckerei.getPreferredSize().height);
-
-            //---- label6 ----
-            label6.setText("Ausgabeart");
-            label6.setFont(label6.getFont().deriveFont(label6.getFont().getStyle() | Font.BOLD));
-            panel1.add(label6);
-            label6.setBounds(691, 263, 79, label6.getPreferredSize().height);
-
-            //---- rbPB ----
-            rbPB.setSelected(true);
-            rbPB.setText("Paperback");
-            panel1.add(rbPB);
-            rbPB.setBounds(691, 282, 140, rbPB.getPreferredSize().height);
-
-            //---- rbHC ----
-            rbHC.setText("Hardcover");
-            panel1.add(rbHC);
-            rbHC.setBounds(691, 310, 140, rbHC.getPreferredSize().height);
-
-            //---- rbKindle ----
-            rbKindle.setText("Kindle");
-            panel1.add(rbKindle);
-            rbKindle.setBounds(691, 338, 140, rbKindle.getPreferredSize().height);
-
-            //---- jLabel16 ----
-            jLabel16.setText("Cover");
-            jLabel16.setHorizontalAlignment(SwingConstants.RIGHT);
-            panel1.add(jLabel16);
-            jLabel16.setBounds(100, 391, 41, 25);
-
-            //---- field_Cover ----
-            field_Cover.setText("jTextField11");
-            field_Cover.setPreferredSize(new Dimension(65, 25));
-            panel1.add(field_Cover);
-            field_Cover.setBounds(146, 391, 444, field_Cover.getPreferredSize().height);
-
-            //---- CoverAdd ----
-            CoverAdd.setText("...");
-            CoverAdd.addActionListener(e -> CoverAddActionPerformed(e));
-            panel1.add(CoverAdd);
-            CoverAdd.setBounds(595, 391, 50, 25);
-
-            //---- LabelBild ----
-            LabelBild.setFocusable(false);
-            LabelBild.setHorizontalTextPosition(SwingConstants.CENTER);
-            LabelBild.setIconTextGap(0);
-            LabelBild.setPreferredSize(new Dimension(120, 160));
-            panel1.add(LabelBild);
-            LabelBild.setBounds(691, 391, 120, 172);
-
-            //---- jLabel18 ----
-            jLabel18.setText("Text");
-            jLabel18.setHorizontalAlignment(SwingConstants.RIGHT);
-            panel1.add(jLabel18);
-            jLabel18.setBounds(100, 421, 41, 23);
-
-            //---- field_Text ----
-            field_Text.setText("jTextField12");
-            panel1.add(field_Text);
-            field_Text.setBounds(146, 421, 444, 23);
-
-            //---- TextAdd ----
-            TextAdd.setText("...");
-            TextAdd.addActionListener(e -> TextAddActionPerformed(e));
-            panel1.add(TextAdd);
-            TextAdd.setBounds(595, 421, 50, TextAdd.getPreferredSize().height);
-
-            //---- jLabel19 ----
-            jLabel19.setText("Flyer");
-            jLabel19.setHorizontalAlignment(SwingConstants.RIGHT);
-            panel1.add(jLabel19);
-            jLabel19.setBounds(100, 449, 41, 23);
-
-            //---- field_Flyer ----
-            field_Flyer.setText("jTextField9");
-            panel1.add(field_Flyer);
-            field_Flyer.setBounds(146, 449, 444, 23);
-
-            //---- FlyerAdd ----
-            FlyerAdd.setText("...");
-            FlyerAdd.addActionListener(e -> FlyerAddActionPerformed(e));
-            panel1.add(FlyerAdd);
-            FlyerAdd.setBounds(595, 449, 50, FlyerAdd.getPreferredSize().height);
-
-            //---- jLabel20 ----
-            jLabel20.setText("Vertrag Autor");
-            jLabel20.setHorizontalAlignment(SwingConstants.RIGHT);
-            panel1.add(jLabel20);
-            jLabel20.setBounds(54, 477, 87, 23);
-
-            //---- field_Vertrag ----
-            field_Vertrag.setText("jTextField10");
-            panel1.add(field_Vertrag);
-            field_Vertrag.setBounds(146, 477, 444, 23);
-
-            //---- VertragAdd ----
-            VertragAdd.setText("...");
-            VertragAdd.addActionListener(e -> VertragAddActionPerformed(e));
-            panel1.add(VertragAdd);
-            VertragAdd.setBounds(595, 477, 50, VertragAdd.getPreferredSize().height);
-
-            //---- jLabel21 ----
-            jLabel21.setText("Vertrag BOD");
-            jLabel21.setHorizontalAlignment(SwingConstants.RIGHT);
-            panel1.add(jLabel21);
-            jLabel21.setBounds(54, 505, 87, 23);
-
-            //---- field_VertragBOD ----
-            field_VertragBOD.setText("jTextField13");
-            panel1.add(field_VertragBOD);
-            field_VertragBOD.setBounds(146, 505, 444, 23);
-
-            //---- VertragBODAdd ----
-            VertragBODAdd.setText("...");
-            VertragBODAdd.addActionListener(e -> VertragBODAddActionPerformed(e));
-            panel1.add(VertragBODAdd);
-            VertragBODAdd.setBounds(595, 505, 50, VertragBODAdd.getPreferredSize().height);
-
-            //---- field_Honorar ----
-            field_Honorar.setText("Honorar auf der Basis");
-            field_Honorar.setActionCommand("Honorar");
-            panel1.add(field_Honorar);
-            field_Honorar.setBounds(0, 540, 155, 23);
-
-            //---- field_Honorar_Anzahl ----
-            field_Honorar_Anzahl.setMaximumSize(new Dimension(33, 25));
-            field_Honorar_Anzahl.setMinimumSize(new Dimension(33, 25));
-            field_Honorar_Anzahl.setPreferredSize(new Dimension(33, 25));
-            field_Honorar_Anzahl.addActionListener(e -> field_Honorar_AnzahlActionPerformed(e));
-            panel1.add(field_Honorar_Anzahl);
-            field_Honorar_Anzahl.setBounds(45, 570, field_Honorar_Anzahl.getPreferredSize().width, 20);
-
-            //---- jLabel22 ----
-            jLabel22.setText("St\u00fcck mit je");
-            panel1.add(jLabel22);
-            jLabel22.setBounds(90, 570, 83, 20);
-
-            //---- field_Honorar_Prozent ----
-            field_Honorar_Prozent.setMinimumSize(new Dimension(25, 30));
-            field_Honorar_Prozent.setPreferredSize(new Dimension(25, 25));
-            field_Honorar_Prozent.addActionListener(e -> field_Honorar_ProzentActionPerformed(e));
-            panel1.add(field_Honorar_Prozent);
-            field_Honorar_Prozent.setBounds(175, 570, 33, 20);
-
-            //---- jLabel23 ----
-            jLabel23.setText("% des Netto-VK pro St\u00fcck");
-            panel1.add(jLabel23);
-            jLabel23.setBounds(220, 570, 163, 20);
-            panel1.add(field_Honorar_2_Anzahl);
-            field_Honorar_2_Anzahl.setBounds(45, 600, 33, 20);
-
-            //---- label8 ----
-            label8.setText("St\u00fcck mit je");
-            panel1.add(label8);
-            label8.setBounds(90, 600, 83, 20);
-            panel1.add(field_Honorar_2_Prozent);
-            field_Honorar_2_Prozent.setBounds(175, 600, 33, 20);
-
-            //---- label7 ----
-            label7.setText("% des Netto-VK pro St\u00fcck");
-            panel1.add(label7);
-            label7.setBounds(220, 600, 163, 20);
-
-            //---- Anfang ----
-            Anfang.setText("<<");
-            Anfang.setToolTipText("gehe zum ersten Datensatz");
-            Anfang.addActionListener(e -> AnfangActionPerformed(e));
-            panel1.add(Anfang);
-            Anfang.setBounds(new Rectangle(new Point(0, 635), Anfang.getPreferredSize()));
-
-            //---- Zurueck ----
-            Zurueck.setText("<");
-            Zurueck.setToolTipText("gehe zum vorherigen Datensatz");
-            Zurueck.addActionListener(e -> ZurueckActionPerformed(e));
-            panel1.add(Zurueck);
-            Zurueck.setBounds(50, 635, 49, Zurueck.getPreferredSize().height);
-
-            //---- Vor ----
-            Vor.setText(">");
-            Vor.setToolTipText("gehe zum n\u00e4chsten Datensatz");
-            Vor.addActionListener(e -> VorActionPerformed(e));
-            panel1.add(Vor);
-            Vor.setBounds(95, 635, 49, Vor.getPreferredSize().height);
-
-            //---- Ende ----
-            Ende.setText(">>");
-            Ende.setToolTipText("gehe zum letzten Datensatz");
-            Ende.addActionListener(e -> EndeActionPerformed(e));
-            panel1.add(Ende);
-            Ende.setBounds(145, 635, 49, Ende.getPreferredSize().height);
-
-            //---- Update ----
-            Update.setText("!");
-            Update.setToolTipText("Datensatz aktualisieren");
-            Update.addActionListener(e -> UpdateActionPerformed(e));
-            panel1.add(Update);
-            Update.setBounds(205, 635, 49, Update.getPreferredSize().height);
-
-            //---- Einfuegen ----
-            Einfuegen.setText("+");
-            Einfuegen.setToolTipText("Datensatz einf\u00fcgen");
-            Einfuegen.addActionListener(e -> EinfuegenActionPerformed(e));
-            panel1.add(Einfuegen);
-            Einfuegen.setBounds(255, 635, 49, Einfuegen.getPreferredSize().height);
-
-            //---- Loeschen ----
-            Loeschen.setText("-");
-            Loeschen.setToolTipText("Datensatz l\u00f6schen");
-            Loeschen.addActionListener(e -> LoeschenActionPerformed(e));
-            panel1.add(Loeschen);
-            Loeschen.setBounds(305, 635, 49, Loeschen.getPreferredSize().height);
-
-            //---- Suchen ----
-            Suchen.setText("?");
-            Suchen.setToolTipText("Suche nach Autor, Titel, ISBN oder Druckereinummer");
-            Suchen.addActionListener(e -> SuchenActionPerformed(e));
-            panel1.add(Suchen);
-            Suchen.setBounds(365, 635, 49, Suchen.getPreferredSize().height);
-
-            //---- WSuchen ----
-            WSuchen.setText("...");
-            WSuchen.setToolTipText("Weitersuchen");
-            WSuchen.addActionListener(e -> WSuchenActionPerformed(e));
-            panel1.add(WSuchen);
-            WSuchen.setBounds(415, 635, 49, WSuchen.getPreferredSize().height);
-
-            //---- Drucken ----
-            Drucken.setText("D");
-            Drucken.setToolTipText("Druckt das aktuelle Buchprojekt als PDF");
-            Drucken.addActionListener(e -> DruckenActionPerformed(e));
-            panel1.add(Drucken);
-            Drucken.setBounds(475, 635, 49, Drucken.getPreferredSize().height);
-
-            //---- Schliessen ----
-            Schliessen.setText("X");
-            Schliessen.setToolTipText("Schlie\u00dft den Dialog");
-            Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
-            panel1.add(Schliessen);
-            Schliessen.setBounds(530, 635, 49, Schliessen.getPreferredSize().height);
-
-            //---- label9 ----
-            label9.setText("Marge");
-            panel1.add(label9);
-            label9.setBounds(new Rectangle(new Point(485, 165), label9.getPreferredSize()));
-            panel1.add(field_Marge);
-            field_Marge.setBounds(485, 185, 45, field_Marge.getPreferredSize().height);
-
-            //---- field_Gesamtbetrachtung ----
-            field_Gesamtbetrachtung.setText("Gesamtumfang");
-            field_Gesamtbetrachtung.setSelected(true);
-            panel1.add(field_Gesamtbetrachtung);
-            field_Gesamtbetrachtung.setBounds(155, 540, 225, field_Gesamtbetrachtung.getPreferredSize().height);
-
-            //---- field_BODgetrennt ----
-            field_BODgetrennt.setText("BoD getrennt betrachtet");
-            panel1.add(field_BODgetrennt);
-            field_BODgetrennt.setBounds(500, 540, 170, field_BODgetrennt.getPreferredSize().height);
-            panel1.add(field_BoDFix);
-            field_BoDFix.setBounds(390, 570, 30, 20);
-            panel1.add(field_BoDProzent);
-            field_BoDProzent.setBounds(390, 600, 30, field_BoDProzent.getPreferredSize().height);
-
-            //---- label10 ----
-            label10.setText("Fix-Betrag BoD");
-            panel1.add(label10);
-            label10.setBounds(430, 570, 100, 20);
-
-            //---- label11 ----
-            label11.setText("% Marge BoD");
-            panel1.add(label11);
-            label11.setBounds(430, 600, 80, 20);
-
-            { // compute preferred size
-                Dimension preferredSize = new Dimension();
-                for(int i = 0; i < panel1.getComponentCount(); i++) {
-                    Rectangle bounds = panel1.getComponent(i).getBounds();
-                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                }
-                Insets insets = panel1.getInsets();
-                preferredSize.width += insets.right;
-                preferredSize.height += insets.bottom;
-                panel1.setMinimumSize(preferredSize);
-                panel1.setPreferredSize(preferredSize);
-            }
-        }
-        contentPane.add(panel1);
-        panel1.setBounds(10, 10, 970, 670);
-
-        { // compute preferred size
-            Dimension preferredSize = new Dimension();
-            for(int i = 0; i < contentPane.getComponentCount(); i++) {
-                Rectangle bounds = contentPane.getComponent(i).getBounds();
-                preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-            }
-            Insets insets = contentPane.getInsets();
-            preferredSize.width += insets.right;
-            preferredSize.height += insets.bottom;
-            contentPane.setMinimumSize(preferredSize);
-            contentPane.setPreferredSize(preferredSize);
-        }
-        setSize(860, 720);
-        setLocationRelativeTo(getOwner());
-
-        //---- buttonGroup1 ----
-        var buttonGroup1 = new ButtonGroup();
-        buttonGroup1.add(field_Gesamtbetrachtung);
-        buttonGroup1.add(field_BODgetrennt);
+	private void initComponents() {
+		panel1 = new JPanel();
+		jScrollPane1 = new JScrollPane();
+		field_Beschreibung = new JTextArea();
+		jLabel17 = new JLabel();
+		jScrollPane2 = new JScrollPane();
+		lbAutor = new JList<>();
+		cbHerausgeber = new JCheckBox();
+		jLabel5 = new JLabel();
+		jLabel1 = new JLabel();
+		jLabel2 = new JLabel();
+		field_count = new JTextField();
+		label1 = new JLabel();
+		field_countMax = new JTextField();
+		jLabel4 = new JLabel();
+		field_ID = new JTextField();
+		field_Aktiv = new JCheckBox();
+		field_Titel = new JTextField();
+		jbtnBelegexemplar = new JButton();
+		Rezension = new JButton();
+		label2 = new JLabel();
+		label3 = new JLabel();
+		jLabel9 = new JLabel();
+		jLabel14 = new JLabel();
+		field_VLB = new JCheckBox();
+		field_ISBN = new JTextField();
+		field_Seiten = new JTextField();
+		field_Auflage = new JTextField();
+		field_Jahr = new JTextField();
+		label4 = new JLabel();
+		label5 = new JLabel();
+		jLabel15 = new JLabel();
+		jLabel24 = new JLabel();
+		field_Preis = new JTextField();
+		field_EK = new JTextField();
+		field_Bestand = new JTextField();
+		field_BLB = new JCheckBox();
+		btnBLB = new JButton();
+		jLabel13 = new JLabel();
+		jLabel12 = new JLabel();
+		field_DNB = new JCheckBox();
+		btnDNB = new JButton();
+		field_DruckNr = new JTextField();
+		cbDruckerei = new JComboBox<>();
+		label6 = new JLabel();
+		rbPB = new JRadioButton();
+		rbHC = new JRadioButton();
+		rbKindle = new JRadioButton();
+		jLabel16 = new JLabel();
+		field_Cover = new JTextField();
+		CoverAdd = new JButton();
+		LabelBild = new JButton();
+		jLabel18 = new JLabel();
+		field_Text = new JTextField();
+		TextAdd = new JButton();
+		jLabel19 = new JLabel();
+		field_Flyer = new JTextField();
+		FlyerAdd = new JButton();
+		jLabel20 = new JLabel();
+		field_Vertrag = new JTextField();
+		VertragAdd = new JButton();
+		jLabel21 = new JLabel();
+		field_VertragBOD = new JTextField();
+		VertragBODAdd = new JButton();
+		field_Honorar = new JCheckBox();
+		field_Honorar_Anzahl = new JTextField();
+		jLabel22 = new JLabel();
+		field_Honorar_Prozent = new JTextField();
+		jLabel23 = new JLabel();
+		field_Honorar_2_Anzahl = new JTextField();
+		label8 = new JLabel();
+		field_Honorar_2_Prozent = new JTextField();
+		label7 = new JLabel();
+		Anfang = new JButton();
+		Zurueck = new JButton();
+		Vor = new JButton();
+		Ende = new JButton();
+		Update = new JButton();
+		Einfuegen = new JButton();
+		Loeschen = new JButton();
+		Suchen = new JButton();
+		WSuchen = new JButton();
+		Drucken = new JButton();
+		Schliessen = new JButton();
+		label9 = new JLabel();
+		field_Marge = new JTextField();
+		field_Gesamtbetrachtung = new JRadioButton();
+		field_BODgetrennt = new JRadioButton();
+		field_BoDFix = new JTextField();
+		field_BoDProzent = new JTextField();
+		label10 = new JLabel();
+		label11 = new JLabel();
+
+		//======== this ========
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setTitle("Carola Hartmann Miles Verlag");
+		setMinimumSize(new Dimension(970, 710));
+		setResizable(false);
+		setSize(new Dimension(750, 700));
+		setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+		var contentPane = getContentPane();
+		contentPane.setLayout(null);
+
+		//======== panel1 ========
+		{
+			panel1.setPreferredSize(new Dimension(800, 658));
+			panel1.setLayout(null);
+
+			//======== jScrollPane1 ========
+			{
+
+				//---- field_Beschreibung ----
+				field_Beschreibung.setColumns(20);
+				field_Beschreibung.setLineWrap(true);
+				field_Beschreibung.setRows(5);
+				field_Beschreibung.setWrapStyleWord(true);
+				jScrollPane1.setViewportView(field_Beschreibung);
+			}
+			panel1.add(jScrollPane1);
+			jScrollPane1.setBounds(0, 282, 645, 104);
+
+			//---- jLabel17 ----
+			jLabel17.setText("Beschreibung");
+			panel1.add(jLabel17);
+			jLabel17.setBounds(0, 263, 141, jLabel17.getPreferredSize().height);
+
+			//======== jScrollPane2 ========
+			{
+
+				//---- lbAutor ----
+				lbAutor.setModel(listModel);
+				        lbAutor.setValueIsAdjusting(true);
+				jScrollPane2.setViewportView(lbAutor);
+			}
+			panel1.add(jScrollPane2);
+			jScrollPane2.setBounds(0, 105, 325, 153);
+
+			//---- cbHerausgeber ----
+			cbHerausgeber.setText("Herausgeber");
+			panel1.add(cbHerausgeber);
+			cbHerausgeber.setBounds(0, 77, 195, cbHerausgeber.getPreferredSize().height);
+
+			//---- jLabel5 ----
+			jLabel5.setText("Titel");
+			panel1.add(jLabel5);
+			jLabel5.setBounds(0, 30, 49, jLabel5.getPreferredSize().height);
+
+			//---- jLabel1 ----
+			jLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
+			jLabel1.setText("Verwalten der Buchprojekte");
+			panel1.add(jLabel1);
+			jLabel1.setBounds(0, 0, 367, 25);
+
+			//---- jLabel2 ----
+			jLabel2.setText("Datensatz");
+			jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel1.add(jLabel2);
+			jLabel2.setBounds(423, 0, 57, 25);
+
+			//---- field_count ----
+			field_count.setEditable(false);
+			field_count.setHorizontalAlignment(SwingConstants.CENTER);
+			field_count.setText("000");
+			field_count.setEnabled(false);
+			field_count.setFocusable(false);
+			field_count.setMinimumSize(new Dimension(50, 25));
+			field_count.setPreferredSize(new Dimension(50, 25));
+			panel1.add(field_count);
+			field_count.setBounds(new Rectangle(new Point(485, 0), field_count.getPreferredSize()));
+
+			//---- label1 ----
+			label1.setText("von");
+			label1.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel1.add(label1);
+			label1.setBounds(540, 0, 40, 25);
+
+			//---- field_countMax ----
+			field_countMax.setEditable(false);
+			field_countMax.setHorizontalAlignment(SwingConstants.CENTER);
+			field_countMax.setText("000");
+			field_countMax.setEnabled(false);
+			field_countMax.setFocusable(false);
+			field_countMax.setMinimumSize(new Dimension(50, 25));
+			field_countMax.setName("");
+			field_countMax.setPreferredSize(new Dimension(50, 25));
+			panel1.add(field_countMax);
+			field_countMax.setBounds(new Rectangle(new Point(595, 0), field_countMax.getPreferredSize()));
+
+			//---- jLabel4 ----
+			jLabel4.setText("ID");
+			jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel1.add(jLabel4);
+			jLabel4.setBounds(655, 0, 25, 25);
+
+			//---- field_ID ----
+			field_ID.setEditable(false);
+			field_ID.setText("000");
+			field_ID.setEnabled(false);
+			field_ID.setFocusable(false);
+			panel1.add(field_ID);
+			field_ID.setBounds(691, 0, 64, 25);
+
+			//---- field_Aktiv ----
+			field_Aktiv.setText("Aktiv");
+			field_Aktiv.addActionListener(e -> field_AktivActionPerformed(e));
+			panel1.add(field_Aktiv);
+			field_Aktiv.setBounds(775, 0, 56, 25);
+			panel1.add(field_Titel);
+			field_Titel.setBounds(0, 49, 645, 23);
+
+			//---- jbtnBelegexemplar ----
+			jbtnBelegexemplar.setText("Belegexemplare");
+			jbtnBelegexemplar.addActionListener(e -> jbtnBelegexemplarActionPerformed(e));
+			panel1.add(jbtnBelegexemplar);
+			jbtnBelegexemplar.setBounds(675, 49, 156, jbtnBelegexemplar.getPreferredSize().height);
+
+			//---- Rezension ----
+			Rezension.setText("Rezension veranlassen");
+			Rezension.setToolTipText("Veranlasse eine Rezension f\u00fcr das aktuelle Buch");
+			Rezension.addActionListener(e -> RezensionActionPerformed(e));
+			panel1.add(Rezension);
+			Rezension.setBounds(675, 77, 156, Rezension.getPreferredSize().height);
+
+			//---- label2 ----
+			label2.setText("ISBN");
+			panel1.add(label2);
+			label2.setBounds(372, 105, 46, 23);
+
+			//---- label3 ----
+			label3.setText("Seiten");
+			panel1.add(label3);
+			label3.setBounds(485, 105, 50, 23);
+
+			//---- jLabel9 ----
+			jLabel9.setText("Auflage");
+			panel1.add(jLabel9);
+			jLabel9.setBounds(540, 105, 50, 23);
+
+			//---- jLabel14 ----
+			jLabel14.setText("Jahr");
+			panel1.add(jLabel14);
+			jLabel14.setBounds(595, 105, 50, 23);
+
+			//---- field_VLB ----
+			field_VLB.setText("Datensatz VLB angelegt");
+			panel1.add(field_VLB);
+			field_VLB.setBounds(675, 105, 156, field_VLB.getPreferredSize().height);
+
+			//---- field_ISBN ----
+			field_ISBN.setText("jTextField1");
+			field_ISBN.setMinimumSize(new Dimension(108, 25));
+			field_ISBN.setPreferredSize(new Dimension(108, 25));
+			panel1.add(field_ISBN);
+			field_ISBN.setBounds(new Rectangle(new Point(372, 133), field_ISBN.getPreferredSize()));
+
+			//---- field_Seiten ----
+			field_Seiten.setText("jTextField2");
+			field_Seiten.setMaximumSize(new Dimension(42, 25));
+			field_Seiten.setMinimumSize(new Dimension(42, 25));
+			field_Seiten.setPreferredSize(new Dimension(42, 25));
+			field_Seiten.addActionListener(e -> field_SeitenActionPerformed(e));
+			panel1.add(field_Seiten);
+			field_Seiten.setBounds(485, 133, field_Seiten.getPreferredSize().width, 25);
+
+			//---- field_Auflage ----
+			field_Auflage.setText("jTextField3");
+			field_Auflage.setMaximumSize(new Dimension(50, 20));
+			field_Auflage.setMinimumSize(new Dimension(50, 20));
+			field_Auflage.setPreferredSize(new Dimension(50, 25));
+			field_Auflage.addActionListener(e -> field_AuflageActionPerformed(e));
+			panel1.add(field_Auflage);
+			field_Auflage.setBounds(540, 133, 35, 25);
+			panel1.add(field_Jahr);
+			field_Jahr.setBounds(595, 133, 50, 25);
+
+			//---- label4 ----
+			label4.setText("VK");
+			panel1.add(label4);
+			label4.setBounds(372, 165, 46, label4.getPreferredSize().height);
+
+			//---- label5 ----
+			label5.setText("EK");
+			panel1.add(label5);
+			label5.setBounds(423, 165, 57, label5.getPreferredSize().height);
+
+			//---- jLabel15 ----
+			jLabel15.setText("Bestand");
+			panel1.add(jLabel15);
+			jLabel15.setBounds(595, 165, 50, jLabel15.getPreferredSize().height);
+
+			//---- jLabel24 ----
+			jLabel24.setText("Pflichtexemplare");
+			jLabel24.setFont(jLabel24.getFont().deriveFont(jLabel24.getFont().getStyle() | Font.BOLD));
+			panel1.add(jLabel24);
+			jLabel24.setBounds(675, 163, 156, jLabel24.getPreferredSize().height);
+			panel1.add(field_Preis);
+			field_Preis.setBounds(375, 185, 46, field_Preis.getPreferredSize().height);
+			panel1.add(field_EK);
+			field_EK.setBounds(425, 185, 57, field_EK.getPreferredSize().height);
+			panel1.add(field_Bestand);
+			field_Bestand.setBounds(595, 185, 50, field_Bestand.getPreferredSize().height);
+
+			//---- field_BLB ----
+			field_BLB.setText("Berl.Land.Bibl.");
+			panel1.add(field_BLB);
+			field_BLB.setBounds(new Rectangle(new Point(675, 182), field_BLB.getPreferredSize()));
+
+			//---- btnBLB ----
+			btnBLB.setText("D");
+			btnBLB.setToolTipText("Drucke Brief an die Berliner Landesbibliothek");
+			btnBLB.addActionListener(e -> btnBLBActionPerformed(e));
+			panel1.add(btnBLB);
+			btnBLB.setBounds(775, 182, 56, btnBLB.getPreferredSize().height);
+
+			//---- jLabel13 ----
+			jLabel13.setText("Druck.Nr.");
+			jLabel13.setVerticalAlignment(SwingConstants.BOTTOM);
+			panel1.add(jLabel13);
+			jLabel13.setBounds(372, 210, jLabel13.getPreferredSize().width, 23);
+
+			//---- jLabel12 ----
+			jLabel12.setText("Druckerei");
+			jLabel12.setVerticalAlignment(SwingConstants.BOTTOM);
+			panel1.add(jLabel12);
+			jLabel12.setBounds(485, 210, 50, 23);
+
+			//---- field_DNB ----
+			field_DNB.setText("Dt.Nat.Bibl.");
+			panel1.add(field_DNB);
+			field_DNB.setBounds(675, 210, 95, field_DNB.getPreferredSize().height);
+
+			//---- btnDNB ----
+			btnDNB.setText("D");
+			btnDNB.setToolTipText("Drucke Brief an die Deutsche Nationalbibliothek");
+			btnDNB.addActionListener(e -> btnDNBActionPerformed(e));
+			panel1.add(btnDNB);
+			btnDNB.setBounds(775, 210, 56, btnDNB.getPreferredSize().height);
+			panel1.add(field_DruckNr);
+			field_DruckNr.setBounds(372, 238, 108, field_DruckNr.getPreferredSize().height);
+
+			//---- cbDruckerei ----
+			cbDruckerei.setModel(new DefaultComboBoxModel<>(new String[] {
+				"Item 1",
+				"Item 2",
+				"Item 3",
+				"Item 4"
+			}));
+			cbDruckerei.addActionListener(e -> cbDruckereiActionPerformed(e));
+			panel1.add(cbDruckerei);
+			cbDruckerei.setBounds(485, 238, 160, cbDruckerei.getPreferredSize().height);
+
+			//---- label6 ----
+			label6.setText("Ausgabeart");
+			label6.setFont(label6.getFont().deriveFont(label6.getFont().getStyle() | Font.BOLD));
+			panel1.add(label6);
+			label6.setBounds(691, 263, 79, label6.getPreferredSize().height);
+
+			//---- rbPB ----
+			rbPB.setSelected(true);
+			rbPB.setText("Paperback");
+			panel1.add(rbPB);
+			rbPB.setBounds(691, 282, 140, rbPB.getPreferredSize().height);
+
+			//---- rbHC ----
+			rbHC.setText("Hardcover");
+			panel1.add(rbHC);
+			rbHC.setBounds(691, 310, 140, rbHC.getPreferredSize().height);
+
+			//---- rbKindle ----
+			rbKindle.setText("Kindle");
+			panel1.add(rbKindle);
+			rbKindle.setBounds(691, 338, 140, rbKindle.getPreferredSize().height);
+
+			//---- jLabel16 ----
+			jLabel16.setText("Cover");
+			jLabel16.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel1.add(jLabel16);
+			jLabel16.setBounds(100, 391, 41, 25);
+
+			//---- field_Cover ----
+			field_Cover.setText("jTextField11");
+			field_Cover.setPreferredSize(new Dimension(65, 25));
+			panel1.add(field_Cover);
+			field_Cover.setBounds(146, 391, 444, field_Cover.getPreferredSize().height);
+
+			//---- CoverAdd ----
+			CoverAdd.setText("...");
+			CoverAdd.addActionListener(e -> CoverAddActionPerformed(e));
+			panel1.add(CoverAdd);
+			CoverAdd.setBounds(595, 391, 50, 25);
+
+			//---- LabelBild ----
+			LabelBild.setFocusable(false);
+			LabelBild.setHorizontalTextPosition(SwingConstants.CENTER);
+			LabelBild.setIconTextGap(0);
+			LabelBild.setPreferredSize(new Dimension(120, 160));
+			LabelBild.setToolTipText("Buchcover");
+			LabelBild.setMinimumSize(new Dimension(120, 160));
+			LabelBild.setMaximumSize(new Dimension(120, 160));
+			LabelBild.setMargin(new Insets(0, 0, 0, 0));
+			panel1.add(LabelBild);
+			LabelBild.setBounds(691, 391, 120, 160);
+
+			//---- jLabel18 ----
+			jLabel18.setText("Text");
+			jLabel18.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel1.add(jLabel18);
+			jLabel18.setBounds(100, 421, 41, 23);
+
+			//---- field_Text ----
+			field_Text.setText("jTextField12");
+			panel1.add(field_Text);
+			field_Text.setBounds(146, 421, 444, 23);
+
+			//---- TextAdd ----
+			TextAdd.setText("...");
+			TextAdd.addActionListener(e -> TextAddActionPerformed(e));
+			panel1.add(TextAdd);
+			TextAdd.setBounds(595, 421, 50, TextAdd.getPreferredSize().height);
+
+			//---- jLabel19 ----
+			jLabel19.setText("Flyer");
+			jLabel19.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel1.add(jLabel19);
+			jLabel19.setBounds(100, 449, 41, 23);
+
+			//---- field_Flyer ----
+			field_Flyer.setText("jTextField9");
+			panel1.add(field_Flyer);
+			field_Flyer.setBounds(146, 449, 444, 23);
+
+			//---- FlyerAdd ----
+			FlyerAdd.setText("...");
+			FlyerAdd.addActionListener(e -> FlyerAddActionPerformed(e));
+			panel1.add(FlyerAdd);
+			FlyerAdd.setBounds(595, 449, 50, FlyerAdd.getPreferredSize().height);
+
+			//---- jLabel20 ----
+			jLabel20.setText("Vertrag Autor");
+			jLabel20.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel1.add(jLabel20);
+			jLabel20.setBounds(54, 477, 87, 23);
+
+			//---- field_Vertrag ----
+			field_Vertrag.setText("jTextField10");
+			panel1.add(field_Vertrag);
+			field_Vertrag.setBounds(146, 477, 444, 23);
+
+			//---- VertragAdd ----
+			VertragAdd.setText("...");
+			VertragAdd.addActionListener(e -> VertragAddActionPerformed(e));
+			panel1.add(VertragAdd);
+			VertragAdd.setBounds(595, 477, 50, VertragAdd.getPreferredSize().height);
+
+			//---- jLabel21 ----
+			jLabel21.setText("Vertrag BOD");
+			jLabel21.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel1.add(jLabel21);
+			jLabel21.setBounds(54, 505, 87, 23);
+
+			//---- field_VertragBOD ----
+			field_VertragBOD.setText("jTextField13");
+			panel1.add(field_VertragBOD);
+			field_VertragBOD.setBounds(146, 505, 444, 23);
+
+			//---- VertragBODAdd ----
+			VertragBODAdd.setText("...");
+			VertragBODAdd.addActionListener(e -> VertragBODAddActionPerformed(e));
+			panel1.add(VertragBODAdd);
+			VertragBODAdd.setBounds(595, 505, 50, VertragBODAdd.getPreferredSize().height);
+
+			//---- field_Honorar ----
+			field_Honorar.setText("Honorar auf der Basis");
+			field_Honorar.setActionCommand("Honorar");
+			panel1.add(field_Honorar);
+			field_Honorar.setBounds(0, 540, 155, 23);
+
+			//---- field_Honorar_Anzahl ----
+			field_Honorar_Anzahl.setMaximumSize(new Dimension(33, 25));
+			field_Honorar_Anzahl.setMinimumSize(new Dimension(33, 25));
+			field_Honorar_Anzahl.setPreferredSize(new Dimension(33, 25));
+			field_Honorar_Anzahl.addActionListener(e -> field_Honorar_AnzahlActionPerformed(e));
+			panel1.add(field_Honorar_Anzahl);
+			field_Honorar_Anzahl.setBounds(45, 570, field_Honorar_Anzahl.getPreferredSize().width, 20);
+
+			//---- jLabel22 ----
+			jLabel22.setText("St\u00fcck mit je");
+			panel1.add(jLabel22);
+			jLabel22.setBounds(90, 570, 83, 20);
+
+			//---- field_Honorar_Prozent ----
+			field_Honorar_Prozent.setMinimumSize(new Dimension(25, 30));
+			field_Honorar_Prozent.setPreferredSize(new Dimension(25, 25));
+			field_Honorar_Prozent.addActionListener(e -> field_Honorar_ProzentActionPerformed(e));
+			panel1.add(field_Honorar_Prozent);
+			field_Honorar_Prozent.setBounds(175, 570, 33, 20);
+
+			//---- jLabel23 ----
+			jLabel23.setText("% des Netto-VK pro St\u00fcck");
+			panel1.add(jLabel23);
+			jLabel23.setBounds(220, 570, 163, 20);
+			panel1.add(field_Honorar_2_Anzahl);
+			field_Honorar_2_Anzahl.setBounds(45, 600, 33, 20);
+
+			//---- label8 ----
+			label8.setText("St\u00fcck mit je");
+			panel1.add(label8);
+			label8.setBounds(90, 600, 83, 20);
+			panel1.add(field_Honorar_2_Prozent);
+			field_Honorar_2_Prozent.setBounds(175, 600, 33, 20);
+
+			//---- label7 ----
+			label7.setText("% des Netto-VK pro St\u00fcck");
+			panel1.add(label7);
+			label7.setBounds(220, 600, 163, 20);
+
+			//---- Anfang ----
+			Anfang.setText("<<");
+			Anfang.setToolTipText("gehe zum ersten Datensatz");
+			Anfang.addActionListener(e -> AnfangActionPerformed(e));
+			panel1.add(Anfang);
+			Anfang.setBounds(new Rectangle(new Point(0, 635), Anfang.getPreferredSize()));
+
+			//---- Zurueck ----
+			Zurueck.setText("<");
+			Zurueck.setToolTipText("gehe zum vorherigen Datensatz");
+			Zurueck.addActionListener(e -> ZurueckActionPerformed(e));
+			panel1.add(Zurueck);
+			Zurueck.setBounds(50, 635, 49, Zurueck.getPreferredSize().height);
+
+			//---- Vor ----
+			Vor.setText(">");
+			Vor.setToolTipText("gehe zum n\u00e4chsten Datensatz");
+			Vor.addActionListener(e -> VorActionPerformed(e));
+			panel1.add(Vor);
+			Vor.setBounds(95, 635, 49, Vor.getPreferredSize().height);
+
+			//---- Ende ----
+			Ende.setText(">>");
+			Ende.setToolTipText("gehe zum letzten Datensatz");
+			Ende.addActionListener(e -> EndeActionPerformed(e));
+			panel1.add(Ende);
+			Ende.setBounds(145, 635, 49, Ende.getPreferredSize().height);
+
+			//---- Update ----
+			Update.setText("!");
+			Update.setToolTipText("Datensatz aktualisieren");
+			Update.addActionListener(e -> UpdateActionPerformed(e));
+			panel1.add(Update);
+			Update.setBounds(205, 635, 49, Update.getPreferredSize().height);
+
+			//---- Einfuegen ----
+			Einfuegen.setText("+");
+			Einfuegen.setToolTipText("Datensatz einf\u00fcgen");
+			Einfuegen.addActionListener(e -> EinfuegenActionPerformed(e));
+			panel1.add(Einfuegen);
+			Einfuegen.setBounds(255, 635, 49, Einfuegen.getPreferredSize().height);
+
+			//---- Loeschen ----
+			Loeschen.setText("-");
+			Loeschen.setToolTipText("Datensatz l\u00f6schen");
+			Loeschen.addActionListener(e -> LoeschenActionPerformed(e));
+			panel1.add(Loeschen);
+			Loeschen.setBounds(305, 635, 49, Loeschen.getPreferredSize().height);
+
+			//---- Suchen ----
+			Suchen.setText("?");
+			Suchen.setToolTipText("Suche nach Autor, Titel, ISBN oder Druckereinummer");
+			Suchen.addActionListener(e -> SuchenActionPerformed(e));
+			panel1.add(Suchen);
+			Suchen.setBounds(365, 635, 49, Suchen.getPreferredSize().height);
+
+			//---- WSuchen ----
+			WSuchen.setText("...");
+			WSuchen.setToolTipText("Weitersuchen");
+			WSuchen.addActionListener(e -> WSuchenActionPerformed(e));
+			panel1.add(WSuchen);
+			WSuchen.setBounds(415, 635, 49, WSuchen.getPreferredSize().height);
+
+			//---- Drucken ----
+			Drucken.setText("D");
+			Drucken.setToolTipText("Druckt das aktuelle Buchprojekt als PDF");
+			Drucken.addActionListener(e -> DruckenActionPerformed(e));
+			panel1.add(Drucken);
+			Drucken.setBounds(475, 635, 49, Drucken.getPreferredSize().height);
+
+			//---- Schliessen ----
+			Schliessen.setText("X");
+			Schliessen.setToolTipText("Schlie\u00dft den Dialog");
+			Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
+			panel1.add(Schliessen);
+			Schliessen.setBounds(530, 635, 49, Schliessen.getPreferredSize().height);
+
+			//---- label9 ----
+			label9.setText("Marge");
+			panel1.add(label9);
+			label9.setBounds(new Rectangle(new Point(485, 165), label9.getPreferredSize()));
+			panel1.add(field_Marge);
+			field_Marge.setBounds(485, 185, 45, field_Marge.getPreferredSize().height);
+
+			//---- field_Gesamtbetrachtung ----
+			field_Gesamtbetrachtung.setText("Gesamtumfang");
+			field_Gesamtbetrachtung.setSelected(true);
+			panel1.add(field_Gesamtbetrachtung);
+			field_Gesamtbetrachtung.setBounds(155, 540, 225, field_Gesamtbetrachtung.getPreferredSize().height);
+
+			//---- field_BODgetrennt ----
+			field_BODgetrennt.setText("BoD getrennt betrachtet");
+			panel1.add(field_BODgetrennt);
+			field_BODgetrennt.setBounds(500, 540, 170, field_BODgetrennt.getPreferredSize().height);
+			panel1.add(field_BoDFix);
+			field_BoDFix.setBounds(390, 570, 30, 20);
+			panel1.add(field_BoDProzent);
+			field_BoDProzent.setBounds(390, 600, 30, field_BoDProzent.getPreferredSize().height);
+
+			//---- label10 ----
+			label10.setText("Fix-Betrag BoD");
+			panel1.add(label10);
+			label10.setBounds(430, 570, 100, 20);
+
+			//---- label11 ----
+			label11.setText("% Marge BoD");
+			panel1.add(label11);
+			label11.setBounds(430, 600, 80, 20);
+
+			{ // compute preferred size
+				Dimension preferredSize = new Dimension();
+				for(int i = 0; i < panel1.getComponentCount(); i++) {
+					Rectangle bounds = panel1.getComponent(i).getBounds();
+					preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+					preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+				}
+				Insets insets = panel1.getInsets();
+				preferredSize.width += insets.right;
+				preferredSize.height += insets.bottom;
+				panel1.setMinimumSize(preferredSize);
+				panel1.setPreferredSize(preferredSize);
+			}
+		}
+		contentPane.add(panel1);
+		panel1.setBounds(10, 10, 970, 670);
+
+		{ // compute preferred size
+			Dimension preferredSize = new Dimension();
+			for(int i = 0; i < contentPane.getComponentCount(); i++) {
+				Rectangle bounds = contentPane.getComponent(i).getBounds();
+				preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+				preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+			}
+			Insets insets = contentPane.getInsets();
+			preferredSize.width += insets.right;
+			preferredSize.height += insets.bottom;
+			contentPane.setMinimumSize(preferredSize);
+			contentPane.setPreferredSize(preferredSize);
+		}
+		setSize(860, 720);
+		setLocationRelativeTo(getOwner());
+
+		//---- buttonGroup1 ----
+		var buttonGroup1 = new ButtonGroup();
+		buttonGroup1.add(field_Gesamtbetrachtung);
+		buttonGroup1.add(field_BODgetrennt);
     }// </editor-fold>//GEN-END:initComponents
 
     private void AnfangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnfangActionPerformed
@@ -2602,97 +2606,97 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JPanel panel1;
-    private JScrollPane jScrollPane1;
-    private JTextArea field_Beschreibung;
-    private JLabel jLabel17;
-    private JScrollPane jScrollPane2;
-    private JList<String> lbAutor;
-    private JCheckBox cbHerausgeber;
-    private JLabel jLabel5;
-    private JLabel jLabel1;
-    private JLabel jLabel2;
-    private JTextField field_count;
-    private JLabel label1;
-    private JTextField field_countMax;
-    private JLabel jLabel4;
-    private JTextField field_ID;
-    private JCheckBox field_Aktiv;
-    private JTextField field_Titel;
-    private JButton jbtnBelegexemplar;
-    private JButton Rezension;
-    private JLabel label2;
-    private JLabel label3;
-    private JLabel jLabel9;
-    private JLabel jLabel14;
-    private JCheckBox field_VLB;
-    private JTextField field_ISBN;
-    private JTextField field_Seiten;
-    private JTextField field_Auflage;
-    private JTextField field_Jahr;
-    private JLabel label4;
-    private JLabel label5;
-    private JLabel jLabel15;
-    private JLabel jLabel24;
-    private JTextField field_Preis;
-    private JTextField field_EK;
-    private JTextField field_Bestand;
-    private JCheckBox field_BLB;
-    private JButton btnBLB;
-    private JLabel jLabel13;
-    private JLabel jLabel12;
-    private JCheckBox field_DNB;
-    private JButton btnDNB;
-    private JTextField field_DruckNr;
-    private JComboBox<String> cbDruckerei;
-    private JLabel label6;
-    private JRadioButton rbPB;
-    private JRadioButton rbHC;
-    private JRadioButton rbKindle;
-    private JLabel jLabel16;
-    private JTextField field_Cover;
-    private JButton CoverAdd;
-    private JButton LabelBild;
-    private JLabel jLabel18;
-    private JTextField field_Text;
-    private JButton TextAdd;
-    private JLabel jLabel19;
-    private JTextField field_Flyer;
-    private JButton FlyerAdd;
-    private JLabel jLabel20;
-    private JTextField field_Vertrag;
-    private JButton VertragAdd;
-    private JLabel jLabel21;
-    private JTextField field_VertragBOD;
-    private JButton VertragBODAdd;
-    private JCheckBox field_Honorar;
-    private JTextField field_Honorar_Anzahl;
-    private JLabel jLabel22;
-    private JTextField field_Honorar_Prozent;
-    private JLabel jLabel23;
-    private JTextField field_Honorar_2_Anzahl;
-    private JLabel label8;
-    private JTextField field_Honorar_2_Prozent;
-    private JLabel label7;
-    private JButton Anfang;
-    private JButton Zurueck;
-    private JButton Vor;
-    private JButton Ende;
-    private JButton Update;
-    private JButton Einfuegen;
-    private JButton Loeschen;
-    private JButton Suchen;
-    private JButton WSuchen;
-    private JButton Drucken;
-    private JButton Schliessen;
-    private JLabel label9;
-    private JTextField field_Marge;
-    private JRadioButton field_Gesamtbetrachtung;
-    private JRadioButton field_BODgetrennt;
-    private JTextField field_BoDFix;
-    private JTextField field_BoDProzent;
-    private JLabel label10;
-    private JLabel label11;
+	private JPanel panel1;
+	private JScrollPane jScrollPane1;
+	private JTextArea field_Beschreibung;
+	private JLabel jLabel17;
+	private JScrollPane jScrollPane2;
+	private JList<String> lbAutor;
+	private JCheckBox cbHerausgeber;
+	private JLabel jLabel5;
+	private JLabel jLabel1;
+	private JLabel jLabel2;
+	private JTextField field_count;
+	private JLabel label1;
+	private JTextField field_countMax;
+	private JLabel jLabel4;
+	private JTextField field_ID;
+	private JCheckBox field_Aktiv;
+	private JTextField field_Titel;
+	private JButton jbtnBelegexemplar;
+	private JButton Rezension;
+	private JLabel label2;
+	private JLabel label3;
+	private JLabel jLabel9;
+	private JLabel jLabel14;
+	private JCheckBox field_VLB;
+	private JTextField field_ISBN;
+	private JTextField field_Seiten;
+	private JTextField field_Auflage;
+	private JTextField field_Jahr;
+	private JLabel label4;
+	private JLabel label5;
+	private JLabel jLabel15;
+	private JLabel jLabel24;
+	private JTextField field_Preis;
+	private JTextField field_EK;
+	private JTextField field_Bestand;
+	private JCheckBox field_BLB;
+	private JButton btnBLB;
+	private JLabel jLabel13;
+	private JLabel jLabel12;
+	private JCheckBox field_DNB;
+	private JButton btnDNB;
+	private JTextField field_DruckNr;
+	private JComboBox<String> cbDruckerei;
+	private JLabel label6;
+	private JRadioButton rbPB;
+	private JRadioButton rbHC;
+	private JRadioButton rbKindle;
+	private JLabel jLabel16;
+	private JTextField field_Cover;
+	private JButton CoverAdd;
+	private JButton LabelBild;
+	private JLabel jLabel18;
+	private JTextField field_Text;
+	private JButton TextAdd;
+	private JLabel jLabel19;
+	private JTextField field_Flyer;
+	private JButton FlyerAdd;
+	private JLabel jLabel20;
+	private JTextField field_Vertrag;
+	private JButton VertragAdd;
+	private JLabel jLabel21;
+	private JTextField field_VertragBOD;
+	private JButton VertragBODAdd;
+	private JCheckBox field_Honorar;
+	private JTextField field_Honorar_Anzahl;
+	private JLabel jLabel22;
+	private JTextField field_Honorar_Prozent;
+	private JLabel jLabel23;
+	private JTextField field_Honorar_2_Anzahl;
+	private JLabel label8;
+	private JTextField field_Honorar_2_Prozent;
+	private JLabel label7;
+	private JButton Anfang;
+	private JButton Zurueck;
+	private JButton Vor;
+	private JButton Ende;
+	private JButton Update;
+	private JButton Einfuegen;
+	private JButton Loeschen;
+	private JButton Suchen;
+	private JButton WSuchen;
+	private JButton Drucken;
+	private JButton Schliessen;
+	private JLabel label9;
+	private JTextField field_Marge;
+	private JRadioButton field_Gesamtbetrachtung;
+	private JRadioButton field_BODgetrennt;
+	private JTextField field_BoDFix;
+	private JTextField field_BoDProzent;
+	private JLabel label10;
+	private JLabel label11;
     // End of variables declaration//GEN-END:variables
 
     private JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));

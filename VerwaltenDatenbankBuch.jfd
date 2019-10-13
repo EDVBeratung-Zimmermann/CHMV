@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="11.0.1" class="java.beans.XMLDecoder">
+<java version="12.0.1" class="java.beans.XMLDecoder">
  <object class="com.jformdesigner.model.FormModel">
   <void property="contentType">
    <string>form/swing</string>
@@ -1673,6 +1673,33 @@
             <int>160</int>
            </object>
           </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string>Buchcover</string>
+          </void>
+          <void method="setProperty">
+           <string>minimumSize</string>
+           <object class="java.awt.Dimension">
+            <int>120</int>
+            <int>160</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>maximumSize</string>
+           <object class="java.awt.Dimension">
+            <int>120</int>
+            <int>160</int>
+           </object>
+          </void>
+          <void method="setProperty">
+           <string>margin</string>
+           <object class="java.awt.Insets">
+            <int>0</int>
+            <int>0</int>
+            <int>0</int>
+            <int>0</int>
+           </object>
+          </void>
           <void property="name">
            <string>LabelBild</string>
           </void>
@@ -1693,7 +1720,7 @@
           </void>
           <void method="setProperty">
            <string>height</string>
-           <int>172</int>
+           <int>160</int>
           </void>
          </object>
         </void>
