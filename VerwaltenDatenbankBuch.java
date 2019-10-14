@@ -216,10 +216,12 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 5, 315, Modulhelferlein.CheckStr(field_Titel.getText()));
             Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 5, 300, Modulhelferlein.CheckStr("von " + AutorEintrag));
             Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 5, 285, Modulhelferlein.CheckStr("zum Einzelpreis von " + field_Preis.getText() + " Euro"));
-            Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 5, 260, Modulhelferlein.CheckStr("Bitte senden Sie ihre Bestellung an:"));
-            Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 5, 245, Modulhelferlein.CheckStr("Carola Hartmann Miles-Verlag"));
-            Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 5, 230, Modulhelferlein.CheckStr("Alt Kladow 16d, 14089 Berlin"));
-            Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 5, 215, Modulhelferlein.CheckStr("oder per E-Mail an miles-verlag@t-online.de"));
+            Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 5, 260, Modulhelferlein.CheckStr("Bitte senden Sie Ihre o.a. Bestellung"));
+            Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 5, 245, Modulhelferlein.CheckStr("schriftlich an"));
+            Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 93, 245, Modulhelferlein.CheckStr("Carola Hartmann Miles-Verlag"));
+            Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 93, 230, Modulhelferlein.CheckStr("Alt Kladow 16d, 14089 Berlin"));
+            Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 5, 215, Modulhelferlein.CheckStr("oder per E-Mail an"));
+            Ausgabe(cos, fontPlain, 10, Color.BLACK, BildX + 93, 215, Modulhelferlein.CheckStr("miles-verlag@t-online.de"));
             
 // Text
             String Beschreibung = field_Beschreibung.getText() + " ENDE ENDE";
