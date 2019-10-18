@@ -444,6 +444,9 @@ public class ModulAbrechnungHonorar {
                     Integer Anz_PB = 0;
                     Integer Anz_HC = 0;
                     Integer Anz_EB = 0;
+                    Integer Anz_B_PB = 0;
+                    Integer Anz_B_HC = 0;
+                    Integer Anz_B_EB = 0;
                     Integer Anzahl = 0;
                     Integer S1 = 0;
                     Integer S2 = 0;
@@ -452,7 +455,10 @@ public class ModulAbrechnungHonorar {
                         Anz_PB = resultHonorar.getInt("HONORAR_ANZAHL_PB");
                         Anz_HC = resultHonorar.getInt("HONORAR_ANZAHL_HC");
                         Anz_EB = resultHonorar.getInt("HONORAR_ANZAHL_EB");
-                        Anzahl = Anz_PB + Anz_HC + Anz_EB;
+                        Anz_B_PB = resultHonorar.getInt("HONORAR_ANZAHL_BOD_PB");
+                        Anz_B_HC = resultHonorar.getInt("HONORAR_ANZAHL_BOD_HC");
+                        Anz_B_EB = resultHonorar.getInt("HONORAR_ANZAHL_BOD_EB");
+                        Anzahl = Anz_PB + Anz_HC + Anz_EB + Anz_B_PB + Anz_B_HC + Anz_B_EB;
                         S1 = resultHonorar.getInt("HONORAR_ANZAHL_1");
                         S2 = resultHonorar.getInt("HONORAR_ANZAHL_2");
                         if (S2 == 0) { // es gibt nur eine Schwelle
