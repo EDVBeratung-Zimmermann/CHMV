@@ -87,7 +87,11 @@ public class briefHonorar {
             Integer HONORAR_PROZENT_1, // 13
             Integer HONORAR_ANZAHL_2, // 14
             Integer HONORAR_PROZENT_2, // 15
-            Boolean HONORAR_VERTEILEN) { // 16
+            Float HONORAR_MARGE, // 16
+            Float HONORAR_BODPROZENT, // 17
+            Integer HONORAR_BODFIX, // 18
+            Boolean HONORAR_GESAMTBETRACHTUNG, // 19
+            Boolean HONORAR_VERTEILEN) { // 20
 
         Statement SQLAdresse = null;
         ResultSet resultAdresse = null;
