@@ -746,6 +746,10 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "HONORAR_ISBN_HC TEXT,";
                         SQL = SQL + "HONORAR_ANZAHL_HC INT,";
                         SQL = SQL + "HONORAR_PREIS_HC FLOAT,";
+                        SQL = SQL + "HONORAR_MARGE FLOAT,";
+                        SQL = SQL + "HONORAR_BODMARGE FLOAT,";
+                        SQL = SQL + "HONORAR_BODFIX INT,";
+                        SQL = SQL + "HONORAR_GESAMTBETRACHTUNG BOOLEAN,";
                         SQL = SQL + "HONORAR_ISBN_EB TEXT,";
                         SQL = SQL + "HONORAR_ANZAHL_EB INT,";
                         SQL = SQL + "HONORAR_PREIS_EB FLOAT,";
