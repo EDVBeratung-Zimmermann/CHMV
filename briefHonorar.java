@@ -245,7 +245,8 @@ public class briefHonorar {
 
                 // Text
                 Integer Startzeile = 0;
-                Anzahl = HONORAR_ANZAHL_PB + HONORAR_ANZAHL_HC + HONORAR_ANZAHL_EB;
+                Anzahl =  HONORAR_ANZAHL_PB     + HONORAR_ANZAHL_HC     + HONORAR_ANZAHL_EB
+                        + HONORAR_ANZAHL_BOD_PB + HONORAR_ANZAHL_BOD_HC + HONORAR_ANZAHL_BOD_EB;
                 Integer Schwelle = 0;
                 if (HONORAR_ZAHLEN == 0) { // keine Zahlung - Schwelle 1 nicht erreicht
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "gemäß §4 des Verlagsvertrages erhalten Sie ein Honorar in Höhe " + Integer.toString(HONORAR_PROZENT_1) + " Prozent auf der Basis");
