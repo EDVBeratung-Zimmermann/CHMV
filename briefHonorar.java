@@ -72,27 +72,27 @@ public class briefHonorar {
     public static void briefPDF(// Parameterliste
             Integer HONORAR_ZAHLEN, // 0
             //* 0 nichts, 1 Schwelle 1, 2 Schwelle 2
-            String HONORAR_TITEL,           // 1
-            String HONORAR_AUTOR,           // 2
-            String HONORAR_ISBN_PB,         // 3
-            Integer HONORAR_ANZAHL_PB,      // 4
-            Integer HONORAR_ANZAHL_BOD_PB,  // 5
-            Float HONORAR_PREIS_PB,         // 6
-            String HONORAR_ISBN_HC,         // 7
-            Integer HONORAR_ANZAHL_HC,      // 8
-            Integer HONORAR_ANZAHL_BOD_HC,  // 9
-            Float HONORAR_PREIS_HC,         // 10
-            String HONORAR_ISBN_EB,         // 11
-            Integer HONORAR_ANZAHL_EB,      // 12
-            Integer HONORAR_ANZAHL_BOD_EB,  // 13
-            Float HONORAR_PREIS_EB,         // 14
-            Integer HONORAR_ANZAHL_1,       // 15
-            Integer HONORAR_PROZENT_1,      // 16
-            Integer HONORAR_ANZAHL_2,       // 17
-            Integer HONORAR_PROZENT_2,      // 18
-            Float HONORAR_MARGE,            // 19
-            Float HONORAR_BODPROZENT,       // 20
-            Integer HONORAR_BODFIX,          // 21
+            String HONORAR_TITEL, // 1
+            String HONORAR_AUTOR, // 2
+            String HONORAR_ISBN_PB, // 3
+            Integer HONORAR_ANZAHL_PB, // 4
+            Integer HONORAR_ANZAHL_BOD_PB, // 5
+            Float HONORAR_PREIS_PB, // 6
+            String HONORAR_ISBN_HC, // 7
+            Integer HONORAR_ANZAHL_HC, // 8
+            Integer HONORAR_ANZAHL_BOD_HC, // 9
+            Float HONORAR_PREIS_HC, // 10
+            String HONORAR_ISBN_EB, // 11
+            Integer HONORAR_ANZAHL_EB, // 12
+            Integer HONORAR_ANZAHL_BOD_EB, // 13
+            Float HONORAR_PREIS_EB, // 14
+            Integer HONORAR_ANZAHL_1, // 15
+            Integer HONORAR_PROZENT_1, // 16
+            Integer HONORAR_ANZAHL_2, // 17
+            Integer HONORAR_PROZENT_2, // 18
+            Float HONORAR_MARGE, // 19
+            Float HONORAR_BODPROZENT, // 20
+            Integer HONORAR_BODFIX, // 21
             Boolean HONORAR_GESAMTBETRACHTUNG, // 22
             Boolean HONORAR_VERTEILEN) {       // 23
 
@@ -139,7 +139,7 @@ public class briefHonorar {
                 } else {
                     Titel = HONORAR_TITEL;
                 }
-                
+
                 // Create a document and add a page to it
                 PDDocument document = new PDDocument();
                 PDPage page1 = new PDPage(A4);
@@ -245,7 +245,7 @@ public class briefHonorar {
 
                 // Text
                 Integer Startzeile = 0;
-                Anzahl =  HONORAR_ANZAHL_PB     + HONORAR_ANZAHL_HC     + HONORAR_ANZAHL_EB
+                Anzahl = HONORAR_ANZAHL_PB + HONORAR_ANZAHL_HC + HONORAR_ANZAHL_EB
                         + HONORAR_ANZAHL_BOD_PB + HONORAR_ANZAHL_BOD_HC + HONORAR_ANZAHL_BOD_EB;
                 Integer Schwelle = 0;
                 if (HONORAR_ZAHLEN == 0) { // keine Zahlung - Schwelle 1 nicht erreicht
@@ -256,105 +256,113 @@ public class briefHonorar {
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 430, "Daher kann ich Ihnen in diesem Jahr leider kein Honorar vergüten.");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 410, "Wir hoffen, dass die Verkaufszahlen dieses Jahr wieder steigen werden.");
                 } else {
-                    Netto_VP_PB = HONORAR_PREIS_PB / 107 * 100;
-                    Netto_VP_HC = HONORAR_PREIS_HC / 107 * 100;
-                    Netto_VP_EB = HONORAR_PREIS_EB / 107 * 100;
-                    if (HONORAR_ZAHLEN == 1) {
-                        Honorar_PB = HONORAR_PREIS_PB / 107 * HONORAR_PROZENT_1;
-                        Honorar_HC = HONORAR_PREIS_HC / 107 * HONORAR_PROZENT_1;
-                        Honorar_EB = HONORAR_PREIS_EB / 107 * HONORAR_PROZENT_1;
-                        Honorar = (HONORAR_ANZAHL_PB * Honorar_PB + HONORAR_ANZAHL_HC * Honorar_HC + HONORAR_ANZAHL_EB * Honorar_EB) * 1D;
-                        
-                        if (HONORAR_ANZAHL_2 > 0) { // gestaffelt - 2 Schwellen
+                    if (HONORAR_GESAMTBETRACHTUNG) { // Miles und BOD-Verkäufe zusammen - keine Berücksichtigung BOD-Marge
+                        Netto_VP_PB = HONORAR_PREIS_PB / 107 * 100;
+                        Netto_VP_HC = HONORAR_PREIS_HC / 107 * 100;
+                        Netto_VP_EB = HONORAR_PREIS_EB / 107 * 100;
+                        if (HONORAR_ZAHLEN == 1) {
+                            Honorar_PB = HONORAR_PREIS_PB / 107 * HONORAR_PROZENT_1;
+                            Honorar_HC = HONORAR_PREIS_HC / 107 * HONORAR_PROZENT_1;
+                            Honorar_EB = HONORAR_PREIS_EB / 107 * HONORAR_PROZENT_1;
+                            Honorar = ((HONORAR_ANZAHL_PB + HONORAR_ANZAHL_BOD_PB) * Honorar_PB + 
+                                       (HONORAR_ANZAHL_HC + HONORAR_ANZAHL_BOD_HC) * Honorar_HC + 
+                                       (HONORAR_ANZAHL_EB + HONORAR_ANZAHL_BOD_EB) * Honorar_EB) * 1D;
+
+                            if (HONORAR_ANZAHL_2 > 0) { // gestaffelt - 2 Schwellen
+                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "gemäß §4 des Verlagsvertrages erhalten Sie ein gestaffeltes Honorar auf der Basis des");
+                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Netto-Ladenverkaufspreises in Abhängigkeit der Verkaufserfolge:");
+                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 455, " - " + HONORAR_PROZENT_1.toString() + "% bei mehr als " + HONORAR_ANZAHL_1.toString() + " verkauften Exemplaren");
+                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 440, " - " + HONORAR_PROZENT_2.toString() + "% bei mehr als " + HONORAR_ANZAHL_2.toString() + " verkauften Exemplaren");
+                                Startzeile = 420;
+                            } else {
+                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "gemäß §4 des Verlagsvertrages erhalten Sie ein Honorar in Höhe " + HONORAR_PROZENT_1.toString() + " Prozent auf der Basis");
+                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "des Netto-Ladenverkaufspreises, sofern mehr als " + HONORAR_ANZAHL_1.toString() + " Exemplare verkauft wurden.");
+                                Startzeile = 450;
+                            }
+                        } else {
+                            Honorar_PB = HONORAR_PREIS_PB / 107 * HONORAR_PROZENT_2;
+                            Honorar_HC = HONORAR_PREIS_HC / 107 * HONORAR_PROZENT_2;
+                            Honorar_EB = HONORAR_PREIS_EB / 107 * HONORAR_PROZENT_2;
+                            Honorar = ((HONORAR_ANZAHL_PB + HONORAR_ANZAHL_BOD_PB) * Honorar_PB + 
+                                       (HONORAR_ANZAHL_HC + HONORAR_ANZAHL_BOD_HC) * Honorar_HC + 
+                                       (HONORAR_ANZAHL_EB + HONORAR_ANZAHL_BOD_EB) * Honorar_EB) * 1D;
+
                             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "gemäß §4 des Verlagsvertrages erhalten Sie ein gestaffeltes Honorar auf der Basis des");
                             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Netto-Ladenverkaufspreises in Abhängigkeit der Verkaufserfolge:");
                             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 455, " - " + HONORAR_PROZENT_1.toString() + "% bei mehr als " + HONORAR_ANZAHL_1.toString() + " verkauften Exemplaren");
                             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 440, " - " + HONORAR_PROZENT_2.toString() + "% bei mehr als " + HONORAR_ANZAHL_2.toString() + " verkauften Exemplaren");
                             Startzeile = 420;
-                        } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "gemäß §4 des Verlagsvertrages erhalten Sie ein Honorar in Höhe " + HONORAR_PROZENT_1.toString() + " Prozent auf der Basis");
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "des Netto-Ladenverkaufspreises, sofern mehr als " + HONORAR_ANZAHL_1.toString() + " Exemplare verkauft wurden.");
-                            Startzeile = 450;
                         }
-                    } else {
-                        Honorar_PB = HONORAR_PREIS_PB / 107 * HONORAR_PROZENT_2;
-                        Honorar_HC = HONORAR_PREIS_HC / 107 * HONORAR_PROZENT_2;
-                        Honorar_EB = HONORAR_PREIS_EB / 107 * HONORAR_PROZENT_2;
-                        Honorar = (HONORAR_ANZAHL_PB * Honorar_PB + HONORAR_ANZAHL_HC * Honorar_HC + HONORAR_ANZAHL_EB * Honorar_EB)*1D;
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile, "Eigenbestellungen sind hiervon ausgenommen.");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 20, "Im vergangenen Jahr wurden insgesamt " + Anzahl.toString() + " Exemplare verkauft.");
 
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "gemäß §4 des Verlagsvertrages erhalten Sie ein gestaffeltes Honorar auf der Basis des");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Netto-Ladenverkaufspreises in Abhängigkeit der Verkaufserfolge:");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 455, " - " + HONORAR_PROZENT_1.toString() + "% bei mehr als " + HONORAR_ANZAHL_1.toString() + " verkauften Exemplaren");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 440, " - " + HONORAR_PROZENT_2.toString() + "% bei mehr als " + HONORAR_ANZAHL_2.toString() + " verkauften Exemplaren");
-                        Startzeile = 420;
-                    }
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile, "Eigenbestellungen sind hiervon ausgenommen.");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile-20, "Im vergangenen Jahr wurden insgesamt " + Anzahl.toString() + " Exemplare verkauft.");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 45, "Ich freue mich daher, Ihnen ein Honorar in Höhe von " + Modulhelferlein.str2dec(Honorar) + " Euro vergüten zu können.");
 
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile-45, "Ich freue mich daher, Ihnen ein Honorar in Höhe von " + Modulhelferlein.str2dec(Honorar) + " Euro vergüten zu können.");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 70, "Die Abrechnung lautet wie folgt:");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 90, "ISBN");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, Startzeile - 90, "Typ");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 230, Startzeile - 90, "Anzahl");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 300, Startzeile - 90, "Netto-VK");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 400, Startzeile - 90, "Honorar");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, Startzeile - 90, "Gesamt");
 
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile-70, "Die Abrechnung lautet wie folgt:");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile-90, "ISBN");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, Startzeile-90, "Typ");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 230, Startzeile-90, "Anzahl");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 300, Startzeile-90, "Netto-VK");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 400, Startzeile-90, "Honorar");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, Startzeile-90, "Gesamt");
+                        Linie(cos, 1, 55, Startzeile - 93, 540, Startzeile - 93);
 
-                    Linie(cos, 1, 55, Startzeile-93, 540, Startzeile-93);
+                        String[] ZeilenInhalt = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
+                        Integer Zeile = 0;
+                        if (HONORAR_ISBN_PB.length() > 0) { // PB
+                            Zeile = Zeile + 1;
+                            ZeilenInhalt[(Zeile - 1) * 6 + 0] = HONORAR_ISBN_PB;
+                            ZeilenInhalt[(Zeile - 1) * 6 + 1] = "Paperback";
+                            ZeilenInhalt[(Zeile - 1) * 6 + 2] = HONORAR_ANZAHL_PB.toString();
+                            ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_PB * 1D);
+                            ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_PB * 1D);
+                            ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_PB * 1D * HONORAR_ANZAHL_PB);
+                            System.out.println("Zeile " + Zeile.toString() + " - PB");
+                        }
+                        if (HONORAR_ISBN_HC.length() > 0) { // HC
+                            Zeile = Zeile + 1;
+                            ZeilenInhalt[(Zeile - 1) * 6 + 0] = HONORAR_ISBN_HC;
+                            ZeilenInhalt[(Zeile - 1) * 6 + 1] = "Hardcover";
+                            ZeilenInhalt[(Zeile - 1) * 6 + 2] = HONORAR_ANZAHL_HC.toString();
+                            ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_HC * 1D);
+                            ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_HC * 1D);
+                            ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_HC * 1D * HONORAR_ANZAHL_HC);
+                            System.out.println("Zeile " + Zeile.toString() + " - HC");
+                        }
+                        if (HONORAR_ISBN_EB.length() > 0) { // EB
+                            Zeile = Zeile + 1;
+                            ZeilenInhalt[(Zeile - 1) * 6 + 0] = HONORAR_ISBN_EB;
+                            ZeilenInhalt[(Zeile - 1) * 6 + 1] = "E-Book";
+                            ZeilenInhalt[(Zeile - 1) * 6 + 2] = HONORAR_ANZAHL_EB.toString();
+                            ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_EB * 1D);
+                            ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_EB * 1D);
+                            ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_EB * 1D * HONORAR_ANZAHL_EB);
+                            System.out.println("Zeile " + Zeile.toString() + " - EB");
+                        }
 
-                    String[] ZeilenInhalt = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
-                    Integer Zeile = 0;
-                    if (HONORAR_ISBN_PB.length() > 0) { // PB
-                        Zeile = Zeile + 1;
-                        ZeilenInhalt[(Zeile - 1) * 6 + 0] = HONORAR_ISBN_PB;
-                        ZeilenInhalt[(Zeile - 1) * 6 + 1] = "Paperback";
-                        ZeilenInhalt[(Zeile - 1) * 6 + 2] = HONORAR_ANZAHL_PB.toString();
-                        ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_PB*1D);
-                        ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_PB*1D);
-                        ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_PB*1D*HONORAR_ANZAHL_PB);
-                        System.out.println("Zeile " + Zeile.toString() + " - PB");
-                    }
-                    if (HONORAR_ISBN_HC.length() > 0) { // HC
-                        Zeile = Zeile + 1;
-                        ZeilenInhalt[(Zeile - 1) * 6 + 0] = HONORAR_ISBN_HC;
-                        ZeilenInhalt[(Zeile - 1) * 6 + 1] = "Hardcover";
-                        ZeilenInhalt[(Zeile - 1) * 6 + 2] = HONORAR_ANZAHL_HC.toString();
-                        ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_HC*1D);
-                        ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_HC*1D);
-                        ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_HC*1D*HONORAR_ANZAHL_HC);
-                        System.out.println("Zeile " + Zeile.toString() + " - HC");
-                    }
-                    if (HONORAR_ISBN_EB.length() > 0) { // EB
-                        Zeile = Zeile + 1;
-                        ZeilenInhalt[(Zeile - 1) * 6 + 0] = HONORAR_ISBN_EB;
-                        ZeilenInhalt[(Zeile - 1) * 6 + 1] = "E-Book";
-                        ZeilenInhalt[(Zeile - 1) * 6 + 2] = HONORAR_ANZAHL_EB.toString();
-                        ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_EB*1D);
-                        ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_EB*1D);
-                        ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_EB*1D*HONORAR_ANZAHL_EB);
-                        System.out.println("Zeile " + Zeile.toString() + " - EB");
-                    }
+                        for (int i = 1; i <= Zeile; i++) {
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 0]);
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, Startzeile - 95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 1]);
+                            AusgabeRB(cos, fontPlain, 12, Color.BLACK, 260, Startzeile - 95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 2]);
+                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 320, Startzeile - 95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 3]);
+                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 410, Startzeile - 95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 4]);
+                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 500, Startzeile - 95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 5]);
 
-                    for (int i = 1; i <= Zeile; i++) {
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile-95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 0]);
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, Startzeile-95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 1]);
-                        AusgabeRB(cos, fontPlain, 12, Color.BLACK, 260, Startzeile-95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 2]);
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 320, Startzeile-95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 3]);
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 410, Startzeile-95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 4]);
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 500, Startzeile-95 - i * 15, ZeilenInhalt[(i - 1) * 6 + 5]);
-                        
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 340, Startzeile-95 - i * 15, "€");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 430, Startzeile-95 - i * 15, "€");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 520, Startzeile-95 - i * 15, "€");
-                    }
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 340, Startzeile - 95 - i * 15, "€");
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 430, Startzeile - 95 - i * 15, "€");
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 520, Startzeile - 95 - i * 15, "€");
+                        }
 
-                    if (HONORAR_VERTEILEN) {
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 210, "Das Ihnen zustehende hälftige Honorar in Höhe "+ Modulhelferlein.str2dec(Honorar/2) + " EURO werden wir auf Ihr Konto");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 195, "mit der IBAN " + resultAdresse.getString("ADRESSEN_IBAN") + ", " + resultAdresse.getString("ADRESSEN_BANK") + " überweisen.");
-                    } else {
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 210, "Das Ihnen zustehende fällige Honorar in Höhe "+ Modulhelferlein.str2dec(Honorar) + " EURO werden wir auf Ihr Konto mit der ");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 195, "IBAN " + resultAdresse.getString("ADRESSEN_IBAN") + ", " + resultAdresse.getString("ADRESSEN_BANK") + " überweisen.");
+                        if (HONORAR_VERTEILEN) {
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 210, "Das Ihnen zustehende hälftige Honorar in Höhe " + Modulhelferlein.str2dec(Honorar / 2) + " EURO werden wir auf Ihr Konto");
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 195, "mit der IBAN " + resultAdresse.getString("ADRESSEN_IBAN") + ", " + resultAdresse.getString("ADRESSEN_BANK") + " überweisen.");
+                        } else {
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 210, "Das Ihnen zustehende fällige Honorar in Höhe " + Modulhelferlein.str2dec(Honorar) + " EURO werden wir auf Ihr Konto mit der ");
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 195, "IBAN " + resultAdresse.getString("ADRESSEN_IBAN") + ", " + resultAdresse.getString("ADRESSEN_BANK") + " überweisen.");
+                        }
+                    } else { //Einzelbetrachtung Miles sowie BOD-Verkäufe
+
                     }
                 }
                 // Schlussformel
