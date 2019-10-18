@@ -200,13 +200,16 @@ public class ModulAbrechnungHonorar {
                             resultHonorar.updateInt("HONORAR_PROZENT_2", resultBuch.getInt("BUCH_HONORAR_2_PROZENT"));
                             resultHonorar.updateString("HONORAR_ISBN_PB", "");
                             resultHonorar.updateInt("HONORAR_ANZAHL_PB", 0);
+                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", 0);
                             resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
                             resultHonorar.updateString("HONORAR_ISBN_HC", "");
                             resultHonorar.updateInt("HONORAR_ANZAHL_HC", 0);
                             resultHonorar.updateFloat("HONORAR_PREIS_HC", 0F);
+                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", 0);
                             resultHonorar.updateString("HONORAR_ISBN_EB", "");
                             resultHonorar.updateFloat("HONORAR_PREIS_EB", 0F);
                             resultHonorar.updateInt("HONORAR_ANZAHL_EB", 0);
+                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", 0);
                             switch (resultBuch.getInt("BUCH_HC")) {
                                 case 1: // HC
                                     resultHonorar.updateString("HONORAR_ISBN_HC", resultBuch.getString("BUCH_ISBN"));
@@ -277,11 +280,11 @@ public class ModulAbrechnungHonorar {
                                 resultHonorar = SQLHonorar.executeQuery(SQL);
                                 if (resultHonorar.next()) {
                                     if (resultHonorar.getString("HONORAR_ISBN_PB").equals(ISBN)) {
-                                        resultHonorar.updateInt("HONORAR_ANZAHL_PB", AnzahlGesamt);
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", AnzahlGesamt);
                                     } else if (resultHonorar.getString("HONORAR_ISBN_HC").equals(ISBN)) {
-                                        resultHonorar.updateInt("HONORAR_ANZAHL_HC", AnzahlGesamt);
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", AnzahlGesamt);
                                     } else {
-                                        resultHonorar.updateInt("HONORAR_ANZAHL_EB", AnzahlGesamt);
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", AnzahlGesamt);
                                     }
                                     resultHonorar.updateRow();
                                 } else { // warum auch immer existiert das Buch bisher nicht
@@ -303,27 +306,30 @@ public class ModulAbrechnungHonorar {
                                     resultHonorar.updateBoolean("HONORAR_GESAMTBETRACHTUNG", resultBuch.getBoolean("BUCH_GESAMTBETRACHTUNG"));
                                     resultHonorar.updateString("HONORAR_ISBN_PB", "");
                                     resultHonorar.updateInt("HONORAR_ANZAHL_PB", 0);
+                                    resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", 0);
                                     resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
                                     resultHonorar.updateString("HONORAR_ISBN_HC", "");
                                     resultHonorar.updateInt("HONORAR_ANZAHL_HC", 0);
+                                    resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", 0);
                                     resultHonorar.updateFloat("HONORAR_PREIS_HC", 0F);
                                     resultHonorar.updateString("HONORAR_ISBN_EB", "");
                                     resultHonorar.updateInt("HONORAR_ANZAHL_EB", 0);
                                     resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
+                                    resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", 0);
                                     switch (resultBuch.getInt("BUCH_HC")) {
                                         case 0: // PB
                                             resultHonorar.updateString("HONORAR_ISBN_PB", resultBuch.getString("BUCH_ISBN"));
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_PB", AnzahlGesamt);
+                                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", AnzahlGesamt);
                                             resultHonorar.updateFloat("HONORAR_PREIS_PB", resultBuch.getFloat("BUCH_PREIS"));
                                             break;
                                         case 1: // HC
                                             resultHonorar.updateString("HONORAR_ISBN_HC", resultBuch.getString("BUCH_ISBN"));
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_HC", AnzahlGesamt);
+                                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", AnzahlGesamt);
                                             resultHonorar.updateFloat("HONORAR_PREIS_HC", resultBuch.getFloat("BUCH_PREIS"));
                                             break;
                                         case 2: // EB
                                             resultHonorar.updateString("HONORAR_ISBN_EB", resultBuch.getString("BUCH_ISBN"));
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_EB", AnzahlGesamt);
+                                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", AnzahlGesamt);
                                             resultHonorar.updateFloat("HONORAR_PREIS_EB", resultBuch.getFloat("BUCH_PREIS"));
                                             break;
                                     }
@@ -481,45 +487,51 @@ public class ModulAbrechnungHonorar {
                                     resultHonorar.getString("HONORAR_AUTOR_1"), //  2
                                     resultHonorar.getString("HONORAR_ISBN_PB"), //  3
                                     resultHonorar.getInt("HONORAR_ANZAHL_PB"), //  4
-                                    resultHonorar.getFloat("HONORAR_PREIS_PB"), //  5
-                                    resultHonorar.getString("HONORAR_ISBN_HC"), //  6
-                                    resultHonorar.getInt("HONORAR_ANZAHL_HC"), //  7
-                                    resultHonorar.getFloat("HONORAR_PREIS_HC"), //  8
-                                    resultHonorar.getString("HONORAR_ISBN_EB"), //  9
-                                    resultHonorar.getInt("HONORAR_ANZAHL_EB"), // 10
-                                    resultHonorar.getFloat("HONORAR_PREIS_EB"), // 11
-                                    resultHonorar.getInt("HONORAR_ANZAHL_1"), // 12
-                                    resultHonorar.getInt("HONORAR_PROZENT_1"), // 13
-                                    resultHonorar.getInt("HONORAR_ANZAHL_2"), // 14
-                                    resultHonorar.getInt("HONORAR_PROZENT_2"), // 15
-                                    resultHonorar.getFloat("HONORAR_MARGE"), // 16
-                                    resultHonorar.getFloat("HONORAR_BODPROZENT"), // 17
-                                    resultHonorar.getInt("HONORAR_BODFIX"), // 18
-                                    resultHonorar.getBoolean("HONORAR_GESAMTBETRACHTUNG"), // 19
-                                    true // 20
+                                    resultHonorar.getInt("HONORAR_ANZAHL_BOD_PB"), //  5
+                                    resultHonorar.getFloat("HONORAR_PREIS_PB"), //  6
+                                    resultHonorar.getString("HONORAR_ISBN_HC"), //  7
+                                    resultHonorar.getInt("HONORAR_ANZAHL_HC"), //  8
+                                    resultHonorar.getInt("HONORAR_ANZAHL_BOD_HC"), //  9
+                                    resultHonorar.getFloat("HONORAR_PREIS_HC"), //  10
+                                    resultHonorar.getString("HONORAR_ISBN_EB"), //  11
+                                    resultHonorar.getInt("HONORAR_ANZAHL_EB"), // 12
+                                    resultHonorar.getInt("HONORAR_ANZAHL_BOD_EB"), // 13
+                                    resultHonorar.getFloat("HONORAR_PREIS_EB"), // 14
+                                    resultHonorar.getInt("HONORAR_ANZAHL_1"), // 15
+                                    resultHonorar.getInt("HONORAR_PROZENT_1"), // 16
+                                    resultHonorar.getInt("HONORAR_ANZAHL_2"), // 17
+                                    resultHonorar.getInt("HONORAR_PROZENT_2"), // 18
+                                    resultHonorar.getFloat("HONORAR_MARGE"), // 19
+                                    resultHonorar.getFloat("HONORAR_BODPROZENT"), // 20
+                                    resultHonorar.getInt("HONORAR_BODFIX"), // 21
+                                    resultHonorar.getBoolean("HONORAR_GESAMTBETRACHTUNG"), // 22
+                                    true // 23
                             );
                             briefHonorar.briefPDF(
                                     resultHonorar.getInt("HONORAR_ZAHLEN"), //  0
                                     resultHonorar.getString("HONORAR_TITEL"), //  1
-                                    resultHonorar.getString("HONORAR_AUTOR_2"), //  2
+                                    resultHonorar.getString("HONORAR_AUTOR_1"), //  2
                                     resultHonorar.getString("HONORAR_ISBN_PB"), //  3
                                     resultHonorar.getInt("HONORAR_ANZAHL_PB"), //  4
-                                    resultHonorar.getFloat("HONORAR_PREIS_PB"), //  5
-                                    resultHonorar.getString("HONORAR_ISBN_HC"), //  6
-                                    resultHonorar.getInt("HONORAR_ANZAHL_HC"), //  7
-                                    resultHonorar.getFloat("HONORAR_PREIS_HC"), //  8
-                                    resultHonorar.getString("HONORAR_ISBN_EB"), //  9
-                                    resultHonorar.getInt("HONORAR_ANZAHL_EB"), // 10
-                                    resultHonorar.getFloat("HONORAR_PREIS_EB"), // 11
-                                    resultHonorar.getInt("HONORAR_ANZAHL_1"), // 12
-                                    resultHonorar.getInt("HONORAR_PROZENT_1"), // 13
-                                    resultHonorar.getInt("HONORAR_ANZAHL_2"), // 14
-                                    resultHonorar.getInt("HONORAR_PROZENT_2"), // 15
-                                    resultHonorar.getFloat("HONORAR_MARGE"), // 16
-                                    resultHonorar.getFloat("HONORAR_BODPROZENT"), // 17
-                                    resultHonorar.getInt("HONORAR_BODFIX"), // 18
-                                    resultHonorar.getBoolean("HONORAR_GESAMTBETRACHTUNG"), // 19
-                                    true // 20
+                                    resultHonorar.getInt("HONORAR_ANZAHL_BOD_PB"), //  5
+                                    resultHonorar.getFloat("HONORAR_PREIS_PB"), //  6
+                                    resultHonorar.getString("HONORAR_ISBN_HC"), //  7
+                                    resultHonorar.getInt("HONORAR_ANZAHL_HC"), //  8
+                                    resultHonorar.getInt("HONORAR_ANZAHL_BOD_HC"), //  9
+                                    resultHonorar.getFloat("HONORAR_PREIS_HC"), //  10
+                                    resultHonorar.getString("HONORAR_ISBN_EB"), //  11
+                                    resultHonorar.getInt("HONORAR_ANZAHL_EB"), // 12
+                                    resultHonorar.getInt("HONORAR_ANZAHL_BOD_EB"), // 13
+                                    resultHonorar.getFloat("HONORAR_PREIS_EB"), // 14
+                                    resultHonorar.getInt("HONORAR_ANZAHL_1"), // 15
+                                    resultHonorar.getInt("HONORAR_PROZENT_1"), // 16
+                                    resultHonorar.getInt("HONORAR_ANZAHL_2"), // 17
+                                    resultHonorar.getInt("HONORAR_PROZENT_2"), // 18
+                                    resultHonorar.getFloat("HONORAR_MARGE"), // 19
+                                    resultHonorar.getFloat("HONORAR_BODPROZENT"), // 20
+                                    resultHonorar.getInt("HONORAR_BODFIX"), // 21
+                                    resultHonorar.getBoolean("HONORAR_GESAMTBETRACHTUNG"), // 22
+                                    true // 23
                             );
                         } else {
                             briefHonorar.briefPDF(
@@ -528,22 +540,25 @@ public class ModulAbrechnungHonorar {
                                     resultHonorar.getString("HONORAR_AUTOR_1"), //  2
                                     resultHonorar.getString("HONORAR_ISBN_PB"), //  3
                                     resultHonorar.getInt("HONORAR_ANZAHL_PB"), //  4
-                                    resultHonorar.getFloat("HONORAR_PREIS_PB"), //  5
-                                    resultHonorar.getString("HONORAR_ISBN_HC"), //  6
-                                    resultHonorar.getInt("HONORAR_ANZAHL_HC"), //  7
-                                    resultHonorar.getFloat("HONORAR_PREIS_HC"), //  8
-                                    resultHonorar.getString("HONORAR_ISBN_EB"), //  9
-                                    resultHonorar.getInt("HONORAR_ANZAHL_EB"), // 10
-                                    resultHonorar.getFloat("HONORAR_PREIS_EB"), // 11
-                                    resultHonorar.getInt("HONORAR_ANZAHL_1"), // 12
-                                    resultHonorar.getInt("HONORAR_PROZENT_1"), // 13
-                                    resultHonorar.getInt("HONORAR_ANZAHL_2"), // 14
-                                    resultHonorar.getInt("HONORAR_PROZENT_2"), // 15
-                                    resultHonorar.getFloat("HONORAR_MARGE"), // 16
-                                    resultHonorar.getFloat("HONORAR_BODPROZENT"), // 17
-                                    resultHonorar.getInt("HONORAR_BODFIX"), // 18
-                                    resultHonorar.getBoolean("HONORAR_GESAMTBETRACHTUNG"), // 19
-                                    false // 20
+                                    resultHonorar.getInt("HONORAR_ANZAHL_BOD_PB"), //  5
+                                    resultHonorar.getFloat("HONORAR_PREIS_PB"), //  6
+                                    resultHonorar.getString("HONORAR_ISBN_HC"), //  7
+                                    resultHonorar.getInt("HONORAR_ANZAHL_HC"), //  8
+                                    resultHonorar.getInt("HONORAR_ANZAHL_BOD_HC"), //  9
+                                    resultHonorar.getFloat("HONORAR_PREIS_HC"), //  10
+                                    resultHonorar.getString("HONORAR_ISBN_EB"), //  11
+                                    resultHonorar.getInt("HONORAR_ANZAHL_EB"), // 12
+                                    resultHonorar.getInt("HONORAR_ANZAHL_BOD_EB"), // 13
+                                    resultHonorar.getFloat("HONORAR_PREIS_EB"), // 14
+                                    resultHonorar.getInt("HONORAR_ANZAHL_1"), // 15
+                                    resultHonorar.getInt("HONORAR_PROZENT_1"), // 16
+                                    resultHonorar.getInt("HONORAR_ANZAHL_2"), // 17
+                                    resultHonorar.getInt("HONORAR_PROZENT_2"), // 18
+                                    resultHonorar.getFloat("HONORAR_MARGE"), // 19
+                                    resultHonorar.getFloat("HONORAR_BODPROZENT"), // 20
+                                    resultHonorar.getInt("HONORAR_BODFIX"), // 21
+                                    resultHonorar.getBoolean("HONORAR_GESAMTBETRACHTUNG"), // 22
+                                    false // 23
                             );
                         }
                     } // while 
