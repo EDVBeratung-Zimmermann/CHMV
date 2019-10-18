@@ -297,6 +297,10 @@ public class ModulAbrechnungHonorar {
                                     resultHonorar.updateInt("HONORAR_PROZENT_1", resultBuch.getInt("BUCH_HONORAR_PROZENT"));
                                     resultHonorar.updateInt("HONORAR_ANZAHL_2", resultBuch.getInt("BUCH_HONORAR_2_ANZAHL"));
                                     resultHonorar.updateInt("HONORAR_PROZENT_2", resultBuch.getInt("BUCH_HONORAR_2_PROZENT"));
+                                    resultHonorar.updateFloat("HONORAR_MARGE", resultBuch.getFloat("BUCH_MARGE"));
+                                    resultHonorar.updateInt("HONORAR_BODFIX", resultBuch.getInt("BUCH_BODFIX"));
+                                    resultHonorar.updateFloat("HONORAR_BODMARGE", resultBuch.getFloat("BUCH_BODMARGE"));
+                                    resultHonorar.updateBoolean("HONORAR_GESAMTBETRACHTUNG", resultBuch.getBoolean("BUCH_GESAMTBETRACHTUNG"));
                                     resultHonorar.updateString("HONORAR_ISBN_PB", "");
                                     resultHonorar.updateInt("HONORAR_ANZAHL_PB", 0);
                                     resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
@@ -488,7 +492,11 @@ public class ModulAbrechnungHonorar {
                                     resultHonorar.getInt("HONORAR_PROZENT_1"), // 13
                                     resultHonorar.getInt("HONORAR_ANZAHL_2"), // 14
                                     resultHonorar.getInt("HONORAR_PROZENT_2"), // 15
-                                    true // 16
+                                    resultHonorar.getFloat("HONORAR_MARGE"), // 16
+                                    resultHonorar.getFloat("HONORAR_BODPROZENT"), // 17
+                                    resultHonorar.getInt("HONORAR_BODFIX"), // 18
+                                    resultHonorar.getBoolean("HONORAR_GESAMTBETRACHTUNG"), // 19
+                                    true // 20
                             );
                             briefHonorar.briefPDF(
                                     resultHonorar.getInt("HONORAR_ZAHLEN"), //  0
@@ -507,7 +515,11 @@ public class ModulAbrechnungHonorar {
                                     resultHonorar.getInt("HONORAR_PROZENT_1"), // 13
                                     resultHonorar.getInt("HONORAR_ANZAHL_2"), // 14
                                     resultHonorar.getInt("HONORAR_PROZENT_2"), // 15
-                                    true // 16
+                                    resultHonorar.getFloat("HONORAR_MARGE"), // 16
+                                    resultHonorar.getFloat("HONORAR_BODPROZENT"), // 17
+                                    resultHonorar.getInt("HONORAR_BODFIX"), // 18
+                                    resultHonorar.getBoolean("HONORAR_GESAMTBETRACHTUNG"), // 19
+                                    true // 20
                             );
                         } else {
                             briefHonorar.briefPDF(
@@ -527,7 +539,11 @@ public class ModulAbrechnungHonorar {
                                     resultHonorar.getInt("HONORAR_PROZENT_1"), // 13
                                     resultHonorar.getInt("HONORAR_ANZAHL_2"), // 14
                                     resultHonorar.getInt("HONORAR_PROZENT_2"), // 15
-                                    false // 16
+                                    resultHonorar.getFloat("HONORAR_MARGE"), // 16
+                                    resultHonorar.getFloat("HONORAR_BODPROZENT"), // 17
+                                    resultHonorar.getInt("HONORAR_BODFIX"), // 18
+                                    resultHonorar.getBoolean("HONORAR_GESAMTBETRACHTUNG"), // 19
+                                    false // 20
                             );
                         }
                     } // while 
