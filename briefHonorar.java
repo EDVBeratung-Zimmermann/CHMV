@@ -72,26 +72,29 @@ public class briefHonorar {
     public static void briefPDF(// Parameterliste
             Integer HONORAR_ZAHLEN, // 0
             //* 0 nichts, 1 Schwelle 1, 2 Schwelle 2
-            String HONORAR_TITEL, // 1
-            String HONORAR_AUTOR, // 2
-            String HONORAR_ISBN_PB, // 3
-            Integer HONORAR_ANZAHL_PB, // 4
-            Float HONORAR_PREIS_PB, // 5
-            String HONORAR_ISBN_HC, // 6
-            Integer HONORAR_ANZAHL_HC, // 7
-            Float HONORAR_PREIS_HC, // 8
-            String HONORAR_ISBN_EB, // 9
-            Integer HONORAR_ANZAHL_EB, // 10
-            Float HONORAR_PREIS_EB, // 11
-            Integer HONORAR_ANZAHL_1, // 12
-            Integer HONORAR_PROZENT_1, // 13
-            Integer HONORAR_ANZAHL_2, // 14
-            Integer HONORAR_PROZENT_2, // 15
-            Float HONORAR_MARGE, // 16
-            Float HONORAR_BODPROZENT, // 17
-            Integer HONORAR_BODFIX, // 18
-            Boolean HONORAR_GESAMTBETRACHTUNG, // 19
-            Boolean HONORAR_VERTEILEN) { // 20
+            String HONORAR_TITEL,           // 1
+            String HONORAR_AUTOR,           // 2
+            String HONORAR_ISBN_PB,         // 3
+            Integer HONORAR_ANZAHL_PB,      // 4
+            Integer HONORAR_ANZAHL_BOD_PB,  // 5
+            Float HONORAR_PREIS_PB,         // 6
+            String HONORAR_ISBN_HC,         // 7
+            Integer HONORAR_ANZAHL_HC,      // 8
+            Integer HONORAR_ANZAHL_BOD_HC,  // 9
+            Float HONORAR_PREIS_HC,         // 10
+            String HONORAR_ISBN_EB,         // 11
+            Integer HONORAR_ANZAHL_EB,      // 12
+            Integer HONORAR_ANZAHL_BOD_EB,  // 13
+            Float HONORAR_PREIS_EB,         // 14
+            Integer HONORAR_ANZAHL_1,       // 15
+            Integer HONORAR_PROZENT_1,      // 16
+            Integer HONORAR_ANZAHL_2,       // 17
+            Integer HONORAR_PROZENT_2,      // 18
+            Float HONORAR_MARGE,            // 19
+            Float HONORAR_BODPROZENT,       // 20
+            Integer HONORAR_BODFIX,          // 21
+            Boolean HONORAR_GESAMTBETRACHTUNG, // 22
+            Boolean HONORAR_VERTEILEN) {       // 23
 
         Statement SQLAdresse = null;
         ResultSet resultAdresse = null;
