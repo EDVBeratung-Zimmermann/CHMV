@@ -582,7 +582,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_Honorar_2_Anzahl.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_ANZAHL")));
                     field_Honorar_2_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_PROZENT")));
                     field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-                    field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                    field_Gesamtbetrachtung.setSelected(result.getBoolean("BUCH_GESAMTBETRACHTUNG"));
                     field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                     field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                     switch (result.getInt("Buch_HC")) {
@@ -1352,7 +1352,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Auflage.setText(Integer.toString(result.getInt("BUCH_AUFLAGE")));
             field_DruckNr.setText(result.getString("Buch_Druckereinummer"));
             field_Jahr.setText(result.getString("Buch_JAHR"));
-            field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+            field_Gesamtbetrachtung.setSelected(result.getBoolean("BUCH_GESAMTBETRACHTUNG"));
             field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
             field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
             field_DNB.setSelected(result.getBoolean("Buch_DEUNATBIBL"));
@@ -1477,7 +1477,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Text.setText(result.getString("Buch_TEXT"));
                 field_Honorar.setSelected(result.getBoolean("Buch_HONORAR"));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-                field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                field_Gesamtbetrachtung.setSelected(result.getBoolean("BUCH_GESAMTBETRACHTUNG"));
                 field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                 field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
@@ -1593,7 +1593,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Text.setText(result.getString("Buch_TEXT"));
                 field_Honorar.setSelected(result.getBoolean("Buch_HONORAR"));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-                field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                field_Gesamtbetrachtung.setSelected(result.getBoolean("BUCH_GESAMTBETRACHTUNG"));
                 field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                 field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
@@ -1704,7 +1704,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Text.setText(result.getString("Buch_TEXT"));
             field_Honorar.setSelected(result.getBoolean("Buch_HONORAR"));
             field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-            field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+            field_Gesamtbetrachtung.setSelected(result.getBoolean("BUCH_GESAMTBETRACHTUNG"));
             field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
             field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
             switch (result.getInt("Buch_HC")) {
@@ -1820,7 +1820,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                                                                 result.updateBoolean("Buch_DeuNatBibl", field_DNB.isSelected());
                                                                 result.updateBoolean("Buch_BerlLBibl", field_BLB.isSelected());
                                                                 result.updateBoolean("Buch_VLB", field_VLB.isSelected());
-                                                                result.updateBoolean("Buch_GESAMTBETRACTUNG", field_Gesamtbetrachtung.isSelected());
+                                                                result.updateBoolean("BUCH_GESAMTBETRACHTUNG", field_Gesamtbetrachtung.isSelected());
                                                                 result.updateFloat("Buch_BODFIX", Float.parseFloat(field_BoDFix.getText()));
                                                                 result.updateInt("Buch_Bestand", Integer.parseInt(field_Bestand.getText()));
                                                                 result.updateInt("Buch_BODPROZENT", Integer.parseInt(field_BoDProzent.getText()));
@@ -1950,7 +1950,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 result.updateBoolean("Buch_Honorar", true);
                 result.updateBoolean("Buch_Herausgeber", false);
                 result.updateBoolean("Buch_VLB", false);
-                result.updateBoolean("Buch_GESAMTBETRACTUNG", true);
+                result.updateBoolean("BUCH_GESAMTBETRACHTUNG", true);
                 result.updateInt("Buch_Honorar_Anzahl", 0);
                 result.updateInt("Buch_BODPROZENT", 0);
                 result.updateFloat("Buch_BODFIX", 0);
@@ -2010,7 +2010,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Honorar_Anzahl.setText(Integer.toString(result.getInt("BUCH_HONORAR_ANZAHL")));
                 field_Honorar_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_PROZENT")));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-                field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                field_Gesamtbetrachtung.setSelected(result.getBoolean("BUCH_GESAMTBETRACHTUNG"));
                 field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                 field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
@@ -2125,7 +2125,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_Honorar_2_Anzahl.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_ANZAHL")));
                     field_Honorar_2_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_PROZENT")));
                     field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-                    field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                    field_Gesamtbetrachtung.setSelected(result.getBoolean("BUCH_GESAMTBETRACHTUNG"));
                     field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                     field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                     switch (result.getInt("Buch_HC")) {
@@ -2335,7 +2335,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_Honorar_2_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_PROZENT")));
                     field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
                     cbHerausgeber.setSelected(result.getBoolean("BUCH_HERAUSGEBER"));
-                    field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                    field_Gesamtbetrachtung.setSelected(result.getBoolean("BUCH_GESAMTBETRACHTUNG"));
                     field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                     field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                     switch (result.getInt("Buch_HC")) {
@@ -2488,7 +2488,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Honorar_2_Anzahl.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_ANZAHL")));
                 field_Honorar_2_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_PROZENT")));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-                field_Gesamtbetrachtung.setSelected(result.getBoolean("Buch_GESAMTBETRACTUNG"));
+                field_Gesamtbetrachtung.setSelected(result.getBoolean("BUCH_GESAMTBETRACHTUNG"));
                 field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                 field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
