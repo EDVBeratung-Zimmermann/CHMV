@@ -131,7 +131,7 @@ public class briefVerrechnungHonorar {
                 resultAdresse = SQLAdresse.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID='" + HONORAR_AUTOR + "'");
                 resultAdresse.next();
                 
-                System.out.println("Schreibe Honorarabrechnung für " + HONORAR_AUTOR);
+                System.out.println("   -> Schreibe Honorarabrechnung für " + HONORAR_AUTOR);
                 String Titel = "";
                 Integer Anzahl = 1;
                 //if (HONORAR_TITEL.contains(" ")) {
@@ -209,7 +209,7 @@ public class briefVerrechnungHonorar {
                 // Adresse
                 String[] AdressZeile = {"", "", "", "", "", "", ""};
                 String[] adresse = {"", "", "", "", "", "", ""};
-                System.out.println("erzeuge Adresse aus Kundendatenbank");
+                System.out.println("      .. erzeuge Adresse aus Kundendatenbank");
                 adresse[0] = resultAdresse.getString("ADRESSEN_ZUSATZ_1");
                 adresse[1] = Modulhelferlein.makeAnrede(resultAdresse.getString("ADRESSEN_NAMENSZUSATZ"),
                         resultAdresse.getString("ADRESSEN_VORNAME"),
@@ -311,7 +311,7 @@ public class briefVerrechnungHonorar {
                             ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_PB * 1D);
                             ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_PB * 1D);
                             ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_PB * 1D * HONORAR_ANZAHL_PB);
-                            System.out.println("Zeile " + Zeile.toString() + " - PB");
+                            System.out.println("      .. Zeile " + Zeile.toString() + " - PB");
                         }
                         if (HONORAR_ISBN_HC.length() > 0) { // HC
                             Zeile = Zeile + 1;
@@ -321,7 +321,7 @@ public class briefVerrechnungHonorar {
                             ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_HC * 1D);
                             ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_HC * 1D);
                             ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_HC * 1D * HONORAR_ANZAHL_HC);
-                            System.out.println("Zeile " + Zeile.toString() + " - HC");
+                            System.out.println("      .. Zeile " + Zeile.toString() + " - HC");
                         }
                         if (HONORAR_ISBN_EB.length() > 0) { // EB
                             Zeile = Zeile + 1;
@@ -331,7 +331,7 @@ public class briefVerrechnungHonorar {
                             ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_EB * 1D);
                             ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_EB * 1D);
                             ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_EB * 1D * HONORAR_ANZAHL_EB);
-                            System.out.println("Zeile " + Zeile.toString() + " - EB");
+                            System.out.println("      .. Zeile " + Zeile.toString() + " - EB");
                         }
 
                         for (int i = 1; i <= Zeile; i++) {
@@ -348,8 +348,8 @@ public class briefVerrechnungHonorar {
                         }
                         ZeilenNr = ZeilenNr + Zeile;
                     } // if Schwelle erreicht
-
                 } // while (resultHonorar.next()) {
+                
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Honorarzeile, "Dem gegenüber stehen Honoraransprüche in Höhe von " + Modulhelferlein.str2dec(GesamtHonorar) + " Euro:");
                 if (HONORAR_ZAHLEN > 0) { // keine Zahlung - Schwelle 1 nicht erreicht
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile , "ISBN");
@@ -388,7 +388,7 @@ public class briefVerrechnungHonorar {
 
                 // Make sure that the content stream is closed:
                 cos.close();
-                System.out.println("   .. Inhalt geschrieben");
+                System.out.println("   -> Inhalt geschrieben");
 
                 String outputFileName = Modulhelferlein.pathBerichte + "\\Honorare\\"
                         + "Verrechnung-Honorar"
@@ -401,10 +401,11 @@ public class briefVerrechnungHonorar {
                         + "-"
                         + Titel
                         + ".pdf";
-                System.out.println(".. " + outputFileName);
+                //System.out.println("   -> " + outputFileName);
+                System.out.println("   -> PDF/A erzeugen ...");
 
 // add XMP metadata
-                System.out.println("   .. XMP metaddata schreiben");
+                System.out.println("     .. XMP metaddata schreiben");
                 XMPMetadata xmp = XMPMetadata.createXMPMetadata();
 
                 DublinCoreSchema dc = xmp.createAndAddDublinCoreSchema();
@@ -421,10 +422,10 @@ public class briefVerrechnungHonorar {
                 PDMetadata metadata = new PDMetadata(document);
                 metadata.importXMPMetadata(baos.toByteArray());
                 document.getDocumentCatalog().setMetadata(metadata);
-                System.out.println("   -> XMP metadata geschrieben");
+                System.out.println("        -> XMP metadata geschrieben");
 
 // sRGB output intent
-                System.out.println("   .. sRGB output schreiben");
+                System.out.println("      .. sRGB output schreiben");
                 //InputStream colorProfile = briefRechnungMahnung.class.getResourceAsStream("/org/apache/pdfbox/resources/pdfa/sRGB.icc");
                 InputStream colorProfile = briefRechnungMahnung.class.getResourceAsStream("sRGB.icc");
                 PDOutputIntent intent = new PDOutputIntent(document, colorProfile);
@@ -433,7 +434,7 @@ public class briefVerrechnungHonorar {
                 intent.setOutputConditionIdentifier("sRGB IEC61966-2.1");
                 intent.setRegistryName("http://www.color.org");
                 document.getDocumentCatalog().addOutputIntent(intent);
-                System.out.println("   -> sRGB output geschrieben");
+                System.out.println("         -> sRGB output geschrieben");
 
 // Save the results and ensure that the document is properly closed:
                 document.save(outputFileName);
@@ -441,7 +442,8 @@ public class briefVerrechnungHonorar {
 
                 SQLAdresse.close();
                 resultAdresse.close();
-                System.out.println("-> gespeichert: " + outputFileName);
+                System.out.println("   -> gespeichert: ");
+                System.out.println("");
 //                Modulhelferlein.Infomeldung("Honorarabrechnung " + args[1], "ist als PDF gespeichert unter ", outputFileName);
 //                try {
 //                    Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
