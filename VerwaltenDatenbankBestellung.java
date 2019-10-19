@@ -1302,7 +1302,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             Anfang.setToolTipText("gehe zum ersten Datensatz");
             Anfang.addActionListener(e -> AnfangActionPerformed(e));
             panel1.add(Anfang);
-            Anfang.setBounds(new Rectangle(new Point(0, 656), Anfang.getPreferredSize()));
+            Anfang.setBounds(0, 656, 49, 23);
 
             //---- Zurueck ----
             Zurueck.setText("<");

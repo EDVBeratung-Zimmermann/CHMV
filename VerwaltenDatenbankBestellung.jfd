@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_192" class="java.beans.XMLDecoder">
+<java version="11.0.1" class="java.beans.XMLDecoder">
  <object class="com.jformdesigner.model.FormModel">
   <void property="contentType">
    <string>form/swing</string>
@@ -3155,6 +3155,14 @@
           <void method="setProperty">
            <string>y</string>
            <int>656</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>49</int>
+          </void>
+          <void method="setProperty">
+           <string>height</string>
+           <int>23</int>
           </void>
          </object>
         </void>
