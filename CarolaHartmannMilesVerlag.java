@@ -43,6 +43,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import com.formdev.flatlaf.FlatLightLaf;
 
 //import org.apache.pdfbox.exceptions.COSVisitorException;
 /**
@@ -1411,9 +1412,10 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        String SQL;
-        SQL = JOptionPane.showInputDialog(null, "SQL-Befehl?");
-        if (SQL != null) {
+        String SQL = "";
+        SQL = JOptionPane.showInputDialog("", "SQL-Befehl?");
+        if (SQL.isEmpty())  {
+        } else {
             try {
                 Statement SQLAnfrageSQL = conn.createStatement();
                 if (JOptionPane.showConfirmDialog(null,
@@ -1480,6 +1482,12 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         Modulhelferlein.dbPassword = args[4];
         Modulhelferlein.dbLive = "live".equals(args[5]);
 
+        FlatLightLaf.install();
+        //try {
+        //    UIManager.setLookAndFeel( new FlatLightLaf() );
+        //} catch( Exception ex ) {
+        //    System.err.println( "Failed to initialize Look and Feel" );
+        //}
         /**
          * try { for (javax.swing.UIManager.LookAndFeelInfo info :
          * javax.swing.UIManager.getInstalledLookAndFeels()) { if
