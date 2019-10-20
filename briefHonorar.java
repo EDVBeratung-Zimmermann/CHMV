@@ -169,6 +169,8 @@ public class briefHonorar {
 
         if (conn != null) {
             try {
+                SQLHonorar = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    
                 SQLAdresse = conn.createStatement();
                 resultAdresse = SQLAdresse.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID='" + HONORAR_AUTOR + "'");
                 resultAdresse.next();
@@ -303,8 +305,9 @@ public class briefHonorar {
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 430, "Daher kann ich Ihnen in diesem Jahr leider kein Honorar vergüten.");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 410, "Wir hoffen, dass die Verkaufszahlen dieses Jahr wieder steigen werden.");
                     // Update der Honorar-DB anhand der HONORAR_ID
-                    SQLHonorar = conn.createStatement();
+                    System.out.println("      .. Update Honorar-DB mit Honorar 0 €");
                     resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR WHERE HONORAR_ID='" + HONORAR_ID + "'");
+                    resultHonorar.next();
                     resultHonorar.updateFloat("HONORAR_HONORAR",0F);
                     resultHonorar.updateRow();
                 } else if (HONORAR_ZAHLEN == 0) { // keine Zahlung - Schwelle 1 nicht erreicht
@@ -315,8 +318,9 @@ public class briefHonorar {
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 430, "Daher kann ich Ihnen in diesem Jahr leider kein Honorar vergüten.");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 410, "Wir hoffen, dass die Verkaufszahlen dieses Jahr wieder steigen werden.");
                     // Update der Honorar-DB anhand der HONORAR_ID
-                    SQLHonorar = conn.createStatement();
+                    System.out.println("      .. Update Honorar-DB mit Honorar 0 €");
                     resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR WHERE HONORAR_ID='" + HONORAR_ID + "'");
+                    resultHonorar.next();
                     resultHonorar.updateFloat("HONORAR_HONORAR",0F);
                     resultHonorar.updateRow();
                 } else { // HONORAR_ZAHLEN = 1 => 1. Schwelle
@@ -370,8 +374,9 @@ public class briefHonorar {
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 100, "Die Abrechnung für die Verkäufe über den Verlag entnehmen Sie bitte der Anlage.");
                         
                         // Update der Honorar-DB anhand der HONORAR_ID
-                        SQLHonorar = conn.createStatement();
+                        System.out.println("      .. Update Honorar-DB mit Honorar");
                         resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR WHERE HONORAR_ID='" + HONORAR_ID + "'");
+                        resultHonorar.next();
                         resultHonorar.updateFloat("HONORAR_HONORAR", Honorar.floatValue());
                         resultHonorar.updateRow();
                     
@@ -478,8 +483,9 @@ public class briefHonorar {
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 100, "Die Abrechnung für die Verkäufe über den Verlag entnehmen Sie bitte der Anlage.");
                         
                         // Update der Honorar-DB anhand der HONORAR_ID
-                        SQLHonorar = conn.createStatement();
+                        System.out.println("      .. Update Honorar-DB mit Honorar");
                         resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR WHERE HONORAR_ID='" + HONORAR_ID + "'");
+                        resultHonorar.next();
                         resultHonorar.updateFloat("HONORAR_HONORAR", Honorar.floatValue()+Honorar_BOD.floatValue());
                         resultHonorar.updateRow();
                         
