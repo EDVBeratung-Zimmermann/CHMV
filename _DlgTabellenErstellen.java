@@ -765,6 +765,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "HONORAR_AUTOR_1 INT,";
                         SQL = SQL + "HONORAR_AUTOR_2 INT,";
                         SQL = SQL + "HONORAR_ZAHLEN INT";
+                        SQL = SQL + "HONORAR_HONORAR FLOAT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
                         
