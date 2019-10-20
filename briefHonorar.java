@@ -102,6 +102,7 @@ public class briefHonorar {
      * @param HONORAR_VERTEILEN
      */
     public static void briefPDF(// Parameterliste
+            Integer HONORAR_ID,
             Integer HONORAR_ZAHLEN, // 0
             //* 0 nichts, 1 Schwelle 1, 2 Schwelle 2
             String HONORAR_TITEL, // 1
@@ -135,8 +136,10 @@ public class briefHonorar {
 
         Statement SQLAdresse = null;
         Statement SQLVerrechnung = null;
+        Statement SQLHonorar = null;
         ResultSet resultAdresse = null;
         ResultSet resultVerrechnung = null;
+        ResultSet resultHonorar = null;
 
         Float Netto_VP_PB = 0F;
         Float Netto_VP_HC = 0F;
@@ -299,6 +302,11 @@ public class briefHonorar {
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 445, "Leider haben wir im vergangenen Jahr kein Exemplar verkauft. ");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 430, "Daher kann ich Ihnen in diesem Jahr leider kein Honorar vergüten.");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 410, "Wir hoffen, dass die Verkaufszahlen dieses Jahr wieder steigen werden.");
+                    // Update der Honorar-DB anhand der HONORAR_ID
+                    SQLHonorar = conn.createStatement();
+                    resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR WHERE HONORAR_ID='" + HONORAR_ID + "'");
+                    resultHonorar.updateFloat("HONORAR_HONORAR",0F);
+                    resultHonorar.updateRow();
                 } else if (HONORAR_ZAHLEN == 0) { // keine Zahlung - Schwelle 1 nicht erreicht
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "gemäß §4 des Verlagsvertrages erhalten Sie ein Honorar in Höhe " + Integer.toString(HONORAR_PROZENT_1) + " Prozent auf der Basis");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "des Netto-Ladenverkaufspreises, sofern mehr als " + Integer.toString(HONORAR_ANZAHL_1) + " Exemplare verkauft wurden.");
@@ -306,6 +314,11 @@ public class briefHonorar {
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 445, "Leider haben wir im vergangenen Jahr lediglich " + Anzahl.toString() + " Exemplar(e) verkauft. ");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 430, "Daher kann ich Ihnen in diesem Jahr leider kein Honorar vergüten.");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 410, "Wir hoffen, dass die Verkaufszahlen dieses Jahr wieder steigen werden.");
+                    // Update der Honorar-DB anhand der HONORAR_ID
+                    SQLHonorar = conn.createStatement();
+                    resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR WHERE HONORAR_ID='" + HONORAR_ID + "'");
+                    resultHonorar.updateFloat("HONORAR_HONORAR",0F);
+                    resultHonorar.updateRow();
                 } else { // HONORAR_ZAHLEN = 1 => 1. Schwelle
                     // HONORAR_ZAHLEN = 2 => 2. Schwelle 
                     Netto_VP_PB = HONORAR_PREIS_PB / 107 * 100;
@@ -355,7 +368,13 @@ public class briefHonorar {
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 45, "Ich freue mich daher, Ihnen ein Honorar in Höhe von " + Modulhelferlein.str2dec(Honorar) + " Euro vergüten zu können.");
 
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 100, "Die Abrechnung für die Verkäufe über den Verlag entnehmen Sie bitte der Anlage.");
-
+                        
+                        // Update der Honorar-DB anhand der HONORAR_ID
+                        SQLHonorar = conn.createStatement();
+                        resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR WHERE HONORAR_ID='" + HONORAR_ID + "'");
+                        resultHonorar.updateFloat("HONORAR_HONORAR", Honorar.floatValue());
+                        resultHonorar.updateRow();
+                    
                         //Prüfen, ob Verrechnung
                         Boolean Verrechnung = false;
                         SQLVerrechnung = conn.createStatement();
@@ -457,7 +476,13 @@ public class briefHonorar {
 
                         // Ausgabe der Miles-Abrechnung
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 100, "Die Abrechnung für die Verkäufe über den Verlag entnehmen Sie bitte der Anlage.");
-
+                        
+                        // Update der Honorar-DB anhand der HONORAR_ID
+                        SQLHonorar = conn.createStatement();
+                        resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR WHERE HONORAR_ID='" + HONORAR_ID + "'");
+                        resultHonorar.updateFloat("HONORAR_HONORAR", Honorar.floatValue()+Honorar_BOD.floatValue());
+                        resultHonorar.updateRow();
+                        
                         //Prüfen, ob Verrechnung
                         Boolean Verrechnung = false;
                         SQLVerrechnung = conn.createStatement();
