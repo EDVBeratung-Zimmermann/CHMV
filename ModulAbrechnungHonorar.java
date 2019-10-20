@@ -218,6 +218,7 @@ public class ModulAbrechnungHonorar {
                             resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", 0);
                             resultHonorar.updateString("HONORAR_ISBN_EB", "");
                             resultHonorar.updateFloat("HONORAR_PREIS_EB", 0F);
+                            resultHonorar.updateFloat("HONORAR_HONORAR", 0F);
                             resultHonorar.updateInt("HONORAR_ANZAHL_EB", 0);
                             resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", 0);
                             resultHonorar.updateFloat("HONORAR_BODPROZENT", resultBuch.getFloat("BUCH_BODPROZENT"));
@@ -337,6 +338,7 @@ public class ModulAbrechnungHonorar {
                                     resultHonorar.updateInt("HONORAR_ANZAHL_HC", 0);
                                     resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", 0);
                                     resultHonorar.updateFloat("HONORAR_PREIS_HC", 0F);
+                                    resultHonorar.updateFloat("HONORAR_HONORAR", 0F);
                                     resultHonorar.updateString("HONORAR_ISBN_EB", "");
                                     resultHonorar.updateInt("HONORAR_ANZAHL_EB", 0);
                                     resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
