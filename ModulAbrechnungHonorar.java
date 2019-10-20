@@ -528,6 +528,7 @@ public class ModulAbrechnungHonorar {
 
                         if (resultHonorar.getBoolean("HONORAR_VERTEILEN")) {
                             briefHonorar.briefPDF(
+                                    resultHonorar.getInt("HONORAR_ID"), //  0
                                     resultHonorar.getInt("HONORAR_ZAHLEN"), //  0
                                     resultHonorar.getString("HONORAR_TITEL"), //  1
                                     resultHonorar.getString("HONORAR_AUTOR_1"), //  2
@@ -559,6 +560,7 @@ public class ModulAbrechnungHonorar {
                                     true // 28
                             );
                             briefHonorar.briefPDF(
+                                    resultHonorar.getInt("HONORAR_ID"), //  0
                                     resultHonorar.getInt("HONORAR_ZAHLEN"), //  0
                                     resultHonorar.getString("HONORAR_TITEL"), //  1
                                     resultHonorar.getString("HONORAR_AUTOR_2"), //  2
@@ -591,6 +593,7 @@ public class ModulAbrechnungHonorar {
                             );
                         } else {
                             briefHonorar.briefPDF(
+                                    resultHonorar.getInt("HONORAR_ID"), //  0
                                     resultHonorar.getInt("HONORAR_ZAHLEN"), //  0
                                     resultHonorar.getString("HONORAR_TITEL"), //  1
                                     resultHonorar.getString("HONORAR_AUTOR_1"), //  2
