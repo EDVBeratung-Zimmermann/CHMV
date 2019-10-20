@@ -130,7 +130,7 @@ public class briefVerrechnungHonorar {
                 resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR WHERE HONORAR_AUTOR_1 = '" + HONORAR_AUTOR + "'");
                 resultAdresse = SQLAdresse.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID='" + HONORAR_AUTOR + "'");
                 resultAdresse.next();
-                
+
                 System.out.println("   -> Schreibe Honorarabrechnung für " + HONORAR_AUTOR);
                 String Titel = "";
                 Integer Anzahl = 1;
@@ -247,144 +247,64 @@ public class briefVerrechnungHonorar {
                 // Text
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "Sie baten um eine Verrechnung mit den von Ihnen getätigten Buchkäufe. ");
                 Float Betrag = 0F;
-                ZeilenNr = 1;
                 while (resultVerrechnung.next()) {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 455 - 15 * ZeilenNr, "Rechnung Nr. " + resultVerrechnung.getString("VERRECHNUNG_ISBN"));
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 337, 455 - 15 * ZeilenNr, "Betrag:" );
-                    AusgabeDB(cos, fontPlain, 12, Color.BLACK, 397, 455 - 15 * ZeilenNr, resultVerrechnung.getString("VERRECHNUNG_BETRAG"));
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 425, 455 - 15 * ZeilenNr, "€");
                     Betrag = Betrag + resultVerrechnung.getFloat("VERRECHNUNG_BETRAG");
-                    ZeilenNr = ZeilenNr + 1;
                 }
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 455, "Im vergangenen Jahr haben Sie Bücher im Gesamtwert von " + Float.toString(Betrag) + " Euro erworben:");
+                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 455, "Im vergangenen Jahr haben Sie Bücher im Gesamtwert von " + Float.toString(Betrag) + " Euro erworben.");
+                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 440, "Die detaillierte Übersicht der Rechnungen entnehmen Sie bitte der Anlage.");
 
-                ZeilenNr = ZeilenNr + 2;
-                Honorarzeile = 470 - 15 * ZeilenNr;
-                Startzeile = Honorarzeile - 20;
-                ZeilenNr = 0;
-
+                GesamtHonorar = 0D;
+                SQLHonorar = conn.createStatement();
+                resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR WHERE HONORAR_AUTOR_1='" + HONORAR_AUTOR + "'");
                 while (resultHonorar.next()) {
-                    HONORAR_ANZAHL_PB = resultHonorar.getInt("HONORAR_ANZAHL_PB");
-                    HONORAR_ANZAHL_EB = resultHonorar.getInt("HONORAR_ANZAHL_EB");
-                    HONORAR_ANZAHL_HC = resultHonorar.getInt("HONORAR_ANZAHL_HC");
-                    HONORAR_PREIS_HC = resultHonorar.getFloat("HONORAR_PREIS_HC");
-                    HONORAR_PREIS_PB = resultHonorar.getFloat("HONORAR_PREIS_PB");
-                    HONORAR_PREIS_EB = resultHonorar.getFloat("HONORAR_PREIS_EB");
-                    HONORAR_PROZENT_1 = resultHonorar.getInt("HONORAR_PROZENT_1");
-                    HONORAR_PROZENT_2 = resultHonorar.getInt("HONORAR_PROZENT_2");
-                    HONORAR_ANZAHL_HC = resultHonorar.getInt("HONORAR_ANZAHL_HC");
-                    HONORAR_ANZAHL_EB = resultHonorar.getInt("HONORAR_ANZAHL_EB");
-                    HONORAR_ANZAHL_PB = resultHonorar.getInt("HONORAR_ANZAHL_PB");
+                    GesamtHonorar = GesamtHonorar + resultHonorar.getFloat("HONORAR_HONORAR") * 1D;
                     HONORAR_ZAHLEN = resultHonorar.getInt("HONORAR_ZAHLEN");
-                    HONORAR_ISBN_PB = resultHonorar.getString("HONORAR_ISBN_PB");
-                    HONORAR_ISBN_EB = resultHonorar.getString("HONORAR_ISBN_EB");
-                    HONORAR_ISBN_HC = resultHonorar.getString("HONORAR_ISBN_HC");
-
-                    Anzahl = HONORAR_ANZAHL_PB + HONORAR_ANZAHL_HC + HONORAR_ANZAHL_EB;
-                    Integer Schwelle = 0;
-                    if (HONORAR_ZAHLEN == 0) { // keine Zahlung - Schwelle 1 nicht erreicht
-                        GesamtHonorar = 0D;
-                    } else {
-                        Netto_VP_PB = HONORAR_PREIS_PB / 107 * 100;
-                        Netto_VP_HC = HONORAR_PREIS_HC / 107 * 100;
-                        Netto_VP_EB = HONORAR_PREIS_EB / 107 * 100;
-                        if (HONORAR_ZAHLEN == 1) {
-                            Honorar_PB = HONORAR_PREIS_PB / 107 * HONORAR_PROZENT_1;
-                            Honorar_HC = HONORAR_PREIS_HC / 107 * HONORAR_PROZENT_1;
-                            Honorar_EB = HONORAR_PREIS_EB / 107 * HONORAR_PROZENT_1;
-                            Honorar = (HONORAR_ANZAHL_PB * Honorar_PB + HONORAR_ANZAHL_HC * Honorar_HC + HONORAR_ANZAHL_EB * Honorar_EB);
-                        } else {
-                            Honorar_PB = HONORAR_PREIS_PB / 107 * HONORAR_PROZENT_2;
-                            Honorar_HC = HONORAR_PREIS_HC / 107 * HONORAR_PROZENT_2;
-                            Honorar_EB = HONORAR_PREIS_EB / 107 * HONORAR_PROZENT_2;
-                            Honorar = (HONORAR_ANZAHL_PB * Honorar_PB + HONORAR_ANZAHL_HC * Honorar_HC + HONORAR_ANZAHL_EB * Honorar_EB);
-                        }
-                        GesamtHonorar = GesamtHonorar + Honorar*1D;
-
-                        String[] ZeilenInhalt = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
-                        Integer Zeile = 0;
-                        if (HONORAR_ISBN_PB.length() > 0) { // PB
-                            Zeile = Zeile + 1;
-                            ZeilenInhalt[(Zeile - 1) * 6 + 0] = HONORAR_ISBN_PB;
-                            ZeilenInhalt[(Zeile - 1) * 6 + 1] = "Paperback";
-                            ZeilenInhalt[(Zeile - 1) * 6 + 2] = HONORAR_ANZAHL_PB.toString();
-                            ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_PB * 1D);
-                            ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_PB * 1D);
-                            ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_PB * 1D * HONORAR_ANZAHL_PB);
-                            System.out.println("      .. Zeile " + Zeile.toString() + " - PB");
-                        }
-                        if (HONORAR_ISBN_HC.length() > 0) { // HC
-                            Zeile = Zeile + 1;
-                            ZeilenInhalt[(Zeile - 1) * 6 + 0] = HONORAR_ISBN_HC;
-                            ZeilenInhalt[(Zeile - 1) * 6 + 1] = "Hardcover";
-                            ZeilenInhalt[(Zeile - 1) * 6 + 2] = HONORAR_ANZAHL_HC.toString();
-                            ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_HC * 1D);
-                            ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_HC * 1D);
-                            ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_HC * 1D * HONORAR_ANZAHL_HC);
-                            System.out.println("      .. Zeile " + Zeile.toString() + " - HC");
-                        }
-                        if (HONORAR_ISBN_EB.length() > 0) { // EB
-                            Zeile = Zeile + 1;
-                            ZeilenInhalt[(Zeile - 1) * 6 + 0] = HONORAR_ISBN_EB;
-                            ZeilenInhalt[(Zeile - 1) * 6 + 1] = "E-Book";
-                            ZeilenInhalt[(Zeile - 1) * 6 + 2] = HONORAR_ANZAHL_EB.toString();
-                            ZeilenInhalt[(Zeile - 1) * 6 + 3] = Modulhelferlein.str2dec(Netto_VP_EB * 1D);
-                            ZeilenInhalt[(Zeile - 1) * 6 + 4] = Modulhelferlein.str2dec(Honorar_EB * 1D);
-                            ZeilenInhalt[(Zeile - 1) * 6 + 5] = Modulhelferlein.str2dec(Honorar_EB * 1D * HONORAR_ANZAHL_EB);
-                            System.out.println("      .. Zeile " + Zeile.toString() + " - EB");
-                        }
-
-                        for (int i = 1; i <= Zeile; i++) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 0]);
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 1]);
-                            AusgabeRB(cos, fontPlain, 12, Color.BLACK, 260, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 2]);
-                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 320, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 3]);
-                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 410, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 4]);
-                            AusgabeDB(cos, fontPlain, 12, Color.BLACK, 500, Startzeile - 15 * ZeilenNr - i * 15, ZeilenInhalt[(i - 1) * 6 + 5]);
-
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 340, Startzeile - 15 * ZeilenNr - i * 15, "€");
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 430, Startzeile - 15 * ZeilenNr - i * 15, "€");
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 520, Startzeile - 15 * ZeilenNr - i * 15, "€");
-                        }
-                        ZeilenNr = ZeilenNr + Zeile;
-                    } // if Schwelle erreicht
-                } // while (resultHonorar.next()) {
-                
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Honorarzeile, "Dem gegenüber stehen Honoraransprüche in Höhe von " + Modulhelferlein.str2dec(GesamtHonorar) + " Euro:");
-                if (HONORAR_ZAHLEN > 0) { // keine Zahlung - Schwelle 1 nicht erreicht
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile , "ISBN");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, Startzeile, "Typ");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 230, Startzeile, "Anzahl");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 300, Startzeile, "Netto-VK");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 400, Startzeile, "Honorar");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, Startzeile, "Gesamt");
-
-                    Linie(cos, 1, 55, Startzeile - 3, 540, Startzeile - 3);
                 }
-
-                // Abrechnung
-                ZeilenNr = ZeilenNr + 1;
-                Startzeile = Honorarzeile - 40 - 15 * ZeilenNr;
+                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 410, "Dem gegenüber stehen Honoraransprüche in toto in Höhe von " + Modulhelferlein.str2dec(GesamtHonorar) + " Euro.");
+                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 395, "Die detaillierte Übersicht der Abrechnungen entnehmen Sie bitte der Anlage.");
                 
-                if (GesamtHonorar - Betrag < 0) {
+                // Abrechnung
+               if (GesamtHonorar - Betrag < 0) {
                     GesamtBetrag = -1D * (GesamtHonorar - Betrag);  // Gesamtbetrag negativ = einzahlen
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile, "Den Differenzbetrag in Höhe von");
-                    Ausgabe(cos, fontBold, 12, Color.RED, 235, Startzeile, Modulhelferlein.str2dec(GesamtBetrag) + " Euro ");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 310, Startzeile, "bitten wir auf unser Konto zu überweisen");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15, "bei der     Volksbank Berlin,    IBAN: DE61 1009 0000 2233 8320 17,    BIC: BEV0DEBB");  
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 30, "innerhalb der nächsten 14 Tage.");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350, "Den Differenzbetrag in Höhe von");
+                    Ausgabe(cos, fontBold, 12, Color.RED, 235, 350, Modulhelferlein.str2dec(GesamtBetrag) + " Euro ");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 310, 350, "bitten wir auf unser Konto zu überweisen");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350 - 15, "bei der     Volksbank Berlin,    IBAN: DE61 1009 0000 2233 8320 17,    BIC: BEV0DEBB");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350 - 30, "innerhalb der nächsten 14 Tage.");
                 } else {
                     GesamtBetrag = 1D * (GesamtHonorar - Betrag);  // Gesamtbetrag positiv = auszahlen  
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile, "Den Differenzbetrag in Höhe von");
-                    Ausgabe(cos, fontBold, 12, Color.GREEN, 235, Startzeile, Modulhelferlein.str2dec(GesamtBetrag) + " Euro ");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 310, Startzeile, "überweisen wir auf Ihr Konto bei der");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 20, resultAdresse.getString("ADRESSEN_BANK") + " IBAN: " + resultAdresse.getString("ADRESSEN_IBAN"));
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350, "Den Differenzbetrag in Höhe von");
+                    Ausgabe(cos, fontBold, 12, Color.GREEN, 235, 350, Modulhelferlein.str2dec(GesamtBetrag) + " Euro ");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 310, 350, "überweisen wir auf Ihr Konto bei der");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350 - 20, resultAdresse.getString("ADRESSEN_BANK") + " IBAN: " + resultAdresse.getString("ADRESSEN_IBAN"));
                 }
 
                 // Schlussformel
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 150, Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 85, "Carola Hartmann");
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 70, "Diplom Kauffrau");
+
+                // Neue Seite mit der detaillierten Aufstellung
+                cos.close();
+
+                PDPage page = new PDPage(A4);
+
+                document.addPage(page);
+                cos = new PDPageContentStream(document, page);
+
+                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 785, "Anlage");
+                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 750, "Detaillierte Aufstellung der Rechnungen");
+
+                ZeilenNr = 1;
+                resultVerrechnung = SQLVerrechnung.executeQuery("SELECT * FROM TBL_VERRECHNUNG");
+                while (resultVerrechnung.next()) {
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 740 - 15 * ZeilenNr, "Rechnung Nr. " + resultVerrechnung.getString("VERRECHNUNG_ISBN"));
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 337, 740 - 15 * ZeilenNr, "Betrag:");
+                    AusgabeDB(cos, fontPlain, 12, Color.BLACK, 397, 740 - 15 * ZeilenNr, resultVerrechnung.getString("VERRECHNUNG_BETRAG"));
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 425, 740 - 15 * ZeilenNr, "€");
+                    Betrag = Betrag + resultVerrechnung.getFloat("VERRECHNUNG_BETRAG");
+                    ZeilenNr = ZeilenNr + 1;
+                }
 
                 // Make sure that the content stream is closed:
                 cos.close();
