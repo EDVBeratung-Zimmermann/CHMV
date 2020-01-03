@@ -2728,56 +2728,56 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
     private void field_SeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_SeitenActionPerformed
         // TODO add your handling code here:
         if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_SeitenActionPerformed
 
     private void field_BestandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_BestandActionPerformed
         // TODO add your handling code here:
         if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_BestandActionPerformed
 
     private void field_Honorar_AnzahlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_Honorar_AnzahlActionPerformed
         // TODO add your handling code here:
         if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_Honorar_AnzahlActionPerformed
 
     private void field_Honorar_ProzentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_Honorar_ProzentActionPerformed
         // TODO add your handling code here:
         if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_Honorar_ProzentActionPerformed
 
     private void field_AuflageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_AuflageActionPerformed
         // TODO add your handling code here:
         if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_AuflageActionPerformed
 
     private void field_JahrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_JahrActionPerformed
         // TODO add your handling code here:
         if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_JahrActionPerformed
 
     private void field_PreisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_PreisActionPerformed
         // TODO add your handling code here:
         if (Modulhelferlein.checkNumberFormatFloat(field_Preis.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
+            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
         }
     }//GEN-LAST:event_field_PreisActionPerformed
 
     private void field_EKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_EKActionPerformed
         // TODO add your handling code here:
         if (Modulhelferlein.checkNumberFormatFloat(field_Preis.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
+            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
         }
     }//GEN-LAST:event_field_EKActionPerformed
 
@@ -2819,7 +2819,8 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 //helferlein.Infomeldung(args[1]);            
             _DlgBelegexemplareErzeugen.main(args);
         } catch (SQLException ex) {
-            Logger.getLogger(VerwaltenDatenbankBuch.class.getName()).log(Level.SEVERE, null, ex);
+            Modulhelferlein.Fehlermeldung("Belegexemplar erzeugen",ex.getMessage());
+            //Logger.getLogger(VerwaltenDatenbankBuch.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtnBelegexemplarActionPerformed
 
