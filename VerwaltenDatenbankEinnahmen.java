@@ -1282,12 +1282,20 @@ public class VerwaltenDatenbankEinnahmen extends javax.swing.JDialog {
          * null, ex); }
          */
         //</editor-fold>
-
-        //</editor-fold>
+        
+        System.out.println("   - starte main");
+        
+       //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(() -> {
+            
+            System.out.println("   - ereuge Dialog");
+            
             VerwaltenDatenbankEinnahmen dialog = new VerwaltenDatenbankEinnahmen(new javax.swing.JFrame(), true);
+            
+            System.out.println("   - add windowslistener");
+            
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1295,6 +1303,8 @@ public class VerwaltenDatenbankEinnahmen extends javax.swing.JDialog {
                 }
             });
             dialog.setVisible(true);
+            
+            System.out.println("   - Dialog wird angezeigt");
         });
     }
 
