@@ -715,7 +715,7 @@ public class Modulhelferlein {
     public static void Fehlermeldung(final String Meldung1, String Meldung2, String Meldung3) {
         // put your code here
         String Ausgabe = "";
-        Ausgabe = "<html> " + Meldung1 + " <br> " + Meldung2 + " <br> " + Meldung3 + " </html>";
+        Ausgabe = Meldung1 + "\n" + Meldung2 + "\n" + Meldung3;
         JOptionPane.showMessageDialog(null, Ausgabe, "Achtung Fehler", JOptionPane.WARNING_MESSAGE);
         System.out.println(Meldung1 + " " + Meldung2 + " " + Meldung3);
     }
@@ -750,7 +750,7 @@ public class Modulhelferlein {
 
         // put your code here
         String Ausgabe = "";
-        Ausgabe = "<html>" + Meldung1 + "<br>" + Meldung2 + "<br>" + Meldung3 + "</html>";
+        Ausgabe = Meldung1 + "\n" + Meldung2 + "\n" + Meldung3;
         JOptionPane.showMessageDialog(null, Ausgabe, "Information", JOptionPane.INFORMATION_MESSAGE);
         System.out.println(Meldung1 + " " + Meldung2 + " " + Meldung3);
     }
