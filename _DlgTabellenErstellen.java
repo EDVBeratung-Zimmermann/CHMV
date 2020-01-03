@@ -508,7 +508,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "BUCH_DRUCKEREINUMMER TEXT,";
                         SQL = SQL + "BUCH_DEUNATBIBL BOOLEAN,";
                         SQL = SQL + "BUCH_BERLLBIBL BOOLEAN,";
-                        SQL = SQL + "Buch_GESAMTBETRACTUNG BOOLEAN,";
+                        SQL = SQL + "Buch_GESAMTBETRACHTUNG BOOLEAN,";
                         SQL = SQL + "BUCH_BODFIX INT,";
                         SQL = SQL + "BUCH_BODPROZENT INT,";
                         SQL = SQL + "BUCH_HC INT,";
