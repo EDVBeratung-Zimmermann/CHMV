@@ -36,7 +36,6 @@ import javax.swing.*;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.ActionMapUIResource;
-import net.miginfocom.swing.*;
 import static milesVerlagMain.ModulMyOwnFocusTraversalPolicy.newPolicy;
 
 /**
