@@ -30,14 +30,14 @@ public class ModulJahresabschluss {
         String SQLDetail = "";
 
         if (JOptionPane.showConfirmDialog(null,
-                "<html>Soll der Jahreswechsel mit dem <br>"
-                        + "Zurücksetzen der Datenbanken <br>"
-                        + " - Bestellnummer<br>"
-                        + " - Einnahmen<br>"
-                        + " - Ausgaben<br>"
-                        + " - Bestellung<br>"
-                        + " - Bestelldetails<br>"
-                        + "wirklich durchgeführt werden?</html>",
+                "Soll der Jahreswechsel mit dem \n"
+                        + "Zurücksetzen der Datenbanken\n"
+                        + " - Bestellnummer\n"
+                        + " - Einnahmen\n"
+                        + " - Ausgaben\n"
+                        + " - Bestellung\n"
+                        + " - Bestelldetails\n"
+                        + "wirklich durchgeführt werden?",
                 "Bestätigung",
                 JOptionPane.YES_NO_OPTION) == 0) {
 
