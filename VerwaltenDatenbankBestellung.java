@@ -1040,7 +1040,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Zeile3.setBounds(110, 250, 291, 25);
 
             //---- rbGeschenk ----
-            rbGeschenk.setText("Geschenk");
+            rbGeschenk.setText("Ansichtsexemplar");
             rbGeschenk.addActionListener(e -> rbGeschenkActionPerformed(e));
             panel1.add(rbGeschenk);
             rbGeschenk.setBounds(455, 244, 278, 25);
@@ -1197,54 +1197,54 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             BAnfang.setToolTipText("gehe zum ersten Datensatz");
             BAnfang.addActionListener(e -> BAnfangActionPerformed(e));
             panel1.add(BAnfang);
-            BAnfang.setBounds(54, 511, BAnfang.getPreferredSize().width, 25);
+            BAnfang.setBounds(55, 510, 49, 25);
 
             //---- BZurueck ----
             BZurueck.setText("<");
             BZurueck.setToolTipText("gehe zum vorherigen Datensatz");
             BZurueck.addActionListener(e -> BZurueckActionPerformed(e));
             panel1.add(BZurueck);
-            BZurueck.setBounds(108, 511, BZurueck.getPreferredSize().width, 25);
+            BZurueck.setBounds(106, 510, 49, 25);
 
             //---- BVor ----
             BVor.setText(">");
             BVor.setToolTipText("gehe zum n\u00e4chsten Datensatz");
             BVor.addActionListener(e -> BVorActionPerformed(e));
             panel1.add(BVor);
-            BVor.setBounds(154, 511, 49, 25);
+            BVor.setBounds(157, 510, 49, 25);
 
             //---- BEnde ----
             BEnde.setText(">>");
             BEnde.setToolTipText("gehe zum letzten Datensatz");
             BEnde.addActionListener(e -> BEndeActionPerformed(e));
             panel1.add(BEnde);
-            BEnde.setBounds(208, 511, BEnde.getPreferredSize().width, 25);
+            BEnde.setBounds(208, 510, 49, 25);
 
             //---- BUpdate ----
             BUpdate.setText("!");
             BUpdate.setToolTipText("Buchbestellung aktualisieren");
             BUpdate.addActionListener(e -> BUpdateActionPerformed(e));
             panel1.add(BUpdate);
-            BUpdate.setBounds(262, 511, 41, 25);
+            BUpdate.setBounds(270, 510, 49, 25);
 
             //---- BEinfuegen ----
             BEinfuegen.setText("+");
             BEinfuegen.setToolTipText("Neues Buch einf\u00fcgen");
             BEinfuegen.addActionListener(e -> BEinfuegenActionPerformed(e));
             panel1.add(BEinfuegen);
-            BEinfuegen.setBounds(308, 511, BEinfuegen.getPreferredSize().width, 25);
+            BEinfuegen.setBounds(320, 510, 49, 25);
 
             //---- BLoeschen ----
             BLoeschen.setText("-");
             BLoeschen.setToolTipText("Datensatz l\u00f6schen");
             BLoeschen.addActionListener(e -> BLoeschenActionPerformed(e));
             panel1.add(BLoeschen);
-            BLoeschen.setBounds(354, 511, 45, 25);
+            BLoeschen.setBounds(370, 510, 49, 25);
 
             //---- jLabel11 ----
             jLabel11.setText("Position");
             panel1.add(jLabel11);
-            jLabel11.setBounds(454, 511, 49, 25);
+            jLabel11.setBounds(454, 510, 49, 25);
 
             //---- field_B_Count ----
             field_B_Count.setEditable(false);
@@ -1252,13 +1252,13 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_B_Count.setFocusable(false);
             field_B_Count.setPreferredSize(new Dimension(50, 25));
             panel1.add(field_B_Count);
-            field_B_Count.setBounds(508, 511, 65, field_B_Count.getPreferredSize().height);
+            field_B_Count.setBounds(508, 510, 65, field_B_Count.getPreferredSize().height);
 
             //---- jLabel24 ----
             jLabel24.setText("von");
             jLabel24.setRequestFocusEnabled(false);
             panel1.add(jLabel24);
-            jLabel24.setBounds(578, 511, 39, 25);
+            jLabel24.setBounds(590, 510, 27, 25);
 
             //---- field_B_CountMax ----
             field_B_CountMax.setEditable(false);
@@ -1266,7 +1266,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_B_CountMax.setFocusable(false);
             field_B_CountMax.setPreferredSize(new Dimension(50, 25));
             panel1.add(field_B_CountMax);
-            field_B_CountMax.setBounds(622, 511, 72, field_B_CountMax.getPreferredSize().height);
+            field_B_CountMax.setBounds(622, 510, 72, field_B_CountMax.getPreferredSize().height);
 
             //---- field_Ueberweisung ----
             field_Ueberweisung.setSelected(true);
