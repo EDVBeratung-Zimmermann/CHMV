@@ -20,8 +20,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -66,7 +64,7 @@ public class ModulAusgabe extends JFrame {
         PrintStream printStream;
         try {
             printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea), true, "ISO8859_1");
-            printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea));
+            //printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea));
             // keeps reference of standard output stream
             standardOut = System.out;
 
