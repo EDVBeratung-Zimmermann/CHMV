@@ -705,6 +705,7 @@ public class ModulAbrechnungHonorar {
                             ID = ID + 1;
                         } // while resultBestellung
                         System.out.println("   -> Anschreiben erstellen für Autor " + resultBestellung2.getString("BESTELLUNG_KUNDE") + " ...");
+                        if (resultBestellung2.getString("BESTELLUNG_KUNDE").equals("-1")) {} else
                         if (resultBestellung2.getString("BESTELLUNG_KUNDE").equals("0")) {
                             System.out.println("   -> Autor " + resultBestellung2.getString("BESTELLUNG_KUNDE") + " existiert nicht!");
                         } else {
