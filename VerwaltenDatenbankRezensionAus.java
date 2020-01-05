@@ -630,9 +630,9 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        setFont(new Font("Dialog", Font.BOLD, 12));
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
         setMinimumSize(new Dimension(765, 445));
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -864,77 +864,77 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
             Anfang.setToolTipText("gehe zum ersten Datensatz");
             Anfang.addActionListener(e -> AnfangActionPerformed(e));
             panel1.add(Anfang);
-            Anfang.setBounds(new Rectangle(new Point(0, 362), Anfang.getPreferredSize()));
+            Anfang.setBounds(new Rectangle(new Point(0, 360), Anfang.getPreferredSize()));
 
             //---- Zurueck ----
             Zurueck.setText("<");
             Zurueck.setToolTipText("gehe zum vorherigen Datensatz");
             Zurueck.addActionListener(e -> ZurueckActionPerformed(e));
             panel1.add(Zurueck);
-            Zurueck.setBounds(new Rectangle(new Point(54, 362), Zurueck.getPreferredSize()));
+            Zurueck.setBounds(54, 360, 49, 23);
 
             //---- Vor ----
             Vor.setText(">");
             Vor.setToolTipText("gehe zum n\u00e4chsten Datensatz");
             Vor.addActionListener(e -> VorActionPerformed(e));
             panel1.add(Vor);
-            Vor.setBounds(100, 362, 49, Vor.getPreferredSize().height);
+            Vor.setBounds(100, 360, 49, 23);
 
             //---- Update ----
             Update.setText("!");
             Update.setToolTipText("Datensatz aktualisieren");
             Update.addActionListener(e -> UpdateActionPerformed(e));
             panel1.add(Update);
-            Update.setBounds(154, 362, 41, Update.getPreferredSize().height);
+            Update.setBounds(230, 360, 49, 23);
 
             //---- Ende ----
             Ende.setText(">>");
             Ende.setToolTipText("gehe zum letzten Datensatz");
             Ende.addActionListener(e -> EndeActionPerformed(e));
             panel1.add(Ende);
-            Ende.setBounds(new Rectangle(new Point(200, 362), Ende.getPreferredSize()));
+            Ende.setBounds(155, 360, 49, 23);
 
             //---- Einfuegen ----
             Einfuegen.setText("+");
             Einfuegen.setToolTipText("Datensatz f\u00fcr eine Rezension erstellen");
             Einfuegen.addActionListener(e -> EinfuegenActionPerformed(e));
             panel1.add(Einfuegen);
-            Einfuegen.setBounds(254, 362, 49, Einfuegen.getPreferredSize().height);
+            Einfuegen.setBounds(280, 360, 49, 23);
 
             //---- Loeschen ----
             Loeschen.setText("-");
             Loeschen.setToolTipText("Datensatz l\u00f6schen");
             Loeschen.addActionListener(e -> LoeschenActionPerformed(e));
             panel1.add(Loeschen);
-            Loeschen.setBounds(new Rectangle(new Point(308, 362), Loeschen.getPreferredSize()));
+            Loeschen.setBounds(330, 360, 49, 23);
 
             //---- Suchen ----
             Suchen.setText("?");
             Suchen.setToolTipText("Suche nach Autor, Titel, ISBN oder Druckereinummer");
             Suchen.addActionListener(e -> SuchenActionPerformed(e));
             panel1.add(Suchen);
-            Suchen.setBounds(350, 362, 41, Suchen.getPreferredSize().height);
+            Suchen.setBounds(390, 360, 49, 23);
 
             //---- WSuchen ----
             WSuchen.setText("...");
             WSuchen.setToolTipText("Weitersuchen");
             WSuchen.addActionListener(e -> WSuchenActionPerformed(e));
             panel1.add(WSuchen);
-            WSuchen.setBounds(new Rectangle(new Point(396, 362), WSuchen.getPreferredSize()));
+            WSuchen.setBounds(445, 360, 49, 23);
 
             //---- Drucken ----
             Drucken.setText("D");
             Drucken.setToolTipText("Druckt die aktuellen Rezensionsschreiben");
             Drucken.addActionListener(e -> DruckenActionPerformed(e));
             panel1.add(Drucken);
-            Drucken.setBounds(new Rectangle(new Point(446, 362), Drucken.getPreferredSize()));
+            Drucken.setBounds(520, 360, 49, 23);
 
             //---- Schliessen ----
             Schliessen.setText("X");
             Schliessen.setToolTipText("Schlie\u00dft den Dialog");
             Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
             panel1.add(Schliessen);
-            Schliessen.setBounds(new Rectangle(new Point(490, 362), Schliessen.getPreferredSize()));
+            Schliessen.setBounds(580, 360, 49, 23);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -971,7 +971,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
         setLocationRelativeTo(getOwner());
 
         //---- buttonGroup1 ----
-        ButtonGroup buttonGroup1 = new ButtonGroup();
+        var buttonGroup1 = new ButtonGroup();
         buttonGroup1.add(rbInitiative);
         buttonGroup1.add(rbNachfrage);
         buttonGroup1.add(rbAutor);
