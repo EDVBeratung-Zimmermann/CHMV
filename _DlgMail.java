@@ -71,21 +71,20 @@ public class _DlgMail extends javax.swing.JDialog {
     String Filename = "";
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JPanel            panel1;
-    private JLabel            jLabel1;
-    private JLabel            jLabel2;
-    private JTextField        field_Subject;
-    private JLabel            jLabel3;
+    private JPanel panel1;
+    private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JTextField field_Subject;
+    private JLabel jLabel3;
     private JComboBox<String> field_Verteiler;
-    private JLabel            jLabel4;
-    private JScrollPane       jScrollPane1;
-    private JTextArea         field_Text;
-    private JLabel            jLabel5;
-    private JButton           Anhang;
-    private JTextField        field_Anhang;
-    private JButton           Senden;
-    private JButton           Schliessen;
-
+    private JLabel jLabel4;
+    private JScrollPane jScrollPane1;
+    private JTextArea field_Text;
+    private JLabel jLabel5;
+    private JButton Anhang;
+    private JTextField field_Anhang;
+    private JButton Senden;
+    private JButton Schliessen;
     // End of variables declaration//GEN-END:variables
 
     Connection                conn;
@@ -145,115 +144,123 @@ public class _DlgMail extends javax.swing.JDialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        panel1          = new JPanel();
-        jLabel1         = new JLabel();
-        jLabel2         = new JLabel();
-        field_Subject   = new JTextField();
-        jLabel3         = new JLabel();
+        panel1 = new JPanel();
+        jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
+        field_Subject = new JTextField();
+        jLabel3 = new JLabel();
         field_Verteiler = new JComboBox<>();
-        jLabel4         = new JLabel();
-        jScrollPane1    = new JScrollPane();
-        field_Text      = new JTextArea();
-        jLabel5         = new JLabel();
-        Anhang          = new JButton();
-        field_Anhang    = new JTextField();
-        Senden          = new JButton();
-        Schliessen      = new JButton();
+        jLabel4 = new JLabel();
+        jScrollPane1 = new JScrollPane();
+        field_Text = new JTextArea();
+        jLabel5 = new JLabel();
+        Anhang = new JButton();
+        field_Anhang = new JTextField();
+        Senden = new JButton();
+        Schliessen = new JButton();
 
-        // ======== this ========
+        //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        setFont(this.getFont().deriveFont(this.getFont().getStyle() | Font.BOLD));
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+        var contentPane = getContentPane();
 
-        Container contentPane = getContentPane();
-
-        // ======== panel1 ========
+        //======== panel1 ========
         {
-            panel1.setLayout(new MigLayout("insets 0,hidemode 3,gap 5 5",
+            panel1.setLayout(new MigLayout(
+                "insets 0,hidemode 3,gap 5 5",
+                // columns
+                "[fill]" +
+                "[fill]" +
+                "[fill]" +
+                "[fill]" +
+                "[fill]",
+                // rows
+                "[fill]" +
+                "[fill]" +
+                "[fill]" +
+                "[fill]" +
+                "[fill]" +
+                "[fill]" +
+                "[fill]" +
+                "[fill]" +
+                "[]" +
+                "[]"));
 
-            // columns
-            "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]",
-
-            // rows
-            "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[]" + "[]"));
-
-            // ---- jLabel1 ----
+            //---- jLabel1 ----
             jLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
             jLabel1.setText("Versenden von e-Mails");
             panel1.add(jLabel1, "cell 0 0 4 1");
 
-            // ---- jLabel2 ----
+            //---- jLabel2 ----
             jLabel2.setText("Betreff");
             panel1.add(jLabel2, "cell 0 2");
-
-            // ---- field_Subject ----
-            field_Subject.setText("jTextField1");
             panel1.add(field_Subject, "cell 1 2 4 1");
 
-            // ---- jLabel3 ----
+            //---- jLabel3 ----
             jLabel3.setText("Verteiler");
             panel1.add(jLabel3, "cell 0 3");
 
-            // ---- field_Verteiler ----
-            field_Verteiler.setModel(new DefaultComboBoxModel<>(new String[] {}));
+            //---- field_Verteiler ----
+            field_Verteiler.setModel(new DefaultComboBoxModel<>(new String[] {
+
+            }));
             panel1.add(field_Verteiler, "cell 1 3 4 1");
 
-            // ---- jLabel4 ----
+            //---- jLabel4 ----
             jLabel4.setText("Text");
             panel1.add(jLabel4, "cell 0 4");
 
-            // ======== jScrollPane1 ========
+            //======== jScrollPane1 ========
             {
 
-                // ---- field_Text ----
+                //---- field_Text ----
                 field_Text.setColumns(20);
                 field_Text.setRows(5);
                 jScrollPane1.setViewportView(field_Text);
             }
             panel1.add(jScrollPane1, "cell 1 4 4 2");
 
-            // ---- jLabel5 ----
+            //---- jLabel5 ----
             jLabel5.setText("Anhang");
             jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getStyle() & ~Font.BOLD));
             panel1.add(jLabel5, "cell 0 6");
 
-            // ---- Anhang ----
+            //---- Anhang ----
             Anhang.setText("...");
             Anhang.addActionListener(e -> AnhangActionPerformed(e));
             panel1.add(Anhang, "cell 1 6");
-
-            // ---- field_Anhang ----
-            field_Anhang.setText("jTextField1");
             panel1.add(field_Anhang, "cell 2 6 3 1");
 
-            // ---- Senden ----
+            //---- Senden ----
             Senden.setText("Senden");
             Senden.addActionListener(e -> SendenActionPerformed(e));
             panel1.add(Senden, "cell 2 9 2 1");
 
-            // ---- Schliessen ----
+            //---- Schliessen ----
             Schliessen.setText("Abbrechen");
             Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
             panel1.add(Schliessen, "cell 4 9");
         }
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
-
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup().addGroup(
-                contentPaneLayout.createSequentialGroup().addContainerGap().addComponent(panel1,
-                        GroupLayout.PREFERRED_SIZE,
-                        GroupLayout.DEFAULT_SIZE,
-                        GroupLayout.PREFERRED_SIZE).addContainerGap(9, Short.MAX_VALUE)));
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panel1, GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                    .addContainerGap())
+        );
         contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup().addGroup(
-                contentPaneLayout.createSequentialGroup().addContainerGap().addComponent(panel1,
-                        GroupLayout.PREFERRED_SIZE,
-                        GroupLayout.DEFAULT_SIZE,
-                        GroupLayout.PREFERRED_SIZE).addContainerGap(10, Short.MAX_VALUE)));
-        setSize(275, 330);
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panel1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        setSize(295, 330);
         setLocationRelativeTo(getOwner());
     }    // </editor-fold>//GEN-END:initComponents
 
