@@ -864,56 +864,56 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
             Anfang.setToolTipText("gehe zum ersten Datensatz");
             Anfang.addActionListener(e -> AnfangActionPerformed(e));
             panel1.add(Anfang);
-            Anfang.setBounds(new Rectangle(new Point(0, 360), Anfang.getPreferredSize()));
+            Anfang.setBounds(4, 360, 49, 23);
 
             //---- Zurueck ----
             Zurueck.setText("<");
             Zurueck.setToolTipText("gehe zum vorherigen Datensatz");
             Zurueck.addActionListener(e -> ZurueckActionPerformed(e));
             panel1.add(Zurueck);
-            Zurueck.setBounds(54, 360, 49, 23);
+            Zurueck.setBounds(58, 360, 49, 23);
 
             //---- Vor ----
             Vor.setText(">");
             Vor.setToolTipText("gehe zum n\u00e4chsten Datensatz");
             Vor.addActionListener(e -> VorActionPerformed(e));
             panel1.add(Vor);
-            Vor.setBounds(100, 360, 49, 23);
+            Vor.setBounds(104, 360, 49, 23);
 
             //---- Update ----
             Update.setText("!");
             Update.setToolTipText("Datensatz aktualisieren");
             Update.addActionListener(e -> UpdateActionPerformed(e));
             panel1.add(Update);
-            Update.setBounds(230, 360, 49, 23);
+            Update.setBounds(234, 360, 49, 23);
 
             //---- Ende ----
             Ende.setText(">>");
             Ende.setToolTipText("gehe zum letzten Datensatz");
             Ende.addActionListener(e -> EndeActionPerformed(e));
             panel1.add(Ende);
-            Ende.setBounds(155, 360, 49, 23);
+            Ende.setBounds(159, 360, 49, 23);
 
             //---- Einfuegen ----
             Einfuegen.setText("+");
             Einfuegen.setToolTipText("Datensatz f\u00fcr eine Rezension erstellen");
             Einfuegen.addActionListener(e -> EinfuegenActionPerformed(e));
             panel1.add(Einfuegen);
-            Einfuegen.setBounds(280, 360, 49, 23);
+            Einfuegen.setBounds(284, 360, 49, 23);
 
             //---- Loeschen ----
             Loeschen.setText("-");
             Loeschen.setToolTipText("Datensatz l\u00f6schen");
             Loeschen.addActionListener(e -> LoeschenActionPerformed(e));
             panel1.add(Loeschen);
-            Loeschen.setBounds(330, 360, 49, 23);
+            Loeschen.setBounds(334, 360, 49, 23);
 
             //---- Suchen ----
             Suchen.setText("?");
             Suchen.setToolTipText("Suche nach Autor, Titel, ISBN oder Druckereinummer");
             Suchen.addActionListener(e -> SuchenActionPerformed(e));
             panel1.add(Suchen);
-            Suchen.setBounds(390, 360, 49, 23);
+            Suchen.setBounds(394, 360, 49, 23);
 
             //---- WSuchen ----
             WSuchen.setText("...");
