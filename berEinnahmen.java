@@ -96,6 +96,8 @@ public class berEinnahmen {
         ResultSet resultBestellung = null;
         ResultSet resultBuch = null;
         ResultSet resultBestellungDetails = null;
+        
+        Label label = null;
 
         String Bemerkung = "";
         String outputFileName;
@@ -139,7 +141,11 @@ public class berEinnahmen {
                 arial10formatL.setAlignment(LEFT);
 
                 // Aufbau des Tabellenblattes sheet_Uebersicht
-                Label label = new Label(0, 0, "Übersicht der Einnahmen", arial14formatBold);
+                if (Umfang) {
+                    label = new Label(0, 0, "Übersicht der Einnahmen aus allen Rechnungen", arial14formatBold); 
+                } else {
+                    label = new Label(0, 0, "Übersicht der Einnahmen der bezahlten Rechnungen", arial14formatBold);
+                };
                 sheet_Uebersicht.addCell(label);
 
                 label = new Label(0, 2, "Einnahmen aus Buchbestellungen", arial10formatBold);
