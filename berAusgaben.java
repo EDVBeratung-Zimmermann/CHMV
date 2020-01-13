@@ -125,7 +125,13 @@ public class berAusgaben {
             arial10formatL.setAlignment(LEFT);
 
             // Aufbau des Tabellenblattes sheet_Uebersicht
-            Label label = new Label(0, 0, "Übersicht der Ausgaben", arial14formatBold);
+            Label label = null;
+            
+            if (Umfang) {
+                label = new Label(0, 0, "Übersicht der Ausgaben aus allen Rechnungen", arial14formatBold);
+            } else {
+                label = new Label(0, 0, "Übersicht der Ausgaben aus bezahlten Rechnungen", arial14formatBold);
+            };
             sheet_Uebersicht.addCell(label);
 
             label = new Label(0, 2, "Ausgaben wegen Portokosten", arial10formatBold);
