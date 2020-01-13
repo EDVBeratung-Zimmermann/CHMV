@@ -323,7 +323,6 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
         jLabel2 = new JLabel();
         jLabel3 = new JLabel();
         field_Rezensent = new JComboBox<>();
-        vSpacer1 = new JPanel(null);
         Anfang = new JButton();
         Zurueck = new JButton();
         Vor = new JButton();
@@ -340,9 +339,9 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        setFont(new Font("Dialog", Font.BOLD, 12));
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
         setMinimumSize(new Dimension(630, 345));
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -460,8 +459,6 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             }));
             panel1.add(field_Rezensent);
             field_Rezensent.setBounds(330, 89, 270, field_Rezensent.getPreferredSize().height);
-            panel1.add(vSpacer1);
-            vSpacer1.setBounds(0, 249, 50, vSpacer1.getPreferredSize().height);
 
             //---- Anfang ----
             Anfang.setText("<<");
@@ -481,7 +478,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             Zurueck.setPreferredSize(new Dimension(50, 25));
             Zurueck.addActionListener(e -> ZurueckActionPerformed(e));
             panel1.add(Zurueck);
-            Zurueck.setBounds(new Rectangle(new Point(55, 264), Zurueck.getPreferredSize()));
+            Zurueck.setBounds(55, 264, 50, Zurueck.getPreferredSize().height);
 
             //---- Vor ----
             Vor.setText(">");
@@ -491,7 +488,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             Vor.setPreferredSize(new Dimension(50, 25));
             Vor.addActionListener(e -> VorActionPerformed(e));
             panel1.add(Vor);
-            Vor.setBounds(new Rectangle(new Point(110, 264), Vor.getPreferredSize()));
+            Vor.setBounds(110, 264, 50, Vor.getPreferredSize().height);
 
             //---- Ende ----
             Ende.setText(">>");
@@ -500,7 +497,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             Ende.setPreferredSize(new Dimension(50, 25));
             Ende.addActionListener(e -> EndeActionPerformed(e));
             panel1.add(Ende);
-            Ende.setBounds(new Rectangle(new Point(165, 264), Ende.getPreferredSize()));
+            Ende.setBounds(165, 264, 50, Ende.getPreferredSize().height);
 
             //---- Update ----
             Update.setText("!");
@@ -510,7 +507,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             Update.setPreferredSize(new Dimension(50, 25));
             Update.addActionListener(e -> UpdateActionPerformed(e));
             panel1.add(Update);
-            Update.setBounds(new Rectangle(new Point(220, 264), Update.getPreferredSize()));
+            Update.setBounds(220, 264, 50, Update.getPreferredSize().height);
 
             //---- Einfuegen ----
             Einfuegen.setText("+");
@@ -520,7 +517,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             Einfuegen.setPreferredSize(new Dimension(50, 25));
             Einfuegen.addActionListener(e -> EinfuegenActionPerformed(e));
             panel1.add(Einfuegen);
-            Einfuegen.setBounds(new Rectangle(new Point(275, 264), Einfuegen.getPreferredSize()));
+            Einfuegen.setBounds(275, 264, 50, Einfuegen.getPreferredSize().height);
 
             //---- Loeschen ----
             Loeschen.setText("-");
@@ -530,7 +527,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             Loeschen.setPreferredSize(new Dimension(50, 25));
             Loeschen.addActionListener(e -> LoeschenActionPerformed(e));
             panel1.add(Loeschen);
-            Loeschen.setBounds(new Rectangle(new Point(330, 264), Loeschen.getPreferredSize()));
+            Loeschen.setBounds(330, 264, 50, Loeschen.getPreferredSize().height);
 
             //---- Suchen ----
             Suchen.setText("?");
@@ -540,7 +537,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             Suchen.setPreferredSize(new Dimension(50, 25));
             Suchen.addActionListener(e -> SuchenActionPerformed(e));
             panel1.add(Suchen);
-            Suchen.setBounds(new Rectangle(new Point(385, 264), Suchen.getPreferredSize()));
+            Suchen.setBounds(385, 264, 50, Suchen.getPreferredSize().height);
 
             //---- WSuchen ----
             WSuchen.setText("...");
@@ -550,7 +547,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             WSuchen.setPreferredSize(new Dimension(50, 25));
             WSuchen.addActionListener(e -> WSuchenActionPerformed(e));
             panel1.add(WSuchen);
-            WSuchen.setBounds(new Rectangle(new Point(440, 264), WSuchen.getPreferredSize()));
+            WSuchen.setBounds(440, 264, 50, WSuchen.getPreferredSize().height);
 
             //---- Drucken ----
             Drucken.setText("D");
@@ -560,7 +557,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             Drucken.setPreferredSize(new Dimension(50, 25));
             Drucken.addActionListener(e -> DruckenActionPerformed(e));
             panel1.add(Drucken);
-            Drucken.setBounds(new Rectangle(new Point(495, 264), Drucken.getPreferredSize()));
+            Drucken.setBounds(495, 264, 50, Drucken.getPreferredSize().height);
 
             //---- Schliessen ----
             Schliessen.setText("X");
@@ -569,7 +566,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             Schliessen.setPreferredSize(new Dimension(50, 25));
             Schliessen.addActionListener(e -> SchliessenActionPerformed(e));
             panel1.add(Schliessen);
-            Schliessen.setBounds(new Rectangle(new Point(550, 264), Schliessen.getPreferredSize()));
+            Schliessen.setBounds(550, 264, 50, Schliessen.getPreferredSize().height);
 
             { // compute preferred size
                 Dimension preferredSize = new Dimension();
@@ -1101,7 +1098,6 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JComboBox<String> field_Rezensent;
-    private JPanel vSpacer1;
     private JButton Anfang;
     private JButton Zurueck;
     private JButton Vor;

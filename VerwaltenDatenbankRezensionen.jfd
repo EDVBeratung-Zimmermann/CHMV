@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_192" class="java.beans.XMLDecoder">
+<java version="11.0.1" class="java.beans.XMLDecoder">
  <object class="com.jformdesigner.model.FormModel">
   <void property="contentType">
    <string>form/swing</string>
@@ -636,25 +636,6 @@
         </void>
         <void method="add">
          <object class="com.jformdesigner.model.FormComponent">
-          <string>com.jformdesigner.designer.wrapper.VSpacer</string>
-          <void property="name">
-           <string>vSpacer1</string>
-          </void>
-         </object>
-         <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>com.jformdesigner.runtime.NullConstraints</class>
-          <void method="setProperty">
-           <string>y</string>
-           <int>249</int>
-          </void>
-          <void method="setProperty">
-           <string>width</string>
-           <int>50</int>
-          </void>
-         </object>
-        </void>
-        <void method="add">
-         <object class="com.jformdesigner.model.FormComponent">
           <string>javax.swing.JButton</string>
           <void method="setProperty">
            <string>text</string>
@@ -759,6 +740,10 @@
            <string>y</string>
            <int>264</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>50</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -815,6 +800,10 @@
            <string>y</string>
            <int>264</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>50</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -866,6 +855,10 @@
           <void method="setProperty">
            <string>y</string>
            <int>264</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>50</int>
           </void>
          </object>
         </void>
@@ -923,6 +916,10 @@
            <string>y</string>
            <int>264</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>50</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -978,6 +975,10 @@
           <void method="setProperty">
            <string>y</string>
            <int>264</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>50</int>
           </void>
          </object>
         </void>
@@ -1035,6 +1036,10 @@
            <string>y</string>
            <int>264</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>50</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -1090,6 +1095,10 @@
           <void method="setProperty">
            <string>y</string>
            <int>264</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>50</int>
           </void>
          </object>
         </void>
@@ -1147,6 +1156,10 @@
            <string>y</string>
            <int>264</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>50</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -1203,6 +1216,10 @@
            <string>y</string>
            <int>264</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>50</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -1254,6 +1271,10 @@
           <void method="setProperty">
            <string>y</string>
            <int>264</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>50</int>
           </void>
          </object>
         </void>
