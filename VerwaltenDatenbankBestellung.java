@@ -1136,17 +1136,17 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             jLabel21.setText("Buchtitel");
             jLabel21.setHorizontalAlignment(SwingConstants.LEFT);
             panel1.add(jLabel21);
-            jLabel21.setBounds(0, 432, 349, jLabel21.getPreferredSize().height);
+            jLabel21.setBounds(0, 430, 349, jLabel21.getPreferredSize().height);
 
             //---- jLabel22 ----
             jLabel22.setText("Anzahl");
             panel1.add(jLabel22);
-            jLabel22.setBounds(622, 432, 72, jLabel22.getPreferredSize().height);
+            jLabel22.setBounds(620, 430, 72, jLabel22.getPreferredSize().height);
 
             //---- jLabel23 ----
             jLabel23.setText("Rabatt");
             panel1.add(jLabel23);
-            jLabel23.setBounds(699, 432, 91, jLabel23.getPreferredSize().height);
+            jLabel23.setBounds(680, 430, 91, jLabel23.getPreferredSize().height);
 
             //---- cbBuch ----
             cbBuch.setFont(new Font("Courier New", Font.BOLD, 14));
@@ -1161,13 +1161,13 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_B_Anzahl.setPreferredSize(new Dimension(0, 25));
             field_B_Anzahl.addActionListener(e -> field_B_AnzahlActionPerformed(e));
             panel1.add(field_B_Anzahl);
-            field_B_Anzahl.setBounds(622, 451, 72, field_B_Anzahl.getPreferredSize().height);
+            field_B_Anzahl.setBounds(622, 451, 53, field_B_Anzahl.getPreferredSize().height);
 
             //---- field_B_Rabatt ----
             field_B_Rabatt.setPreferredSize(new Dimension(0, 25));
             field_B_Rabatt.addActionListener(e -> field_B_RabattActionPerformed(e));
             panel1.add(field_B_Rabatt);
-            field_B_Rabatt.setBounds(699, 451, 33, field_B_Rabatt.getPreferredSize().height);
+            field_B_Rabatt.setBounds(680, 451, 52, field_B_Rabatt.getPreferredSize().height);
 
             //---- jLabel27 ----
             jLabel27.setText("Brutto-Preis");
@@ -1180,13 +1180,12 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_B_Sonstiges.setBounds(0, 481, 103, 25);
 
             //---- field_B_Text ----
-            field_B_Text.setText("jTextField1");
             field_B_Text.setPreferredSize(new Dimension(0, 25));
             panel1.add(field_B_Text);
             field_B_Text.setBounds(108, 481, 624, field_B_Text.getPreferredSize().height);
 
             //---- field_B_Preis ----
-            field_B_Preis.setText("jTextField1");
+            field_B_Preis.setText("0.0");
             field_B_Preis.setPreferredSize(new Dimension(0, 25));
             field_B_Preis.addActionListener(e -> field_B_PreisActionPerformed(e));
             panel1.add(field_B_Preis);
