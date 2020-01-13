@@ -71,6 +71,7 @@ public class briefHonorar {
 
     /**
      *
+     * @param HONORAR_ID
      * @param HONORAR_ZAHLEN
      * @param HONORAR_TITEL
      * @param HONORAR_AUTOR
@@ -371,7 +372,7 @@ public class briefHonorar {
 
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 45, "Ich freue mich daher, Ihnen ein Honorar in Höhe von " + Modulhelferlein.str2dec(Honorar) + " Euro vergüten zu können.");
 
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 100, "Die Abrechnung für die Verkäufe über den Verlag entnehmen Sie bitte der Anlage.");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 100, "Die Abrechnung für die Verkäufe entnehmen Sie bitte der Anlage.");
                         
                         // Update der Honorar-DB anhand der HONORAR_ID
                         System.out.println("      .. Update Honorar-DB mit Honorar");
@@ -480,7 +481,7 @@ public class briefHonorar {
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 65, "Ich freue mich daher, Ihnen ein Honorar in Höhe von " + Modulhelferlein.str2dec(Honorar + Honorar_BOD) + " Euro vergüten zu können.");
 
                         // Ausgabe der Miles-Abrechnung
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 100, "Die Abrechnung für die Verkäufe über den Verlag entnehmen Sie bitte der Anlage.");
+                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 100, "Die Abrechnung für die Verkäufe entnehmen Sie bitte der Anlage.");
                         
                         // Update der Honorar-DB anhand der HONORAR_ID
                         System.out.println("      .. Update Honorar-DB mit Honorar");
@@ -534,7 +535,7 @@ public class briefHonorar {
                 Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 785, "Anlage");
 
                 if (HONORAR_GESAMTBETRACHTUNG) {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 750, "Die Abrechnung für die Verkäufe über den Miles-Verlag lautet wie folgt:");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 750, "Die Abrechnung für die Verkäufe lautet wie folgt:");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 730, "ISBN");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 155, 730, "Typ");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 230, 730, "Anzahl");
