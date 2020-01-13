@@ -87,7 +87,7 @@ public class _DlgUebersichtEinnahmen extends javax.swing.JDialog {
         {
             panel1.setLayout(null);
             panel1.add(jDateChooserVon);
-            jDateChooserVon.setBounds(0, 90, jDateChooserVon.getPreferredSize().width, 23);
+            jDateChooserVon.setBounds(0, 90, 110, 23);
 
             //---- jLabel1 ----
             jLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -115,7 +115,7 @@ public class _DlgUebersichtEinnahmen extends javax.swing.JDialog {
             //---- jLabelBis ----
             jLabelBis.setText("... bis");
             panel1.add(jLabelBis);
-            jLabelBis.setBounds(92, 62, 87, 23);
+            jLabelBis.setBounds(120, 62, 87, 23);
 
             //---- jRadioButtonPDF ----
             jRadioButtonPDF.setText("PDF");
@@ -123,7 +123,7 @@ public class _DlgUebersichtEinnahmen extends javax.swing.JDialog {
             panel1.add(jRadioButtonPDF);
             jRadioButtonPDF.setBounds(282, 62, 88, jRadioButtonPDF.getPreferredSize().height);
             panel1.add(jDateChooserBis);
-            jDateChooserBis.setBounds(92, 90, jDateChooserBis.getPreferredSize().width, 23);
+            jDateChooserBis.setBounds(120, 90, 110, 23);
 
             //---- jRadioButtonXLS ----
             jRadioButtonXLS.setText("XLS");
