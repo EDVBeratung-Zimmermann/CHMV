@@ -612,8 +612,6 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
         field_B_Count = new JTextField();
         jLabel24 = new JLabel();
         field_B_CountMax = new JTextField();
-        vSpacer2 = new JPanel(null);
-        vSpacer1 = new JPanel(null);
         Anfang = new JButton();
         Zurueck = new JButton();
         Vor = new JButton();
@@ -782,28 +780,28 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
             BAnfang.setToolTipText("gehe zum ersten Datensatz");
             BAnfang.addActionListener(e -> BAnfangActionPerformed(e));
             panel1.add(BAnfang);
-            BAnfang.setBounds(new Rectangle(new Point(100, 305), BAnfang.getPreferredSize()));
+            BAnfang.setBounds(100, 305, 49, BAnfang.getPreferredSize().height);
 
             //---- BZurueck ----
             BZurueck.setText("<");
             BZurueck.setToolTipText("gehe zum vorherigen Datensatz");
             BZurueck.addActionListener(e -> BZurueckActionPerformed(e));
             panel1.add(BZurueck);
-            BZurueck.setBounds(154, 305, 49, BZurueck.getPreferredSize().height);
+            BZurueck.setBounds(151, 305, 49, BZurueck.getPreferredSize().height);
 
             //---- BVor ----
             BVor.setText(">");
             BVor.setToolTipText("gehe zum n\u00e4chsten Datensatz");
             BVor.addActionListener(e -> BVorActionPerformed(e));
             panel1.add(BVor);
-            BVor.setBounds(200, 305, 49, BVor.getPreferredSize().height);
+            BVor.setBounds(202, 305, 49, BVor.getPreferredSize().height);
 
             //---- BEnde ----
             BEnde.setText(">>");
             BEnde.setToolTipText("gehe zum letzten Datensatz");
             BEnde.addActionListener(e -> BEndeActionPerformed(e));
             panel1.add(BEnde);
-            BEnde.setBounds(254, 305, 49, BEnde.getPreferredSize().height);
+            BEnde.setBounds(253, 305, 49, BEnde.getPreferredSize().height);
 
             //---- BUpdate ----
             BUpdate.setText("!");
@@ -854,10 +852,6 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
             field_B_CountMax.setPreferredSize(new Dimension(50, 25));
             panel1.add(field_B_CountMax);
             field_B_CountMax.setBounds(new Rectangle(new Point(649, 302), field_B_CountMax.getPreferredSize()));
-            panel1.add(vSpacer2);
-            vSpacer2.setBounds(100, 332, 49, vSpacer2.getPreferredSize().height);
-            panel1.add(vSpacer1);
-            vSpacer1.setBounds(100, 347, 49, vSpacer1.getPreferredSize().height);
 
             //---- Anfang ----
             Anfang.setText("<<");
@@ -2212,8 +2206,6 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
     private JTextField field_B_Count;
     private JLabel jLabel24;
     private JTextField field_B_CountMax;
-    private JPanel vSpacer2;
-    private JPanel vSpacer1;
     private JButton Anfang;
     private JButton Zurueck;
     private JButton Vor;

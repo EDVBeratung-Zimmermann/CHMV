@@ -884,6 +884,10 @@
            <string>y</string>
            <int>305</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>49</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -913,7 +917,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>154</int>
+           <int>151</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -952,7 +956,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>200</int>
+           <int>202</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -991,7 +995,7 @@
           <class>com.jformdesigner.runtime.NullConstraints</class>
           <void method="setProperty">
            <string>x</string>
-           <int>254</int>
+           <int>253</int>
           </void>
           <void method="setProperty">
            <string>y</string>
@@ -1259,52 +1263,6 @@
           <void method="setProperty">
            <string>y</string>
            <int>302</int>
-          </void>
-         </object>
-        </void>
-        <void method="add">
-         <object class="com.jformdesigner.model.FormComponent">
-          <string>com.jformdesigner.designer.wrapper.VSpacer</string>
-          <void property="name">
-           <string>vSpacer2</string>
-          </void>
-         </object>
-         <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>com.jformdesigner.runtime.NullConstraints</class>
-          <void method="setProperty">
-           <string>x</string>
-           <int>100</int>
-          </void>
-          <void method="setProperty">
-           <string>y</string>
-           <int>332</int>
-          </void>
-          <void method="setProperty">
-           <string>width</string>
-           <int>49</int>
-          </void>
-         </object>
-        </void>
-        <void method="add">
-         <object class="com.jformdesigner.model.FormComponent">
-          <string>com.jformdesigner.designer.wrapper.VSpacer</string>
-          <void property="name">
-           <string>vSpacer1</string>
-          </void>
-         </object>
-         <object class="com.jformdesigner.model.FormLayoutConstraints">
-          <class>com.jformdesigner.runtime.NullConstraints</class>
-          <void method="setProperty">
-           <string>x</string>
-           <int>100</int>
-          </void>
-          <void method="setProperty">
-           <string>y</string>
-           <int>347</int>
-          </void>
-          <void method="setProperty">
-           <string>width</string>
-           <int>49</int>
           </void>
          </object>
         </void>
