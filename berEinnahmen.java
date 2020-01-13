@@ -108,7 +108,7 @@ public class berEinnahmen {
         } else {
             outputFileName = outputFileName + "\\Liste-Einnahmen-Bez-";
         };
-        outputFileName = outputFileName + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+        outputFileName = outputFileName + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") +"-"
                                         + strBis + "-" + strVon
                                         + ".xls";
         
