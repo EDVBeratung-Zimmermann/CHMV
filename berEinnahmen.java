@@ -99,11 +99,16 @@ public class berEinnahmen {
 
         String Bemerkung = "";
         String outputFileName;
-        outputFileName = Modulhelferlein.pathBerichte + "\\Einnahmen"
-                + "\\Liste-Einnahmen-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
-                + ".xls";
-
+        
+        outputFileName = Modulhelferlein.pathBerichte + "\\Einnahmen";
+        if (Umfang) {
+            outputFileName = outputFileName + "\\Liste-Einnahmen-Ges-";
+        } else {
+            outputFileName = outputFileName + "\\Liste-Einnahmen-Bez-";
+        };
+        outputFileName = outputFileName + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                                        + ".xls";
+        
         try {
             WritableWorkbook workbook = Workbook.createWorkbook(new File(outputFileName));
             WritableSheet sheet_Uebersicht = workbook.createSheet("Übersicht", 0);
@@ -642,7 +647,8 @@ public class berEinnahmen {
                                 label = new Label(4, zeile, resultBestellung.getString("EINNAHMEN_BEZAHLT"), arial10formatL);
                                 sheet_Kunde.addCell(label);
                             }
-                            label = new Label(5, zeile, SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BESCHREIBUNG")), arial10formatR);
+                            //label = new Label(5, zeile, SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BESCHREIBUNG")), arial10formatR);
+                            label = new Label(5, zeile, resultBestellung.getString("EINNAHMEN_BESCHREIBUNG"), arial10formatR);
                             sheet_Kunde.addCell(label);
 
                             zeile = zeile + 1;
