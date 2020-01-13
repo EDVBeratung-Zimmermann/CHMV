@@ -90,6 +90,7 @@ public class berAusgaben {
             outputFileName = outputFileName + "\\Liste-Ausgaben-Bez-";
         };
         outputFileName = outputFileName + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                                        + strBis + "-" + strVon
                                         + ".xls";
         
         try {
