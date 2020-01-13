@@ -782,54 +782,54 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
             BAnfang.setToolTipText("gehe zum ersten Datensatz");
             BAnfang.addActionListener(e -> BAnfangActionPerformed(e));
             panel1.add(BAnfang);
-            BAnfang.setBounds(new Rectangle(new Point(100, 303), BAnfang.getPreferredSize()));
+            BAnfang.setBounds(new Rectangle(new Point(100, 305), BAnfang.getPreferredSize()));
 
             //---- BZurueck ----
             BZurueck.setText("<");
             BZurueck.setToolTipText("gehe zum vorherigen Datensatz");
             BZurueck.addActionListener(e -> BZurueckActionPerformed(e));
             panel1.add(BZurueck);
-            BZurueck.setBounds(new Rectangle(new Point(154, 303), BZurueck.getPreferredSize()));
+            BZurueck.setBounds(154, 305, 49, BZurueck.getPreferredSize().height);
 
             //---- BVor ----
             BVor.setText(">");
             BVor.setToolTipText("gehe zum n\u00e4chsten Datensatz");
             BVor.addActionListener(e -> BVorActionPerformed(e));
             panel1.add(BVor);
-            BVor.setBounds(200, 303, 49, BVor.getPreferredSize().height);
+            BVor.setBounds(200, 305, 49, BVor.getPreferredSize().height);
 
             //---- BEnde ----
             BEnde.setText(">>");
             BEnde.setToolTipText("gehe zum letzten Datensatz");
             BEnde.addActionListener(e -> BEndeActionPerformed(e));
             panel1.add(BEnde);
-            BEnde.setBounds(new Rectangle(new Point(254, 303), BEnde.getPreferredSize()));
+            BEnde.setBounds(254, 305, 49, BEnde.getPreferredSize().height);
 
             //---- BUpdate ----
             BUpdate.setText("!");
             BUpdate.setToolTipText("Datensatz aktualisieren");
             BUpdate.addActionListener(e -> BUpdateActionPerformed(e));
             panel1.add(BUpdate);
-            BUpdate.setBounds(new Rectangle(new Point(308, 303), BUpdate.getPreferredSize()));
+            BUpdate.setBounds(320, 305, 49, BUpdate.getPreferredSize().height);
 
             //---- BEinfuegen ----
             BEinfuegen.setText("+");
             BEinfuegen.setToolTipText("Buch hinzuf\u00fcgen");
             BEinfuegen.addActionListener(e -> BEinfuegenActionPerformed(e));
             panel1.add(BEinfuegen);
-            BEinfuegen.setBounds(new Rectangle(new Point(350, 303), BEinfuegen.getPreferredSize()));
+            BEinfuegen.setBounds(375, 305, 49, BEinfuegen.getPreferredSize().height);
 
             //---- BLoeschen ----
             BLoeschen.setText("-");
             BLoeschen.setToolTipText("Datensatz l\u00f6schen");
             BLoeschen.addActionListener(e -> BLoeschenActionPerformed(e));
             panel1.add(BLoeschen);
-            BLoeschen.setBounds(396, 303, 45, BLoeschen.getPreferredSize().height);
+            BLoeschen.setBounds(430, 305, 49, BLoeschen.getPreferredSize().height);
 
             //---- jLabel11 ----
             jLabel11.setText("Buch");
             panel1.add(jLabel11);
-            jLabel11.setBounds(490, 307, 64, jLabel11.getPreferredSize().height);
+            jLabel11.setBounds(515, 307, 39, jLabel11.getPreferredSize().height);
 
             //---- field_B_Count ----
             field_B_Count.setEditable(false);
