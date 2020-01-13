@@ -82,11 +82,16 @@ public class berAusgaben {
         ResultSet resultAusgaben = null;
 
         String outputFileName;
-        outputFileName = Modulhelferlein.pathBerichte + "\\Ausgaben\\"
-                + "Liste-Ausgaben-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") 
-                + ".xls";
-
+        
+        outputFileName = Modulhelferlein.pathBerichte + "\\Ausgaben";
+        if (Umfang) {
+            outputFileName = outputFileName + "\\Liste-Ausgaben-Ges-";
+        } else {
+            outputFileName = outputFileName + "\\Liste-Ausgaben-Bez-";
+        };
+        outputFileName = outputFileName + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                                        + ".xls";
+        
         try {
             WritableWorkbook workbook = Workbook.createWorkbook(new File(outputFileName));
             WritableSheet sheet_Uebersicht = workbook.createSheet("Übersicht", 0);
