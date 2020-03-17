@@ -109,17 +109,17 @@ public class ModulAbrechnungHonorar {
                     SQLKunde = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     SQLVerrechnung = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     Filename = chooser.getSelectedFile().getCanonicalPath();
-// Tabelle Honorar leeren   
+// 1. Tabelle Honorar leeren   
                     System.out.println("1. Tabelle Honorar leeren ...");
                     SQLHonorar = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     SQLHonorar.executeUpdate("DELETE FROM TBL_HONORAR");
                     System.out.println("   -> Tabelle Honorar ist geleert");
                     System.out.println("");
 
-// Tabelle Honorar erstellen 
+// 2. Tabelle Honorar erstellen 
                     SQLBuch = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID > '0' AND BUCH_HONORAR = '1'");
-                    ID = 1;
+                    ID = 1;      
                     System.out.println("2. Tabelle Honorar erstellen ...");
                     while (resultBuch.next()) {
                         String Titel = resultBuch.getString("BUCH_TITEL");
@@ -261,7 +261,7 @@ public class ModulAbrechnungHonorar {
                     System.out.println("   -> Honorardatenbank erstellt");
                     System.out.println("");
 
-// Honorardatenbank füllen                    
+// 3. Honorardatenbank mit BoD-Sales füllen                    
                     System.out.println("3. Füllen der Honorardatenbank mit BoD-Sales");
                     Integer AnzahlGesamt = 0;
                     BufferedReader in = new BufferedReader(new FileReader(Filename));
@@ -315,7 +315,7 @@ public class ModulAbrechnungHonorar {
                                     resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ISBN = '" + ISBN + "'");
                                     resultBuch.next();
                                     resultHonorar.moveToInsertRow();
-                                    System.out.println("   -> ergänze Datensatz mit ID " + Integer.toString(ID));
+                                    System.out.println("   -> ergänze Datensatz mit ID " + Integer.toString(ID) + " ISBN " + ISBN);
                                     resultHonorar.updateInt("HONORAR_ID", ID);
                                     resultHonorar.updateInt("HONORAR_ZAHLEN", 0);
                                     resultHonorar.updateString("HONORAR_TITEL", resultBuch.getString("BUCH_TITEL"));
