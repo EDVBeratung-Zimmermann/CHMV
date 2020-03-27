@@ -7,31 +7,42 @@ package milesVerlagMain;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 /**
  * This class extends from OutputStream to redirect output to a JTextArrea
+ *
  * @author www.codejava.net
  *
  */
 public class CustomOutputStream extends OutputStream {
-	private JTextArea textArea;
+
+    private JTextArea textArea;
 
     /**
      *
-     * @param textArea  Textarea, in den der Outputstream schreibt.
+     * @param textArea Textarea, in den der Outputstream schreibt.
      */
     public CustomOutputStream(JTextArea textArea) {
-		this.textArea = textArea;
-	}
+        this.textArea = textArea;
+    }
 
-	@Override
-	public void write(int b) throws IOException {
-		// redirects data to the text area
-        textArea.append(String.valueOf((char)b));
+    @Override
+    //
+    public void write(int b) throws IOException {
+        // redirects data to the text area
+        textArea.append(String.valueOf((char) b));
         // scrolls the text area to the end of data
         textArea.setCaretPosition(textArea.getDocument().getLength());
-        //textArea.update(textArea.getGraphics());
-	}
+    }
+    
+    //public void write(int b) throws IOException {
+    //    SwingUtilities.invokeLater(new Runnable(){ 
+    //        public void run(){
+    //            textArea.append(String.valueOf((char) b));
+    //            textArea.setCaretPosition(textArea.getDocument().getLength()); } }
+    //    );
+    //}
+
 }
