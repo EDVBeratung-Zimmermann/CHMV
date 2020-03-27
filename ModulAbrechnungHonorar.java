@@ -270,6 +270,7 @@ public class ModulAbrechnungHonorar {
                     while ((CSVzeileIn = in.readLine()) != null) {
                         // Zeile lesen
                         String CSVZeile[] = CSVzeileIn.split(";");
+                        System.out.println("   lese Zeile: "+CSVzeileIn);
                         switch (zeile) {
                             case 1: // Kopf mit Zeitraum
                                 String Zeitraum = CSVZeile[0].substring(10, CSVZeile[0].length());
