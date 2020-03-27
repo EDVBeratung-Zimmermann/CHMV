@@ -190,7 +190,7 @@ public class briefVerrechnungHonorar {
                 Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEV0DEBB");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 
 // Faltmarke, Lochmarke, Faltmarke
                 Linie(cos, 1, 0, 595, 15, 595);
@@ -269,7 +269,7 @@ public class briefVerrechnungHonorar {
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350, "Den Differenzbetrag in Höhe von");
                     Ausgabe(cos, fontBold, 12, Color.RED, 235, 350, Modulhelferlein.str2dec(GesamtBetrag) + " Euro ");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 310, 350, "bitten wir auf unser Konto zu überweisen");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350 - 15, "bei der     Volksbank Berlin,    IBAN: DE61 1009 0000 2233 8320 17,    BIC: BEV0DEBB");
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350 - 15, "bei der     Volksbank Berlin,    IBAN: DE61 1009 0000 2233 8320 17,    BIC: BEVODEBB");
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350 - 30, "innerhalb der nächsten 14 Tage.");
                 } else {
                     GesamtBetrag = 1D * (GesamtHonorar - Betrag);  // Gesamtbetrag positiv = auszahlen  
