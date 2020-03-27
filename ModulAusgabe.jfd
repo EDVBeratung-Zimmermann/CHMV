@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_192" class="java.beans.XMLDecoder">
+<java version="11.0.1" class="java.beans.XMLDecoder">
  <object class="com.jformdesigner.model.FormModel">
   <void property="contentType">
    <string>form/swing</string>
@@ -94,6 +94,10 @@
             <object class="com.jformdesigner.model.FormLayoutManager">
              <class>javax.swing.JScrollPane</class>
             </object>
+            <void method="setProperty">
+             <string>verticalScrollBarPolicy</string>
+             <int>22</int>
+            </void>
             <void method="auxiliary">
              <void method="setProperty">
               <string>JavaCodeGenerator.variableModifiers</string>

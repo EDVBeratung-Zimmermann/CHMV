@@ -286,6 +286,7 @@ public class ModulAusgabe extends JFrame {
 
                 //======== scrollPane1 ========
                 {
+                    scrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
                     //---- AusgabeTextArea ----
                     AusgabeTextArea.setFont(new Font("Courier New", Font.BOLD, 11));
@@ -298,7 +299,8 @@ public class ModulAusgabe extends JFrame {
                 contentPanel.add(scrollPane1);
                 scrollPane1.setBounds(0, 0, 590, 250);
 
-                { // compute preferred size
+                {
+                    // compute preferred size
                     Dimension preferredSize = new Dimension();
                     for(int i = 0; i < contentPanel.getComponentCount(); i++) {
                         Rectangle bounds = contentPanel.getComponent(i).getBounds();
@@ -334,7 +336,8 @@ public class ModulAusgabe extends JFrame {
             panel1.add(vSpacer1);
             vSpacer1.setBounds(40, 35, 30, 10);
 
-            { // compute preferred size
+            {
+                // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
                     Rectangle bounds = panel1.getComponent(i).getBounds();
