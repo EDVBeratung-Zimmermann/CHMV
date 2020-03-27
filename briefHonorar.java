@@ -235,7 +235,7 @@ public class briefHonorar {
                 Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
                 Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEV0DEBB");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 
 // Faltmarke, Lochmarke, Faltmarke
                 Linie(cos, 1, 0, 595, 15, 595);
