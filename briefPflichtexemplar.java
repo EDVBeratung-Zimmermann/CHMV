@@ -309,7 +309,7 @@ public class briefPflichtexemplar {
             String[] strFooter1 = {"Carola Hartmann Miles Verlag", "Alt Kladow 16d", "14089 Berlin"};
             String[] strFooter2 = {"Dipl.Kff. Carola Hartmann", "Telefon +49 (0)30 36 28 86 77", "Volksbank Berlin"};
             String[] strFooter3 = {"StrNr 19 332 6006 5", "E-Mail miles-verlag@t-online.de", "IBAN DE61 1009 0000 2233 8320 17"};
-            String[] strFooter4 = {"UStrID DE 269 369 5", "www.miles-verlag.jimdo.com", "BIC BEV0DEBB"};
+            String[] strFooter4 = {"UStrID DE 269 369 5", "www.miles-verlag.jimdo.com", "BIC BEVODEBB"};
 
             XWPFTableRow tableFooterrow1 = tableFooter.createRow();
             for (int i = 0; i < 3; i++) {
@@ -587,7 +587,7 @@ public class briefPflichtexemplar {
             String[] strFooter1 = {"Carola Hartmann Miles Verlag", "Alt Kladow 16d", "14089 Berlin"};
             String[] strFooter2 = {"Dipl.Kff. Carola Hartmann", "Telefon +49 (0)30 36 28 86 77", "Volksbank Berlin"};
             String[] strFooter3 = {"StrNr 19 332 6006 5", "E-Mail miles-verlag@t-online.de", "IBAN DE61 1009 0000 2233 8320 17"};
-            String[] strFooter4 = {"UStrID DE 269 369 5", "www.miles-verlag.jimdo.de", "BIC BEV0DEBB"};
+            String[] strFooter4 = {"UStrID DE 269 369 5", "www.miles-verlag.jimdo.de", "BIC BEVODEBB"};
 
             XWPFTableRow tableFooterrow1 = tableFooter.createRow();
             for (int i = 0; i < 3; i++) {
@@ -685,7 +685,7 @@ public class briefPflichtexemplar {
             Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
             Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
             Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEV0DEBB");
+            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 // Faltmarke, Lochmarke, Faltmarke
                         Linie(cos,1,0,595,15,595);
                         Linie(cos,1,0,415,25,415);
@@ -792,7 +792,7 @@ public class briefPflichtexemplar {
             Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
             Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
             Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEV0DEBB");
+            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 // Faltmarke, Lochmarke, Faltmarke
                         Linie(cos,1,0,595,15,595);
                         Linie(cos,1,0,415,25,415);
