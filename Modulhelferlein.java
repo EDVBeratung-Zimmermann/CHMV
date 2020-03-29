@@ -24,6 +24,7 @@ package milesVerlagMain;
 
 //~--- non-JDK imports --------------------------------------------------------
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -79,7 +80,7 @@ public class Modulhelferlein {
     public static char ctrlX = 0x24;
     public static char ctrlY = 0x25;
     public static char ctrlZ = 0x26;
-    
+
     public static String Semaphore = "NutzerAktiv.srv";
 
     public static String pathUserDir = "";
@@ -200,6 +201,21 @@ public class Modulhelferlein {
      * Constructor for objects of class helferlein
      */
     public Modulhelferlein() {    // initialise instance variables
+    }
+
+    public static boolean checkDir(String dirName) {
+        File stats = new File(dirName);
+        if (stats.exists()) // Überprüfen, ob es den Ordner gibt
+        {
+            return true;
+        } else {
+            if (stats.mkdir()) // Erstellen des Ordners
+            {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     /**
@@ -383,6 +399,21 @@ public class Modulhelferlein {
             cos.setFont(font, size);
             cos.setNonStrokingColor(color);
             cos.newLineAtOffset(x - tw, y);
+            cos.showText(text);
+            cos.endText();
+        } catch (IOException e) {
+            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+        }
+    }
+
+    public static void AusgabeZ(PDPageContentStream cos, PDFont font, int size, Color color, int x, int y, String text, Integer breite) {
+
+        try {
+            cos.beginText();
+            cos.setFont(font, size);
+            cos.setNonStrokingColor(color);
+            int offset = (int) Math.round(breite - (font.getStringWidth(text) / 1000 * size))/ 2;
+            cos.newLineAtOffset(x + offset, y);
             cos.showText(text);
             cos.endText();
         } catch (IOException e) {
