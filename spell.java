@@ -216,7 +216,8 @@ public class spell {
    */
   public static String formatText(String paStr , int paIntWidth) {
     StringBuffer retStrBuff = new StringBuffer();
-    StringTokenizer strTok = new StringTokenizer(paStr , "\n") ;
+    //StringTokenizer strTok = new StringTokenizer(paStr , "\n") ;
+    StringTokenizer strTok = new StringTokenizer(paStr , "~#!#~") ;
 
     while (strTok.hasMoreElements()) {
       //retStrBuff.append(formatLine(strTok.nextToken().trim() , paIntWidth) + "\n");
@@ -249,7 +250,8 @@ public class spell {
           if (i > 0) {
             retStrBuff.append("-");
           }
-          retStrBuff.append("\n");
+          //retStrBuff.append("\n");
+          retStrBuff.append("~#!#~");
           lineStrBuff = new StringBuffer();
         }
         lineStrBuff.append(strArrWord[i]);
@@ -257,7 +259,8 @@ public class spell {
       lineStrBuff.append(" "); // Leerzeichen zum Trennen des nächsten Wortes
     }
 
-    retStrBuff.append(lineStrBuff + "\n");
+    retStrBuff.append(lineStrBuff + "~#!#~");
+    //retStrBuff.append(lineStrBuff + "\n");
     return retStrBuff.toString();
   }// end method
 
@@ -366,7 +369,7 @@ public class spell {
     String strPreSyllables = "" ;
 
     while (paStrWord.length() > 0) {
-      System.out.println("-----------------------------------------------------");
+      //System.out.println("-----------------------------------------------------");
       String syllable = parseSyllable(paStrWord,strPreSyllable,strPreSyllables) ;
 
       // System.out.println( "silbe:"+silbe);
@@ -415,8 +418,7 @@ public class spell {
             paStr.substring(Math.min(i , paStr.length())));
       }
 
-      System.out.println("vor den Regeln: " + paStr.substring(0 , Math.min(i , paStr.length())) + "|"
-          + paStr.substring(Math.min(i , paStr.length()))) ;
+      //System.out.println("vor den Regeln: " + paStr.substring(0 , Math.min(i , paStr.length())) + "|" + paStr.substring(Math.min(i , paStr.length()))) ;
 
       // Starter der else-if-Kaskade,  damit else if beliebig verschoben werden kann ohne Risiko Verwechslung if <--> else if
       if (bMatch) {
@@ -456,20 +458,20 @@ public class spell {
       // Trennung zweier bekannter Silben aufgetreten
       else if (checkKnownSyllable(paStr.substring(0 , Math.min(i , paStr.length())) ,
           paStr.substring(Math.min(i , paStr.length())))) {
-        System.out.println("Trennung zweier bekannter Silben aufgetreten " + paStr.substring(i)) ;
+        //System.out.println("Trennung zweier bekannter Silben aufgetreten " + paStr.substring(i)) ;
       }
 
       // Trennung zweier bekannter Silben an Folgeposition 1 aufgetreten
       else if (checkKnownSyllable(paStr.substring(0 , Math.min(i + 1 , paStr.length())) ,
           paStr.substring(Math.min(i + 1, paStr.length())))) {
-        System.out.println("Trennung zweier bekannter Silben an Folgeposition 1 aufgetreten " + paStr.substring(i)) ;
+        //System.out.println("Trennung zweier bekannter Silben an Folgeposition 1 aufgetreten " + paStr.substring(i)) ;
         i += 1 ;
       }
 
       // Trennung zweier bekannter Silben an Folgeposition 2 aufgetreten
       else if (checkKnownSyllable(paStr.substring(0 , Math.min(i + 2 , paStr.length())) ,
           paStr.substring(Math.min(i + 2, paStr.length())))) {
-        System.out.println("Trennung zweier bekannter Silben an Folgeposition 2 aufgetreten " + paStr.substring(i)) ;
+        //System.out.println("Trennung zweier bekannter Silben an Folgeposition 2 aufgetreten " + paStr.substring(i)) ;
         i += 2 ;
       }
 
@@ -484,37 +486,37 @@ public class spell {
 
       // st wurde getrennt
       else if (i > 1 && (i < paStr.length() - 1) && paStr.substring(i - 1).startsWith("st")) {
-        System.out.println("st wurde getrennt " + paStr.substring(i)) ;
+        //System.out.println("st wurde getrennt " + paStr.substring(i)) ;
         i--;
       }
 
       // st am Ende der Silbe
       else if ((i < paStr.length() - 1) && paStr.substring(i).startsWith("st")) {
-        System.out.println("st am Ende der Silbe " + paStr.substring(i)) ;
+        //System.out.println("st am Ende der Silbe " + paStr.substring(i)) ;
         i += 2;
       }
 
       // ft am Ende der Silbe
       else if ((i < paStr.length() - 1) && paStr.substring(i).startsWith("ft")) {
-        System.out.println("ft am Ende der Silbe " + paStr.substring(i)) ;
+        //System.out.println("ft am Ende der Silbe " + paStr.substring(i)) ;
         i += 2;
       }
 
       // sch wurde getrennt
       else if (i > 2 && (i < paStr.length() - 1) && paStr.substring(i - 2).startsWith("sch")) {
-        System.out.println("sch wurde getrennt " + paStr.substring(i)) ;
+        //System.out.println("sch wurde getrennt " + paStr.substring(i)) ;
         i -= 2;
       }
 
       // ch wurde getrennt
       else if (i > 1 && (i < paStr.length() - 1) && paStr.substring(i - 1).startsWith("ch")) {
-        System.out.println("ch wurde getrennt " + paStr.substring(i)) ;
+        //System.out.println("ch wurde getrennt " + paStr.substring(i)) ;
         i--;
       }
 
       // str am Anfang der nächsten Silbe
       else if (i > 2 && (i < paStr.length() - 1) && paStr.substring(i - 2).startsWith("str")) {
-        System.out.println("str am Anfang der nächsten Silbe " + paStr.substring(i)) ;
+        //System.out.println("str am Anfang der nächsten Silbe " + paStr.substring(i)) ;
         i -= 2;
       }
 
@@ -522,7 +524,7 @@ public class spell {
       // ck wird in kk umgewandelt
       else if ((i > 1 && (i < paStr.length() - 1) && paStr.substring(i - 1).startsWith("c")) // ...
           && (i < paStr.length() - 1) && paStr.substring(i).startsWith("k")) {
-        System.out.println("ck wird in kk umgewandelt " + paStr.substring(i)) ;
+        //System.out.println("ck wird in kk umgewandelt " + paStr.substring(i)) ;
         bCkToKK = true ;
       }
 
@@ -537,7 +539,7 @@ public class spell {
           // && (!endsWithKnownWord(paStrPreSyllables.toLowerCase() + paStr.toLowerCase())) // Suchen nach Ausnahmen für ng-Trennung (seitengestaltung, autorengemeinschaft)
           && (!endsWithKnownWord(paStrPreSyllables.toLowerCase() + paStr.substring(0,i).toLowerCase())) // Suchen nach Ausnahmen für ng-Trennung (seitengestaltung, autorengemeinschaft)
           ) {
-        System.out.println("ng wird nicht getrennt " + paStr.substring(i)) ;
+        //System.out.println("ng wird nicht getrennt " + paStr.substring(i)) ;
         i++;
         bCont = true;
       }
@@ -545,24 +547,24 @@ public class spell {
       // ein Vocal folgt sofort nach dem endenden Konsonant
       // der Konsonant soll zur nächsten Silbe gehören
       else if (i > 0 && (i < paStr.length() - 1) && isVocal(paStr.charAt(i + 1))) {
-        System.out.println("ein Vocal folgt sofort nach dem endenden Konsonant " + paStr.substring(i)) ;
+        //System.out.println("ein Vocal folgt sofort nach dem endenden Konsonant " + paStr.substring(i)) ;
       }
 
       // Ende der Silbe mit Konsonant
       else if (i < paStr.length() && isConsonant(paStr.charAt(i))) {
-        System.out.println("Ende der Silbe mit Konsonant " + paStr.substring(i)) ;
+        //System.out.println("Ende der Silbe mit Konsonant " + paStr.substring(i)) ;
         i++;
       }
 
       // es folgen nur noch Konsonanten bis zum Ende des Wortes
       else if (isAllConsonantes(paStr.substring(i))) {
-        System.out.println("es folgen nur noch Konsonanten bis zum Ende des Wortes " + paStr.substring(i)) ;
+        //System.out.println("es folgen nur noch Konsonanten bis zum Ende des Wortes " + paStr.substring(i)) ;
         i = paStr.length();
       }
 
       // keine Regel hat gezogen
       else {
-        System.out.println("keine Regel hat gezogen") ;
+        //System.out.println("keine Regel hat gezogen") ;
       }
 
     }// while
@@ -627,7 +629,7 @@ public class spell {
   }// end method
 
   private static boolean startsWithKnownWord(String paStr) {
-    System.out.println("startsWithKnownWord:" + paStr) ;
+    //System.out.println("startsWithKnownWord:" + paStr) ;
     paStr = paStr.toLowerCase() ;
     Iterator iter = knownWordHashSet.iterator();
 
@@ -640,7 +642,7 @@ public class spell {
   }// end method
 
   private static boolean endsWithKnownWord(String paStr) {
-    System.out.println("endsWithKnownWord:" + paStr) ;
+    //System.out.println("endsWithKnownWord:" + paStr) ;
     paStr = paStr.toLowerCase() ;
     Iterator iter = knownWordHashSet.iterator();
 
@@ -653,7 +655,7 @@ public class spell {
   }// end method
 
   private static boolean contentsKnownWord(String paStr) {
-    System.out.println("contentsKnownWord:" + paStr) ;
+    //System.out.println("contentsKnownWord:" + paStr) ;
     paStr = paStr.toLowerCase() ;
     Iterator iter = knownWordHashSet.iterator();
 
@@ -666,7 +668,7 @@ public class spell {
   }// end method
 
   private static boolean contentsKnownWord(String paStrFirst,String paStrNext) {
-    System.out.println("contentsKnownWord:" + paStrFirst + "?" + paStrNext) ;
+    //System.out.println("contentsKnownWord:" + paStrFirst + "?" + paStrNext) ;
     String paStr = paStrFirst + paStrNext ;
 
     Iterator iter = knownWordHashSet.iterator();
@@ -697,9 +699,9 @@ public class spell {
   }// end method
 
   private static boolean checkKnownSyllable(String paStrLast , String paStrNext) {
-    System.out.println(paStrLast + "|" + paStrNext) ;
+    //System.out.println(paStrLast + "|" + paStrNext) ;
     if (endsWithKnownSyllable(paStrLast.toLowerCase()) && startsWithKnownSyllable(paStrNext)) {
-      System.out.println("!!!");
+      //System.out.println("!!!");
       return true;
     }
     return false;
