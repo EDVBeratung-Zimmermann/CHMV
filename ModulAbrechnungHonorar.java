@@ -27,14 +27,21 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -80,8 +87,26 @@ public class ModulAbrechnungHonorar {
     private static Float Betrag19 = 0F;  // Bruttobetrag 19%
     private static Float Betrag7 = 0F;   // Bruttobetrag  7%
 
+    
+    public static void Log(String txt){
+        System.out.println(txt);
+    }
+        
+
     public static void honorar() {
 
+        JFrame meinJFrame = new JFrame();
+        meinJFrame.setSize(300,100);
+        meinJFrame.setTitle("Honorarabrechnung");
+        meinJFrame.setLocationRelativeTo(null);
+        JPanel meinPanel = new JPanel();
+        JProgressBar meinLadebalken = new JProgressBar(0,1000);
+        meinLadebalken.setValue(0);
+        meinLadebalken.setStringPainted(true);
+        meinPanel.add(meinLadebalken);
+        meinJFrame.add(meinPanel);
+        //meinJFrame.setVisible(true);
+        
         chooser.setMultiSelectionEnabled(false);
         chooser.setFileFilter(filter);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -110,18 +135,26 @@ public class ModulAbrechnungHonorar {
                     SQLVerrechnung = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     Filename = chooser.getSelectedFile().getCanonicalPath();
 // 1. Tabelle Honorar leeren   
-                    System.out.println("1. Tabelle Honorar leeren ...");
+                    Log("1. Tabelle Honorar leeren ...");
                     SQLHonorar = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     SQLHonorar.executeUpdate("DELETE FROM TBL_HONORAR");
-                    System.out.println("   -> Tabelle Honorar ist geleert");
-                    System.out.println("");
+                    Log("   -> Tabelle Honorar ist geleert");
+                    Log("");
+                    meinLadebalken.setValue(100);
 
 // 2. Tabelle Honorar erstellen 
+                    Integer Ladebalken = 100;
                     SQLBuch = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID > '0' AND BUCH_HONORAR = '1'");
                     ID = 1;      
-                    System.out.println("2. Tabelle Honorar erstellen ...");
+                    Log("2. Tabelle Honorar erstellen ...");
                     while (resultBuch.next()) {
+                        meinLadebalken.setValue(Ladebalken); Ladebalken = Ladebalken + 1;
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(ModulAbrechnungHonorar.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         String Titel = resultBuch.getString("BUCH_TITEL");
                         Titel = Titel.replace(",", " ");
                         Titel = Titel.replace("+", " ");
@@ -173,26 +206,26 @@ public class ModulAbrechnungHonorar {
                                     resultHonorar.updateFloat("HONORAR_PREIS_HC", resultBuch.getFloat("BUCH_PREIS"));
                                     resultHonorar.updateFloat("HONORAR_MARGE_HC", resultBuch.getFloat("BUCH_MARGE"));
                                     resultHonorar.updateInt("HONORAR_FIX_HC", resultBuch.getInt("BUCH_BODFIX"));
-                                    System.out.println("   .. Ergänze Titel HC " + Titel);
+                                    Log("   .. Ergänze Titel HC " + Titel);
                                     break;
                                 case 0: // PB
                                     resultHonorar.updateString("HONORAR_ISBN_PB", resultBuch.getString("BUCH_ISBN"));
                                     resultHonorar.updateFloat("HONORAR_PREIS_PB", resultBuch.getFloat("BUCH_PREIS"));
                                     resultHonorar.updateFloat("HONORAR_MARGE_PB", resultBuch.getFloat("BUCH_MARGE"));
                                     resultHonorar.updateInt("HONORAR_FIX_PB", resultBuch.getInt("BUCH_BODFIX"));
-                                    System.out.println("   .. Ergänze Titel PB " + Titel);
+                                    Log("   .. Ergänze Titel PB " + Titel);
                                     break;
                                 case 2: // EB
                                     resultHonorar.updateString("HONORAR_ISBN_EB", resultBuch.getString("BUCH_ISBN"));
                                     resultHonorar.updateFloat("HONORAR_PREIS_EB", resultBuch.getFloat("BUCH_PREIS"));
                                     resultHonorar.updateFloat("HONORAR_MARGE_EB", resultBuch.getFloat("BUCH_MARGE"));
                                     resultHonorar.updateInt("HONORAR_FIX_EB", resultBuch.getInt("BUCH_BODFIX"));
-                                    System.out.println("   .. Ergänze Titel EB " + Titel);
+                                    Log("   .. Ergänze Titel EB " + Titel);
                                     break;
                             }
                             resultHonorar.updateRow();
                         } else { // der Titel existiert noch nicht in der Honorardatenbank
-                            System.out.println("   .. Ergänze Titel " + Titel);
+                            Log("   .. Ergänze Titel " + Titel);
                             resultHonorar.moveToInsertRow();
                             String Autoren = resultBuch.getString("BUCH_AUTOR") + ",0";
                             String[] Autor = Autoren.split(",");
@@ -258,19 +291,21 @@ public class ModulAbrechnungHonorar {
                             ID = ID + 1;
                         } // Datensatz vorhanden
                     } // while Buch
-                    System.out.println("   -> Honorardatenbank erstellt");
-                    System.out.println("");
+                    Log("   -> Honorardatenbank erstellt");
+                    Log("");
 
 // 3. Honorardatenbank mit BoD-Sales füllen                    
-                    System.out.println("3. Füllen der Honorardatenbank mit BoD-Sales");
+                    Log("3. Füllen der Honorardatenbank mit BoD-Sales");
+                    Ladebalken = 200;
                     Integer AnzahlGesamt = 0;
                     BufferedReader in = new BufferedReader(new FileReader(Filename));
                     String CSVzeileIn = null;
                     zeile = 1;
                     while ((CSVzeileIn = in.readLine()) != null) {
+                        meinLadebalken.setValue(Ladebalken); Ladebalken = Ladebalken + 1;
                         // Zeile lesen
                         String CSVZeile[] = CSVzeileIn.split(";");
-                        System.out.println("   lese Zeile: "+CSVzeileIn);
+                        Log("   lese Zeile: "+CSVzeileIn);
                         switch (zeile) {
                             case 1: // Kopf mit Zeitraum
                                 String Zeitraum = CSVZeile[0].substring(10, CSVZeile[0].length());
@@ -287,7 +322,7 @@ public class ModulAbrechnungHonorar {
 
                                 ISBN = ISBN.replace("-", "");
                                 String sAnzahlGesamt = CSVZeile[4];
-                                System.out.println("   .. " + ISBN + " " + sAnzahlGesamt);
+                                Log("   .. " + ISBN + " " + sAnzahlGesamt);
                                 if (sAnzahlGesamt.contains(".")) {
                                     sAnzahlGesamt = sAnzahlGesamt.replace(".", "");
                                 }
@@ -316,7 +351,7 @@ public class ModulAbrechnungHonorar {
                                     resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ISBN = '" + ISBN + "'");
                                     resultBuch.next();
                                     resultHonorar.moveToInsertRow();
-                                    System.out.println("   -> ergänze Datensatz mit ID " + Integer.toString(ID) + " ISBN " + ISBN);
+                                    Log("   -> ergänze Datensatz mit ID " + Integer.toString(ID) + " ISBN " + ISBN);
                                     resultHonorar.updateInt("HONORAR_ID", ID);
                                     resultHonorar.updateInt("HONORAR_ZAHLEN", 0);
                                     resultHonorar.updateString("HONORAR_TITEL", resultBuch.getString("BUCH_TITEL"));
@@ -385,11 +420,12 @@ public class ModulAbrechnungHonorar {
                         }
                         zeile = zeile + 1;
                     }    // while CSV-einlesen
-                    System.out.println("   -> BoD-Sales eingelesen");
-                    System.out.println("");
+                    Log("   -> BoD-Sales eingelesen");
+                    Log("");
 
 // Bestellungen ergänzen im Zeitraum strVon strBis
-                    System.out.println("4. Füllen der Honorardatenbank mit Miles-Verkäufen ");
+                    Log("4. Füllen der Honorardatenbank mit Miles-Verkäufen ");
+                    Ladebalken = 300;
                     AnzahlGesamt = 0;
                     Integer AnzahlAutor = 0;
                     Integer AnzahlGeschenk = 0;
@@ -400,13 +436,14 @@ public class ModulAbrechnungHonorar {
                     resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID > '0' AND BUCH_HONORAR = '1'");
 
                     while (resultBuch.next()) {
+                    meinLadebalken.setValue(Ladebalken); Ladebalken = Ladebalken + 1;
                         AnzahlGesamt = 0;
                         AnzahlAutor = 0;
                         AnzahlGeschenk = 0;
 
                         // hole die Autorendaten
                         String ISBN = resultBuch.getString("BUCH_ISBN");
-                        System.out.println("   .. für " + ISBN + " " + resultBuch.getString("BUCH_TITEL"));
+                        Log("   .. für " + ISBN + " " + resultBuch.getString("BUCH_TITEL"));
                         String[] AutorenIDs = resultBuch.getString("BUCH_AUTOR").split(",");
                         String Autor = "";
                         for (int i = 0; i < AutorenIDs.length; i++) {
@@ -475,11 +512,13 @@ public class ModulAbrechnungHonorar {
                         }
                         resultHonorar.updateRow();
                     } // while resultBuch.next()
-                    System.out.println("   -> Verkäufe Miles-Verlag eingelesen");
-                    System.out.println("");
+                    Log("   -> Verkäufe Miles-Verlag eingelesen");
+                    Log("");
 
 // Honorartabelle auswerten
-                    System.out.println("5. Honorardatenbank auswerten");
+                    Log("5. Honorardatenbank auswerten");
+                    Ladebalken = 400;
+                    meinLadebalken.setValue(Ladebalken); Ladebalken = Ladebalken + 1;
                     Integer Anz_PB = 0;
                     Integer Anz_HC = 0;
                     Integer Anz_EB = 0;
@@ -520,15 +559,16 @@ public class ModulAbrechnungHonorar {
                         }
                         resultHonorar.updateRow();
                     } // while resultHonorar.next()
-                    System.out.println("   -> Honorardatenbank ausgewertet");
-                    System.out.println("");
+                    Log("   -> Honorardatenbank ausgewertet");
+                    Log("");
 
 // ausgeben der Gesamt-Honorar-Tabelle
-                    System.out.println("6. Honorardatenbank ausgeben");
+                    Log("6. Honorardatenbank ausgeben");
+                    Ladebalken = 500;
                     resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR "
                             + "WHERE HONORAR_VEREINBART = TRUE");
                     while (resultHonorar.next()) {
-
+                        meinLadebalken.setValue(Ladebalken); Ladebalken = Ladebalken + 1;
                         if (resultHonorar.getBoolean("HONORAR_VERTEILEN")) {
                             briefHonorar.briefPDF(
                                     resultHonorar.getInt("HONORAR_ID"), //  0
@@ -629,26 +669,28 @@ public class ModulAbrechnungHonorar {
                             );
                         }
                     } // while 
-                    System.out.println("");
-                    System.out.println("   -> Briefe sind erstellt");
-                    System.out.println("");
+                    Log("");
+                    Log("   -> Briefe sind erstellt");
+                    Log("");
                     
                     // prüfen auf verrechnungen
-                    System.out.println("7. Bestellungen nach Verrechnungen durchsuchen ...");
+                    Log("7. Bestellungen nach Verrechnungen durchsuchen ...");
+                    Ladebalken = 600;
+                    meinLadebalken.setValue(Ladebalken); Ladebalken = Ladebalken + 1;
                     resultVerrechnung = SQLVerrechnung.executeQuery("SELECT * FROM TBL_VERRECHNUNG");
                     resultBestellung2 = SQLBestellung2.executeQuery("SELECT * FROM TBL_BESTELLUNG"
                             + " WHERE BESTELLUNG_BEZAHLUNG = '1'"
                             + " GROUP BY BESTELLUNG_KUNDE");
-                    System.out.println("   -> zu verrechnende Autoren ermittelt");
+                    Log("   -> zu verrechnende Autoren ermittelt");
                     int ID = 1;
                     while (resultBestellung2.next()) {
                         SQLHonorar.executeUpdate("DELETE FROM TBL_VERRECHNUNG");
-                        System.out.println("   -> Tabelle Verrechnung ist geleert");
+                        Log("   -> Tabelle Verrechnung ist geleert");
                         ID = 1;
 
                         resultBestellung = SQLBestellung.executeQuery("SELECT * FROM TBL_BESTELLUNG"
                                 + " WHERE BESTELLUNG_KUNDE = '" + resultBestellung2.getString("BESTELLUNG_KUNDE") + "'");
-                        System.out.println("   -> zu verrechnende Rechnungen der Autoren ermitteln ...");
+                        Log("   -> zu verrechnende Rechnungen der Autoren ermitteln ...");
                         while (resultBestellung.next()) {
                             Betrag19 = 0F;
                             Betrag7 = 0F;
@@ -705,10 +747,10 @@ public class ModulAbrechnungHonorar {
 
                             ID = ID + 1;
                         } // while resultBestellung
-                        System.out.println("   -> Anschreiben erstellen für Autor " + resultBestellung2.getString("BESTELLUNG_KUNDE") + " ...");
+                        Log("   -> Anschreiben erstellen für Autor " + resultBestellung2.getString("BESTELLUNG_KUNDE") + " ...");
                         if (resultBestellung2.getString("BESTELLUNG_KUNDE").equals("-1")) {} else
                         if (resultBestellung2.getString("BESTELLUNG_KUNDE").equals("0")) {
-                            System.out.println("   -> Autor " + resultBestellung2.getString("BESTELLUNG_KUNDE") + " existiert nicht!");
+                            Log("   -> Autor " + resultBestellung2.getString("BESTELLUNG_KUNDE") + " existiert nicht!");
                         } else {
                             briefVerrechnungHonorar.briefPDF(resultBestellung2.getString("BESTELLUNG_KUNDE"));
                         }
@@ -727,6 +769,7 @@ public class ModulAbrechnungHonorar {
                 }
                 Modulhelferlein.Infomeldung("Die Briefe mit der Abrechnung sind als PDF gespeichert!");
             } // conn steht 
+            meinJFrame.setVisible(false);
         } // if Dateiauswahl
     }    // void honorar
 }    // class
