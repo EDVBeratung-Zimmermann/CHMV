@@ -1297,7 +1297,8 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
     private void jMenuItemVerlagsfuehrungHonorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungHonorarActionPerformed
         // TODO add your handling code here:
         System.out.println("Dialog Honorarabrechnung");
-        ModulAbrechnungHonorar.honorar();
+        //ModulAbrechnungHonorar.honorar();
+        ModulAbrechnungHonorarProgressBar.main(null);
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungHonorarActionPerformed
 
     private void jMenuItemBerichteZahlungenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBerichteZahlungenActionPerformed
