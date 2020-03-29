@@ -92,6 +92,11 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         VerwaltenDatenbankBenutzer.main(null);
     }
 
+    private void menuItemVerlagsfuerhrungFlyerActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        _DlgFlyer.main(null);
+    }
+
     /**
      * Creates new form CHMV
      */
@@ -381,6 +386,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         jMenuItemVerlagsfuehrungJahreswechsel = new JMenuItem();
         jMenuItemVerlagsfuehrungBriefpapier = new JMenuItem();
         jMenuItemBriefpapierAdresse = new JMenuItem();
+        menuItemVerlagsfuerhrungFlyer = new JMenuItem();
         jMenuVerlagsfuehrungDatensicherung = new JMenu();
         jMenuItemVerlagsführungDatensicherungKonfiguration = new JMenuItem();
         jMenuItemVerlagsführungDatensicherungDatensicherung = new JMenuItem();
@@ -606,6 +612,11 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                 jMenuItemBriefpapierAdresse.setText("Brief ...");
                 jMenuItemBriefpapierAdresse.addActionListener(e -> jMenuItemBriefpapierAdresseActionPerformed(e));
                 jMenuVerlagsfuehrung.add(jMenuItemBriefpapierAdresse);
+
+                //---- menuItemVerlagsfuerhrungFlyer ----
+                menuItemVerlagsfuerhrungFlyer.setText("Flyer erstellen ...");
+                menuItemVerlagsfuerhrungFlyer.addActionListener(e -> menuItemVerlagsfuerhrungFlyerActionPerformed(e));
+                jMenuVerlagsfuehrung.add(menuItemVerlagsfuerhrungFlyer);
                 jMenuVerlagsfuehrung.addSeparator();
 
                 //======== jMenuVerlagsfuehrungDatensicherung ========
@@ -926,7 +937,8 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         }
         setJMenuBar(jMenuBar1);
 
-        { // compute preferred size
+        {
+            // compute preferred size
             Dimension preferredSize = new Dimension();
             for(int i = 0; i < contentPane.getComponentCount(); i++) {
                 Rectangle bounds = contentPane.getComponent(i).getBounds();
@@ -1298,7 +1310,8 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println("Dialog Honorarabrechnung");
         //ModulAbrechnungHonorar.honorar();
-        ModulAbrechnungHonorarProgressBar.main(null);
+        //ModulAbrechnungHonorarProgressBar.main(null);
+        ModulHonorarProgressBar.main(null);
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungHonorarActionPerformed
 
     private void jMenuItemBerichteZahlungenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBerichteZahlungenActionPerformed
@@ -1539,6 +1552,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
     private JMenuItem jMenuItemVerlagsfuehrungJahreswechsel;
     private JMenuItem jMenuItemVerlagsfuehrungBriefpapier;
     private JMenuItem jMenuItemBriefpapierAdresse;
+    private JMenuItem menuItemVerlagsfuerhrungFlyer;
     private JMenu jMenuVerlagsfuehrungDatensicherung;
     private JMenuItem jMenuItemVerlagsführungDatensicherungKonfiguration;
     private JMenuItem jMenuItemVerlagsführungDatensicherungDatensicherung;
@@ -1606,4 +1620,17 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
     private static Statement SQLAnfrageKonfiguration;
     private static ResultSet resultKonfiguration;
 
+
+    private class FlyerErstellen extends AbstractAction {
+        private FlyerErstellen() {
+            // JFormDesigner - Action initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+            putValue(NAME, "Flyer erstellen ...");
+            // JFormDesigner - End of action initialization  //GEN-END:initComponents
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // TODO add your code here
+           
+        }
+    }
 }
