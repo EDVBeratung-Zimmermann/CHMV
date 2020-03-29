@@ -3,7 +3,7 @@
  * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
  * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
  *
- * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von SOftware
+ * Copyright (C) 2020 EDV-Beratung und Betrieb, Entwicklung von SOftware
  *                    Dipl.Inform Thomas Zimmermann
  *
  * This program is free software: you can redistribute it and/or modify
@@ -55,30 +55,24 @@ public class _DlgFlyer extends javax.swing.JDialog {
         try { // Datenbank-Treiber laden
             Class.forName(Modulhelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("DB-Bestellung", "Treiber nicht gefunden: ", exept.getMessage());
+            Modulhelferlein.Fehlermeldung("Dialog Flyer", "Datenbanktreiber nicht gefunden: ", exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
             conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("DB-Bestellung", "Verbindung nicht moeglich: ", exept.getMessage());
+            Modulhelferlein.Fehlermeldung("Dialog Flyer", "Datenbankverbindung nicht moeglich: ", exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank über die JDBC-Brücke
 
         if (conn != null) {
 
-            SQLAnfrageB = null; // Anfrage erzeugen für result => Bestellungen
-            SQLAnfrageBD = null; // Anfrage erzeugen für resultB => Bestellungen Details
             SQLAnfrageK = null; // Anfrage erzeugen für resultK => Aufbau Kundenliste
-            SQLAnfrageBNr = null; // Anfrage erzeugen für resultBNr => Bestellnummer
             SQLAnfrageBuch = null; // Anfrage erzeugen für resultBuch => Aufbau Bücherliste
 
             try { // SQL-Anfragen an die Datenbank
-                SQLAnfrageB = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                SQLAnfrageBD = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 SQLAnfrageK = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                SQLAnfrageBNr = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 SQLAnfrageBuch = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
                 eintrag = "";
@@ -155,7 +149,7 @@ public class _DlgFlyer extends javax.swing.JDialog {
             jLabel1.setFont(new Font("Tahoma", Font.BOLD, 12));
             jLabel1.setText("Flyer erstellen");
             panel1.add(jLabel1);
-            jLabel1.setBounds(new Rectangle(new Point(0, 0), jLabel1.getPreferredSize()));
+            jLabel1.setBounds(0, 0, 260, jLabel1.getPreferredSize().height);
 
             //---- jLabel6 ----
             jLabel6.setText("Ausgabeformat");
@@ -315,15 +309,9 @@ public class _DlgFlyer extends javax.swing.JDialog {
     private JButton Schliessen;
     // End of variables declaration//GEN-END:variables
     private Connection conn;
-    private Statement SQLAnfrageB;
-    private Statement SQLAnfrageBD;
     private Statement SQLAnfrageK;
-    private Statement SQLAnfrageBNr;
     private Statement SQLAnfrageBuch;
-    private ResultSet resultB;
-    private ResultSet resultBD;
     private ResultSet resultK;
-    private ResultSet resultBNr;
     private ResultSet resultBuch;
     private String eintrag;
 

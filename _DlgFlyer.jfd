@@ -73,6 +73,10 @@
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
           <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>width</string>
+           <int>260</int>
+          </void>
          </object>
         </void>
         <void method="add">
