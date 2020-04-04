@@ -50,175 +50,190 @@ public class briefFlyer {
     }
 
     private static void FlyerPDF(String buchISBN) {
-        try {
-            //Modulhelferlein.Infomeldung("PDF noch nicht implementiert");
+        String outputFileName = Modulhelferlein.pathBuchprojekte + "/" + buchISBN + "/Flyer";
 
-            String outputFileName = Modulhelferlein.pathBuchprojekte + "/" + buchISBN + "/Flyer/";
-
-            boolean checkDir = Modulhelferlein.checkDir(outputFileName);
-
-            outputFileName = outputFileName + "Flyer-"
+        if (Modulhelferlein.checkDir(outputFileName)) {
+            outputFileName = outputFileName + "/Flyer-"
                     + buchISBN
                     + "-"
                     + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
                     + ".pdf";
 
-            // Create a document and add a page to it
-            PDDocument document = new PDDocument();
-            PDPage page = new PDPage(A4);
-            document.addPage(page);
+            try {
+                //Modulhelferlein.Infomeldung("PDF noch nicht implementiert");
 
-            // Create a new font object selecting one of the PDF base fonts
-            PDFont fontPlain = PDType1Font.HELVETICA;
-            PDFont fontBold = PDType1Font.HELVETICA_BOLD;
-            PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
+                // Create a document and add a page to it
+                PDDocument document = new PDDocument();
+                PDPage page = new PDPage(A4);
+                document.addPage(page);
+
+                // Create a new font object selecting one of the PDF base fonts
+                PDFont fontPlain = PDType1Font.HELVETICA;
+                PDFont fontBold = PDType1Font.HELVETICA_BOLD;
+                PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
+                PDFont fontUni = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
 
 //        PDFont fontMono = PDType1Font.COURIER;
 // Start a new content stream which will "hold" the to be created content
-            PDPageContentStream cos;
-            cos = new PDPageContentStream(document, page);
+                PDPageContentStream cos;
+                cos = new PDPageContentStream(document, page);
 
-            // Set a Font and its Size
-            // We cannot use the standard fonts provided.
-            // pdPageContentStream.setFont(PDType1Font.HELVETICA, 12);
-            PDFont fontUni = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
-
+                // Set a Font and its Size
+                // We cannot use the standard fonts provided.
+                // pdPageContentStream.setFont(PDType1Font.HELVETICA, 12);
 // Kopfzeile mit Bild
-            try {
-                BufferedImage awtImage = ImageIO.read(new File("header-brief.jpg"));
-                //PDImageXObject  ximage = new PDPixelMap(document, awtImage);
-                PDImageXObject pdImage = PDImageXObject.createFromFile("header-brief.jpg", document);
-                float scaley = 0.5f; // alter this value to set the image size
-                float scalex = 0.75f; // alter this value to set the image size
-                cos.drawImage(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
-                cos.drawImage(pdImage, 57, 770, 481, pdImage.getHeight() * scaley);
-                //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
-            } catch (FileNotFoundException fnfex) {
-                System.out.println("No image for you");
-            }
-
-// Fu?zeile
-            Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
-
-            Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
-
-            Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
-
-// Kopfzeile
-            try {
-                AusgabeZ(cos, fontBold, 16, Color.RED, 57, 740, "NEUERSCHEINUNG " + resultBuch.getString("BUCH_JAHR"), 220);
-                // Autor holen
-                String[] col_Autorliste = resultBuch.getString("BUCH_AUTOR").split(",");
-                String AutorEintrag = "";
-                for (String strAutor : col_Autorliste) {
-                    resultAutor = SQLAnfrageAutor.executeQuery(
-                            "SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = " + strAutor);
-                    resultAutor.next();
-                    AutorEintrag = AutorEintrag
-                            + resultAutor.getString("ADRESSEN_Name") + ", "
-                            + resultAutor.getString("ADRESSEN_Vorname") + "; ";
-                }
-                AutorEintrag = AutorEintrag.substring(0, AutorEintrag.length() - 2);
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 700, AutorEintrag, 220);
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 57, 670, resultBuch.getString("BUCH_TITEL"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 640, "ISBN: " + resultBuch.getString("BUCH_ISBN")
-                        + ", " + resultBuch.getString("BUCH_SEITEN") + " Seiten");
-                switch (resultBuch.getInt("Buch_HC")) {
-                    case 0:
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, Paperback");
-                        break;
-                    case 1:
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, Hardcover");
-                        break;
-                    case 2:
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, E-Book");
-                        break;
-                }
-
-// Beschreibung ab Zeile 580  bis 57 => 600 => 35 Zeilen á 40 Zeichen
-                String Beschreibung = spell.formatText(resultBuch.getString("BUCH_BESCHREIBUNG"), 40);
-                String[] Flyertext = Beschreibung.split("~#!#~");
-
-                int zeile = 580;
-                for (int i = 0; i < Flyertext.length; i++) {
-                    Ausgabe(cos, fontUni, 11, Color.BLACK, 57, 580 - i * 16, Flyertext[i]);
-                }
-
-// Cover
                 try {
-                    BufferedImage awtImage = ImageIO.read(new File(resultBuch.getString("BUCH_COVER")));
+                    BufferedImage awtImage = ImageIO.read(new File("header-brief.jpg"));
                     //PDImageXObject  ximage = new PDPixelMap(document, awtImage);
-                    PDImageXObject pdImage = PDImageXObject.createFromFile(resultBuch.getString("BUCH_COVER"), document);
-                    //float scaley = 0.5f; // alter this value to set the image size
-                    //float scalex = 0.75f; // alter this value to set the image size
-                    //cos.drawImage(pdImage, 312, 450, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
-                    cos.drawImage(pdImage, 312, 450, 226, 300);
+                    PDImageXObject pdImage = PDImageXObject.createFromFile("header-brief.jpg", document);
+                    float scaley = 0.5f; // alter this value to set the image size
+                    float scalex = 0.75f; // alter this value to set the image size
+                    cos.drawImage(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
+                    cos.drawImage(pdImage, 57, 770, 481, pdImage.getHeight() * scaley);
                     //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                 } catch (FileNotFoundException fnfex) {
                     System.out.println("No image for you");
                 }
-// Bestellung
-                Ausgabe(cos, fontBold, 11, Color.BLACK, 315, 410, "Bestellcoupon");
-                Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 395, "Hiermit bestelle ich ..... Exemplar(e) des Buches");
-                Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 380, "zum Preis von " + resultBuch.getString("BUCH_PREIS") + " Euro je Exemplar.");
 
-                Ausgabe(cos, fontBold, 11, Color.BLACK, 315, 350, "Bitte senden Sie Ihre Bestellung an");
-                Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 330, "Carola Hartmann Miles Verlag");
-                Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 315, "Alt-Kladow 16D");
-                Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 300, "14089 Berlin");
-                Ausgabe(cos, fontBold, 11, Color.BLACK, 315, 280, "oder per E-Mail an");
-                Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 260, "miles-verlag@t-online.de");
+// Fu?zeile
+                Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+
+                Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+
+                Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+
+// Kopfzeile
+                // Autor
+                try {
+                    AusgabeZ(cos, fontBold, 16, Color.RED, 57, 740, "NEUERSCHEINUNG " + resultBuch.getString("BUCH_JAHR"), 220);
+                    // Autor holen
+                    String[] col_Autorliste = resultBuch.getString("BUCH_AUTOR").split(",");
+                    String AutorEintrag = "";
+                    for (String strAutor : col_Autorliste) {
+                        resultAutor = SQLAnfrageAutor.executeQuery(
+                                "SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = " + strAutor);
+                        resultAutor.next();
+                        AutorEintrag = AutorEintrag
+                                + resultAutor.getString("ADRESSEN_Name") + ", "
+                                + resultAutor.getString("ADRESSEN_Vorname") + "; ";
+                    }
+                    AutorEintrag = AutorEintrag.substring(0, AutorEintrag.length() - 2);
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 700, AutorEintrag, 220);
+                    // Titel
+                    String Titel = spell.formatText(resultBuch.getString("BUCH_TITEL"), 40);
+                    String[] SplitTitel = Titel.split("~#!#~");
+                    Titel = resultBuch.getString("BUCH_TITEL");
+                    int zeile = 670;
+                    int i = 0;
+                    for (i = 0; i < SplitTitel.length; i++) {
+                        Ausgabe(cos, fontBold, 12, Color.BLACK, 57, zeile - i * 15, SplitTitel[i]);
+                    }
+                    // Buchdaten
+                    // ISBN, Seitenzahl
+                    zeile = zeile - 35;
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, zeile, "ISBN: " + resultBuch.getString("BUCH_ISBN")
+                            + ", " + resultBuch.getString("BUCH_SEITEN") + " Seiten");
+                    zeile = zeile - 20;
+                    // Buchtyp, Preis
+                    switch (resultBuch.getInt("Buch_HC")) {
+                        case 0:
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, Paperback");
+                            break;
+                        case 1:
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, Hardcover");
+                            break;
+                        case 2:
+                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, E-Book");
+                            break;
+                    }
+
+// Beschreibung 
+                    String Beschreibung = spell.formatText(resultBuch.getString("BUCH_BESCHREIBUNG"), 40);
+                    String[] Flyertext = Beschreibung.split("~#!#~");
+
+                    zeile = zeile - 40;
+                    for (i = 0; i < Flyertext.length; i++) {
+                        Ausgabe(cos, fontUni, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i]);
+                    }
+
+// Cover
+                    try {
+                        BufferedImage awtImage = ImageIO.read(new File(resultBuch.getString("BUCH_COVER")));
+                        //PDImageXObject  ximage = new PDPixelMap(document, awtImage);
+                        PDImageXObject pdImage = PDImageXObject.createFromFile(resultBuch.getString("BUCH_COVER"), document);
+                        //float scaley = 0.5f; // alter this value to set the image size
+                        //float scalex = 0.75f; // alter this value to set the image size
+                        //cos.drawImage(pdImage, 312, 450, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
+                        cos.drawImage(pdImage, 312, 450, 226, 300);
+                        //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
+                    } catch (FileNotFoundException fnfex) {
+                        System.out.println("No image for you");
+                    }
+// Bestellung
+                    Ausgabe(cos, fontBold, 11, Color.BLACK, 315, 410, "Bestellcoupon");
+                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 395, "Hiermit bestelle ich ..... Exemplar(e) des Buches");
+                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 380, "zum Preis von " + resultBuch.getString("BUCH_PREIS") + " Euro je Exemplar.");
+
+                    Ausgabe(cos, fontBold, 11, Color.BLACK, 315, 350, "Bitte senden Sie Ihre Bestellung an");
+                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 330, "Carola Hartmann Miles Verlag");
+                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 315, "Alt-Kladow 16D");
+                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 300, "14089 Berlin");
+                    Ausgabe(cos, fontBold, 11, Color.BLACK, 315, 280, "oder per E-Mail an");
+                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 260, "miles-verlag@t-online.de");
 
 // Absender
-                Linie(cos, 2, 312, 57, 538, 57);
-                Linie(cos, 2, 312, 240, 538, 240);
-                Linie(cos, 2, 312, 57, 312, 240);
-                Linie(cos, 2, 538, 57, 538, 240);
+                    Linie(cos, 2, 312, 57, 538, 57);
+                    Linie(cos, 2, 312, 240, 538, 240);
+                    Linie(cos, 2, 312, 57, 312, 240);
+                    Linie(cos, 2, 538, 57, 538, 240);
 
-                Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 230, "Absender");
-                Linie(cos, 1, 315, 200, 535, 200);
-                Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 190, "Name");
-                Linie(cos, 1, 315, 160, 535, 160);
-                Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 150, "Straße");
-                Linie(cos, 1, 315, 120, 535, 120);
-                Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 110, "Postleitzahl, Ort");
-                Linie(cos, 1, 315, 80, 535, 80);
-                Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 70, "Datum, Unterschrift");
+                    Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 230, "Absender");
+                    Linie(cos, 1, 315, 200, 535, 200);
+                    Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 190, "Name");
+                    Linie(cos, 1, 315, 160, 535, 160);
+                    Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 150, "Straße");
+                    Linie(cos, 1, 315, 120, 535, 120);
+                    Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 110, "Postleitzahl, Ort");
+                    Linie(cos, 1, 315, 80, 535, 80);
+                    Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 70, "Datum, Unterschrift");
 
 // Make sure that the content stream is closed:
-                cos.close();
+                    cos.close();
 
 // Save the results and ensure that the document is properly closed:
-                document.save(outputFileName);
-                document.close();
+                    document.save(outputFileName);
+                    document.close();
 
-                Modulhelferlein.Infomeldung("Flyer ist als PDF gespeichert!");
-                resultBuch.updateString("BUCH_FLYER", outputFileName);
-                System.out.println("Update Link zum Flyer: "+outputFileName);
-                resultBuch.updateRow();
-            } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
+                    Modulhelferlein.Infomeldung("Flyer ist als PDF gespeichert!");
+                    resultBuch.updateString("BUCH_FLYER", outputFileName);
+                    resultBuch.updateString("BUCH_TITEL", Titel);
+                    System.out.println("Update Link zum Flyer: " + outputFileName);
+                    resultBuch.updateRow();
+                } catch (SQLException ex) {
+                    Modulhelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
+                }
+
+                try {
+                    Runtime.getRuntime().exec("cmd.exe /c " + outputFileName);
+                } catch (IOException exept) {
+                    Modulhelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
+                }// try Brief ausgeben
+
+            } catch (IOException ex) {
+                Modulhelferlein.Fehlermeldung("IO-Exception: " + ex.getMessage());
             }
-
-            try {
-                Runtime.getRuntime().exec("cmd.exe /c " + outputFileName);
-            } catch (IOException exept) {
-                Modulhelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
-            }// try Brief ausgeben
-
-        } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + ex.getMessage());
+        } else {
+            System.out.println("Verzeichnis " + outputFileName + " konnte nicht angelegt werden");
         }
-
     }
 
     public static void bericht(String buchISBN, String Format) {
@@ -266,7 +281,5 @@ public class briefFlyer {
                 Modulhelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
             }
         };
-
     } // void
-
 }
