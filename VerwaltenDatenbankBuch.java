@@ -32,8 +32,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -43,20 +41,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.ActionMapUIResource;
 import static milesVerlagMain.ModulMyOwnFocusTraversalPolicy.newPolicy;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.Linie;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -91,13 +77,20 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
     private void FlyerActionPerformed(ActionEvent event) {
         try {
             // TODO add your code here
-            briefFlyer.bericht(result.getString("BUCH_ISBN"), "PDF");
+            String ISBN = result.getString("BUCH_ISBN");
+            briefFlyer.bericht(ISBN, "PDF");
+            result = SQLAnfrage.executeQuery("SELECT * FROM tbl_buch "
+                    + " WHERE BUCH_ID > '0' "
+                    + " ORDER BY BUCH_ISBN");
+            result.first();
+            while (!ISBN.equals(result.getString("BUCH_ISBN"))) {
+                result.next();
+            }
+            field_Flyer.setText(result.getString("BUCH_FLYER"));
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Flyer erstellen","SQL-Exception", ex.getMessage());
+            Modulhelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
         }
     }
-
-    
 
     public VerwaltenDatenbankBuch(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -1161,9 +1154,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Auflage.setText(Integer.toString(result.getInt("BUCH_AUFLAGE")));
             field_DruckNr.setText(result.getString("Buch_Druckereinummer"));
             field_Jahr.setText(result.getString("Buch_JAHR"));
-            if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) 
-                 field_Gesamtbetrachtung.setSelected(true);
-            else field_BODgetrennt.setSelected(true);
+            if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) {
+                field_Gesamtbetrachtung.setSelected(true);
+            } else {
+                field_BODgetrennt.setSelected(true);
+            }
             field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
             field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
             field_DNB.setSelected(result.getBoolean("Buch_DEUNATBIBL"));
@@ -1288,9 +1283,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Text.setText(result.getString("Buch_TEXT"));
                 field_Honorar.setSelected(result.getBoolean("Buch_HONORAR"));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-                if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) 
-                     field_Gesamtbetrachtung.setSelected(true);
-                else field_BODgetrennt.setSelected(true);
+                if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) {
+                    field_Gesamtbetrachtung.setSelected(true);
+                } else {
+                    field_BODgetrennt.setSelected(true);
+                }
                 field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                 field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
@@ -1406,9 +1403,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Text.setText(result.getString("Buch_TEXT"));
                 field_Honorar.setSelected(result.getBoolean("Buch_HONORAR"));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-                if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) 
-                 field_Gesamtbetrachtung.setSelected(true);
-                else field_BODgetrennt.setSelected(true);
+                if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) {
+                    field_Gesamtbetrachtung.setSelected(true);
+                } else {
+                    field_BODgetrennt.setSelected(true);
+                }
                 field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                 field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
@@ -1519,9 +1518,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             field_Text.setText(result.getString("Buch_TEXT"));
             field_Honorar.setSelected(result.getBoolean("Buch_HONORAR"));
             field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-            if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) 
-                 field_Gesamtbetrachtung.setSelected(true);
-            else field_BODgetrennt.setSelected(true);
+            if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) {
+                field_Gesamtbetrachtung.setSelected(true);
+            } else {
+                field_BODgetrennt.setSelected(true);
+            }
             field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
             field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
             switch (result.getInt("Buch_HC")) {
@@ -1637,9 +1638,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                                                                 result.updateBoolean("Buch_DeuNatBibl", field_DNB.isSelected());
                                                                 result.updateBoolean("Buch_BerlLBibl", field_BLB.isSelected());
                                                                 result.updateBoolean("Buch_VLB", field_VLB.isSelected());
-                                                                if (field_Gesamtbetrachtung.isSelected()) 
-                                                                     result.updateBoolean("BUCH_GESAMTBETRACHTUNG", true);
-                                                                else result.updateBoolean("BUCH_GESAMTBETRACHTUNG", false);
+                                                                if (field_Gesamtbetrachtung.isSelected()) {
+                                                                    result.updateBoolean("BUCH_GESAMTBETRACHTUNG", true);
+                                                                } else {
+                                                                    result.updateBoolean("BUCH_GESAMTBETRACHTUNG", false);
+                                                                }
                                                                 result.updateFloat("Buch_BODFIX", Float.parseFloat(field_BoDFix.getText()));
                                                                 result.updateInt("Buch_Bestand", Integer.parseInt(field_Bestand.getText()));
                                                                 result.updateInt("Buch_BODPROZENT", Integer.parseInt(field_BoDProzent.getText()));
@@ -1829,9 +1832,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Honorar_Anzahl.setText(Integer.toString(result.getInt("BUCH_HONORAR_ANZAHL")));
                 field_Honorar_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_PROZENT")));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-                if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) 
-                 field_Gesamtbetrachtung.setSelected(true);
-                else field_BODgetrennt.setSelected(true);
+                if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) {
+                    field_Gesamtbetrachtung.setSelected(true);
+                } else {
+                    field_BODgetrennt.setSelected(true);
+                }
                 field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                 field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
@@ -1946,9 +1951,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_Honorar_2_Anzahl.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_ANZAHL")));
                     field_Honorar_2_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_PROZENT")));
                     field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-                    if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) 
-                         field_Gesamtbetrachtung.setSelected(true);
-                    else field_BODgetrennt.setSelected(true);
+                    if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) {
+                        field_Gesamtbetrachtung.setSelected(true);
+                    } else {
+                        field_BODgetrennt.setSelected(true);
+                    }
                     field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                     field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                     switch (result.getInt("Buch_HC")) {
@@ -2158,9 +2165,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     field_Honorar_2_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_PROZENT")));
                     field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
                     cbHerausgeber.setSelected(result.getBoolean("BUCH_HERAUSGEBER"));
-                    if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) 
-                       field_Gesamtbetrachtung.setSelected(true);
-                    else field_BODgetrennt.setSelected(true);
+                    if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) {
+                        field_Gesamtbetrachtung.setSelected(true);
+                    } else {
+                        field_BODgetrennt.setSelected(true);
+                    }
                     field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                     field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                     switch (result.getInt("Buch_HC")) {
@@ -2313,9 +2322,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 field_Honorar_2_Anzahl.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_ANZAHL")));
                 field_Honorar_2_Prozent.setText(Integer.toString(result.getInt("BUCH_HONORAR_2_PROZENT")));
                 field_Aktiv.setSelected(result.getBoolean("BUCH_AKTIV"));
-                if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) 
-                     field_Gesamtbetrachtung.setSelected(true);
-                else field_BODgetrennt.setSelected(true);
+                if (result.getBoolean("BUCH_GESAMTBETRACHTUNG")) {
+                    field_Gesamtbetrachtung.setSelected(true);
+                } else {
+                    field_BODgetrennt.setSelected(true);
+                }
                 field_BoDProzent.setText(Integer.toString(result.getInt("BUCH_BODPROZENT")));
                 field_BoDFix.setText(Float.toString(result.getFloat("BUCH_BODFIX")));
                 switch (result.getInt("Buch_HC")) {
@@ -2648,7 +2659,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 //helferlein.Infomeldung(args[1]);            
             _DlgBelegexemplareErzeugen.main(args);
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Belegexemplar erzeugen",ex.getMessage());
+            Modulhelferlein.Fehlermeldung("Belegexemplar erzeugen", ex.getMessage());
             //Logger.getLogger(VerwaltenDatenbankBuch.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtnBelegexemplarActionPerformed
