@@ -203,7 +203,12 @@ public class Modulhelferlein {
     public Modulhelferlein() {    // initialise instance variables
     }
 
-    public static String makeISBN(String ISBN) {
+    /**
+     *
+     * @param ISBN ISBN-Nummer
+     * @return
+     */
+    public static String makeISBN13(String ISBN) {
         String ISBN13 = ISBN.substring(0,3) + "-" +
                         ISBN.substring(3,4) + "-" +
                         ISBN.substring(4,9) + "-" +
@@ -212,6 +217,11 @@ public class Modulhelferlein {
         return ISBN13;
     }
     
+    /**
+     *
+     * @param dirName  Verzeichnisname, das verifiziert/erzeugt werden soll
+     * @return
+     */
     public static boolean checkDir(String dirName) {
        File stats = new File(dirName);
         if (stats.exists()) // Überprüfen, ob es den Ordner gibt
