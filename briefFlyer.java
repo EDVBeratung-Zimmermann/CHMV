@@ -15,8 +15,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import static milesVerlagMain.Modulhelferlein.Ausgabe;
@@ -27,6 +25,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
@@ -73,11 +72,16 @@ public class briefFlyer {
             PDFont fontPlain = PDType1Font.HELVETICA;
             PDFont fontBold = PDType1Font.HELVETICA_BOLD;
             PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
-//        PDFont fontMono = PDType1Font.COURIER;
 
+//        PDFont fontMono = PDType1Font.COURIER;
 // Start a new content stream which will "hold" the to be created content
             PDPageContentStream cos;
             cos = new PDPageContentStream(document, page);
+
+            // Set a Font and its Size
+            // We cannot use the standard fonts provided.
+            // pdPageContentStream.setFont(PDType1Font.HELVETICA, 12);
+            PDFont fontUni = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
 
 // Kopfzeile mit Bild
             try {
@@ -146,7 +150,7 @@ public class briefFlyer {
 
                 int zeile = 580;
                 for (int i = 0; i < Flyertext.length; i++) {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 580 - i * 16, Flyertext[i]);
+                    Ausgabe(cos, fontUni, 11, Color.BLACK, 57, 580 - i * 16, Flyertext[i]);
                 }
 
 // Cover
@@ -199,6 +203,7 @@ public class briefFlyer {
 
                 Modulhelferlein.Infomeldung("Flyer ist als PDF gespeichert!");
                 resultBuch.updateString("BUCH_FLYER", outputFileName);
+                System.out.println("Update Link zum Flyer: "+outputFileName);
                 resultBuch.updateRow();
             } catch (SQLException ex) {
                 Modulhelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
@@ -246,22 +251,22 @@ public class briefFlyer {
                 resultBuch = SQLAnfrageBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ISBN='" + buchISBN + "'");
                 resultBuch.next();
 
+                switch (Format) {
+                    case "PDF":
+                        FlyerPDF(buchISBN);
+                        break;
+                    case "XLS":
+                        FlyerXLS(buchISBN);
+                        break;
+                    default:
+                        FlyerDOC(buchISBN);
+                        break;
+                }
             } catch (SQLException ex) {
                 Modulhelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
             }
         };
 
-        switch (Format) {
-            case "PDF":
-                FlyerPDF(buchISBN);
-                break;
-            case "XLS":
-                FlyerXLS(buchISBN);
-                break;
-            default:
-                FlyerDOC(buchISBN);
-                break;
-        }
     } // void
 
 }
