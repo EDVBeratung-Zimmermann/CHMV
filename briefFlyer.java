@@ -140,7 +140,7 @@ public class briefFlyer {
                     // Buchdaten
                     // ISBN, Seitenzahl
                     zeile = zeile - 35;
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, zeile, "ISBN: " + resultBuch.getString("BUCH_ISBN")
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, zeile, "ISBN: " + Modulhelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN"))
                             + ", " + resultBuch.getString("BUCH_SEITEN") + " Seiten");
                     zeile = zeile - 20;
                     // Buchtyp, Preis
