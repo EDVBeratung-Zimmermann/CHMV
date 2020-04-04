@@ -203,8 +203,17 @@ public class Modulhelferlein {
     public Modulhelferlein() {    // initialise instance variables
     }
 
+    public static String makeISBN(String ISBN) {
+        String ISBN13 = ISBN.substring(0,3) + "-" +
+                        ISBN.substring(3,4) + "-" +
+                        ISBN.substring(4,9) + "-" +
+                        ISBN.substring(9,12) + "-" +
+                        ISBN.substring(12,13);
+        return ISBN13;
+    }
+    
     public static boolean checkDir(String dirName) {
-        File stats = new File(dirName);
+       File stats = new File(dirName);
         if (stats.exists()) // Überprüfen, ob es den Ordner gibt
         {
             return true;
