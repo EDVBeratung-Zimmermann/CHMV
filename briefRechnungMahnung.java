@@ -1634,7 +1634,7 @@ public class briefRechnungMahnung {
                                 Gesamt7 = Gesamt7 + ZBetrag;
                                 ZBetrag = Modulhelferlein.round2dec(ZBetrag);
 
-                                Ausgabe(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, resultBuch.getString("BUCH_ISBN") + ", " + AutorEintrag);
+                                Ausgabe(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN")) + ", " + AutorEintrag);
                                 AusgabeDB(cos, fontBold, 9, Color.BLACK, 450, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(resultBuch.getFloat("BUCH_PREIS") * 1.0)));
                                 AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag)));
 
@@ -1655,7 +1655,7 @@ public class briefRechnungMahnung {
                                 Produkte[itemcount + 2] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag));
                                 Produkte[itemcount + 3] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag / 107 * 100));
                                 Produkte[itemcount + 4] = resultBD.getString("BESTELLUNG_DETAIL_ANZAHL");
-                                Produkte[itemcount + 5] = resultBuch.getString("BUCH_ISBN");
+                                Produkte[itemcount + 5] = Modulhelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN"));
                             }
                             System.out.println("- Schreibe Position " + itemcount.toString() + ": " + Produkte[itemcount] + ", " + Produkte[itemcount + 1] + ", " + Produkte[itemcount + 2] + ", " + Produkte[itemcount + 3] + ", " + Produkte[itemcount + 4] + ", " + Produkte[itemcount + 5]);
                             Betrag = Betrag + ZBetrag;
@@ -2116,7 +2116,7 @@ public class briefRechnungMahnung {
                                 Gesamt7 = Gesamt7 + ZBetrag;
                                 ZBetrag = Modulhelferlein.round2dec(ZBetrag);
 
-                                Ausgabe(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, resultBuch.getString("BUCH_ISBN") + ", " + AutorEintrag);
+                                Ausgabe(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN")) + ", " + AutorEintrag);
                                 AusgabeDB(cos, fontBold, 9, Color.BLACK, 450, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(resultBuch.getFloat("BUCH_PREIS") * 1.0)));
                                 AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag)));
 
@@ -2137,7 +2137,7 @@ public class briefRechnungMahnung {
                                 Produkte[itemcount + 2] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag));
                                 Produkte[itemcount + 3] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag / 107 * 100));
                                 Produkte[itemcount + 4] = resultBD.getString("BESTELLUNG_DETAIL_ANZAHL");
-                                Produkte[itemcount + 5] = resultBuch.getString("BUCH_ISBN");
+                                Produkte[itemcount + 5] = Modulhelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN"));
                             }
                             System.out.println("- Schreibe Position " + itemcount.toString() + ": " + Produkte[itemcount] + ", " + Produkte[itemcount + 1] + ", " + Produkte[itemcount + 2] + ", " + Produkte[itemcount + 3] + ", " + Produkte[itemcount + 4] + ", " + Produkte[itemcount + 5]);
                             Betrag = Betrag + ZBetrag;
