@@ -709,7 +709,7 @@ public class briefPflichtexemplar {
             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 510, Modulhelferlein.CheckStr("beiliegend übersende ich Ihnen zwei Pflichtexemplare unserer Neuerscheinung von"));
             Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 490, Autor);
             Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 475, Titel);
-            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 460, "ISBN: " + ISBN);
+            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 460, "ISBN: " + Modulhelferlein.makeISBN13(ISBN));
             Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 445, "Carola Hartmann Miles-Verlag, " + Jahr);
             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 425, "zur Aufnahme in die Deutsche Nationalbibliothek.");
 // Schlussformel
@@ -816,7 +816,7 @@ public class briefPflichtexemplar {
 
             Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 490, Autor);
             Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 475, Titel);
-            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 460, "ISBN: " + ISBN);
+            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 460, "ISBN: " + Modulhelferlein.makeISBN13(ISBN));
             Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 445, "Carola Hartmann Miles-Verlag, " + Jahr);
             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 425, "zur Aufnahme in die Zentral- und Landesbibliothek Berlin.");
 // Schlussformel
