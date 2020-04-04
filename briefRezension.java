@@ -833,7 +833,7 @@ public class briefRezension {
                             ZeilenNr = ZeilenNr + 1;
 
                             Ausgabe(cos, fontItalic, 12, Color.BLACK, 75, (Startzeile - ZeilenNr * 15),
-                                    "ISBN " + resultB.getString("BUCH_ISBN") + ", "
+                                    "ISBN " + Modulhelferlein.makeISBN13(resultB.getString("BUCH_ISBN")) + ", "
                                     + resultB.getString("BUCH_AUFLAGE") + ". Auflage, "
                                     + resultB.getString("BUCH_JAHR") + ", "
                                     + resultB.getString("BUCH_SEITEN") + " Seiten, "
@@ -966,7 +966,7 @@ public class briefRezension {
                             Ausgabe(cos, fontItalic, 12, Color.BLACK, 75, (Startzeile - ZeilenNr * 15), resultAA.getString("ADRESSEN_VORNAME") + ", " + resultAA.getString("ADRESSEN_NAME") + ": " + resultB.getString("BUCH_TITEL"));
                             ZeilenNr = ZeilenNr + 1;
 
-                            Ausgabe(cos, fontItalic, 12, Color.BLACK, 75, (Startzeile - ZeilenNr * 15), "ISBN " + resultB.getString("BUCH_ISBN") + ", Seiten: " + resultB.getString("BUCH_SEITEN") + ", Preis: " + resultB.getString("BUCH_PREIS") + " Euro.");
+                            Ausgabe(cos, fontItalic, 12, Color.BLACK, 75, (Startzeile - ZeilenNr * 15), "ISBN " + Modulhelferlein.makeISBN13(resultB.getString("BUCH_ISBN")) + ", Seiten: " + resultB.getString("BUCH_SEITEN") + ", Preis: " + resultB.getString("BUCH_PREIS") + " Euro.");
                             ZeilenNr = ZeilenNr + 1;
 
                         } while (resultRD.next());
@@ -1165,7 +1165,7 @@ public class briefRezension {
 
         Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, "Rezension unserer (Neu)erscheinung des Carola Hartmann Miles-Verlag");
         Ausgabe(cos, fontItalic, 12, Color.BLACK, 55, 560, splitAutor[1] + ", " + splitAutor[2] + ": " + Titel);
-        Ausgabe(cos, fontItalic, 12, Color.BLACK, 55, 545, " ISBN " + ISBN + ", Seiten: " + Seiten + ", Preis: " + Preis + " Euro.");
+        Ausgabe(cos, fontItalic, 12, Color.BLACK, 55, 545, " ISBN " + Modulhelferlein.makeISBN13(ISBN) + ", Seiten: " + Seiten + ", Preis: " + Preis + " Euro.");
 
         // Anrede
         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 515, briefAnrede + " " + adrTitel + " " + adrName + ",");
