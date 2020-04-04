@@ -54,6 +54,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -600,6 +601,7 @@ public class briefRezension {
                     PDFont fontBold = PDType1Font.HELVETICA_BOLD;
                     PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
 //        PDFont fontMono = PDType1Font.COURIER;
+                    PDFont fontUni = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
 
                     // Start a new content stream which will "hold" the to be created content
                     PDPageContentStream cos = new PDPageContentStream(document, page);
@@ -674,7 +676,7 @@ public class briefRezension {
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
                     System.out.println("... Adresse geschrieben");
-                    
+
                     // Betreff
                     if (resultR.getInt("REZENSIONEN_AUS_TYP") == 4) {
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, "Freiexemplar(e) des Carola Hartmann Miles-Verlag");
@@ -686,7 +688,7 @@ public class briefRezension {
                     // Anrede
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 530, Modulhelferlein.makeAnrede(resultAR.getString("ADRESSEN_ANREDE"), resultAR.getString("ADRESSEN_NAMENSZUSATZ"), resultAR.getString("ADRESSEN_NAME")) + ",");
                     System.out.println("... Anrede geschrieben");
-                    
+
                     // Einleitung
                     switch (resultR.getInt("REZENSIONEN_AUS_TYP")) {
                         case 0: // Anfrage
@@ -756,6 +758,7 @@ public class briefRezension {
                             break;
                         case 5: // ANfrage Dritter
                             System.out.println("... Typ 5 - Anfrage Dritter");
+
                             String Anfrage = resultR.getString("REZENSIONEN_AUS_DRITTE") + " hat uns gebeten, Ihnen";
                             if (Anzahl == 1) {
                                 Anfrage = Anfrage + " ein Exemplar unserer (Neu)erscheinung ";
@@ -763,33 +766,19 @@ public class briefRezension {
                                 Anfrage = Anfrage + " je ein Exemplar unserer (Neu)erscheinungen ";
                             }
                             Anfrage = Anfrage + "für eine Rezension in der Zeitschrift \""
-                                              + resultAZ.getString("ADRESSEN_ZEITSCHRIFT") + "\" zuzusenden. ENDE ENDE";
+                                    + resultAZ.getString("ADRESSEN_ZEITSCHRIFT") + "\" zuzusenden";
+
                             System.out.println(Anfrage);
-                            String[] splitAnfrage = Anfrage.split(" ");
                             Startzeile = 500;
-                            Integer woerter = splitAnfrage.length;
-                            //helferlein.Infomeldung("woerter - 1", splitBeschreibung[woerter-1]);
-                            splitAnfrage[woerter - 1] = ""; //ENDE
-                            woerter = woerter - 2;
-                            String zeile = "";
-                            Integer i = 0;
-                            Integer laenge = 0;
                             ZeilenNr = 1;
-                            while (i < woerter - 1) {
-                                zeile = splitAnfrage[i];
-                                System.out.println(zeile);
-                                laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitAnfrage[i + 1]) / 1000 * 12);
-                                while ((laenge < 490) && (zeile.length() < 90) && (i < woerter - 1)) {
-                                    zeile = zeile + " " + splitAnfrage[i + 1];
-                                    i = i + 1;
-                                    laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitAnfrage[i + 1]) / 1000 * 12);
-                                }
-                                //helferlein.Infomeldung(Float.toString(laenge) + " => " + zeile);      
-                                System.out.println(zeile);
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr - 1), zeile);
-                                i = i + 1;
+                            
+                            Anfrage = spell.formatText(Anfrage, 80);
+                            String[] splitAnfrage = Anfrage.split("~#!#~");
+                            for (int i = 0; i < splitAnfrage.length; i++) {
+                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitAnfrage[i]);
                                 ZeilenNr = ZeilenNr + 1;
                             }
+                                                        
                             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * ZeilenNr, "Gerne komme ich diesem Wunsch nach. Es handelt sich um ");
                             Startzeile = Startzeile - 15 * (ZeilenNr + 2);
                             break;
@@ -858,28 +847,11 @@ public class briefRezension {
                         ZeilenNr = ZeilenNr + 2;
 
                         // Beschreibung ausgeben - wenn Anzahl == 1
-                        // (fontPlain.getStringWidth(zeile) / 1000 * 12)>540
                         if (Anzahl == 1) {
-                            String Beschreibung = resultB.getString("BUCH_Beschreibung") + " ENDE ENDE";
-                            String[] splitBeschreibung = Beschreibung.split(" ");
-                            Integer woerter = splitBeschreibung.length;
-                            //helferlein.Infomeldung("woerter - 1", splitBeschreibung[woerter-1]);
-                            splitBeschreibung[woerter - 1] = ""; //ENDE
-                            woerter = woerter - 2;
-                            String zeile = "";
-                            Integer i = 0;
-                            Integer laenge = 0;
-                            while (i < woerter - 1) {
-                                zeile = splitBeschreibung[i];
-                                laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
-                                while ((laenge < 490) && (zeile.length() < 90) && (i < woerter - 1)) {
-                                    zeile = zeile + " " + splitBeschreibung[i + 1];
-                                    i = i + 1;
-                                    laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
-                                }
-                                //helferlein.Infomeldung(Float.toString(laenge) + " => " + zeile);                                
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr - 1), zeile);
-                                i = i + 1;
+                            String Beschreibung = spell.formatText(resultB.getString("BUCH_Beschreibung"),80);
+                            String[] splitBeschreibung = Beschreibung.split("~#!#~");
+                            for (int i = 0; i < splitBeschreibung.length; i++) {
+                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitBeschreibung[i]);
                                 ZeilenNr = ZeilenNr + 1;
                             }
                         } // if (Anzahl == 1)
@@ -1132,6 +1104,7 @@ public class briefRezension {
         PDFont fontBold = PDType1Font.HELVETICA_BOLD;
         PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
 //        PDFont fontMono = PDType1Font.COURIER;
+        PDFont fontUni = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
 
         // Start a new content stream which will "hold" the to be created content
         PDPageContentStream cos = new PDPageContentStream(document, page);
@@ -1238,9 +1211,9 @@ public class briefRezension {
             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 1), "");
         } else {
             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere Neuerscheinung in der Zeitschrift");
-            
+
             zeilenNr = zeilenNr + 1;
-            
+
             String ZeileZeitschrift = "'" + Zeitschrift + "' besprechen würden.";
             splitBeschreibung = Beschreibung.split(" ");
             woerter = splitBeschreibung.length;
