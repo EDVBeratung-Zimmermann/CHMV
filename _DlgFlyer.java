@@ -76,7 +76,7 @@ public class _DlgFlyer extends javax.swing.JDialog {
                 SQLAnfrageBuch = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
                 eintrag = "";
-                resultBuch = SQLAnfrageBuch.executeQuery("SELECT * FROM TBL_BUCH ORDER BY BUCH_ISBN");
+                resultBuch = SQLAnfrageBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID > '0' ORDER BY BUCH_ISBN");
                 while (resultBuch.next()) {
                     eintrag = "";
                     resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE "
