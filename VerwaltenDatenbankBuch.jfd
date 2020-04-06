@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="11.0.1" class="java.beans.XMLDecoder">
+<java version="11.0.6" class="java.beans.XMLDecoder">
  <object class="com.jformdesigner.model.FormModel">
   <void property="contentType">
    <string>form/swing</string>
@@ -1619,6 +1619,10 @@
            <string>text</string>
            <string>...</string>
           </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string>Auswahl der Bilddatei für das Buchcover</string>
+          </void>
           <void property="name">
            <string>CoverAdd</string>
           </void>
@@ -1675,7 +1679,7 @@
           </void>
           <void method="setProperty">
            <string>toolTipText</string>
-           <string>Buchcover</string>
+           <string>Icon für das Buchcover</string>
           </void>
           <void method="setProperty">
            <string>minimumSize</string>
@@ -1770,10 +1774,6 @@
         <void method="add">
          <object class="com.jformdesigner.model.FormComponent">
           <string>javax.swing.JTextField</string>
-          <void method="setProperty">
-           <string>text</string>
-           <string>jTextField12</string>
-          </void>
           <void property="name">
            <string>field_Text</string>
           </void>
@@ -1804,6 +1804,10 @@
           <void method="setProperty">
            <string>text</string>
            <string>...</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string>Auswahl des Quelltextes für den Buchblock</string>
           </void>
           <void property="name">
            <string>TextAdd</string>
@@ -1871,10 +1875,6 @@
         <void method="add">
          <object class="com.jformdesigner.model.FormComponent">
           <string>javax.swing.JTextField</string>
-          <void method="setProperty">
-           <string>text</string>
-           <string>jTextField9</string>
-          </void>
           <void property="name">
            <string>field_Flyer</string>
           </void>
@@ -1905,6 +1905,10 @@
           <void method="setProperty">
            <string>text</string>
            <string>...</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string>Auswahl des Werbeflyers</string>
           </void>
           <void property="name">
            <string>FlyerAdd</string>
@@ -1972,10 +1976,6 @@
         <void method="add">
          <object class="com.jformdesigner.model.FormComponent">
           <string>javax.swing.JTextField</string>
-          <void method="setProperty">
-           <string>text</string>
-           <string>jTextField10</string>
-          </void>
           <void property="name">
            <string>field_Vertrag</string>
           </void>
@@ -2006,6 +2006,10 @@
           <void method="setProperty">
            <string>text</string>
            <string>...</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string>Auswahl des Vertrages mit dem Autor</string>
           </void>
           <void property="name">
            <string>VertragAdd</string>
@@ -2073,10 +2077,6 @@
         <void method="add">
          <object class="com.jformdesigner.model.FormComponent">
           <string>javax.swing.JTextField</string>
-          <void method="setProperty">
-           <string>text</string>
-           <string>jTextField13</string>
-          </void>
           <void property="name">
            <string>field_VertragBOD</string>
           </void>
@@ -2107,6 +2107,10 @@
           <void method="setProperty">
            <string>text</string>
            <string>...</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string>Auswahl des Vertrages mit BoD</string>
           </void>
           <void property="name">
            <string>VertragBODAdd</string>

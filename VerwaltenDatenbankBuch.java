@@ -832,6 +832,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 
             //---- CoverAdd ----
             CoverAdd.setText("...");
+            CoverAdd.setToolTipText("Auswahl der Bilddatei f\u00fcr das Buchcover");
             CoverAdd.addActionListener(e -> CoverAddActionPerformed(e));
             panel1.add(CoverAdd);
             CoverAdd.setBounds(595, 391, 50, 25);
@@ -841,7 +842,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             LabelBild.setHorizontalTextPosition(SwingConstants.CENTER);
             LabelBild.setIconTextGap(0);
             LabelBild.setPreferredSize(new Dimension(120, 160));
-            LabelBild.setToolTipText("Buchcover");
+            LabelBild.setToolTipText("Icon f\u00fcr das Buchcover");
             LabelBild.setMinimumSize(new Dimension(120, 160));
             LabelBild.setMaximumSize(new Dimension(120, 160));
             LabelBild.setMargin(new Insets(0, 0, 0, 0));
@@ -854,14 +855,12 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             jLabel18.setHorizontalAlignment(SwingConstants.RIGHT);
             panel1.add(jLabel18);
             jLabel18.setBounds(100, 421, 41, 23);
-
-            //---- field_Text ----
-            field_Text.setText("jTextField12");
             panel1.add(field_Text);
             field_Text.setBounds(146, 421, 444, 23);
 
             //---- TextAdd ----
             TextAdd.setText("...");
+            TextAdd.setToolTipText("Auswahl des Quelltextes f\u00fcr den Buchblock");
             TextAdd.addActionListener(e -> TextAddActionPerformed(e));
             panel1.add(TextAdd);
             TextAdd.setBounds(595, 421, 50, TextAdd.getPreferredSize().height);
@@ -871,14 +870,12 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             jLabel19.setHorizontalAlignment(SwingConstants.RIGHT);
             panel1.add(jLabel19);
             jLabel19.setBounds(100, 449, 41, 23);
-
-            //---- field_Flyer ----
-            field_Flyer.setText("jTextField9");
             panel1.add(field_Flyer);
             field_Flyer.setBounds(146, 449, 444, 23);
 
             //---- FlyerAdd ----
             FlyerAdd.setText("...");
+            FlyerAdd.setToolTipText("Auswahl des Werbeflyers");
             FlyerAdd.addActionListener(e -> FlyerAddActionPerformed(e));
             panel1.add(FlyerAdd);
             FlyerAdd.setBounds(595, 449, 50, FlyerAdd.getPreferredSize().height);
@@ -888,14 +885,12 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             jLabel20.setHorizontalAlignment(SwingConstants.RIGHT);
             panel1.add(jLabel20);
             jLabel20.setBounds(54, 477, 87, 23);
-
-            //---- field_Vertrag ----
-            field_Vertrag.setText("jTextField10");
             panel1.add(field_Vertrag);
             field_Vertrag.setBounds(146, 477, 444, 23);
 
             //---- VertragAdd ----
             VertragAdd.setText("...");
+            VertragAdd.setToolTipText("Auswahl des Vertrages mit dem Autor");
             VertragAdd.addActionListener(e -> VertragAddActionPerformed(e));
             panel1.add(VertragAdd);
             VertragAdd.setBounds(595, 477, 50, VertragAdd.getPreferredSize().height);
@@ -905,14 +900,12 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             jLabel21.setHorizontalAlignment(SwingConstants.RIGHT);
             panel1.add(jLabel21);
             jLabel21.setBounds(54, 505, 87, 23);
-
-            //---- field_VertragBOD ----
-            field_VertragBOD.setText("jTextField13");
             panel1.add(field_VertragBOD);
             field_VertragBOD.setBounds(146, 505, 444, 23);
 
             //---- VertragBODAdd ----
             VertragBODAdd.setText("...");
+            VertragBODAdd.setToolTipText("Auswahl des Vertrages mit BoD");
             VertragBODAdd.addActionListener(e -> VertragBODAddActionPerformed(e));
             panel1.add(VertragBODAdd);
             VertragBODAdd.setBounds(595, 505, 50, VertragBODAdd.getPreferredSize().height);
@@ -1080,7 +1073,8 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             panel1.add(Flyer);
             Flyer.setBounds(535, 635, 49, Flyer.getPreferredSize().height);
 
-            { // compute preferred size
+            {
+                // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
                     Rectangle bounds = panel1.getComponent(i).getBounds();
@@ -1097,7 +1091,8 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
         contentPane.add(panel1);
         panel1.setBounds(10, 10, 970, 670);
 
-        { // compute preferred size
+        {
+            // compute preferred size
             Dimension preferredSize = new Dimension();
             for(int i = 0; i < contentPane.getComponentCount(); i++) {
                 Rectangle bounds = contentPane.getComponent(i).getBounds();
