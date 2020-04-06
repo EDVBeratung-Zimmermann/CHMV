@@ -167,9 +167,9 @@ public class briefFlyer {
 
 // Cover
                     try {
-                        BufferedImage awtImage = ImageIO.read(new File(resultBuch.getString("BUCH_COVER")));
+                        BufferedImage awtImage = ImageIO.read(new File(resultBuch.getString("BUCH_COVER_GROSS")));
                         //PDImageXObject  ximage = new PDPixelMap(document, awtImage);
-                        PDImageXObject pdImage = PDImageXObject.createFromFile(resultBuch.getString("BUCH_COVER"), document);
+                        PDImageXObject pdImage = PDImageXObject.createFromFile(resultBuch.getString("BUCH_COVER_GROSS"), document);
                         //float scaley = 0.5f; // alter this value to set the image size
                         //float scalex = 0.75f; // alter this value to set the image size
                         //cos.drawImage(pdImage, 312, 450, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
