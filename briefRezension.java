@@ -858,8 +858,7 @@ public class briefRezension {
                             Beschreibung = Beschreibung.replace("\r", Trenner);
                             Beschreibung = spell.formatText(Beschreibung, 80);
 
-                            String[] Flyertext = Beschreibung.split(Trenner);
-                            String[] splitBeschreibung = Beschreibung.split("~#!#~");
+                            String[] splitBeschreibung = Beschreibung.split(Trenner);
                             for (int i = 0; i < splitBeschreibung.length; i++) {
                                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitBeschreibung[i]);
                                 ZeilenNr = ZeilenNr + 1;
