@@ -7,6 +7,7 @@ package milesVerlagMain;
 
 
 import java.util.* ;
+import static milesVerlagMain.Modulhelferlein.Trenner;
 
 
 /*
@@ -104,6 +105,7 @@ Grundsätzliche Vorgehensweise
  */
 public class spell {
 
+    
   public static void main(String[] args) {
       /**
     test("Lattenrost"         , "Lat-ten-rost") ;
@@ -216,12 +218,10 @@ public class spell {
    */
   public static String formatText(String paStr , int paIntWidth) {
     StringBuffer retStrBuff = new StringBuffer();
-    //StringTokenizer strTok = new StringTokenizer(paStr , "\n") ;
-    StringTokenizer strTok = new StringTokenizer(paStr , "~#!#~") ;
-
+    StringTokenizer strTok = new StringTokenizer(paStr , Trenner) ;
+    
     while (strTok.hasMoreElements()) {
-      //retStrBuff.append(formatLine(strTok.nextToken().trim() , paIntWidth) + "\n");
-      retStrBuff.append(formatLine(strTok.nextToken().trim() , paIntWidth) + "~#!#~");
+      retStrBuff.append(formatLine(strTok.nextToken().trim() , paIntWidth) + Trenner);
     }
 
     return retStrBuff.toString();
@@ -250,8 +250,7 @@ public class spell {
           if (i > 0) {
             retStrBuff.append("-");
           }
-          //retStrBuff.append("\n");
-          retStrBuff.append("~#!#~");
+          retStrBuff.append(Trenner);
           lineStrBuff = new StringBuffer();
         }
         lineStrBuff.append(strArrWord[i]);
@@ -259,8 +258,7 @@ public class spell {
       lineStrBuff.append(" "); // Leerzeichen zum Trennen des nächsten Wortes
     }
 
-    retStrBuff.append(lineStrBuff + "~#!#~");
-    //retStrBuff.append(lineStrBuff + "\n");
+    retStrBuff.append(lineStrBuff + Trenner);
     return retStrBuff.toString();
   }// end method
 
@@ -299,6 +297,7 @@ public class spell {
     HashSet newHashSet = new HashSet();
 
     newHashSet.add("an") ;
+    newHashSet.add("ge") ;
     newHashSet.add("trag") ;
     newHashSet.add("schäfts") ;
     newHashSet.add("chen") ;
