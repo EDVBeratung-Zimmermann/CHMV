@@ -18,6 +18,7 @@ import java.sql.Statement;
 
 import javax.imageio.ImageIO;
 import static milesVerlagMain.Modulhelferlein.Ausgabe;
+import static milesVerlagMain.Modulhelferlein.AusgabeBS;
 import static milesVerlagMain.Modulhelferlein.AusgabeZ;
 import static milesVerlagMain.Modulhelferlein.Linie;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -81,35 +82,36 @@ public class briefFlyer {
                 // Set a Font and its Size
                 // We cannot use the standard fonts provided.
                 // pdPageContentStream.setFont(PDType1Font.HELVETICA, 12);
+
 // Kopfzeile mit Bild
-                try {
-                    BufferedImage awtImage = ImageIO.read(new File("header-brief.jpg"));
-                    //PDImageXObject  ximage = new PDPixelMap(document, awtImage);
-                    PDImageXObject pdImage = PDImageXObject.createFromFile("header-brief.jpg", document);
-                    float scaley = 0.5f; // alter this value to set the image size
-                    float scalex = 0.75f; // alter this value to set the image size
-                    cos.drawImage(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
-                    cos.drawImage(pdImage, 57, 770, 481, pdImage.getHeight() * scaley);
+                //try {
+                  //  BufferedImage awtImage = ImageIO.read(new File("header-brief.jpg"));
+                  //  //PDImageXObject  ximage = new PDPixelMap(document, awtImage);
+                  //  PDImageXObject pdImage = PDImageXObject.createFromFile("header-brief.jpg", document);
+                  //  float scaley = 0.5f; // alter this value to set the image size
+                  //  float scalex = 0.75f; // alter this value to set the image size
+                  //  cos.drawImage(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
+                  //  cos.drawImage(pdImage, 57, 770, 481, pdImage.getHeight() * scaley);
                     //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
-                } catch (FileNotFoundException fnfex) {
-                    System.out.println("No image for you");
-                }
+                // } catch (FileNotFoundException fnfex) {
+                  //  System.out.println("No image for you");
+                // }
 
 // Fu?zeile
-                Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+                //Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                //Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                //Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                //Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-                Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+                //Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
+                //Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                //Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                //Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
 
-                Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+                //Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                //Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                //Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                //Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 
 // Kopfzeile
                 // Autor
@@ -162,7 +164,7 @@ public class briefFlyer {
 
                     zeile = zeile - 40;
                     for (i = 0; i < Flyertext.length; i++) {
-                        Ausgabe(cos, fontUni, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i]);
+                        AusgabeBS(cos, fontUni, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i], 220);
                     }
 
 // Cover
