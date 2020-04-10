@@ -49,6 +49,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import static milesVerlagMain.Modulhelferlein.Ausgabe;
 import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.Modulhelferlein.Trenner;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -771,14 +772,14 @@ public class briefRezension {
                             System.out.println(Anfrage);
                             Startzeile = 500;
                             ZeilenNr = 1;
-                            
+
                             Anfrage = spell.formatText(Anfrage, 80);
                             String[] splitAnfrage = Anfrage.split("~#!#~");
                             for (int i = 0; i < splitAnfrage.length; i++) {
                                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitAnfrage[i]);
                                 ZeilenNr = ZeilenNr + 1;
                             }
-                                                        
+
                             Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * ZeilenNr, "Gerne komme ich diesem Wunsch nach. Es handelt sich um ");
                             Startzeile = Startzeile - 15 * (ZeilenNr + 2);
                             break;
@@ -848,11 +849,50 @@ public class briefRezension {
 
                         // Beschreibung ausgeben - wenn Anzahl == 1
                         if (Anzahl == 1) {
-                            String Beschreibung = spell.formatText(resultB.getString("BUCH_Beschreibung"),80);
+
+                            String Beschreibung = resultB.getString("BUCH_BESCHREIBUNG");
+                            //Beschreibung.replace("\\u000A                            ", Trenner);
+                            Beschreibung = Beschreibung.replace("\r\n", Trenner);
+                            Beschreibung = Beschreibung.replace("\n\r", Trenner);
+                            Beschreibung = Beschreibung.replace("\n", Trenner);
+                            Beschreibung = Beschreibung.replace("\r", Trenner);
+                            Beschreibung = spell.formatText(Beschreibung, 80);
+
+                            String[] Flyertext = Beschreibung.split(Trenner);
                             String[] splitBeschreibung = Beschreibung.split("~#!#~");
                             for (int i = 0; i < splitBeschreibung.length; i++) {
                                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitBeschreibung[i]);
                                 ZeilenNr = ZeilenNr + 1;
+                                if (Startzeile - 15 * (ZeilenNr - 1) < 60) { //neue Seite
+                                    cos.close();
+                                    page = new PDPage(A4);
+                                    document.addPage(page);
+                                    cos = new PDPageContentStream(document, page);
+
+                                    // Fu?zeile
+                                    Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+
+                                    Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
+                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+
+                                    Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+
+// Faltmarke, Lochmarke, Faltmarke
+                                    Linie(cos, 1, 0, 595, 15, 595);
+                                    Linie(cos, 1, 0, 415, 25, 415);
+                                    Linie(cos, 1, 0, 285, 15, 285);
+
+                                    Startzeile = 700;
+                                    ZeilenNr = 0;
+                                }
                             }
                         } // if (Anzahl == 1)
 
