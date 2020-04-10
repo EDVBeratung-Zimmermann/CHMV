@@ -55,9 +55,10 @@ public class Modulhelferlein {
 
     // instance variables - replace the example below with your own
     public static String Trenner = "~#!#~";
-    //public static String Trenner = \n";
-    //public static String Trenner = "\\u000A    ";
-  
+    //public static String Trenner = "\n";
+    //public static String Trenner = "\\u000A";
+    //public static String Trenner = System.getProperty("line.separator");
+    
     public static char ctrlA = 0x1;
     public static char ctrlB = 0x2;
     public static char ctrlC = 0x3;
