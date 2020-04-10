@@ -165,7 +165,7 @@ public class briefFlyer {
                     zeile = zeile - 40;
                     for (i = 0; i < Flyertext.length; i++) {
                         //System.out.println("Brief: "+Flyertext[i]);
-                        AusgabeBS(cos, fontUni, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i], 220);
+                        AusgabeBS(cos, fontUni, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i], 230);
                     }
 
 // Cover
