@@ -54,6 +54,10 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 public class Modulhelferlein {
 
     // instance variables - replace the example below with your own
+    public static String Trenner = "~#!#~";
+    //public static String Trenner = \n";
+    //public static String Trenner = "\\u000A    ";
+  
     public static char ctrlA = 0x1;
     public static char ctrlB = 0x2;
     public static char ctrlC = 0x3;
@@ -209,21 +213,21 @@ public class Modulhelferlein {
      * @return
      */
     public static String makeISBN13(String ISBN) {
-        String ISBN13 = ISBN.substring(0,3) + "-" +
-                        ISBN.substring(3,4) + "-" +
-                        ISBN.substring(4,9) + "-" +
-                        ISBN.substring(9,12) + "-" +
-                        ISBN.substring(12,13);
+        String ISBN13 = ISBN.substring(0, 3) + "-"
+                + ISBN.substring(3, 4) + "-"
+                + ISBN.substring(4, 9) + "-"
+                + ISBN.substring(9, 12) + "-"
+                + ISBN.substring(12, 13);
         return ISBN13;
     }
-    
+
     /**
      *
-     * @param dirName  Verzeichnisname, das verifiziert/erzeugt werden soll
+     * @param dirName Verzeichnisname, das verifiziert/erzeugt werden soll
      * @return
      */
     public static boolean checkDir(String dirName) {
-       File stats = new File(dirName);
+        File stats = new File(dirName);
         if (stats.exists()) // Überprüfen, ob es den Ordner gibt
         {
             return true;
@@ -425,13 +429,88 @@ public class Modulhelferlein {
         }
     }
 
+    private static void ausgabe(PDPageContentStream cos, PDFont font, int size, Color color, int x, int y, String text) {
+        try {
+            cos.beginText();
+            cos.setFont(font, size);
+            cos.setNonStrokingColor(color);
+            cos.newLineAtOffset(x, y);
+            cos.showText(text);
+            cos.endText();
+        } catch (IOException ex) {
+            Logger.getLogger(Modulhelferlein.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Gibt einen Text an der Stelle x,y mit der Breite breite im Blocksatz aus
+     *
+     * @param cos
+     * @param font
+     * @param size
+     * @param color
+     * @param x
+     * @param y
+     * @param text
+     * @param breite
+     */
+    public static void AusgabeBS(PDPageContentStream cos, PDFont font, int size, Color color, int x, int y, String text, Integer breite) {
+
+        String[] wortliste = text.split(" ");
+        int woerter = wortliste.length;
+        try {
+            int textbreite = (int) Math.round(font.getStringWidth(text) / 1000 * size);
+            if (textbreite > breite) {
+                System.out.println("Textbreite=" + Integer.toString(textbreite));
+                ausgabe(cos, font, size, color, x, y, text);
+            } else {
+                textbreite = 0;
+                for (int i = 0; i < woerter; i++) {
+                    textbreite = textbreite + (int) Math.round(font.getStringWidth(wortliste[i]) / 1000 * size);
+                }
+                int leerraum = breite - textbreite;
+                int abstand = 0;
+                if (woerter==1) {
+                    abstand=breite;
+                } else {
+                    abstand = (int) (leerraum / (woerter - 1));
+                }
+                if (abstand < 2) {
+                    abstand = 2;
+                };
+                if (abstand > 20) {
+                    abstand = 2;
+                };
+                int delta = leerraum - (woerter - 1) * abstand;
+                if (delta < 0) {
+                    delta = 0;
+                };
+                System.out.println("Textbreite=" + Integer.toString(textbreite) + " Leeraum=" + Integer.toString(leerraum) + " Woerter=" + Integer.toString(woerter) + " Abstand=" + Integer.toString(abstand) + " Delta=" + Integer.toString(delta));
+                //System.out.println("Blocksatzzeile bei y=" + Integer.toString(y));
+
+                int startx = x;
+                for (int i = 0; i < woerter; i++) {
+                    //System.out.println("x= " + Integer.toString(startx) + wortliste[i]);
+                    ausgabe(cos, font, size, color, startx, y, wortliste[i]);
+                    startx = startx + (int) Math.round(font.getStringWidth(wortliste[i]) / 1000 * size) + abstand;
+                    if (delta > 0) {
+                        startx = startx + 1;
+                        delta = delta - 1;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+        }
+    }
+
     public static void AusgabeZ(PDPageContentStream cos, PDFont font, int size, Color color, int x, int y, String text, Integer breite) {
 
         try {
             cos.beginText();
             cos.setFont(font, size);
             cos.setNonStrokingColor(color);
-            int offset = (int) Math.round(breite - (font.getStringWidth(text) / 1000 * size))/ 2;
+            int offset = (int) Math.round(breite - (font.getStringWidth(text) / 1000 * size)) / 2;
             cos.newLineAtOffset(x + offset, y);
             cos.showText(text);
             cos.endText();
