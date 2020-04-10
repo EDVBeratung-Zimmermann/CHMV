@@ -863,7 +863,7 @@ public class briefRezension {
                             for (int i = 0; i < splitBeschreibung.length; i++) {
                                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitBeschreibung[i]);
                                 ZeilenNr = ZeilenNr + 1;
-                                if (Startzeile - 15 * (ZeilenNr - 1) < 60) { //neue Seite
+                                if (Startzeile - 15 * (ZeilenNr - 1) <= 130) { //neue Seite
                                     cos.close();
                                     page = new PDPage(A4);
                                     document.addPage(page);
