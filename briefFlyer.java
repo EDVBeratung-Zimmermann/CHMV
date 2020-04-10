@@ -21,6 +21,7 @@ import static milesVerlagMain.Modulhelferlein.Ausgabe;
 import static milesVerlagMain.Modulhelferlein.AusgabeBS;
 import static milesVerlagMain.Modulhelferlein.AusgabeZ;
 import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.Modulhelferlein.Trenner;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -159,9 +160,16 @@ public class briefFlyer {
                     }
 
 // Beschreibung 
-                    String Beschreibung = spell.formatText(resultBuch.getString("BUCH_BESCHREIBUNG"), 40);
-                    String[] Flyertext = Beschreibung.split("~#!#~");
-
+                    String Beschreibung = resultBuch.getString("BUCH_BESCHREIBUNG");
+                    //Beschreibung.replace("\\u000A", Trenner);
+                    Beschreibung = Beschreibung.replace("\r\n", Trenner);
+                    Beschreibung = Beschreibung.replace("\n\r", Trenner);
+                    Beschreibung = Beschreibung.replace("\n", Trenner);
+                    Beschreibung = Beschreibung.replace("\r", Trenner);
+                    Beschreibung = spell.formatText(Beschreibung, 40);
+                    
+                    String[] Flyertext = Beschreibung.split(Trenner);
+                    
                     zeile = zeile - 40;
                     for (i = 0; i < Flyertext.length; i++) {
                         //System.out.println("Brief: "+Flyertext[i]);
