@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_192" class="java.beans.XMLDecoder">
+<java version="11.0.6" class="java.beans.XMLDecoder">
  <object class="com.jformdesigner.model.FormModel">
   <void property="contentType">
    <string>form/swing</string>
@@ -290,6 +290,10 @@
            <string>width</string>
            <int>74</int>
           </void>
+          <void method="setProperty">
+           <string>x</string>
+           <int>0</int>
+          </void>
          </object>
         </void>
         <void method="add">
@@ -338,7 +342,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>92</int>
+           <int>91</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -366,6 +370,10 @@
           <void method="setProperty">
            <string>width</string>
            <int>131</int>
+          </void>
+          <void method="setProperty">
+           <string>x</string>
+           <int>0</int>
           </void>
          </object>
         </void>
@@ -415,7 +423,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>120</int>
+           <int>118</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -443,6 +451,10 @@
           <void method="setProperty">
            <string>width</string>
            <int>131</int>
+          </void>
+          <void method="setProperty">
+           <string>x</string>
+           <int>0</int>
           </void>
          </object>
         </void>
@@ -492,7 +504,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>148</int>
+           <int>145</int>
           </void>
          </object>
         </void>
@@ -538,7 +550,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>176</int>
+           <int>172</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -592,7 +604,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>204</int>
+           <int>199</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -646,7 +658,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>232</int>
+           <int>226</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -673,7 +685,7 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>260</int>
+           <int>253</int>
           </void>
           <void method="setProperty">
            <string>width</string>
@@ -778,7 +790,34 @@
           </void>
           <void method="setProperty">
            <string>y</string>
-           <int>285</int>
+           <int>280</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JCheckBox</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string>Briefe</string>
+          </void>
+          <void method="setProperty">
+           <string>toolTipText</string>
+           <string>Tabelle zum Verwalten von Briefen</string>
+          </void>
+          <void property="name">
+           <string>checkBoxBrief</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jformdesigner.runtime.NullConstraints</class>
+          <void method="setProperty">
+           <string>x</string>
+           <int>136</int>
+          </void>
+          <void method="setProperty">
+           <string>y</string>
+           <int>260</int>
           </void>
          </object>
         </void>
