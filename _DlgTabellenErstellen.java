@@ -100,14 +100,15 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
         jButtonEnde = new JButton();
         jButtonSchliessen = new JButton();
         jCheckBox20 = new JCheckBox();
+        checkBoxBrief = new JCheckBox();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        setFont(new Font("Dialog", Font.BOLD, 12));
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
         setMinimumSize(new Dimension(560, 400));
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -253,7 +254,14 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
             panel1.add(jCheckBox20);
             jCheckBox20.setBounds(new Rectangle(new Point(326, 288), jCheckBox20.getPreferredSize()));
 
-            { // compute preferred size
+            //---- checkBoxBrief ----
+            checkBoxBrief.setText("Briefe");
+            checkBoxBrief.setToolTipText("Tabelle zum Verwalten der Briefe");
+            panel1.add(checkBoxBrief);
+            checkBoxBrief.setBounds(new Rectangle(new Point(138, 260), checkBoxBrief.getPreferredSize()));
+
+            {
+                // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
                     Rectangle bounds = panel1.getComponent(i).getBounds();
@@ -275,7 +283,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(13, Short.MAX_VALUE))
+                    .addContainerGap(11, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -359,6 +367,20 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
                         Modulhelferlein.Infomeldung("Tabelle USTVA wurde erstellt");
+                    }
+                    SQL = "CREATE TABLE ";
+                    if (checkBoxBrief.isSelected()) {
+                        SQL = SQL + "TBL_BRIEFE ( ";
+                        SQL = SQL + "BRIEFE_ID INT PRIMARY KEY,";
+                        SQL = SQL + "BRIEFE_ADRESSE INT,";
+                        SQL = SQL + "BRIEFE_ANREDE TEXT,";
+                        SQL = SQL + "BRIEFE_DATUM DATE,";
+                        SQL = SQL + "BRIEFE_BETREFF TEXT,";
+                        SQL = SQL + "BRIEFE_BEZUG TEXT,";
+                        SQL = SQL + "BRIEFE_TEXT TEXT";
+                        SQL = SQL + ")";
+                        SQLAnfrage.executeUpdate(SQL);
+                        Modulhelferlein.Infomeldung("Tabelle BRIEFE wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox5.isSelected()) {
@@ -882,5 +904,6 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
     private JButton jButtonEnde;
     private JButton jButtonSchliessen;
     private JCheckBox jCheckBox20;
+    private JCheckBox checkBoxBrief;
     // End of variables declaration//GEN-END:variables
 }
