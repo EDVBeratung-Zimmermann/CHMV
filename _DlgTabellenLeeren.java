@@ -100,14 +100,15 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
         jButtonEnde = new JButton();
         jButtonSchliessen = new JButton();
         jCheckBox20 = new JCheckBox();
+        checkBoxBrief = new JCheckBox();
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
-        setFont(new Font("Dialog", Font.BOLD, 12));
+        setFont(new Font(Font.DIALOG, Font.BOLD, 12));
         setMinimumSize(new Dimension(560, 400));
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
         contentPane.setLayout(null);
 
         //======== panel1 ========
@@ -170,7 +171,7 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
             //---- jCheckBox11 ----
             jCheckBox11.setText("Termine");
             panel1.add(jCheckBox11);
-            jCheckBox11.setBounds(309, 92, 159, jCheckBox11.getPreferredSize().height);
+            jCheckBox11.setBounds(309, 91, 159, jCheckBox11.getPreferredSize().height);
 
             //---- jCheckBox3 ----
             jCheckBox3.setText("Mailverteiler");
@@ -185,7 +186,7 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
             //---- jCheckBox12 ----
             jCheckBox12.setText("Bestellnummer");
             panel1.add(jCheckBox12);
-            jCheckBox12.setBounds(309, 120, 159, jCheckBox12.getPreferredSize().height);
+            jCheckBox12.setBounds(309, 118, 159, jCheckBox12.getPreferredSize().height);
 
             //---- jCheckBox4 ----
             jCheckBox4.setText("Mailadressen");
@@ -200,7 +201,7 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
             //---- jCheckBox13 ----
             jCheckBox13.setText("Umsatzsteuervoranmeldung");
             panel1.add(jCheckBox13);
-            jCheckBox13.setBounds(new Rectangle(new Point(309, 148), jCheckBox13.getPreferredSize()));
+            jCheckBox13.setBounds(new Rectangle(new Point(309, 145), jCheckBox13.getPreferredSize()));
 
             //---- jCheckBox15 ----
             jCheckBox15.setText("Rezensionen Details ausg...");
@@ -210,7 +211,7 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
             //---- jCheckBox16 ----
             jCheckBox16.setText("Hilfstabelle Buch");
             panel1.add(jCheckBox16);
-            jCheckBox16.setBounds(309, 176, 159, jCheckBox16.getPreferredSize().height);
+            jCheckBox16.setBounds(309, 172, 159, jCheckBox16.getPreferredSize().height);
 
             //---- jCheckBox8 ----
             jCheckBox8.setText("Rezensionen eingehend");
@@ -220,7 +221,7 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
             //---- jCheckBox18 ----
             jCheckBox18.setText("Aufgaben");
             panel1.add(jCheckBox18);
-            jCheckBox18.setBounds(309, 204, 159, jCheckBox18.getPreferredSize().height);
+            jCheckBox18.setBounds(309, 199, 159, jCheckBox18.getPreferredSize().height);
 
             //---- jCheckBox9 ----
             jCheckBox9.setText("Bestellungdetails");
@@ -230,12 +231,12 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
             //---- jCheckBox17 ----
             jCheckBox17.setText("Honorar");
             panel1.add(jCheckBox17);
-            jCheckBox17.setBounds(309, 232, 159, jCheckBox17.getPreferredSize().height);
+            jCheckBox17.setBounds(309, 226, 159, jCheckBox17.getPreferredSize().height);
 
             //---- jCheckBox19 ----
             jCheckBox19.setText("Hilfstabelle Verkauf");
             panel1.add(jCheckBox19);
-            jCheckBox19.setBounds(309, 260, 159, jCheckBox19.getPreferredSize().height);
+            jCheckBox19.setBounds(309, 253, 159, jCheckBox19.getPreferredSize().height);
 
             //---- jButtonEnde ----
             jButtonEnde.setText("Leeren");
@@ -252,9 +253,16 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
             //---- jCheckBox20 ----
             jCheckBox20.setText("Benutzer");
             panel1.add(jCheckBox20);
-            jCheckBox20.setBounds(309, 285, 69, 23);
+            jCheckBox20.setBounds(309, 280, 69, 23);
 
-            { // compute preferred size
+            //---- checkBoxBrief ----
+            checkBoxBrief.setText("Briefe");
+            checkBoxBrief.setToolTipText("Tabelle zum Verwalten der Briefe");
+            panel1.add(checkBoxBrief);
+            checkBoxBrief.setBounds(new Rectangle(new Point(127, 260), checkBoxBrief.getPreferredSize()));
+
+            {
+                // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
                     Rectangle bounds = panel1.getComponent(i).getBounds();
@@ -271,7 +279,8 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
         contentPane.add(panel1);
         panel1.setBounds(10, 11, 470, 354);
 
-        { // compute preferred size
+        {
+            // compute preferred size
             Dimension preferredSize = new Dimension();
             for(int i = 0; i < contentPane.getComponentCount(); i++) {
                 Rectangle bounds = contentPane.getComponent(i).getBounds();
@@ -301,6 +310,11 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
                     "Bestätigung",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 try {
+                    if (checkBoxBrief.isSelected()) {
+                        SQL = "DELETE FROM TBL_BRIEFE";
+                        SQLAnfrage.executeUpdate(SQL);
+                        Modulhelferlein.Infomeldung("Tabelle BRIEFE wurde geleert");
+                    }
                     if (jCheckBox19.isSelected()) {
                         SQL = "DELETE FROM TBL_VERKAUF";
                         SQLAnfrage.executeUpdate(SQL);
@@ -483,5 +497,6 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
     private JButton jButtonEnde;
     private JButton jButtonSchliessen;
     private JCheckBox jCheckBox20;
+    private JCheckBox checkBoxBrief;
     // End of variables declaration//GEN-END:variables
 }
