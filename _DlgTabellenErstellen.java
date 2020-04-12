@@ -373,7 +373,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "TBL_BRIEFE ( ";
                         SQL = SQL + "BRIEFE_ID INT PRIMARY KEY,";
                         SQL = SQL + "BRIEFE_ADRESSE INT,";
-                        SQL = SQL + "BRIEFE_ANREDE TEXT,";
+                        SQL = SQL + "BRIEFE_ANREDE BOOL,";
                         SQL = SQL + "BRIEFE_DATUM DATE,";
                         SQL = SQL + "BRIEFE_BETREFF TEXT,";
                         SQL = SQL + "BRIEFE_BEZUG TEXT,";
