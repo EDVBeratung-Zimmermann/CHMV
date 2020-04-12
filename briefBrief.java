@@ -233,7 +233,7 @@ public class briefBrief {
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
 
-                String outputFileName = Modulhelferlein.pathRezensionen
+                String outputFileName = Modulhelferlein.pathUserDir + "\\Briefe"
                         + "\\"
                         + "Brief-"
                         + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
