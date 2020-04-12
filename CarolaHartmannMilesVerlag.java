@@ -1451,7 +1451,8 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void jMenuItemBriefpapierAdresseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBriefpapierAdresseActionPerformed
         // TODO add your handling code here:
-        _DlgBrief.main(null);
+        //_DlgBrief.main(null);
+        VerwaltenDatenbankBrief.main(null);
     }//GEN-LAST:event_jMenuItemBriefpapierAdresseActionPerformed
 
     private void jMenuItemVerlagsfuerhungInternetIBANActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuerhungInternetIBANActionPerformed
