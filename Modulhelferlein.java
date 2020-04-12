@@ -478,14 +478,17 @@ public class Modulhelferlein {
                 }
                 if (abstand < 2) {
                     abstand = 2;
-                };
+                }
                 if (abstand > 20) {
                     abstand = 2;
-                };
+                }
                 int delta = leerraum - (woerter - 1) * abstand;
+                if (text.indexOf("-", text.length()-1)<0) { // Zeile mit Trennzeichen
+                    delta = delta + 1;
+                }
                 if (delta < 0) {
                     delta = 0;
-                };
+                }
                 System.out.println("Textbreite=" + Integer.toString(textbreite) + " Leeraum=" + Integer.toString(leerraum) + " Woerter=" + Integer.toString(woerter) + " Abstand=" + Integer.toString(abstand) + " Delta=" + Integer.toString(delta));
                 //System.out.println("Blocksatzzeile bei y=" + Integer.toString(y));
 
