@@ -483,7 +483,7 @@ public class Modulhelferlein {
                     abstand = 2;
                 }
                 int delta = leerraum - (woerter - 1) * abstand;
-                if (text.indexOf("-", text.length()-1)<0) { // Zeile mit Trennzeichen
+                if (text.indexOf("-", text.length()-1)>0) { // Zeile mit Trennzeichen
                     delta = delta + 1;
                 }
                 if (delta < 0) {
