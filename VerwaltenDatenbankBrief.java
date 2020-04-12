@@ -119,7 +119,6 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             }
         });
 
-        
         InputMap keyMap = new ComponentInputMap(panel2);
         //keyMap.put(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.Event.CTRL_MASK), "action_anfang");
         //keyMap.put(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.Event.CTRL_MASK), "action_ende");
@@ -134,14 +133,16 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
         keyMap.put(KeyStroke.getKeyStroke("control alt X"), "action_exit");
         keyMap.put(KeyStroke.getKeyStroke("control alt P"), "action_print");
         SwingUtilities.replaceUIActionMap(panel2, actionMap);
-        SwingUtilities.replaceUIInputMap(panel2, JComponent.WHEN_IN_FOCUSED_WINDOW,keyMap);
+        SwingUtilities.replaceUIInputMap(panel2, JComponent.WHEN_IN_FOCUSED_WINDOW, keyMap);
 
         conn = null;
 
         Vector<Component> order = new Vector<>(14);
         order.add(field_Datum);
-        order.add(field_Beschreibung);
-        order.add(field_erledigt);
+        order.add(field_Betreff);
+        order.add(field_Bezug);
+        order.add(field_Anrede);
+        order.add(field_Text);
         order.add(Anfang);
         order.add(Zurueck);
         order.add(Vor);
@@ -153,11 +154,11 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
         order.add(WSuchen);
         order.add(Drucken);
         order.add(Schliessen);
-        
+
         newPolicy = new ModulMyOwnFocusTraversalPolicy(order);
         setFocusTraversalPolicy(newPolicy);
 
-     // Datenbank-Treiber laden
+        // Datenbank-Treiber laden
         try {
             Class.forName(Modulhelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
@@ -198,10 +199,25 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                         count = 1;
                         field_count.setText(Integer.toString(count));
                         resultIsEmpty = false;
-                        field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
-                        field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-                        field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
-                        field_erledigt.setText(result.getString("Termin_erledigt"));
+                        field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
+                        field_Text.setText(result.getString("BRIEFE_TEXT"));
+                        field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+                        field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
+                        field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
+                        field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
+                        String Adresse = result.getString("BRIEFE_ADRESSE");
+                        resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
+                        resultA.next();
+                        Integer ID = resultA.getInt("ADRESSE_ID");
+                        String IDstr = "";
+                        if (ID < 10) {
+                            IDstr = "00" + ID.toString();
+                        } else if (ID < 100) {
+                            IDstr = "0" + ID.toString();
+                        } else {
+                            IDstr = ID.toString();
+                        }
+                        field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
                         // Schalterzustände setzen   
                         Anfang.setEnabled(true);
                         Zurueck.setEnabled(true);
@@ -272,11 +288,11 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
         field_Betreff = new JTextField();
         jLabel7 = new JLabel();
         jLabel8 = new JLabel();
-        jComboBoxAdresse = new JComboBox<>();
-        jCheckBoxAnrede = new JCheckBox();
+        field_Adresse = new JComboBox<>();
+        field_Anrede = new JCheckBox();
         jPanel1 = new JPanel();
         jScrollPane1 = new JScrollPane();
-        jTextArea = new JTextArea();
+        field_Text = new JTextArea();
         jLabel6 = new JLabel();
 
         //======== this ========
@@ -394,13 +410,13 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             //---- jLabel8 ----
             jLabel8.setText("Adresse");
 
-            //---- jComboBoxAdresse ----
-            jComboBoxAdresse.setModel(new DefaultComboBoxModel<>(new String[] {
+            //---- field_Adresse ----
+            field_Adresse.setModel(new DefaultComboBoxModel<>(new String[] {
 
             }));
 
-            //---- jCheckBoxAnrede ----
-            jCheckBoxAnrede.setText("Anrede ");
+            //---- field_Anrede ----
+            field_Anrede.setText("Anrede ");
 
             //======== jPanel1 ========
             {
@@ -420,13 +436,13 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             //======== jScrollPane1 ========
             {
 
-                //---- jTextArea ----
-                jTextArea.setColumns(20);
-                jTextArea.setFont(new Font("Arial", Font.PLAIN, 13));
-                jTextArea.setLineWrap(true);
-                jTextArea.setRows(5);
-                jTextArea.setWrapStyleWord(true);
-                jScrollPane1.setViewportView(jTextArea);
+                //---- field_Text ----
+                field_Text.setColumns(20);
+                field_Text.setFont(new Font("Arial", Font.PLAIN, 13));
+                field_Text.setLineWrap(true);
+                field_Text.setRows(5);
+                field_Text.setWrapStyleWord(true);
+                jScrollPane1.setViewportView(field_Text);
             }
 
             //---- jLabel6 ----
@@ -452,7 +468,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                                         .addContainerGap()
                                         .addGroup(panel2Layout.createParallelGroup()
                                             .addComponent(jLabel8)
-                                            .addComponent(jComboBoxAdresse, GroupLayout.PREFERRED_SIZE, 530, GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(field_Adresse, GroupLayout.PREFERRED_SIZE, 530, GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(panel2Layout.createSequentialGroup()
                                         .addGap(10, 10, 10)
                                         .addComponent(jLabel1)
@@ -505,7 +521,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                                                 .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                                     .addComponent(field_Betreff, GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
                                                     .addComponent(field_Bezug, GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)))
-                                            .addComponent(jCheckBoxAnrede)))))
+                                            .addComponent(field_Anrede)))))
                             .addGroup(panel2Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)))
@@ -539,7 +555,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                             .addGroup(panel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(6, 6, 6)
-                                .addComponent(jComboBoxAdresse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(field_Adresse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7)
@@ -549,7 +565,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                                     .addComponent(jLabel3)
                                     .addComponent(field_Bezug, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(jCheckBoxAnrede)))
+                                .addComponent(field_Anrede)))
                         .addGap(31, 31, 31)
                         .addComponent(jLabel6)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -623,10 +639,25 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             Drucken.setEnabled(true);
             Schliessen.setEnabled(true);
 
-            field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
-            field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
-            field_erledigt.setText(result.getString("Termin_erledigt"));
+            field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
+            field_Text.setText(result.getString("BRIEFE_TEXT"));
+            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+            field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
+            field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
+            field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
+            String Adresse = result.getString("BRIEFE_ADRESSE");
+            resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
+            resultA.next();
+            Integer ID = resultA.getInt("ADRESSE_ID");
+            String IDstr = "";
+            if (ID < 10) {
+                IDstr = "00" + ID.toString();
+            } else if (ID < 100) {
+                IDstr = "0" + ID.toString();
+            } else {
+                IDstr = ID.toString();
+            }
+            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
@@ -634,14 +665,18 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
 
     private void EinfuegenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EinfuegenActionPerformed
         // TODO add your handling code here:
-        
+
         try {
             maxID = maxID + 1;
             result.moveToInsertRow();
-            result.updateInt("Termin_ID", maxID);
-            result.updateString("Termin_Beschreibung", "");
-            result.updateDate("Termin_Datum", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
-            result.updateString("Termin_erledigt", "");
+            result.updateInt("BRIEFE_ID", maxID);
+            result.updateString("BRIEFE_TEXT", field_Text.getText());
+            result.updateDate("BRIEFE_DATUM", Modulhelferlein.Date2SQLDate(field_Datum.getDate()));
+            result.updateString("BRIEFE_BEZUG", field_Bezug.getText());
+            result.updateString("BRIEFE_BETREFF", field_Betreff.getText());
+            result.updateBoolean("BRIEFE_ANREDE", field_Anrede.isSelected());
+            String[] Adresse = field_Adresse.getItemAt(field_Adresse.getSelectedIndex()).split(",");
+            result.updateString("BRIEFE_ADRESSSE", Adresse[0]);
             result.insertRow();
             countMax = countMax + 1;
             field_countMax.setText(Integer.toString(countMax));
@@ -664,10 +699,24 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             resultIsEmpty = false;
             result.last();
 
-            field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
-            field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
-            field_erledigt.setText(result.getString("Termin_erledigt"));
+            field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
+            field_Text.setText(result.getString("BRIEFE_TEXT"));
+            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+            field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
+            field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
+            field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
+            resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + result.getString("BRIEFE_ADRESSE") + "'");
+            resultA.next();
+            Integer ID = resultA.getInt("ADRESSE_ID");
+            String IDstr = "";
+            if (ID < 10) {
+                IDstr = "00" + ID.toString();
+            } else if (ID < 100) {
+                IDstr = "0" + ID.toString();
+            } else {
+                IDstr = ID.toString();
+            }
+            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
@@ -718,9 +767,13 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             if (resultIsEmpty) {
                 Modulhelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
             } else {
-                result.updateString("Termin_Beschreibung", field_Beschreibung.getText());
-                result.updateDate("Termin_Datum", Modulhelferlein.Date2SQLDate(field_Datum.getDate()));
-                result.updateString("Termin_erledigt", field_erledigt.getText());
+                result.updateString("BRIEFE_TEXT", field_Text.getText());
+                result.updateDate("BRIEFE_DATUM", Modulhelferlein.Date2SQLDate(field_Datum.getDate()));
+                result.updateString("BRIEFE_BEZUG", field_Bezug.getText());
+                result.updateString("BRIEFE_BETREFF", field_Betreff.getText());
+                result.updateBoolean("BRIEFE_ANREDE", field_Anrede.isSelected());
+                String[] Adresse = field_Adresse.getItemAt(field_Adresse.getSelectedIndex()).split(",");
+                result.updateString("BRIEFE_ADRESSSE", Adresse[0]);
                 result.updateRow();
             }
         } catch (SQLException exept) {
@@ -740,10 +793,25 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
 
                 result.first();
                 if (countMax > 0) {
-                    field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
-                    field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-                    field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
-                    field_erledigt.setText(result.getString("Termin_erledigt"));
+                    field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
+                    field_Text.setText(result.getString("BRIEFE_TEXT"));
+                    field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+                    field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
+                    field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
+                    field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
+                    String Adresse = result.getString("BRIEFE_ADRESSE");
+                    resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
+                    resultA.next();
+                    Integer ID = resultA.getInt("ADRESSE_ID");
+                    String IDstr = "";
+                    if (ID < 10) {
+                        IDstr = "00" + ID.toString();
+                    } else if (ID < 100) {
+                        IDstr = "0" + ID.toString();
+                    } else {
+                        IDstr = ID.toString();
+                    }
+                    field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
                     // Schalterzustand anpassen
                     Anfang.setEnabled(true);
                     Zurueck.setEnabled(true);
@@ -759,8 +827,9 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                 } else {
                     resultIsEmpty = true;
                     field_ID.setText("");
-                    field_Beschreibung.setText("");
-                    field_erledigt.setText("");
+                    field_Betreff.setText("");
+                    field_Bezug.setText("");
+                    field_Text.setText("");
                     // Schalterzustand anpassen
                     Anfang.setEnabled(false);
                     Zurueck.setEnabled(false);
@@ -819,10 +888,25 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             } else {
                 result.next();
             }
-            field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
-            field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
-            field_erledigt.setText(result.getString("Termin_erledigt"));
+            field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
+            field_Text.setText(result.getString("BRIEFE_TEXT"));
+            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+            field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
+            field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
+            field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
+            String Adresse = result.getString("BRIEFE_ADRESSE");
+            resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
+            resultA.next();
+            Integer ID = resultA.getInt("ADRESSE_ID");
+            String IDstr = "";
+            if (ID < 10) {
+                IDstr = "00" + ID.toString();
+            } else if (ID < 100) {
+                IDstr = "0" + ID.toString();
+            } else {
+                IDstr = ID.toString();
+            }
+            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
@@ -855,10 +939,25 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             } else {
                 result.previous();
             }
-            field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
-            field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
-            field_erledigt.setText(result.getString("Termin_erledigt"));
+            field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
+            field_Text.setText(result.getString("BRIEFE_TEXT"));
+            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+            field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
+            field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
+            field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
+            String Adresse = result.getString("BRIEFE_ADRESSE");
+            resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
+            resultA.next();
+            Integer ID = resultA.getInt("ADRESSE_ID");
+            String IDstr = "";
+            if (ID < 10) {
+                IDstr = "00" + ID.toString();
+            } else if (ID < 100) {
+                IDstr = "0" + ID.toString();
+            } else {
+                IDstr = ID.toString();
+            }
+            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
@@ -884,10 +983,25 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             Drucken.setEnabled(true);
             Schliessen.setEnabled(true);
 
-            field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
-            field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
-            field_erledigt.setText(result.getString("Termin_erledigt"));
+            field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
+            field_Text.setText(result.getString("BRIEFE_TEXT"));
+            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+            field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
+            field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
+            field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
+            String Adresse = result.getString("BRIEFE_ADRESSE");
+            resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
+            resultA.next();
+            Integer ID = resultA.getInt("ADRESSE_ID");
+            String IDstr = "";
+            if (ID < 10) {
+                IDstr = "00" + ID.toString();
+            } else if (ID < 100) {
+                IDstr = "0" + ID.toString();
+            } else {
+                IDstr = ID.toString();
+            }
+            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
@@ -895,7 +1009,13 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
 
     private void DruckenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DruckenActionPerformed
         // TODO add your handling code here:
-        berTermine.bericht();
+        String[] Adresse = field_Adresse.getItemAt(field_Adresse.getSelectedIndex()).split(",");
+        briefBrief.brief2PDF(Adresse[0], 
+                             field_Anrede.isSelected(), 
+                             field_Datum.getDateFormatString(), 
+                             field_Betreff.getText(),
+                             field_Bezug.getText(),
+                             field_Text.getText());
     }//GEN-LAST:event_DruckenActionPerformed
 
     /**
@@ -907,18 +1027,17 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-/**        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CarolaHartmannMilesVerlag.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-*/        
+        /**
+         * try { for (javax.swing.UIManager.LookAndFeelInfo info :
+         * javax.swing.UIManager.getInstalledLookAndFeels()) { if
+         * ("Nimbus".equals(info.getName())) {
+         * javax.swing.UIManager.setLookAndFeel(info.getClassName()); break; } }
+         * } catch (ClassNotFoundException | InstantiationException |
+         * IllegalAccessException | javax.swing.UnsupportedLookAndFeelException
+         * ex) {
+         * java.util.logging.Logger.getLogger(CarolaHartmannMilesVerlag.class.getName()).log(java.util.logging.Level.SEVERE,
+         * null, ex); }
+         */
         //</editor-fold>
 
         //</editor-fold>
@@ -962,11 +1081,11 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
     private JTextField field_Betreff;
     private JLabel jLabel7;
     private JLabel jLabel8;
-    private JComboBox<String> jComboBoxAdresse;
-    private JCheckBox jCheckBoxAnrede;
+    private JComboBox<String> field_Adresse;
+    private JCheckBox field_Anrede;
     private JPanel jPanel1;
     private JScrollPane jScrollPane1;
-    private JTextArea jTextArea;
+    private JTextArea field_Text;
     private JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 
@@ -976,7 +1095,9 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
 
     Connection conn = null;
     Statement SQLAnfrage = null;
+    Statement SQLAnfrageA = null;
     ResultSet result = null;
+    ResultSet resultA = null;
 
     boolean resultIsEmpty = true;
 

@@ -35,11 +35,11 @@
          <class>org.jdesktop.layout.GroupLayout</class>
          <void method="setProperty">
           <string>$horizontalGroup</string>
-          <string>par l {seq {par l {par t:::p {seq l {space :::p, comp jScrollPane1::::691:x}, par l {seq l {space :::p, par l {comp jLabel8:::p::p, comp jComboBoxAdresse:::p:530:p}}, seq l {space :10:10:p, comp jLabel1:::p::p, space :424:424:p, comp field_ID:::p::p, space :26:26:p, comp jLabel4:::p::p, space :6:6:p, comp field_count:::p::p, space :5:5:p, comp jLabel5:::p::p, space :2:2:p, comp field_countMax:::p::p}, seq l {space :::p, comp Anfang:::p::p, space :6:6:p, comp Zurueck:::p:49:p, space :6:6:p, comp Vor:::p:49:p, space :6:6:p, comp Ende:::p::p, space :16:16:p, comp Update:::p:49:p, space :6:6:p, comp Einfuegen:::p:49:p, space :6:6:p, comp Loeschen:::p:49:p, space :16:16:p, comp Suchen:::p:49:p, space :6:6:p, comp WSuchen:::p:49:p, space :21:21:p, comp Drucken:::p:49:p, space :6:6:p, comp Schliessen:::p:49:p}, seq l {space :p:565:p, par l {comp jLabel2:::p::p, comp field_Datum:::p:130:p}}, seq l {space :::p, par l {seq {par l {comp jLabel7::l:p:41:p, comp jLabel3::l:p::p}, space u:::p, par l:::p {comp field_Betreff::::640:x, comp field_Bezug::::640:x}}, comp jCheckBoxAnrede:::p::p}}}}, seq l {space :::p, comp jLabel6:::p:63:p}}, space ::14:x}};par l {seq {space :0:0:x, comp jPanel1:::p::p, space :0:0:x}}</string>
+          <string>par l {seq {par l {par t:::p {seq l {space :::p, comp jScrollPane1::::691:x}, par l {seq l {space :::p, par l {comp jLabel8:::p::p, comp field_Adresse:::p:530:p}}, seq l {space :10:10:p, comp jLabel1:::p::p, space :424:424:p, comp field_ID:::p::p, space :26:26:p, comp jLabel4:::p::p, space :6:6:p, comp field_count:::p::p, space :5:5:p, comp jLabel5:::p::p, space :2:2:p, comp field_countMax:::p::p}, seq l {space :::p, comp Anfang:::p::p, space :6:6:p, comp Zurueck:::p:49:p, space :6:6:p, comp Vor:::p:49:p, space :6:6:p, comp Ende:::p::p, space :16:16:p, comp Update:::p:49:p, space :6:6:p, comp Einfuegen:::p:49:p, space :6:6:p, comp Loeschen:::p:49:p, space :16:16:p, comp Suchen:::p:49:p, space :6:6:p, comp WSuchen:::p:49:p, space :21:21:p, comp Drucken:::p:49:p, space :6:6:p, comp Schliessen:::p:49:p}, seq l {space :p:565:p, par l {comp jLabel2:::p::p, comp field_Datum:::p:130:p}}, seq l {space :::p, par l {seq {par l {comp jLabel7::l:p:41:p, comp jLabel3::l:p::p}, space u:::p, par l:::p {comp field_Betreff::::640:x, comp field_Bezug::::640:x}}, comp field_Anrede:::p::p}}}}, seq l {space :::p, comp jLabel6:::p:63:p}}, space ::14:x}};par l {seq {space :0:0:x, comp jPanel1:::p::p, space :0:0:x}}</string>
          </void>
          <void method="setProperty">
           <string>$verticalGroup</string>
-          <string>par l {seq {space :10:10:p, par l {comp field_count:::p::p, comp field_countMax:::p::p, seq {space :5:5:p, par l {comp jLabel1:::p::p, comp field_ID:::p::p, comp jLabel4:::p::p, comp jLabel5:::p::p}}}, space ::30:x, par l {seq {comp jLabel2:::p::p, space :::p, comp field_Datum:::p::p}, seq {comp jLabel8:::p::p, space :6:6:p, comp jComboBoxAdresse:::p::p, space s:::p, par b {comp jLabel7::b:p::p, comp field_Betreff::b:p::p}, space s:::p, par b {comp jLabel3::b:p::p, comp field_Bezug::b:p::p}, space s:::p, comp jCheckBoxAnrede:::p::p}}, space :p:31:p, comp jLabel6:::p::p, space :::p, comp jScrollPane1:::p:120:p, space u:::p, par l {comp Anfang:::p::p, comp Zurueck:::p::p, comp Vor:::p::p, comp Ende:::p::p, comp Update:::p::p, comp Einfuegen:::p::p, comp Loeschen:::p::p, comp Suchen:::p::p, comp WSuchen:::p::p, comp Drucken:::p::p, comp Schliessen:::p::p}, space :::p}};par l {seq {space :0:0:x, comp jPanel1:::p::p, space :0:0:x}}</string>
+          <string>par l {seq {space :10:10:p, par l {comp field_count:::p::p, comp field_countMax:::p::p, seq {space :5:5:p, par l {comp jLabel1:::p::p, comp field_ID:::p::p, comp jLabel4:::p::p, comp jLabel5:::p::p}}}, space ::30:x, par l {seq {comp jLabel2:::p::p, space :::p, comp field_Datum:::p::p}, seq {comp jLabel8:::p::p, space :6:6:p, comp field_Adresse:::p::p, space s:::p, par b {comp jLabel7::b:p::p, comp field_Betreff::b:p::p}, space s:::p, par b {comp jLabel3::b:p::p, comp field_Bezug::b:p::p}, space s:::p, comp field_Anrede:::p::p}}, space :p:31:p, comp jLabel6:::p::p, space :::p, comp jScrollPane1:::p:120:p, space u:::p, par l {comp Anfang:::p::p, comp Zurueck:::p::p, comp Vor:::p::p, comp Ende:::p::p, comp Update:::p::p, comp Einfuegen:::p::p, comp Loeschen:::p::p, comp Suchen:::p::p, comp WSuchen:::p::p, comp Drucken:::p::p, comp Schliessen:::p::p}, space :::p}};par l {seq {space :0:0:x, comp jPanel1:::p::p, space :0:0:x}}</string>
          </void>
         </object>
         <void property="name">
@@ -544,7 +544,7 @@
            <object class="javax.swing.DefaultComboBoxModel"/>
           </void>
           <void property="name">
-           <string>jComboBoxAdresse</string>
+           <string>field_Adresse</string>
           </void>
           <void method="auxiliary">
            <void method="setProperty">
@@ -562,7 +562,7 @@
            <string>Anrede </string>
           </void>
           <void property="name">
-           <string>jCheckBoxAnrede</string>
+           <string>field_Anrede</string>
           </void>
          </object>
         </void>
@@ -622,7 +622,7 @@
              <boolean>true</boolean>
             </void>
             <void property="name">
-             <string>jTextArea</string>
+             <string>field_Text</string>
             </void>
            </object>
           </void>
