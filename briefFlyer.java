@@ -74,6 +74,7 @@ public class briefFlyer {
                 PDFont fontBold = PDType1Font.HELVETICA_BOLD;
                 PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
                 PDFont fontUni = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
+                //PDFont fontUniBold = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
 
 //        PDFont fontMono = PDType1Font.COURIER;
 // Start a new content stream which will "hold" the to be created content
@@ -161,7 +162,7 @@ public class briefFlyer {
 
 // Beschreibung 
                     String Beschreibung = resultBuch.getString("BUCH_BESCHREIBUNG");
-                    //Beschreibung.replace("\\u000A", Trenner);
+                    //Beschreibung = Beschreibung.replace("\\u000A", Trenner);
                     Beschreibung = Beschreibung.replace("\r\n", Trenner);
                     Beschreibung = Beschreibung.replace("\n\r", Trenner);
                     Beschreibung = Beschreibung.replace("\n", Trenner);
