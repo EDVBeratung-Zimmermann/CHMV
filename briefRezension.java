@@ -773,7 +773,7 @@ public class briefRezension {
                             Startzeile = 500;
                             ZeilenNr = 1;
 
-                            Anfrage = spell.formatText(Anfrage, 80);
+                            Anfrage = spell.formatText(Anfrage, 483, cos, fontPlain, 12);
                             String[] splitAnfrage = Anfrage.split("~#!#~");
                             for (int i = 0; i < splitAnfrage.length; i++) {
                                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitAnfrage[i]);
@@ -856,7 +856,7 @@ public class briefRezension {
                             Beschreibung = Beschreibung.replace("\n\r", Trenner);
                             Beschreibung = Beschreibung.replace("\n", Trenner);
                             Beschreibung = Beschreibung.replace("\r", Trenner);
-                            Beschreibung = spell.formatText(Beschreibung, 80);
+                            Beschreibung = spell.formatText(Beschreibung, 483, cos, fontPlain, 12);
 
                             String[] splitBeschreibung = Beschreibung.split(Trenner);
                             for (int i = 0; i < splitBeschreibung.length; i++) {
