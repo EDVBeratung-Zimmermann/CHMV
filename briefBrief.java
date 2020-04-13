@@ -187,7 +187,7 @@ public class briefBrief {
                 Beschreibung = Beschreibung.replace("\n \r", Trenner);
                 Beschreibung = Beschreibung.replace("\n", Trenner);
                 Beschreibung = Beschreibung.replace("\r", Trenner);
-                Beschreibung = spell.formatText(Beschreibung, 80);
+                Beschreibung = spell.formatText(Beschreibung, 483, cos, fontUniPlain, 12);
 
                 String[] splitBeschreibung = Beschreibung.split(Trenner);
                 for (int i = 0; i < splitBeschreibung.length; i++) {
