@@ -6,8 +6,11 @@
 package milesVerlagMain;
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.* ;
 import static milesVerlagMain.Modulhelferlein.Trenner;
+import net.davidashen.text.Hyphenator;
 
 
 /*
@@ -52,7 +55,8 @@ Grundsätzliche Vorgehensweise
  sch wird nicht getrennt
  str wird nicht getrennt
 
- ck wird in kk umgewandelt
+veraltet: ck wird in kk umgewandelt
+ck wird nicht mehr getrennt
 
  Problem nicht anwendbarer Regeln
  --------------------------------
@@ -105,7 +109,27 @@ Grundsätzliche Vorgehensweise
  */
 public class spell {
 
-    
+      private static String hyphenate(String word) {
+
+// schau mal in die API fuer die Parameter
+        Hyphenator h = new Hyphenator();
+        try {
+            //h.setErrorHandler(new MyErrorHandler());
+            h.loadTable(new java.io.BufferedInputStream(new java.io.FileInputStream("hyphen.tex")));
+        } catch (FileNotFoundException ex) {
+            System.out.println("Silbentrennung: File not Found hyphen.tex" + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Silbentrennung: IO-Exception hyphen.tex" + ex.getMessage());
+        }
+        String hyphenated_word = h.hyphenate(word);
+        return hyphenated_word;
+    }
+
+    private static class MyErrorHandler {
+
+        public MyErrorHandler() {
+        }
+    }  
   public static void main(String[] args) {
       /**
     test("Lattenrost"         , "Lat-ten-rost") ;
@@ -354,8 +378,10 @@ public class spell {
      * @return 
    */
   public static String[] spellWord(String paStrWord) {
+      
     String[] retStrArr = null ;
-
+    String trennung = null;
+    /**
     retStrArr = (String[]) wordHashMap.get(paStrWord);
     if (retStrArr != null) {
       return retStrArr;
@@ -381,8 +407,11 @@ public class spell {
 
     retStrArr = (String[]) arrList.toArray(new String[0]) ;
 
-    wordHashMap.put(paStrWord , retStrArr) ;
-
+    wordHashMap.put(paStrWord , retStrArr) ; 
+    */
+    trennung = hyphenate(paStrWord);
+    trennung = trennung.replace("\u00AD", "-");
+    retStrArr = trennung.split("-");
     return retStrArr;
   }// end method
 
@@ -419,7 +448,8 @@ public class spell {
 
       //System.out.println("vor den Regeln: " + paStr.substring(0 , Math.min(i , paStr.length())) + "|" + paStr.substring(Math.min(i , paStr.length()))) ;
 
-      // Starter der else-if-Kaskade,  damit else if beliebig verschoben werden kann ohne Risiko Verwechslung if <--> else if
+      // Starter der else-if-Kaskade,  damit else if beliebig verschoben werden kann 
+      // ohne Risiko Verwechslung if <--> else if
       if (bMatch) {
         i--;
       }
@@ -519,18 +549,42 @@ public class spell {
         i -= 2;
       }
 
+    // CK-Trennung
+      
       // ck: c am Ende der Silbe und k am Anfang der nächsten Silbe
       // ck wird in kk umgewandelt
-      else if ((i > 1 && (i < paStr.length() - 1) && paStr.substring(i - 1).startsWith("c")) // ...
-          && (i < paStr.length() - 1) && paStr.substring(i).startsWith("k")) {
-        //System.out.println("ck wird in kk umgewandelt " + paStr.substring(i)) ;
-        bCkToKK = true ;
+      //ist veraltet
+      //else if ((i > 1 && (i < paStr.length() - 1) && paStr.substring(i - 1).startsWith("c")) // ...
+      //    && (i < paStr.length() - 1) && paStr.substring(i).startsWith("k")) {
+      //  //System.out.println("ck wird in kk umgewandelt " + paStr.substring(i)) ;
+      //  bCkToKK = true ;
+      //}
+      // ck wurde getrennt
+      else if (i > 1 && (i < paStr.length() - 1) && paStr.substring(i - 1).startsWith("ck")) {
+        //System.out.println("ck wurde getrennt " + paStr.substring(i)) ;
+        i--;
       }
 
       // Spezialregel Silbe ng
       // ng wird nicht getrennt
       else if ((i > 1 && (i < paStr.length() - 1) && paStr.substring(i - 1).toLowerCase().startsWith("n")) // ...
           && (i < paStr.length() - 1) && paStr.substring(i).startsWith("g")// ...
+          // && ( ! ( paStrPreSyllable.toLowerCase() + paStr.toLowerCase() ).startsWith( "seiten" ) ) // seiten-gestaltung als Ausnahme
+          // && (!startsWithKnownWord(paStrPreSyllables.toLowerCase() + paStr.toLowerCase())) // Suchen nach Ausnahmen für ng-Trennung (seitengestaltung, autorengemeinschaft)
+          // && (!startsWithKnownWord(paStrPreSyllables.toLowerCase() + paStr.substring(0,i).toLowerCase())) // Suchen nach Ausnahmen für ng-Trennung (seitengestaltung, autorengemeinschaft)
+          // && (!endsWithKnownWord(paStrPreSyllables.toLowerCase() )) // Suchen nach Ausnahmen für ng-Trennung (seitengestaltung, autorengemeinschaft)
+          // && (!endsWithKnownWord(paStrPreSyllables.toLowerCase() + paStr.toLowerCase())) // Suchen nach Ausnahmen für ng-Trennung (seitengestaltung, autorengemeinschaft)
+          && (!endsWithKnownWord(paStrPreSyllables.toLowerCase() + paStr.substring(0,i).toLowerCase())) // Suchen nach Ausnahmen für ng-Trennung (seitengestaltung, autorengemeinschaft)
+          ) {
+        //System.out.println("ng wird nicht getrennt " + paStr.substring(i)) ;
+        i++;
+        bCont = true;
+      }
+
+      // Spezialregel Silbe ck
+      // ck wird nicht getrennt
+      else if ((i > 1 && (i < paStr.length() - 1) && paStr.substring(i - 1).toLowerCase().startsWith("c")) // ...
+          && (i < paStr.length() - 1) && paStr.substring(i).startsWith("k")// ...
           // && ( ! ( paStrPreSyllable.toLowerCase() + paStr.toLowerCase() ).startsWith( "seiten" ) ) // seiten-gestaltung als Ausnahme
           // && (!startsWithKnownWord(paStrPreSyllables.toLowerCase() + paStr.toLowerCase())) // Suchen nach Ausnahmen für ng-Trennung (seitengestaltung, autorengemeinschaft)
           // && (!startsWithKnownWord(paStrPreSyllables.toLowerCase() + paStr.substring(0,i).toLowerCase())) // Suchen nach Ausnahmen für ng-Trennung (seitengestaltung, autorengemeinschaft)
@@ -575,7 +629,7 @@ public class spell {
     }
 
     return retStr ;
-  }// end method
+  }// end method parseSyllable
 
   /**
    * stimmlos
