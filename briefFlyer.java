@@ -136,7 +136,8 @@ public class briefFlyer {
                     AutorEintrag = AutorEintrag.substring(0, AutorEintrag.length() - 2);
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 700, AutorEintrag, 220);
                     // Titel
-                    String Titel = spell.formatText(resultBuch.getString("BUCH_TITEL"), 40);
+                    //String Titel = spell.formatText(resultBuch.getString("BUCH_TITEL"), 40);
+                    String Titel = spell.formatText(resultBuch.getString("BUCH_TITEL"), 230, cos, fontPlain, 12);
                     String[] SplitTitel = Titel.split("~#!#~");
                     Titel = resultBuch.getString("BUCH_TITEL");
                     int zeile = 670;
@@ -170,7 +171,9 @@ public class briefFlyer {
                     Beschreibung = Beschreibung.replace("\n\r", Trenner);
                     Beschreibung = Beschreibung.replace("\n", Trenner);
                     Beschreibung = Beschreibung.replace("\r", Trenner);
-                    Beschreibung = spell.formatText(Beschreibung, 40);
+                    
+                    //Beschreibung = spell.formatText(Beschreibung, 40);
+                    Beschreibung = spell.formatText(Beschreibung, 230, cos, fontPlain, 11);
                     
                     String[] Flyertext = Beschreibung.split(Trenner);
                     
