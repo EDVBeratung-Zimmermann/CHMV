@@ -81,10 +81,10 @@ public class briefBrief {
                 PDFont fontBold = PDType1Font.HELVETICA_BOLD;
                 PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
                 //PDFont fontMono = PDType1Font.COURIER;
-                PDFont fontUniPlain = PDType0Font.load(document, new File("FreeSans-LrmZ.ttf"));
-                PDFont fontUniBold = PDType0Font.load(document, new File("FreeSansBold-Xgdd.ttf"));
-                PDFont fontUniOblique = PDType0Font.load(document, new File("FreeSansOblique-ol30.ttf"));
-                PDFont fontUniBoldOblique = PDType0Font.load(document, new File("FreeSansBoldOblique-g9mR.ttf"));
+                PDFont fontUniPlain = PDType0Font.load(document, new File("FreeSans.ttf"));
+                PDFont fontUniBold = PDType0Font.load(document, new File("FreeSansBold.ttf"));
+                PDFont fontUniOblique = PDType0Font.load(document, new File("FreeSansOblique.ttf"));
+                PDFont fontUniBoldOblique = PDType0Font.load(document, new File("FreeSansBoldOblique.ttf"));
 
                 // Start a new content stream which will "hold" the to be created content
                 PDPageContentStream cos = new PDPageContentStream(document, page);
@@ -191,7 +191,7 @@ public class briefBrief {
 
                 String[] splitBeschreibung = Beschreibung.split(Trenner);
                 for (int i = 0; i < splitBeschreibung.length; i++) {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitBeschreibung[i]);
+                    Ausgabe(cos, fontUniPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitBeschreibung[i]);
                     ZeilenNr = ZeilenNr + 1;
                     if (Startzeile - 15 * (ZeilenNr - 1) <= 130) { //neue Seite
                         cos.close();
