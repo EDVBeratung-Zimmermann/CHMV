@@ -142,7 +142,7 @@ public class briefFlyer {
                     int zeile = 670;
                     int i = 0;
                     for (i = 0; i < SplitTitel.length; i++) {
-                        Ausgabe(cos, fontUniBold, 12, Color.BLACK, 57, zeile - i * 15, SplitTitel[i]);
+                        Ausgabe(cos, fontBold, 12, Color.BLACK, 57, zeile - i * 15, SplitTitel[i]);
                     }
                     // Buchdaten
                     // ISBN, Seitenzahl
@@ -177,7 +177,7 @@ public class briefFlyer {
                     zeile = zeile - 40;
                     for (i = 0; i < Flyertext.length; i++) {
                         //System.out.println("Brief: "+Flyertext[i]);
-                        AusgabeBS(cos, fontUniPlain, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i], 230);
+                        AusgabeBS(cos, fontPlain, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i], 230);
                     }
 
 // Cover
