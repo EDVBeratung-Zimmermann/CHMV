@@ -73,10 +73,10 @@ public class briefFlyer {
                 PDFont fontPlain = PDType1Font.HELVETICA;
                 PDFont fontBold = PDType1Font.HELVETICA_BOLD;
                 PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
-                PDFont fontUniPlain = PDType0Font.load(document, new File("FreeSans-LrmZ.ttf"));
-                PDFont fontUniBold = PDType0Font.load(document, new File("FreeSansBold-Xgdd.ttf"));
-                PDFont fontUniOblique = PDType0Font.load(document, new File("FreeSansOblique-ol30.ttf"));
-                PDFont fontUniBoldOblique = PDType0Font.load(document, new File("FreeSansBoldOblique-g9mR.ttf"));
+                PDFont fontUniPlain = PDType0Font.load(document, new File("FreeSans.ttf"));
+                PDFont fontUniBold = PDType0Font.load(document, new File("FreeSansBold.ttf"));
+                PDFont fontUniOblique = PDType0Font.load(document, new File("FreeSansOblique.ttf"));
+                PDFont fontUniBoldOblique = PDType0Font.load(document, new File("FreeSansBoldOblique.ttf"));
                 //PDFont fontUniBold = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
 
 //        PDFont fontMono = PDType1Font.COURIER;
@@ -142,7 +142,7 @@ public class briefFlyer {
                     int zeile = 670;
                     int i = 0;
                     for (i = 0; i < SplitTitel.length; i++) {
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 57, zeile - i * 15, SplitTitel[i]);
+                        Ausgabe(cos, fontUniBold, 12, Color.BLACK, 57, zeile - i * 15, SplitTitel[i]);
                     }
                     // Buchdaten
                     // ISBN, Seitenzahl
@@ -177,7 +177,7 @@ public class briefFlyer {
                     zeile = zeile - 40;
                     for (i = 0; i < Flyertext.length; i++) {
                         //System.out.println("Brief: "+Flyertext[i]);
-                        AusgabeBS(cos, fontPlain, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i], 230);
+                        AusgabeBS(cos, fontUniPlain, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i], 230);
                     }
 
 // Cover
