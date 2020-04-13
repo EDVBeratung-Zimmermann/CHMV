@@ -32,7 +32,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
@@ -56,9 +55,6 @@ public class briefBrief {
 
         Statement SQLStatementAA = null;
         Connection conn = null;
-
-        Integer Startzeile = 0;
-        Integer ZeilenNr = 0;
 
         try { // Datenbank-Treiber laden
             Class.forName(Modulhelferlein.dbDriver);
@@ -128,8 +124,6 @@ public class briefBrief {
                 Linie(cos, 1, 50, 749, 297, 749);
                 Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
 
-                // Datum
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
 //helferlein.Infomeldung("schreibe adresse");
 
 // Adresse
@@ -165,25 +159,27 @@ public class briefBrief {
                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
                 System.out.println("... Adresse geschrieben");
 
-                // Anrede
-                if (Anrede) {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 530, Modulhelferlein.makeAnrede(resultAA.getString("ADRESSEN_ANREDE"), resultAA.getString("ADRESSEN_NAMENSZUSATZ"), resultAA.getString("ADRESSEN_NAME")) + ",");
-                }
-
 // Datum
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Datum);
-                System.out.println("... Betreffzeile geschrieben");
+                Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                System.out.println("... Datum geschrieben");
 // Betreff
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 655, Betreff);
+                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 625, Betreff);
                 System.out.println("... Betreffzeile geschrieben");
 // Bezug
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 635, Betreff);
+                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 605, Betreff);
                 System.out.println("... Bezugzeile geschrieben");
 
+// Anrede
+                if (Anrede) {
+                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 540, Modulhelferlein.makeAnrede(resultAA.getString("ADRESSEN_ANREDE"), resultAA.getString("ADRESSEN_NAMENSZUSATZ"), resultAA.getString("ADRESSEN_NAME")) + ",");
+                }
 // Text
+                Integer Startzeile = 500;
+                Integer ZeilenNr = 1;
+
                 String Beschreibung = Text;
-                //Beschreibung.replace("\\u000A                ", Trenner);
-                            Beschreibung = Beschreibung.replace("\r\n", Trenner);
+                //Beschreibung = Beschreibung.replace("\\u000A                ", Trenner);
+                Beschreibung = Beschreibung.replace("\r\n", Trenner);
                 Beschreibung = Beschreibung.replace("\n\r", Trenner);
                 Beschreibung = Beschreibung.replace("\n", Trenner);
                 Beschreibung = Beschreibung.replace("\r", Trenner);
