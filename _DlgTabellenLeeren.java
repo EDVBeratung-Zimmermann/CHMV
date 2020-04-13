@@ -259,7 +259,7 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
             checkBoxBrief.setText("Briefe");
             checkBoxBrief.setToolTipText("Tabelle zum Verwalten der Briefe");
             panel1.add(checkBoxBrief);
-            checkBoxBrief.setBounds(new Rectangle(new Point(127, 260), checkBoxBrief.getPreferredSize()));
+            checkBoxBrief.setBounds(127, 260, 168, checkBoxBrief.getPreferredSize().height);
 
             {
                 // compute preferred size
