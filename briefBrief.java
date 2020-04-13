@@ -178,9 +178,10 @@ public class briefBrief {
                 Integer ZeilenNr = 1;
 
                 String Beschreibung = Text;
-                //Beschreibung = Beschreibung.replace("\\u000A                ", Trenner);
                 Beschreibung = Beschreibung.replace("\r\n", Trenner);
                 Beschreibung = Beschreibung.replace("\n\r", Trenner);
+                Beschreibung = Beschreibung.replace("\r \n", Trenner);
+                Beschreibung = Beschreibung.replace("\n \r", Trenner);
                 Beschreibung = Beschreibung.replace("\n", Trenner);
                 Beschreibung = Beschreibung.replace("\r", Trenner);
                 Beschreibung = spell.formatText(Beschreibung, 80);
