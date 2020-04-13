@@ -819,6 +819,10 @@
            <string>y</string>
            <int>260</int>
           </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>169</int>
+          </void>
          </object>
         </void>
        </object>

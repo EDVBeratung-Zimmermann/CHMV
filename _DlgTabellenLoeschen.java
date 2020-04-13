@@ -257,7 +257,7 @@ public class _DlgTabellenLoeschen extends javax.swing.JDialog {
             checkBoxBrief.setText("Briefe");
             checkBoxBrief.setToolTipText("Tabelle zum Verwalten von Briefen");
             panel1.add(checkBoxBrief);
-            checkBoxBrief.setBounds(new Rectangle(new Point(136, 260), checkBoxBrief.getPreferredSize()));
+            checkBoxBrief.setBounds(136, 260, 169, checkBoxBrief.getPreferredSize().height);
 
             {
                 // compute preferred size
