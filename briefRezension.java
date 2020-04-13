@@ -601,9 +601,12 @@ public class briefRezension {
                     PDFont fontPlain = PDType1Font.HELVETICA;
                     PDFont fontBold = PDType1Font.HELVETICA_BOLD;
                     PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
+                    PDFont fontUniPlain = PDType0Font.load(document, new File("FreeSans.ttf"));
+                    PDFont fontUniBold = PDType0Font.load(document, new File("FreeSansBold.ttf"));
+                    PDFont fontUniOblique = PDType0Font.load(document, new File("FreeSansOblique.ttf"));
+                    PDFont fontUniBoldOblique = PDType0Font.load(document, new File("FreeSansBoldOblique.ttf"));
 //        PDFont fontMono = PDType1Font.COURIER;
-                    PDFont fontUni = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
-
+                    
                     // Start a new content stream which will "hold" the to be created content
                     PDPageContentStream cos = new PDPageContentStream(document, page);
 
@@ -773,7 +776,7 @@ public class briefRezension {
                             Startzeile = 500;
                             ZeilenNr = 1;
 
-                            Anfrage = spell.formatText(Anfrage, 483, cos, fontPlain, 12);
+                            Anfrage = spell.formatText(Anfrage, 483, cos, fontUniPlain, 12);
                             String[] splitAnfrage = Anfrage.split("~#!#~");
                             for (int i = 0; i < splitAnfrage.length; i++) {
                                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitAnfrage[i]);
@@ -856,7 +859,7 @@ public class briefRezension {
                             Beschreibung = Beschreibung.replace("\n\r", Trenner);
                             Beschreibung = Beschreibung.replace("\n", Trenner);
                             Beschreibung = Beschreibung.replace("\r", Trenner);
-                            Beschreibung = spell.formatText(Beschreibung, 483, cos, fontPlain, 12);
+                            Beschreibung = spell.formatText(Beschreibung, 483, cos, fontUniPlain, 12);
 
                             String[] splitBeschreibung = Beschreibung.split(Trenner);
                             for (int i = 0; i < splitBeschreibung.length; i++) {
