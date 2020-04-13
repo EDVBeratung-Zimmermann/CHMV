@@ -73,7 +73,10 @@ public class briefFlyer {
                 PDFont fontPlain = PDType1Font.HELVETICA;
                 PDFont fontBold = PDType1Font.HELVETICA_BOLD;
                 PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
-                PDFont fontUni = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
+                PDFont fontUniPlain = PDType0Font.load(document, new File("FreeSans-LrmZ.ttf"));
+                PDFont fontUniBold = PDType0Font.load(document, new File("FreeSansBold-Xgdd.ttf"));
+                PDFont fontUniOblique = PDType0Font.load(document, new File("FreeSansOblique-ol30.ttf"));
+                PDFont fontUniBoldOblique = PDType0Font.load(document, new File("FreeSansBoldOblique-g9mR.ttf"));
                 //PDFont fontUniBold = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
 
 //        PDFont fontMono = PDType1Font.COURIER;
@@ -174,7 +177,7 @@ public class briefFlyer {
                     zeile = zeile - 40;
                     for (i = 0; i < Flyertext.length; i++) {
                         //System.out.println("Brief: "+Flyertext[i]);
-                        AusgabeBS(cos, fontUni, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i], 230);
+                        AusgabeBS(cos, fontPlain, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i], 230);
                     }
 
 // Cover
