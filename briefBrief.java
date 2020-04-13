@@ -81,7 +81,10 @@ public class briefBrief {
                 PDFont fontBold = PDType1Font.HELVETICA_BOLD;
                 PDFont fontItalic = PDType1Font.HELVETICA_OBLIQUE;
                 //PDFont fontMono = PDType1Font.COURIER;
-                PDFont fontUni = PDType0Font.load(document, new File("LucidaSansUnicode.ttf"));
+                PDFont fontUniPlain = PDType0Font.load(document, new File("FreeSans-LrmZ.ttf"));
+                PDFont fontUniBold = PDType0Font.load(document, new File("FreeSansBold-Xgdd.ttf"));
+                PDFont fontUniOblique = PDType0Font.load(document, new File("FreeSansOblique-ol30.ttf"));
+                PDFont fontUniBoldOblique = PDType0Font.load(document, new File("FreeSansBoldOblique-g9mR.ttf"));
 
                 // Start a new content stream which will "hold" the to be created content
                 PDPageContentStream cos = new PDPageContentStream(document, page);
