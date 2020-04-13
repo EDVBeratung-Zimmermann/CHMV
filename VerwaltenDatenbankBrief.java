@@ -34,6 +34,7 @@ import javax.swing.*;
 import javax.swing.JOptionPane;
 import com.toedter.calendar.*;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 import javax.swing.plaf.ActionMapUIResource;
 import static milesVerlagMain.ModulMyOwnFocusTraversalPolicy.newPolicy;
 
@@ -174,18 +175,35 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
 
             if (conn != null) {
                 SQLAnfrage = null; // Anfrage erzeugen
-
+                SQLAnfrageA = null; // Anfrage erzeugen
+                
                 try {
-                    SQLAnfrage = conn.createStatement(
-                            ResultSet.TYPE_SCROLL_SENSITIVE,
-                            ResultSet.CONCUR_UPDATABLE); // Anfrage der DB conn2 zuordnen
-                    result = SQLAnfrage.executeQuery("SELECT * FROM tbl_termine ORDER BY TERMIN_ID DESC"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                    SQLAnfrage = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE); // Anfrage der DB conn2 zuordnen
+                    result = SQLAnfrage.executeQuery("SELECT * FROM TBL_BRIEFE ORDER BY BRIEFE_ID DESC"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+
+                    SQLAnfrageA = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE); // Anfrage der DB conn2 zuordnen
+                    resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ("
+                            + "ADRESSEN_NAME <> ''"
+                            + ") ORDER BY ADRESSEN_NAME"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                    
+                    String eintrag = "0, ----------, -----------";
+                    field_Adresse.addItem(eintrag);
+
+                    // Auswahlliste für Kunden und Autoren erstellen   
+                    while (resultA.next()) {
+                        eintrag = Integer.toString(resultA.getInt("ADRESSEN_ID")) + ", "
+                            + resultA.getString("ADRESSEN_Name") + ", "
+                            + resultA.getString("ADRESSEN_Vorname");
+                        field_Adresse.addItem(eintrag);
+                    } // while
+                    System.out.println("Adressen eingelesen");
+                    
                     if (result.next()) {
-                        maxID = 1 + result.getInt("TERMIN_ID");
+                        maxID = 1 + result.getInt("BRIEFE_ID");
                     } else {
                         maxID = 0;
                     }
-                    result = SQLAnfrage.executeQuery("SELECT * FROM tbl_termine ORDER BY TERMIN_DATUM"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                    result = SQLAnfrage.executeQuery("SELECT * FROM TBL_BRIEFE"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
                     // Anzahl der Datensätze ermitteln
                     countMax = 0;
                     count = 0;
@@ -208,7 +226,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                         String Adresse = result.getString("BRIEFE_ADRESSE");
                         resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
                         resultA.next();
-                        Integer ID = resultA.getInt("ADRESSE_ID");
+                        Integer ID = resultA.getInt("ADRESSEN_ID");
                         String IDstr = "";
                         if (ID < 10) {
                             IDstr = "00" + ID.toString();
@@ -217,7 +235,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                         } else {
                             IDstr = ID.toString();
                         }
-                        field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
+                        field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
                         // Schalterzustände setzen   
                         Anfang.setEnabled(true);
                         Zurueck.setEnabled(true);
@@ -459,72 +477,70 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                             .addGap(0, 0, Short.MAX_VALUE)))
                     .addGroup(panel2Layout.createSequentialGroup()
                         .addGroup(panel2Layout.createParallelGroup()
-                            .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(GroupLayout.Alignment.LEADING, panel2Layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE))
-                                .addGroup(panel2Layout.createParallelGroup()
-                                    .addGroup(panel2Layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addGroup(panel2Layout.createParallelGroup()
-                                            .addComponent(jLabel8)
-                                            .addComponent(field_Adresse, GroupLayout.PREFERRED_SIZE, 530, GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(panel2Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabel1)
-                                        .addGap(424, 424, 424)
-                                        .addComponent(field_ID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(jLabel4)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(field_count, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(5, 5, 5)
-                                        .addComponent(jLabel5)
-                                        .addGap(2, 2, 2)
-                                        .addComponent(field_countMax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panel2Layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(Anfang)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(Zurueck, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(Vor, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(Ende)
-                                        .addGap(16, 16, 16)
-                                        .addComponent(Update, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(Einfuegen, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(Loeschen, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(16, 16, 16)
-                                        .addComponent(Suchen, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(WSuchen, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(21, 21, 21)
-                                        .addComponent(Drucken, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(Schliessen, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panel2Layout.createSequentialGroup()
-                                        .addGap(565, 565, 565)
-                                        .addGroup(panel2Layout.createParallelGroup()
-                                            .addComponent(jLabel2)
-                                            .addComponent(field_Datum, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(panel2Layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addGroup(panel2Layout.createParallelGroup()
-                                            .addGroup(panel2Layout.createSequentialGroup()
-                                                .addGroup(panel2Layout.createParallelGroup()
-                                                    .addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLabel3))
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(field_Betreff, GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-                                                    .addComponent(field_Bezug, GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)))
-                                            .addComponent(field_Anrede)))))
                             .addGroup(panel2Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(panel2Layout.createParallelGroup()
+                                    .addComponent(jLabel8)
+                                    .addComponent(field_Adresse, GroupLayout.PREFERRED_SIZE, 530, GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel1)
+                                .addGap(424, 424, 424)
+                                .addComponent(field_ID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel4)
+                                .addGap(6, 6, 6)
+                                .addComponent(field_count, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(jLabel5)
+                                .addGap(2, 2, 2)
+                                .addComponent(field_countMax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(Anfang)
+                                .addGap(6, 6, 6)
+                                .addComponent(Zurueck, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(Vor, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(Ende)
+                                .addGap(16, 16, 16)
+                                .addComponent(Update, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(Einfuegen, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(Loeschen, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)
+                                .addComponent(Suchen, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(WSuchen, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)
+                                .addComponent(Drucken, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(Schliessen, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel2Layout.createSequentialGroup()
+                                .addGap(565, 565, 565)
+                                .addGroup(panel2Layout.createParallelGroup()
+                                    .addComponent(jLabel2)
+                                    .addComponent(field_Datum, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panel2Layout.createParallelGroup()
+                                    .addGroup(panel2Layout.createSequentialGroup()
+                                        .addGroup(panel2Layout.createParallelGroup()
+                                            .addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3))
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(field_Betreff, GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                                            .addComponent(field_Bezug, GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)))
+                                    .addComponent(field_Anrede)))
+                            .addGroup(panel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 672, GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(14, Short.MAX_VALUE))
             );
             panel2Layout.setVerticalGroup(
@@ -648,7 +664,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             String Adresse = result.getString("BRIEFE_ADRESSE");
             resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
             resultA.next();
-            Integer ID = resultA.getInt("ADRESSE_ID");
+            Integer ID = resultA.getInt("ADRESSEN_ID");
             String IDstr = "";
             if (ID < 10) {
                 IDstr = "00" + ID.toString();
@@ -657,7 +673,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             } else {
                 IDstr = ID.toString();
             }
-            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
+            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
@@ -671,12 +687,11 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             result.moveToInsertRow();
             result.updateInt("BRIEFE_ID", maxID);
             result.updateString("BRIEFE_TEXT", field_Text.getText());
-            result.updateDate("BRIEFE_DATUM", Modulhelferlein.Date2SQLDate(field_Datum.getDate()));
+            result.updateDate("BRIEFE_DATUM", Modulhelferlein.Date2SQLDate(new Date(0)));
             result.updateString("BRIEFE_BEZUG", field_Bezug.getText());
             result.updateString("BRIEFE_BETREFF", field_Betreff.getText());
             result.updateBoolean("BRIEFE_ANREDE", field_Anrede.isSelected());
-            String[] Adresse = field_Adresse.getItemAt(field_Adresse.getSelectedIndex()).split(",");
-            result.updateString("BRIEFE_ADRESSSE", Adresse[0]);
+            result.updateString("BRIEFE_ADRESSE", "0");
             result.insertRow();
             countMax = countMax + 1;
             field_countMax.setText(Integer.toString(countMax));
@@ -707,7 +722,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
             resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + result.getString("BRIEFE_ADRESSE") + "'");
             resultA.next();
-            Integer ID = resultA.getInt("ADRESSE_ID");
+            Integer ID = resultA.getInt("ADRESSEN_ID");
             String IDstr = "";
             if (ID < 10) {
                 IDstr = "00" + ID.toString();
@@ -716,7 +731,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             } else {
                 IDstr = ID.toString();
             }
-            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
+            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
@@ -773,7 +788,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                 result.updateString("BRIEFE_BETREFF", field_Betreff.getText());
                 result.updateBoolean("BRIEFE_ANREDE", field_Anrede.isSelected());
                 String[] Adresse = field_Adresse.getItemAt(field_Adresse.getSelectedIndex()).split(",");
-                result.updateString("BRIEFE_ADRESSSE", Adresse[0]);
+                result.updateString("BRIEFE_ADRESSE", Adresse[0]);
                 result.updateRow();
             }
         } catch (SQLException exept) {
@@ -802,7 +817,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                     String Adresse = result.getString("BRIEFE_ADRESSE");
                     resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
                     resultA.next();
-                    Integer ID = resultA.getInt("ADRESSE_ID");
+                    Integer ID = resultA.getInt("ADRESSEN_ID");
                     String IDstr = "";
                     if (ID < 10) {
                         IDstr = "00" + ID.toString();
@@ -811,7 +826,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                     } else {
                         IDstr = ID.toString();
                     }
-                    field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
+                    field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
                     // Schalterzustand anpassen
                     Anfang.setEnabled(true);
                     Zurueck.setEnabled(true);
@@ -897,7 +912,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             String Adresse = result.getString("BRIEFE_ADRESSE");
             resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
             resultA.next();
-            Integer ID = resultA.getInt("ADRESSE_ID");
+            Integer ID = resultA.getInt("ADRESSEN_ID");
             String IDstr = "";
             if (ID < 10) {
                 IDstr = "00" + ID.toString();
@@ -906,7 +921,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             } else {
                 IDstr = ID.toString();
             }
-            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
+            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
@@ -948,7 +963,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             String Adresse = result.getString("BRIEFE_ADRESSE");
             resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
             resultA.next();
-            Integer ID = resultA.getInt("ADRESSE_ID");
+            Integer ID = resultA.getInt("ADRESSEN_ID");
             String IDstr = "";
             if (ID < 10) {
                 IDstr = "00" + ID.toString();
@@ -957,7 +972,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             } else {
                 IDstr = ID.toString();
             }
-            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
+            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
@@ -992,7 +1007,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             String Adresse = result.getString("BRIEFE_ADRESSE");
             resultA = SQLAnfrageA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Adresse + "'");
             resultA.next();
-            Integer ID = resultA.getInt("ADRESSE_ID");
+            Integer ID = resultA.getInt("ADRESSEN_ID");
             String IDstr = "";
             if (ID < 10) {
                 IDstr = "00" + ID.toString();
@@ -1001,7 +1016,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             } else {
                 IDstr = ID.toString();
             }
-            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSE_NAME") + ", " + resultA.getString("ADRESSE_VORNAME"));
+            field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
         } catch (SQLException exept) {
             Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
