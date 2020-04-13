@@ -258,7 +258,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
             checkBoxBrief.setText("Briefe");
             checkBoxBrief.setToolTipText("Tabelle zum Verwalten der Briefe");
             panel1.add(checkBoxBrief);
-            checkBoxBrief.setBounds(new Rectangle(new Point(138, 260), checkBoxBrief.getPreferredSize()));
+            checkBoxBrief.setBounds(138, 260, 172, checkBoxBrief.getPreferredSize().height);
 
             {
                 // compute preferred size
@@ -283,7 +283,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(11, Short.MAX_VALUE))
+                    .addContainerGap(13, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()

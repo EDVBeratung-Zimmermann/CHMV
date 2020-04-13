@@ -13,7 +13,7 @@
        <class>org.jdesktop.layout.GroupLayout</class>
        <void method="setProperty">
         <string>$horizontalGroup</string>
-        <string>par l {seq l {space :::p, comp panel1:::p::p, space ::11:x}}</string>
+        <string>par l {seq l {space :::p, comp panel1:::p::p, space ::13:x}}</string>
        </void>
        <void method="setProperty">
         <string>$verticalGroup</string>
@@ -818,6 +818,10 @@
           <void method="setProperty">
            <string>y</string>
            <int>260</int>
+          </void>
+          <void method="setProperty">
+           <string>width</string>
+           <int>172</int>
           </void>
          </object>
         </void>
