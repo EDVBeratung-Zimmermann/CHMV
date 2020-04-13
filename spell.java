@@ -9,8 +9,12 @@ package milesVerlagMain;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.* ;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static milesVerlagMain.Modulhelferlein.Trenner;
 import net.davidashen.text.Hyphenator;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 
 
 /*
@@ -240,12 +244,14 @@ public class spell {
      * @param paIntWidth
      * @return 
    */
-  public static String formatText(String paStr , int paIntWidth) {
+  //public static String formatText(String paStr , int paIntWidth) {
+  public static String formatText(String paStr , int paIntWidth, PDPageContentStream cos, PDFont font, int size) {
     StringBuffer retStrBuff = new StringBuffer();
     StringTokenizer strTok = new StringTokenizer(paStr , Trenner) ;
     
     while (strTok.hasMoreElements()) {
-      retStrBuff.append(formatLine(strTok.nextToken().trim() , paIntWidth) + Trenner);
+      //retStrBuff.append(formatLine(strTok.nextToken().trim() , paIntWidth) + Trenner);
+      retStrBuff.append(formatLine(strTok.nextToken().trim() , paIntWidth, cos, font, size) + Trenner);
     }
 
     return retStrBuff.toString();
@@ -257,7 +263,8 @@ public class spell {
      * @param paIntWidth
      * @return 
    */
-  public static String formatLine(String paStr , int paIntWidth) {
+  //public static String formatLine(String paStr , int paIntWidth){
+  public static String formatLine(String paStr , int paIntWidth, PDPageContentStream cos, PDFont font, int size) {
     StringBuffer retStrBuff = new StringBuffer();
     StringBuffer lineStrBuff = new StringBuffer();
     StringTokenizer strTok = new StringTokenizer(paStr , " ") ;
@@ -267,16 +274,20 @@ public class spell {
 
       for (int i = 0 ; i < strArrWord.length ; i++) {
 
-        if ((lineStrBuff.length() + strArrWord[i].length()) > paIntWidth) {
-          // Zeile ist voll
-          // in nächste Zeile gehen
-          retStrBuff.append(lineStrBuff);
-          if (i > 0) {
-            retStrBuff.append("-");
+          try {
+              //if (pixelbreite((lineStrBuff.length() + strArrWord[i].length())) > paIntWidth) {
+              if (font.getStringWidth(lineStrBuff + strArrWord[i]) / 1000 * size > paIntWidth) {
+                  // Zeile ist voll
+                  // in nächste Zeile gehen
+                  retStrBuff.append(lineStrBuff);
+                  if (i > 0) {
+                      retStrBuff.append("-");
+                  }
+                  retStrBuff.append(Trenner);
+                  lineStrBuff = new StringBuffer();
+              } } catch (IOException ex) {
+              Logger.getLogger(spell.class.getName()).log(Level.SEVERE, null, ex);
           }
-          retStrBuff.append(Trenner);
-          lineStrBuff = new StringBuffer();
-        }
         lineStrBuff.append(strArrWord[i]);
       }
       lineStrBuff.append(" "); // Leerzeichen zum Trennen des nächsten Wortes
