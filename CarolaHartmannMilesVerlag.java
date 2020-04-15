@@ -1,9 +1,9 @@
 /*
  *
  * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
- * Funktionen f?r die Verwaltung des Carola Hartman Miles-Verlags bereit.
+ * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
  *
- * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von SOftware
+ * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von Software
  *                    Dipl.Inform Thomas Zimmermann
  *
  * This program is free software: you can redistribute it and/or modify
@@ -53,7 +53,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void backupDatenbank() {
-        String cmdline = "";
+        String cmdline = null;
         if (Modulhelferlein.dbLive) {
             cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P"+Modulhelferlein.dbPort+
                                                           " -u"+Modulhelferlein.dbUser+
@@ -1629,6 +1629,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             // JFormDesigner - End of action initialization  //GEN-END:initComponents
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             // TODO add your code here
            
