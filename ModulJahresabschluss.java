@@ -1,7 +1,24 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *
+ * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
+ * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
+ *
+ * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von Software
+ *                    Dipl.Inform Thomas Zimmermann
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package milesVerlagMain;
 
@@ -26,9 +43,6 @@ public class ModulJahresabschluss {
         Statement SQLAnfrageDetail;
         ResultSet result;
         
-        String SQL = "";
-        String SQLDetail = "";
-
         if (JOptionPane.showConfirmDialog(null,
                 "Soll der Jahreswechsel mit dem \n"
                         + "Zurücksetzen der Datenbanken\n"
@@ -79,8 +93,7 @@ public class ModulJahresabschluss {
 
             // final Connection conn2=conn;
             if (conn != null) {
-                SQLAnfrage = null;    // Anfrage erzeugen
-
+                
                 try {
                     SQLAnfrage = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);    // Anfrage der DB conn2 zuordnen
                     result = SQLAnfrage.executeQuery("SELECT * FROM TBL_BESTELLNR");    // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert
@@ -97,15 +110,13 @@ public class ModulJahresabschluss {
 
                     // Tabellen zurücksetzen
                     // Einnahmen
-                    SQL = "DELETE FROM TBL_EINNAHMEN WHERE EINNAHMEN_BEZAHLT <> '1970-01-01'";
-                    SQLAnfrage.executeUpdate(SQL);
+                    SQLAnfrage.executeUpdate("DELETE FROM TBL_EINNAHMEN WHERE EINNAHMEN_BEZAHLT <> '1970-01-01'");
 
                     System.out.println("Tabelle Einnahmen ist zurückgesetzt");
                     Modulhelferlein.Infomeldung("Tabelle Einnahmen ist zurückgesetzt!");
 
                     // Ausgaben
-                    SQL = "DELETE FROM TBL_AUSGABEN WHERE AUSGABEN_BEZAHLT <> '1970-01-01'";
-                    SQLAnfrage.executeUpdate(SQL);
+                    SQLAnfrage.executeUpdate("DELETE FROM TBL_AUSGABEN WHERE AUSGABEN_BEZAHLT <> '1970-01-01'");
 
                     System.out.println("Tabelle Ausgaben ist zurückgesetzt");
                     Modulhelferlein.Infomeldung("Tabelle Ausgaben ist zurückgesetzt!");
@@ -113,19 +124,16 @@ public class ModulJahresabschluss {
                     // Bestellungen + BestellDetails
                     SQLAnfrage = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     SQLAnfrageDetail = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                    SQL = "SELECT * FROM TBL_BESTELLUNG WHERE BESTELLUNG_BEZAHLT <> '1970-01-01'";
-                    result = SQLAnfrage.executeQuery(SQL);
+                    result = SQLAnfrage.executeQuery("SELECT * FROM TBL_BESTELLUNG WHERE BESTELLUNG_BEZAHLT <> '1970-01-01'");
 
                     // gehe zum ersten Datensatz - wenn nicht leer
                     while (result.next()) {
                         // Suche Bestellungdetails und lösche diese
                         String RechNr = result.getString("BESTELLUNG_RECHNR");
                         System.out.println("Bearbeite bezahlte Bestellung "+RechNr);
-                        SQLDetail = "DELETE FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + RechNr + "'";
-                        SQLAnfrageDetail.executeUpdate(SQLDetail);
+                        SQLAnfrageDetail.executeUpdate("DELETE FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + RechNr + "'");
                     } // while
-                    SQL = "DELETE FROM TBL_BESTELLUNG WHERE BESTELLUNG_BEZAHLT <> '1970-01-01'";
-                    SQLAnfrage.executeUpdate(SQL);
+                    SQLAnfrage.executeUpdate("DELETE FROM TBL_BESTELLUNG WHERE BESTELLUNG_BEZAHLT <> '1970-01-01'");
                     System.out.println("Tabelle Bestellungen ist zurückgesetzt");
                     Modulhelferlein.Infomeldung("Tabelle Bestellungen ist zurückgesetzt!");
                     
