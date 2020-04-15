@@ -73,7 +73,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import static milesVerlagMain.Modulhelferlein.DateString2Date;
+import static milesVerlagMain.ModulHelferlein.DateString2Date;
 import org.apache.commons.lang3.time.DateUtils;
 
 /**
@@ -218,7 +218,7 @@ public class ModulERechnung {
         try {
             today = sdf.parse(InvoiceDate);
         } catch (ParseException e) {
-            Modulhelferlein.Fehlermeldung("XRechnung erstellen", "ParseException: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("XRechnung erstellen", "ParseException: ", e.getMessage());
         }
 
         String BillingDate = "";
@@ -491,10 +491,10 @@ public class ModulERechnung {
 // Schlieﬂt den Stream
             writer.close();
         } catch (IOException e) {
-            Modulhelferlein.Infomeldung("IO-Exception: ", e.getMessage());
+            ModulHelferlein.Infomeldung("IO-Exception: ", e.getMessage());
         }
 
-        Modulhelferlein.Infomeldung(XMLFile + " wurde gespeichert!");
+        ModulHelferlein.Infomeldung(XMLFile + " wurde gespeichert!");
 
     }
 
@@ -561,14 +561,14 @@ public class ModulERechnung {
                     setTotalPrepaid, //.setTotalPrepaid(new Amount(0, EUR))
                     setGrandTotal);
             transformInvoiceToXml(invoice, outputFilename + ".ZUGFeRD.xml");
-            Modulhelferlein.Infomeldung("ZUGFeRD-XML-Rechnung erstellt ");
+            ModulHelferlein.Infomeldung("ZUGFeRD-XML-Rechnung erstellt ");
 
             if (ERechnung == 2) {
                 appendInvoiceToPdf(invoice, outputFilename, outputFilename + ".ZUGFeRD.pdf");
-                Modulhelferlein.Infomeldung("ZUGFerd-PDF erstellt ");
+                ModulHelferlein.Infomeldung("ZUGFerd-PDF erstellt ");
             }
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("Brief Rechnung", "ZUGFeRD-Rechnung: IO-Exception: ", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Rechnung", "ZUGFeRD-Rechnung: IO-Exception: ", ex.getMessage());
         }
     }
 
@@ -839,7 +839,7 @@ public class ModulERechnung {
             FileOutputStream outputStream = new FileOutputStream(outputFile);
             transformer.fromModel(invoice, outputStream);
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("ZUGFerd XML erstellen", "IO-Exception: ", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("ZUGFerd XML erstellen", "IO-Exception: ", ex.getMessage());
         }
     }
 
@@ -867,7 +867,7 @@ public class ModulERechnung {
             OutputStream resultingPdf = new FileOutputStream(outputFile);
             handler.appendInvoice(invoice, inputPdf, resultingPdf);
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("ZUGFerd PDF erstellen", "IO-Exception: ", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("ZUGFerd PDF erstellen", "IO-Exception: ", ex.getMessage());
         }
     }
 
