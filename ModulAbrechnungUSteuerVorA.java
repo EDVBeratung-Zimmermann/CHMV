@@ -3,7 +3,7 @@
  * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
  * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
  *
- * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von SOftware
+ * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von Software
  *                    Dipl.Inform Thomas Zimmermann
  *
  * This program is free software: you can redistribute it and/or modify
@@ -109,42 +109,42 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
     JButton btnSchliessen5 = new JButton("Schließen");
     JButton btnSpeichern5 = new JButton("Speichern");
 
-    private JRadioButton rbMonat = new JRadioButton("Monatlich");
-    private JRadioButton rbQuartal = new JRadioButton("Quartalsweise");
-    private ButtonGroup cbZeitraum = new ButtonGroup();
+    private final JRadioButton rbMonat = new JRadioButton("Monatlich");
+    private final JRadioButton rbQuartal = new JRadioButton("Quartalsweise");
+    private final ButtonGroup cbZeitraum = new ButtonGroup();
 
     JComboBox<?> field_Monat = new JComboBox<Object>(Modulhelferlein.MonatListe);
     JComboBox<?> field_Quartal = new JComboBox<Object>(Modulhelferlein.QuartalListe);
 
-    private JLabel FAName = new JLabel();
+    private final JLabel FAName = new JLabel();
 
-    private JCheckBox cb10 = new JCheckBox("Berichtigte Anmeldung");
-    private JCheckBox cb22 = new JCheckBox("Belege sind beigefügt");
-    private JCheckBox cb29 = new JCheckBox("Verrechnung des Erstattungsbetrages");
-    private JCheckBox cb26 = new JCheckBox("SEPA-Lastschriftmandat wird widerrufen");
+    private final JCheckBox cb10 = new JCheckBox("Berichtigte Anmeldung");
+    private final JCheckBox cb22 = new JCheckBox("Belege sind beigefügt");
+    private final JCheckBox cb29 = new JCheckBox("Verrechnung des Erstattungsbetrages");
+    private final JCheckBox cb26 = new JCheckBox("SEPA-Lastschriftmandat wird widerrufen");
 
-    private JComboBox<String> cbLaender = new JComboBox<String>();
-    private JComboBox<String> cbFALaender = new JComboBox<String>();
+    private final JComboBox<String> cbLaender = new JComboBox<String>();
+    private final JComboBox<String> cbFALaender = new JComboBox<String>();
 
-    private JTextField SteuerNr = new JTextField();
-    private JTextField field_Zeile3 = new JTextField();
-    private JTextField field_Zeile4 = new JTextField();
-    private JTextField field_Zeile12 = new JTextField();
-    private JTextField field_Zeile13_1 = new JTextField();
-    private JTextField field_Zeile13_21 = new JTextField();
-    private JTextField field_Zeile13_22 = new JTextField();
-    private JTextField field_Zeile14 = new JTextField();
-    private JTextField field_Zeile15 = new JTextField();
+    private final JTextField SteuerNr = new JTextField();
+    private final JTextField field_Zeile3 = new JTextField();
+    private final JTextField field_Zeile4 = new JTextField();
+    private final JTextField field_Zeile12 = new JTextField();
+    private final JTextField field_Zeile13_1 = new JTextField();
+    private final JTextField field_Zeile13_21 = new JTextField();
+    private final JTextField field_Zeile13_22 = new JTextField();
+    private final JTextField field_Zeile14 = new JTextField();
+    private final JTextField field_Zeile15 = new JTextField();
 
-    private JTextField field_KZ66 = new JTextField("0.00");
-    private JTextField field_KZ83 = new JTextField("0.00");
-    private JTextField field_KZ81 = new JTextField("0");
-    private JTextField field_KZ86 = new JTextField("0");
-    private JTextField field_KZ35 = new JTextField("0");
-    private JTextField field_KZ36 = new JTextField("0.00");
-    private JTextField field_Zeile26 = new JTextField();
-    private JTextField field_Zeile27 = new JTextField();
-    private JTextField field_Datum = new JTextField();
+    private final JTextField field_KZ66 = new JTextField("0.00");
+    private final JTextField field_KZ83 = new JTextField("0.00");
+    private final JTextField field_KZ81 = new JTextField("0");
+    private final JTextField field_KZ86 = new JTextField("0");
+    private final JTextField field_KZ35 = new JTextField("0");
+    private final JTextField field_KZ36 = new JTextField("0.00");
+    private final JTextField field_Zeile26 = new JTextField();
+    private final JTextField field_Zeile27 = new JTextField();
+    private final JTextField field_Datum = new JTextField();
 
     Integer count = 0;
     Integer countMax = 0;
@@ -448,8 +448,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
     }
 
     private void LaenderChanged() {
-        int Eintrag = 0;
-        Eintrag = cbLaender.getSelectedIndex();
+        int Eintrag = cbLaender.getSelectedIndex();
         try {
             if (Eintrag >= 0) {
                 finanzaemter = new ArrayList<>();
@@ -462,19 +461,10 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
         } catch (de.elster.eric.wrapper.exception.EricException | de.elster.eric.wrapper.exception.WrapperException ex) {
             Logger.getLogger(ModulAbrechnungUSteuerVorA.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // try
-         // try
-        // try
-         // try
-        // try
-         // try
-        // try
-         // try
     } // void
 
     private void FALaenderChanged() {
-        int Eintrag = 0;
-        Eintrag = cbFALaender.getSelectedIndex();
+        int Eintrag = cbFALaender.getSelectedIndex();
         try {
             if ((finanzaemter.size() != 0) && (Eintrag >= 0)) {
                 String newLine = System.getProperty("line.separator");
@@ -626,14 +616,6 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
         } catch (de.elster.eric.wrapper.exception.EricException | de.elster.eric.wrapper.exception.WrapperException ex) {
             Logger.getLogger(ModulAbrechnungUSteuerVorA.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // try
-        // try
-        // try
-        // try
-        // try
-        // try
-        // try
-        // try
     } // void
 
     /**
@@ -3019,7 +3001,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                     Double d = (double) (Integer.parseInt(field_KZ81.getText()) * 19 / 100);
                     d = Modulhelferlein.round2dec(d);
                     field_Zeile26.setText(Double.toString(d));
-                };
+                }
             });
             meinFenster.add(field_KZ81);
 
