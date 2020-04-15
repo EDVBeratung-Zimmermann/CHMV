@@ -1,5 +1,24 @@
 /*
- * Created by JFormDesigner on Wed Jan 16 21:54:58 CET 2019
+ *
+ * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
+ * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
+ *
+ * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von Software
+ *                    Dipl.Inform Thomas Zimmermann
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package milesVerlagMain;
 
@@ -15,6 +34,8 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import java.awt.datatransfer.StringSelection;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -59,22 +80,35 @@ public class ModulAusgabe extends JFrame {
      */
     public ModulAusgabe() {
         super("Carola Hartmann Miles Verlag");
-        initComponents();
-        //PrintStream printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea));
-        PrintStream printStream;
+        
         try {
-            printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea), true, "ISO8859_1");
-            //printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea));
+            initComponents();
+            //PrintStream printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea));
+            try {
+                Font f = Font.createFont( Font.TRUETYPE_FONT, new FileInputStream("FreeMonoBold.ttf") );
+                Font font = f.deriveFont( 12f );
+                AusgabeTextArea.setFont(font);
+            } catch (FileNotFoundException ex) {
+                System.out.println("Modul Ausgabe: FileNotFoundException"+ex.getMessage());
+            } catch (FontFormatException ex) {
+                System.out.println("Modul Ausgabe: FontFormatException"+ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println("Modul Ausgabe: IOException"+ex.getMessage());
+            }
+            PrintStream printStream;
+            printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea), true, "CP1252");
+            //printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea), true, "CP850");
+            //printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea), true, StandardCharsets.ISO_8859_1);
+            //printStream = new PrintStream(new CustomOutputStream(AusgabeTextArea), true, StandardCharsets.UTF_8);
             // keeps reference of standard output stream
             standardOut = System.out;
-
             // re-assigns standard output stream and error output stream
             System.setOut(printStream);
             System.setErr(printStream);
         } catch (UnsupportedEncodingException ex) {
-            Modulhelferlein.Fehlermeldung("Modul Ausgabe", "UnsupportedEncodingException", ex.getMessage());
+            System.out.println("Modul Ausgabe: UnsupportedEncodingException"+ex.getMessage());
         }
-
+        
     }
 
     private void buttonMailActionPerformed(ActionEvent e) {
