@@ -118,22 +118,22 @@ public class ModulAusgabe extends JFrame {
         System.out.println("TLSEmail Start");
 
         // change accordingly 
-        String host = Modulhelferlein.MailHost;
+        String host = ModulHelferlein.MailHost;
         System.out.println("- host     " + host);
 
-        String port = Modulhelferlein.MailPort;
+        String port = ModulHelferlein.MailPort;
         System.out.println("- port     " + port);
 
-        String IMAPhost = Modulhelferlein.MailIMAPHost;
+        String IMAPhost = ModulHelferlein.MailIMAPHost;
         System.out.println("- host     " + IMAPhost);
 
-        String IMAPport = Modulhelferlein.MailIMAPPort;
+        String IMAPport = ModulHelferlein.MailIMAPPort;
         System.out.println("- port     " + IMAPport);
 
-        String username = Modulhelferlein.MailUser;
+        String username = ModulHelferlein.MailUser;
         System.out.println("- username " + username);
 
-        String password = Modulhelferlein.MailPass;
+        String password = ModulHelferlein.MailPass;
         System.out.println("- password " + password);
 
         String from = username;
@@ -142,7 +142,7 @@ public class ModulAusgabe extends JFrame {
         String to = "kontakt@edv-beratung.familiezimmermann.de";
         System.out.println("- to       " + to);
 
-        String record = Modulhelferlein.MailIMAPGesendet;   //"Sent Items"
+        String record = ModulHelferlein.MailIMAPGesendet;   //"Sent Items"
 
         // Get the session object 
         // Get system properties 
@@ -200,7 +200,7 @@ public class ModulAusgabe extends JFrame {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Log-Daten vom " + Modulhelferlein.CurDate);
+            message.setSubject("Log-Daten vom " + ModulHelferlein.CurDate);
 
             // Create a multipar message
             Multipart multipart = new MimeMultipart();
@@ -222,7 +222,7 @@ public class ModulAusgabe extends JFrame {
             //message.setText("Hello, aas is sending email ");
             // Send message 
             Transport.send(message);
-            Modulhelferlein.Infomeldung("Mail wurde gesendet");
+            ModulHelferlein.Infomeldung("Mail wurde gesendet");
             System.out.println("Mail wurde gesendet.");
 
             // Message im Ordner gesendet - sent ablegen
@@ -236,19 +236,19 @@ public class ModulAusgabe extends JFrame {
             Folder folder = store.getFolder(record);
             if (folder == null) {
                 System.err.println("Finde den gesendet-Ordner nicht.");
-                Modulhelferlein.Fehlermeldung("Finde den gesendet-Ordner nicht!");
+                ModulHelferlein.Fehlermeldung("Finde den gesendet-Ordner nicht!");
                 //System.exit(1);
             } else {
                 Message[] msgs = new Message[1];
                 msgs[0] = message;
                 folder.appendMessages(msgs);
 
-                Modulhelferlein.Infomeldung("Mail wurde im Ordner '" + Modulhelferlein.MailIMAPGesendet + "' gespeichert");
+                ModulHelferlein.Infomeldung("Mail wurde im Ordner '" + ModulHelferlein.MailIMAPGesendet + "' gespeichert");
                 System.out.println("Mail was recorded successfully.");
             }
 
         } catch (MessagingException mex) {
-            Modulhelferlein.Fehlermeldung("E-Mail-versenden", mex.getMessage());
+            ModulHelferlein.Fehlermeldung("E-Mail-versenden", mex.getMessage());
         }
     }
 
@@ -269,10 +269,10 @@ public class ModulAusgabe extends JFrame {
         // display the JOptionPane showConfirmDialog
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-            String Filename = Modulhelferlein.pathSicherung
+            String Filename = ModulHelferlein.pathSicherung
                     + "\\"
                     + "miles-verlag-"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + ".log";
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + ".log";
             PrintWriter pWriter = null;
             try {
                 pWriter = new PrintWriter(new BufferedWriter(new FileWriter(Filename)));
