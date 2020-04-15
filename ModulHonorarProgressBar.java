@@ -1,7 +1,24 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *
+ * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
+ * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
+ *
+ * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von Software
+ *                    Dipl.Inform Thomas Zimmermann
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package milesVerlagMain;
 
@@ -17,16 +34,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 import javax.swing.filechooser.FileNameExtensionFilter;
  
 public class ModulHonorarProgressBar extends JPanel
                              implements ActionListener, 
                                         PropertyChangeListener {
  
-    private static JFrame frame = new JFrame("Abrechnung ...");
-    private JProgressBar progressBar;
-    private JButton startButton;
+    private static final JFrame frame = new JFrame("Abrechnung ...");
+    private final JProgressBar progressBar;
+    private final JButton startButton;
     //private JTextArea taskOutput;
     private static Task task;
     
@@ -56,11 +72,11 @@ public class ModulHonorarProgressBar extends JPanel
     private static String strVon = "";
     private static String strBis = "";
 
-    private static FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV-Datei", "csv");
-    private static JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
+    private static final FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV-Datei", "csv");
+    private static final JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
 
-    private static String strISBN = "";
-    private static String strAnzahl = "";
+    private static final String strISBN = "";
+    private static final String strAnzahl = "";
     private static String Buchtitel = "";
 
     private static Float Rechnungsbetrag = 0F;
@@ -79,7 +95,7 @@ public class ModulHonorarProgressBar extends JPanel
          */
         @Override
         public Void doInBackground() {
-            int progress = 0;
+            int progress;
             //Initialize progress property.
             setProgress(0);
             
@@ -132,8 +148,7 @@ public class ModulHonorarProgressBar extends JPanel
                         Titel = Titel.replace("'", " ");
                         Titel = Titel.replace("*", " ");
                         Titel = Titel.replace(";", " ");
-                        int c = 0;
-                        c = 0x0027;
+                        int c = 0x0027;
                         Titel = Titel.replace(Character.toString((char) c), " "); // '
                         c = 0x0022;
                         Titel = Titel.replace(Character.toString((char) c), " "); // 
@@ -716,11 +731,15 @@ public class ModulHonorarProgressBar extends JPanel
                             ID = ID + 1;
                         } // while resultBestellung
                         Log("   -> Anschreiben erstellen für Autor " + resultBestellung2.getString("BESTELLUNG_KUNDE") + " ...");
-                        if (resultBestellung2.getString("BESTELLUNG_KUNDE").equals("-1")) {} else
-                        if (resultBestellung2.getString("BESTELLUNG_KUNDE").equals("0")) {
-                            Log("   -> Autor " + resultBestellung2.getString("BESTELLUNG_KUNDE") + " existiert nicht!");
-                        } else {
-                            briefVerrechnungHonorar.briefPDF(resultBestellung2.getString("BESTELLUNG_KUNDE"));
+                        switch (resultBestellung2.getString("BESTELLUNG_KUNDE")) {
+                            case "-1":
+                                break;
+                            case "0":
+                                Log("   -> Autor " + resultBestellung2.getString("BESTELLUNG_KUNDE") + " existiert nicht!");
+                                break;
+                            default:
+                                briefVerrechnungHonorar.briefPDF(resultBestellung2.getString("BESTELLUNG_KUNDE"));
+                                break;
                         }
                         
                     } // while resultVerrechnung.next
@@ -786,7 +805,9 @@ public class ModulHonorarProgressBar extends JPanel
  
     /**
      * Invoked when the user presses the start button.
+     * @param evt
      */
+    @Override
     public void actionPerformed(ActionEvent evt) {
         startButton.setEnabled(false);
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -808,8 +829,9 @@ public class ModulHonorarProgressBar extends JPanel
     /**
      * Invoked when task's progress property changes.
      */
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if ("progress" == evt.getPropertyName()) {
+        if ( evt.getPropertyName().equals("progress")) {
             int progress = (Integer) evt.getNewValue();
             progressBar.setValue(progress);
             //taskOutput.append(String.format("Completed %d%% of task.\n", task.getProgress()));
@@ -841,6 +863,7 @@ public class ModulHonorarProgressBar extends JPanel
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 createAndShowGUI();
             }
