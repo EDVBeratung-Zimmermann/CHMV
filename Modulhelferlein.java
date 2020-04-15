@@ -3,7 +3,7 @@
  * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
  * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
  *
- * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von SOftware
+ * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von Software
  *                    Dipl.Inform Thomas Zimmermann
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,6 @@
  */
 package milesVerlagMain;
 
-//~--- non-JDK imports --------------------------------------------------------
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
@@ -269,8 +268,7 @@ public class Modulhelferlein {
      * @return normalisierter Datum
      */
     public static String SQLDate2Normal(String Eingabe) {
-        String Ausgabe = "";
-        Ausgabe = Eingabe.substring(8, 10) + "."
+        String Ausgabe = Eingabe.substring(8, 10) + "."
                 + Eingabe.substring(5, 7) + "."
                 + Eingabe.substring(0, 4);
         return Ausgabe;
@@ -278,11 +276,10 @@ public class Modulhelferlein {
 
     public static String Normalisiere(String Input) {
         String Output = Input;
-        int index = 0;
         String m_text = Input;
         char[] c = new char[Input.length()];
         int inside = 0;
-        for (index = 0; index < Input.length(); index++) {
+        for (int index = 0; index < Input.length(); index++) {
             char buchstabe = Input.charAt(index);
             if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".indexOf(buchstabe) >= 0) {
                 continue; // Wird continue ausgelassen, werden nur die nur genau die Zeichen angezeigt wie in der if bedingung aufgelistet
@@ -313,7 +310,7 @@ public class Modulhelferlein {
         woerter = woerter - 2;
         String[] zeile = {"", "", ""};
         Integer i = 0;
-        Integer laenge = 0;
+        Integer laenge;
         Integer ZeilenNr = 0;
         zeile[0] = Gesamttext[0];
         try {
@@ -847,7 +844,7 @@ public class Modulhelferlein {
      */
     public static void Fehlermeldung(final String Meldung1, String Meldung2, String Meldung3) {
         // put your code here
-        String Ausgabe = "";
+        String Ausgabe;
         Ausgabe = Meldung1 + "\n" + Meldung2 + "\n" + Meldung3;
         JOptionPane.showMessageDialog(null, Ausgabe, "Achtung Fehler", JOptionPane.WARNING_MESSAGE);
         System.out.println(Meldung1 + " " + Meldung2 + " " + Meldung3);
@@ -882,7 +879,7 @@ public class Modulhelferlein {
     public static void Infomeldung(final String Meldung1, String Meldung2, String Meldung3) {
 
         // put your code here
-        String Ausgabe = "";
+        String Ausgabe;
         Ausgabe = Meldung1 + "\n" + Meldung2 + "\n" + Meldung3;
         JOptionPane.showMessageDialog(null, Ausgabe, "Information", JOptionPane.INFORMATION_MESSAGE);
         System.out.println(Meldung1 + " " + Meldung2 + " " + Meldung3);
@@ -948,16 +945,16 @@ public class Modulhelferlein {
         int iBNr;
         String BestNrString = "";
 
-        ResultSet iresultB = null;
-        ResultSet iresultBD = null;
-        ResultSet iresultBuch = null;
+        ResultSet iresultB;
+        ResultSet iresultBD;
+        ResultSet iresultBuch;
 
-        Statement iSQLAnfrageB = null;
-        Statement iSQLAnfrageBD = null;
-        Statement iSQLAnfrageBNr = null;
-        Statement iSQLAnfrageBuch = null;
+        Statement iSQLAnfrageB;
+        Statement iSQLAnfrageBD;
+        Statement iSQLAnfrageBNr;
+        Statement iSQLAnfrageBuch;
 
-        Connection conn = null;
+        Connection conn;
 
         try {
             Class.forName(Modulhelferlein.dbDriver);
