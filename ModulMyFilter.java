@@ -1,10 +1,10 @@
-/**
+/*
  *
  * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
  * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
  *
- * Copyright (C) 2017 Dipl.Inform Thomas Zimmermann
- *                    EDV-Beratung und Betrieb, Entwicklung von Software
+ * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von Software
+ *                    Dipl.Inform Thomas Zimmermann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
  */
 package milesVerlagMain;
 
-//~--- JDK imports ------------------------------------------------------------
 import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
@@ -75,6 +74,3 @@ public class ModulMyFilter extends FileFilter {
         return endung + " only";
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com
