@@ -105,15 +105,15 @@ public class ModulHonorarProgressBar extends JPanel
             // setProgreess(progress);
 
             try {                   // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Honorar berechnen", "ClassNotFoundException: Treiber nicht gefunden: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Honorar berechnen", "ClassNotFoundException: Treiber nicht gefunden: ", exept.getMessage());
             } // try Datenbank-Treiber laden
 
             try {                   // Verbindung zur Datenbank über die JDBC-Brücke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Honorar berechnen", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Honorar berechnen", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
             }                       // try Verbindung zur Datenbank über die JDBC-Brücke
 
             if (conn != null) {    // Datenbankverbindung steht
@@ -750,11 +750,11 @@ public class ModulHonorarProgressBar extends JPanel
                     resultHonorar.close();
                     resultBuch.close();
                 } catch (SQLException ex) {
-                    Modulhelferlein.Fehlermeldung("Abrechnung erstellen", "SQL-Exception", ex.getMessage());
+                    ModulHelferlein.Fehlermeldung("Abrechnung erstellen", "SQL-Exception", ex.getMessage());
                 } catch (IOException ex) {
-                    Modulhelferlein.Fehlermeldung("Abrechnung erstellen", "IO-Exception", ex.getMessage());
+                    ModulHelferlein.Fehlermeldung("Abrechnung erstellen", "IO-Exception", ex.getMessage());
                 }
-                Modulhelferlein.Infomeldung("Die Briefe mit der Abrechnung sind als PDF gespeichert!");
+                ModulHelferlein.Infomeldung("Die Briefe mit der Abrechnung sind als PDF gespeichert!");
             } // conn steht 
             
             setProgress(100);
