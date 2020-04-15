@@ -70,22 +70,22 @@ public class ModulEMail {
         System.out.println("TLS Email Start");
 
         // change accordingly 
-        String host = Modulhelferlein.MailHost;
+        String host = ModulHelferlein.MailHost;
         System.out.println("- host     " + host);
 
-        String port = Modulhelferlein.MailPort;
+        String port = ModulHelferlein.MailPort;
         System.out.println("- port     " + port);
 
-        String IMAPhost = Modulhelferlein.MailIMAPHost;
+        String IMAPhost = ModulHelferlein.MailIMAPHost;
         System.out.println("- host     " + IMAPhost);
 
-        String IMAPport = Modulhelferlein.MailIMAPPort;
+        String IMAPport = ModulHelferlein.MailIMAPPort;
         System.out.println("- port     " + IMAPport);
 
-        String username = Modulhelferlein.MailUser;
+        String username = ModulHelferlein.MailUser;
         System.out.println("- username " + username);
 
-        String password = Modulhelferlein.MailPass;
+        String password = ModulHelferlein.MailPass;
         System.out.println("- password " + password);
 
         String from = username;
@@ -94,7 +94,7 @@ public class ModulEMail {
         String to = Empfaenger;
         System.out.println("- to       " + to);
 
-        String record = Modulhelferlein.MailIMAPGesendet;   //"Sent Items"
+        String record = ModulHelferlein.MailIMAPGesendet;   //"Sent Items"
 
         // Get the session object 
         // Get system properties 
@@ -174,7 +174,7 @@ public class ModulEMail {
                     + "\n"
                     + "\n"
                     + "Mit freundlichen Grüßen\n"
-                    + Modulhelferlein.CHMVBenutzer + "\n"
+                    + ModulHelferlein.CHMVBenutzer + "\n"
                     + "\n"
                     + "Carola Hartmann Miles Verlag\n"
                     + "Alt Kladow 16d\n"
@@ -203,7 +203,7 @@ public class ModulEMail {
             //message.setText("Hello, aas is sending email ");
             // Send message 
             Transport.send(message);
-            Modulhelferlein.Infomeldung("Mail wurde gesendet");
+            ModulHelferlein.Infomeldung("Mail wurde gesendet");
             System.out.println("Mail wurde gesendet.");
 
             // Message im Ordner gesendet - sent ablegen
@@ -217,19 +217,19 @@ public class ModulEMail {
             Folder folder = store.getFolder(record);
             if (folder == null) {
                 System.err.println("Finde den gesendet-Ordner nicht.");
-                Modulhelferlein.Fehlermeldung("Finde den gesendet-Ordner nicht!");
+                ModulHelferlein.Fehlermeldung("Finde den gesendet-Ordner nicht!");
                 //System.exit(1);
             } else {
                 Message[] msgs = new Message[1];
                 msgs[0] = message;
                 folder.appendMessages(msgs);
 
-                Modulhelferlein.Infomeldung("Mail wurde im Ordner '" + Modulhelferlein.MailIMAPGesendet + "' gespeichert");
+                ModulHelferlein.Infomeldung("Mail wurde im Ordner '" + ModulHelferlein.MailIMAPGesendet + "' gespeichert");
                 System.out.println("Mail was recorded successfully.");
             }
 
         } catch (MessagingException mex) {
-            Modulhelferlein.Fehlermeldung("E-Mail-versenden", mex.getMessage());
+            ModulHelferlein.Fehlermeldung("E-Mail-versenden", mex.getMessage());
         }
     }
 
