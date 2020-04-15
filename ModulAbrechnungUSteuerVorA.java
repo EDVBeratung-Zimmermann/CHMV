@@ -49,9 +49,8 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.AusgabeDB;
-import static milesVerlagMain.Modulhelferlein.AusgabeRB;
+import static milesVerlagMain.ModulHelferlein.AusgabeDB;
+import static milesVerlagMain.ModulHelferlein.AusgabeRB;
 
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
@@ -72,9 +71,11 @@ import de.elster.eric.wrapper.PrintParameters;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Linie;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  * Haupt-Klasse für die Verwaltung des miles-Verlages
@@ -113,8 +114,8 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
     private final JRadioButton rbQuartal = new JRadioButton("Quartalsweise");
     private final ButtonGroup cbZeitraum = new ButtonGroup();
 
-    JComboBox<?> field_Monat = new JComboBox<Object>(Modulhelferlein.MonatListe);
-    JComboBox<?> field_Quartal = new JComboBox<Object>(Modulhelferlein.QuartalListe);
+    JComboBox<?> field_Monat = new JComboBox<Object>(ModulHelferlein.MonatListe);
+    JComboBox<?> field_Quartal = new JComboBox<Object>(ModulHelferlein.QuartalListe);
 
     private final JLabel FAName = new JLabel();
 
@@ -360,7 +361,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                             result.updateBoolean("USTVA_GESENDET", true);
                             result.insertRow();
                         } catch (SQLException e1) {
-                            Modulhelferlein.Fehlermeldung("SQL-Exception: " + e1.getMessage());
+                            ModulHelferlein.Fehlermeldung("SQL-Exception: " + e1.getMessage());
                             //e1.printStackTrace();
                         }
                         // Serverantwort speichern	outputFileName + -return.xml
@@ -378,7 +379,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                             writer.flush();
                             writer.close();
                         } catch (IOException e) {
-                            Modulhelferlein.Infomeldung("IO-Exception: " + e.getMessage());
+                            ModulHelferlein.Infomeldung("IO-Exception: " + e.getMessage());
                             //e.printStackTrace();
                         } // try
                     } // if
@@ -388,9 +389,9 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 Logger.getLogger(ModulAbrechnungUSteuerVorA.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (UnsupportedEncodingException e) {
-            Modulhelferlein.Fehlermeldung("Unerwartete Java-Ausnahme: " + e);
+            ModulHelferlein.Fehlermeldung("Unerwartete Java-Ausnahme: " + e);
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("Konnte Eingabedatensatz nicht einlesen: " + e);
+            ModulHelferlein.Fehlermeldung("Konnte Eingabedatensatz nicht einlesen: " + e);
         } // try
 
     } // void
@@ -435,15 +436,15 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                     result3.updateString("Konfiguration_Schriftverkehr", FinanzamtIBAN);
                     result3.updateString("Konfiguration_Steuer", FinanzamtBIC);
                     result3.updateRow();
-                    Modulhelferlein.Infomeldung("Finanzamtsdaten wurden gespeichert!");
+                    ModulHelferlein.Infomeldung("Finanzamtsdaten wurden gespeichert!");
                 } catch (SQLException | NullPointerException e) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: " + e.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: " + e.getMessage());
                 }
             } else {
-                Modulhelferlein.Fehlermeldung("Steuernummer ist fehlerhaft!");
+                ModulHelferlein.Fehlermeldung("Steuernummer ist fehlerhaft!");
             }
         } else {
-            Modulhelferlein.Fehlermeldung("Steuernummer hat keine 10 Stellen!");
+            ModulHelferlein.Fehlermeldung("Steuernummer hat keine 10 Stellen!");
         }
     }
 
@@ -563,7 +564,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             finanzamtLaender = eric.getFinanzamtLaender();
 
             if (finanzamtLaender.isEmpty()) {
-                Modulhelferlein.Fehlermeldung(" Keine Laender erhalten.");
+                ModulHelferlein.Fehlermeldung(" Keine Laender erhalten.");
             } else {
                 for (int i = 0; i < (finanzamtLaender.size() - 1); i++) {
                     cbLaender.addItem(Integer.toString(i) + ", " + "ID: " + Integer.toString(finanzamtLaender.get(i).getId()) + finanzamtLaender.get(i).getLand());
@@ -578,7 +579,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
              */
             finanzaemter.addAll(eric.getFinanzaemter(finanzamtLaender.get(0).id));
             if (finanzaemter.isEmpty()) {
-                Modulhelferlein.Fehlermeldung(" Keine Finanzaemter erhalten.");
+                ModulHelferlein.Fehlermeldung(" Keine Finanzaemter erhalten.");
             } else {
                 finanzaemter.forEach((finanzamt) -> {
                     cbFALaender.addItem(Integer.toString(finanzamt.getId()) + ", " + finanzamt.getName());
@@ -627,7 +628,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
         try {
             printFinanzaemter(eric);
         } catch (EricException | WrapperException e) {
-            Modulhelferlein.Fehlermeldung("ERiC-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("ERiC-Exception: " + e.getMessage());
         }
     }
 
@@ -647,17 +648,17 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                     Eric eric = Eric.getInstance();
                     validateAndSendTaxCase(eric, true);
                 } catch (EricException e) {
-                    Modulhelferlein.Fehlermeldung("Eric Fehler: " + e.getMessage());
+                    ModulHelferlein.Fehlermeldung("Eric Fehler: " + e.getMessage());
                 } catch (WrapperException e) {
-                    Modulhelferlein.Fehlermeldung("Unerwartete Java-Ausnahme: " + e.getMessage());
+                    ModulHelferlein.Fehlermeldung("Unerwartete Java-Ausnahme: " + e.getMessage());
                 } catch (Exception e) {
-                    Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+                    ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
                 }
             } else {
-                Modulhelferlein.Fehlermeldung("Steuerdatei wurde noch nicht getestet!");
+                ModulHelferlein.Fehlermeldung("Steuerdatei wurde noch nicht getestet!");
             }
         } else {
-            Modulhelferlein.Fehlermeldung("Steuerdatei wurde noch nicht gespeichert!");
+            ModulHelferlein.Fehlermeldung("Steuerdatei wurde noch nicht gespeichert!");
         }
     } // void
 
@@ -681,14 +682,14 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 Testen.setEnabled(true);
 
             } catch (EricException e) {
-                Modulhelferlein.Fehlermeldung("Eric Fehler: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("Eric Fehler: " + e.getMessage());
             } catch (WrapperException e) {
-                Modulhelferlein.Fehlermeldung("Unerwartete Java-Ausnahme: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("Unerwartete Java-Ausnahme: " + e.getMessage());
             } catch (Exception e) {
-                Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
             }
         } else {
-            Modulhelferlein.Fehlermeldung("Steuerdatei existiert noch nicht!");
+            ModulHelferlein.Fehlermeldung("Steuerdatei existiert noch nicht!");
         }
     } // void
 
@@ -761,11 +762,11 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                     break;
             }
         }
-        outputFileName = Modulhelferlein.pathSteuer + "/"
+        outputFileName = ModulHelferlein.pathSteuer + "/"
                 + "UStVA-"
-                + Modulhelferlein.printSimpleDateFormat("yyyy") + "-"
+                + ModulHelferlein.printSimpleDateFormat("yyyy") + "-"
                 + zeitraum + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd");
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd");
         steuersatz = outputFileName + ".xml";
 
         file = new File(steuersatz);
@@ -886,13 +887,13 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             writer.write(System.getProperty("line.separator"));
             writer.write("                    </DatenLieferant>");
             writer.write(System.getProperty("line.separator"));
-            writer.write("                    <Erstellungsdatum>" + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + "</Erstellungsdatum>");
+            writer.write("                    <Erstellungsdatum>" + ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + "</Erstellungsdatum>");
             writer.write(System.getProperty("line.separator"));
             writer.write("                    <Steuerfall>");
             writer.write(System.getProperty("line.separator"));
             writer.write("                        <Umsatzsteuervoranmeldung>");
             writer.write(System.getProperty("line.separator"));
-            writer.write("                            <Jahr>" + Modulhelferlein.printSimpleDateFormat("yyyy") + "</Jahr>");
+            writer.write("                            <Jahr>" + ModulHelferlein.printSimpleDateFormat("yyyy") + "</Jahr>");
             writer.write(System.getProperty("line.separator"));
             writer.write("                            <Zeitraum>" + zeitraum + "</Zeitraum>");
             writer.write(System.getProperty("line.separator"));
@@ -1053,7 +1054,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             // Schließt den Stream
             writer.close();
 
-            Modulhelferlein.Infomeldung(steuersatz + " wurde gespeichert!");
+            ModulHelferlein.Infomeldung(steuersatz + " wurde gespeichert!");
 
             // Datenbank aktualisieren
             result2.updateString("Konfiguration_Stammdaten", field_Zeile3.getText());
@@ -1072,9 +1073,9 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             Testen.setEnabled(true);
 
         } catch (IOException e) {
-            Modulhelferlein.Infomeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Infomeldung("IO-Exception: " + e.getMessage());
         } catch (SQLException e) {
-            Modulhelferlein.Infomeldung("SQL-Exception: " + e.getMessage());
+            ModulHelferlein.Infomeldung("SQL-Exception: " + e.getMessage());
         } // try
     } // void
 
@@ -1085,7 +1086,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 result.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
 
         try {
@@ -1093,7 +1094,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 result2.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
 
         try {
@@ -1101,7 +1102,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 result3.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
 
         try {
@@ -1109,7 +1110,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 SQLAnfrage.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
 
         try {
@@ -1117,7 +1118,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 SQLAnfrage2.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
 
         try {
@@ -1125,7 +1126,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 SQLAnfrage3.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
 
         try {
@@ -1133,7 +1134,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 conn.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
 
 
@@ -1160,7 +1161,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 rbMonat.setSelected(true);
             }
             field_KZ35.setText(Integer.toString(result.getInt("USTVA_KZ35")));
-            field_KZ36.setText(Modulhelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
+            field_KZ36.setText(ModulHelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
             field_KZ66.setText(Float.toString(result.getFloat("USTVA_KZ66")));
             field_KZ81.setText(Integer.toString(result.getInt("USTVA_KZ81")));
             field_KZ83.setText(Float.toString(result.getFloat("USTVA_KZ83")));
@@ -1187,7 +1188,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             Schliessen.setEnabled(true);
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }
 
@@ -1211,7 +1212,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 rbMonat.setSelected(true);
             }
             field_KZ35.setText(Integer.toString(result.getInt("USTVA_KZ35")));
-            field_KZ36.setText(Modulhelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
+            field_KZ36.setText(ModulHelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
             field_KZ66.setText(Float.toString(result.getFloat("USTVA_KZ66")));
             field_KZ81.setText(Integer.toString(result.getInt("USTVA_KZ81")));
             field_KZ83.setText(Float.toString(result.getFloat("USTVA_KZ83")));
@@ -1238,7 +1239,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             Schliessen.setEnabled(true);
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }
 
@@ -1262,7 +1263,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                     rbMonat.setSelected(true);
                 }
                 field_KZ35.setText(Integer.toString(result.getInt("USTVA_KZ35")));
-                field_KZ36.setText(Modulhelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
+                field_KZ36.setText(ModulHelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
                 field_KZ66.setText(Float.toString(result.getFloat("USTVA_KZ66")));
                 field_KZ81.setText(Integer.toString(result.getInt("USTVA_KZ81")));
                 field_KZ83.setText(Float.toString(result.getFloat("USTVA_KZ83")));
@@ -1298,7 +1299,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             }
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }
 
@@ -1322,7 +1323,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                     rbMonat.setSelected(true);
                 }
                 field_KZ35.setText(Integer.toString(result.getInt("USTVA_KZ35")));
-                field_KZ36.setText(Modulhelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
+                field_KZ36.setText(ModulHelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
                 field_KZ66.setText(Float.toString(result.getFloat("USTVA_KZ66")));
                 field_KZ81.setText(Integer.toString(result.getInt("USTVA_KZ81")));
                 field_KZ83.setText(Float.toString(result.getFloat("USTVA_KZ83")));
@@ -1359,7 +1360,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             Senden.setEnabled(true);
             Testen.setEnabled(true);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }
 
@@ -1376,7 +1377,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             }
             result.moveToInsertRow();
             result.updateInt("USTVA_ID", ID);
-            result.updateDate("USTVA_DATUM", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
+            result.updateDate("USTVA_DATUM", ModulHelferlein.Date2SQLDate(ModulHelferlein.CurDate));
             result.updateInt("USTVA_ZEITRAUM", 1);
             result.updateBoolean("USTVA_KZ10", false);
             result.updateBoolean("USTVA_KZ22", false);
@@ -1409,7 +1410,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 rbMonat.setSelected(true);
             }
             field_KZ35.setText(Integer.toString(result.getInt("USTVA_KZ35")));
-            field_KZ36.setText(Modulhelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
+            field_KZ36.setText(ModulHelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
             field_KZ66.setText(Float.toString(result.getFloat("USTVA_KZ66")));
             field_KZ81.setText(Integer.toString(result.getInt("USTVA_KZ81")));
             field_KZ83.setText(Float.toString(result.getFloat("USTVA_KZ83")));
@@ -1434,7 +1435,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             result.last();
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }
 
@@ -1460,7 +1461,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 rbMonat.setSelected(true);
             }
             field_KZ35.setText(Integer.toString(result.getInt("USTVA_KZ35")));
-            field_KZ36.setText(Modulhelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
+            field_KZ36.setText(ModulHelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
             field_KZ66.setText(Float.toString(result.getFloat("USTVA_KZ66")));
             field_KZ81.setText(Integer.toString(result.getInt("USTVA_KZ81")));
             field_KZ83.setText(Float.toString(result.getFloat("USTVA_KZ83")));
@@ -1503,7 +1504,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 Schliessen.setEnabled(true);
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }
 
@@ -1512,13 +1513,13 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
         // System.out.println("Update"); 
         try {
             if (resultIsEmpty) {
-                Modulhelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
+                ModulHelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
             } else {
                 if (rbMonat.isSelected()) {
                     if (field_Monat.getSelectedIndex() < 1) {
-                        Modulhelferlein.Fehlermeldung("Es ist kein Monat ausgewählt!");
+                        ModulHelferlein.Fehlermeldung("Es ist kein Monat ausgewählt!");
                     } else {
-                        result.updateDate("USTVA_DATUM", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
+                        result.updateDate("USTVA_DATUM", ModulHelferlein.Date2SQLDate(ModulHelferlein.CurDate));
                         result.updateInt("USTVA_ZEITRAUM", field_Monat.getSelectedIndex());
                         result.updateBoolean("USTVA_KZ10", cb10.isSelected());
                         result.updateBoolean("USTVA_KZ22", cb22.isSelected());
@@ -1533,9 +1534,9 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                     }
                 } else {
                     if (field_Quartal.getSelectedIndex() < 1) {
-                        Modulhelferlein.Fehlermeldung("Es ist kein Quartal ausgewählt!");
+                        ModulHelferlein.Fehlermeldung("Es ist kein Quartal ausgewählt!");
                     } else {
-                        result.updateDate("USTVA_DATUM", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
+                        result.updateDate("USTVA_DATUM", ModulHelferlein.Date2SQLDate(ModulHelferlein.CurDate));
                         result.updateInt("USTVA_ZEITRAUM", field_Quartal.getSelectedIndex() + 40);
                         result.updateBoolean("USTVA_KZ10", cb10.isSelected());
                         result.updateBoolean("USTVA_KZ22", cb22.isSelected());
@@ -1553,7 +1554,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 result.updateRow();
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }
 
@@ -1565,7 +1566,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             do {
             } while ((!gefunden) && result.next());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }
 
@@ -1576,7 +1577,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             do {
             } while ((!gefunden) && result.next());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }
 
@@ -1645,11 +1646,11 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                     break;
             }
         };
-        outputFileName = Modulhelferlein.pathSteuer + "/"
+        outputFileName = ModulHelferlein.pathSteuer + "/"
                 + "UStVA-"
-                + Modulhelferlein.printSimpleDateFormat("yyyy") + "-"
+                + ModulHelferlein.printSimpleDateFormat("yyyy") + "-"
                 + zeitraum + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd");
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd");
 
         //  Create a document and add a page to it
         PDDocument document = new PDDocument();
@@ -1673,14 +1674,14 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             PDFont fontPlain = PDType1Font.HELVETICA;
             PDFont fontBold = PDType1Font.HELVETICA_BOLD;
 
-            Ausgabe(cos, fontBold, 16, Color.BLACK,56, 770, "Carola Hartmann Miles-Verlag");
-            Ausgabe(cos, fontBold, 16, Color.BLACK,56, 750, "Umsatzsteuervoranmeldung");
-            Ausgabe(cos, fontBold, 16, Color.BLACK,56, 730, "Zeitraum: " + von + " - " + bis);
-            Ausgabe(cos, fontBold, 16, Color.BLACK,56, 700, "Steuernummer " + field_Zeile3.getText());
-            Ausgabe(cos, fontBold, 14, Color.BLACK,56, 460, "Beilage 1 - Steuerpflichtige Umsätze zum Steuersatz von 19%");
-            Ausgabe(cos, fontBold, 14, Color.BLACK,56, 440, "Beilage 2 - Steuerpflichtige Umsätze zum Steuersatz von 7%");
-            Ausgabe(cos, fontBold, 14, Color.BLACK,56, 420, "Beilage 3 - Steuerpflichtige Umsätze zu anderen Steuersätzen");
-            Ausgabe(cos, fontBold, 14, Color.BLACK,56, 400, "Beilage 4 - Abziehbare Vorsteuerbeträge");
+            AusgabeLB(cos, fontBold, 16, Color.BLACK,56, 770, "Carola Hartmann Miles-Verlag");
+            AusgabeLB(cos, fontBold, 16, Color.BLACK,56, 750, "Umsatzsteuervoranmeldung");
+            AusgabeLB(cos, fontBold, 16, Color.BLACK,56, 730, "Zeitraum: " + von + " - " + bis);
+            AusgabeLB(cos, fontBold, 16, Color.BLACK,56, 700, "Steuernummer " + field_Zeile3.getText());
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,56, 460, "Beilage 1 - Steuerpflichtige Umsätze zum Steuersatz von 19%");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,56, 440, "Beilage 2 - Steuerpflichtige Umsätze zum Steuersatz von 7%");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,56, 420, "Beilage 3 - Steuerpflichtige Umsätze zu anderen Steuersätzen");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,56, 400, "Beilage 4 - Abziehbare Vorsteuerbeträge");
 
             cos.close();
 
@@ -1693,27 +1694,27 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             Integer zeile = 1;
             Integer seite = 1;
 
-            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 770, "Carola Hartmann Miles-Verlag");
-            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
-            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 730, "Beilage 1 - Steuerpflichtige Umsätze zum Steuersatz von 19%");
-            Ausgabe(cos, fontBold, 11, Color.BLACK,500, 730, "Seite " + Integer.toString(seite));
-            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 700, "Datum");
-            Ausgabe(cos, fontBold, 11, Color.BLACK,130, 700, "Beschreibung");
-            Ausgabe(cos, fontBold, 11, Color.BLACK,450, 700, "Netto");
-            Ausgabe(cos, fontBold, 11, Color.BLACK,500, 700, "Steuer");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 770, "Carola Hartmann Miles-Verlag");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 730, "Beilage 1 - Steuerpflichtige Umsätze zum Steuersatz von 19%");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,500, 730, "Seite " + Integer.toString(seite));
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 700, "Datum");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,130, 700, "Beschreibung");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,450, 700, "Netto");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,500, 700, "Steuer");
 
             conn = null;
 
             try { // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+                ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
             }
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
+                ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
             }
 
             if (conn != null) {
@@ -1732,33 +1733,33 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                         if (zeile == 41) {
                             seite = seite + 1;
                             zeile = 1;
-                            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 770, "Carola Hartmann Miles-Verlag");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
-                            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 730, "Beilage 1 - Steuerpflichtige Umsätze zum Steuersatz von 19%");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK,500, 730, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 700, "Datum");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK,130, 700, "Beschreibung");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK,450, 700, "Netto");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK,500, 700, "Steuer");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 770, "Carola Hartmann Miles-Verlag");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 730, "Beilage 1 - Steuerpflichtige Umsätze zum Steuersatz von 19%");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK,500, 730, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 700, "Datum");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK,130, 700, "Beschreibung");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK,450, 700, "Netto");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK,500, 700, "Steuer");
                         }
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK,56, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_RECHDATUM"));
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK,130, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_BESCHREIBUNG"));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK,56, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_RECHDATUM"));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK,130, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_BESCHREIBUNG"));
                         Netto = resultBest.getFloat("EINNAHMEN_KOSTEN") * 100.0 / 119;
                         Ustr = resultBest.getFloat("EINNAHMEN_KOSTEN") - Netto;
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK,470, 680 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Netto)));
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK,520, 680 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Ustr)));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK,470, 680 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Netto)));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK,520, 680 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Ustr)));
                         zeile = zeile + 1;
                         Gesamtsumme = Gesamtsumme + resultBest.getFloat("EINNAHMEN_KOSTEN");
                         GesamtNetto = GesamtNetto + Netto;
                         GesamtUstr = GesamtUstr + Ustr;
                     } // while
                     Linie(cos,1,56, 687 - 15 * zeile, 539, 687 - 15 * zeile);
-                    Ausgabe(cos, fontBold, 11, Color.BLACK,56, 680 - 15 * (zeile + 1), "Gesamtsumme der Umsätze");
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK,470, 680 - 15 * (zeile + 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(GesamtNetto)));
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK,520, 680 - 15 * (zeile + 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(GesamtUstr)));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 680 - 15 * (zeile + 1), "Gesamtsumme der Umsätze");
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK,470, 680 - 15 * (zeile + 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(GesamtNetto)));
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK,520, 680 - 15 * (zeile + 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(GesamtUstr)));
 
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
                 } // try
             } // if
 
@@ -1773,27 +1774,27 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             zeile = 1;
             seite = 1;
 
-            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 770, "Carola Hartmann Miles-Verlag");
-            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
-            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 730, "Beilage 2 - Steuerpflichtige Umsätze zum Steuersatz von 7%");
-            Ausgabe(cos, fontBold, 11, Color.BLACK,500, 730, "Seite " + Integer.toString(seite));
-            Ausgabe(cos, fontBold, 11, Color.BLACK,56, 700, "Datum");
-            Ausgabe(cos, fontBold, 11, Color.BLACK,130, 700, "Beschreibung");
-            Ausgabe(cos, fontBold, 11, Color.BLACK,450, 700, "Netto");
-            Ausgabe(cos, fontBold, 11, Color.BLACK,500, 700, "Steuer");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 770, "Carola Hartmann Miles-Verlag");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 730, "Beilage 2 - Steuerpflichtige Umsätze zum Steuersatz von 7%");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,500, 730, "Seite " + Integer.toString(seite));
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 700, "Datum");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,130, 700, "Beschreibung");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,450, 700, "Netto");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK,500, 700, "Steuer");
 
             conn = null;
 
             try { // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+                ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
             }
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
+                ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
             }
 
             if (conn != null) {
@@ -1816,14 +1817,14 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                             if (zeile == 41) {
                                 seite = seite + 1;
                                 zeile = 1;
-                                Ausgabe(cos, fontBold, 11, Color.BLACK,56, 770, "Carola Hartmann Miles-Verlag");
-                                Ausgabe(cos, fontBold, 11, Color.BLACK,56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
-                                Ausgabe(cos, fontBold, 11, Color.BLACK,56, 730, "Beilage 2 - Steuerpflichtige Umsätze zum Steuersatz von 7%");
-                                Ausgabe(cos, fontBold, 11, Color.BLACK,500, 730, "Seite " + Integer.toString(seite));
-                                Ausgabe(cos, fontBold, 11, Color.BLACK,56, 700, "Datum");
-                                Ausgabe(cos, fontBold, 11, Color.BLACK,130, 700, "Beschreibung");
-                                Ausgabe(cos, fontBold, 11, Color.BLACK,450, 700, "Netto");
-                                Ausgabe(cos, fontBold, 11, Color.BLACK,500, 700, "Steuer");
+                                AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 770, "Carola Hartmann Miles-Verlag");
+                                AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
+                                AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 730, "Beilage 2 - Steuerpflichtige Umsätze zum Steuersatz von 7%");
+                                AusgabeLB(cos, fontBold, 11, Color.BLACK,500, 730, "Seite " + Integer.toString(seite));
+                                AusgabeLB(cos, fontBold, 11, Color.BLACK,56, 700, "Datum");
+                                AusgabeLB(cos, fontBold, 11, Color.BLACK,130, 700, "Beschreibung");
+                                AusgabeLB(cos, fontBold, 11, Color.BLACK,450, 700, "Netto");
+                                AusgabeLB(cos, fontBold, 11, Color.BLACK,500, 700, "Steuer");
                             } // if
 
                             resultBuch = SQLAnfrageBuch.executeQuery("SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + resultBest.getString("BESTELLUNG_RECHNR") + "'");
@@ -1836,19 +1837,19 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                                     BestellungZeile = BestellungZeile * resultBuch.getInt("BESTELLUNG_DETAIL_ANZAHL");
                                 } // if
                             } // while
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK,56, 680 - 15 * (zeile - 1), resultBest.getString("BESTELLUNG_DATUM"));
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK,130, 680 - 15 * (zeile - 1), resultBest.getString("BESTELLUNG_RECHNR"));
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK,56, 680 - 15 * (zeile - 1), resultBest.getString("BESTELLUNG_DATUM"));
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK,130, 680 - 15 * (zeile - 1), resultBest.getString("BESTELLUNG_RECHNR"));
                             Netto = BestellungZeile * 100.0 / 107;
                             Ustr = BestellungZeile - Netto;
-                            AusgabeDB(cos, fontPlain, 11, Color.BLACK,470, 680 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Netto)));
-                            AusgabeDB(cos, fontPlain, 11, Color.BLACK,520, 680 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Ustr)));
+                            AusgabeDB(cos, fontPlain, 11, Color.BLACK,470, 680 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Netto)));
+                            AusgabeDB(cos, fontPlain, 11, Color.BLACK,520, 680 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Ustr)));
                             GesamtNetto = GesamtNetto + Netto;
                             GesamtUstr = GesamtUstr + Ustr;
                             zeile = zeile + 1;
                         } // while
 
                     } catch (SQLException exept) {
-                        Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                        ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
                         // System.exit(1);
                     } // try
 
@@ -1860,31 +1861,31 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                         if (zeile == 41) {
                             seite = seite + 1;
                             zeile = 1;
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 730, "Beilage 2 - Steuerpflichtige Umsätze zum Steuersatz von 7%");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 730, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 700, "Datum");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 700, "Beschreibung");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 450, 700, "Netto");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 700, "Steuer");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 730, "Beilage 2 - Steuerpflichtige Umsätze zum Steuersatz von 7%");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 730, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 700, "Datum");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 700, "Beschreibung");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 450, 700, "Netto");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 700, "Steuer");
                         } // if
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_RECHDATUM"));
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 130, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_BESCHREIBUNG"));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 56, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_RECHDATUM"));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 130, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_BESCHREIBUNG"));
                         Netto = resultBest.getFloat("EINNAHMEN_KOSTEN") * 100.0 / 107;
                         Ustr = resultBest.getFloat("EINNAHMEN_KOSTEN") - Netto;
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 470, 680 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Netto)));
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 520, 680 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Ustr)));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 470, 680 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Netto)));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 520, 680 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Ustr)));
                         zeile = zeile + 1;
                         GesamtNetto = GesamtNetto + Netto;
                         GesamtUstr = GesamtUstr + Ustr;
                     } // while
                     Linie(cos,1,56, 687 - 15 * zeile, 539, 687 - 15 * zeile);
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 680 - 15 * (zeile + 1), "Gesamtsumme der Umsätze");
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 470, 680 - 15 * (zeile + 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(GesamtNetto)));
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 520, 680 - 15 * (zeile + 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(GesamtUstr)));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 680 - 15 * (zeile + 1), "Gesamtsumme der Umsätze");
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 470, 680 - 15 * (zeile + 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(GesamtNetto)));
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 520, 680 - 15 * (zeile + 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(GesamtUstr)));
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
                 } // try
             } // if
             cos.close();
@@ -1898,28 +1899,28 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             zeile = 1;
             seite = 1;
 
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 730, "Beilage 3 - Steuerpflichtige Umsätze zu anderen Steuersätzen");
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 730, "Seite " + Integer.toString(seite));
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 700, "Datum");
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 700, "Beschreibung");
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 410, 700, "UStr");
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 450, 700, "Netto");
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 700, "Steuer");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 730, "Beilage 3 - Steuerpflichtige Umsätze zu anderen Steuersätzen");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 730, "Seite " + Integer.toString(seite));
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 700, "Datum");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 700, "Beschreibung");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 410, 700, "UStr");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 450, 700, "Netto");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 700, "Steuer");
 
             conn = null;
 
             try { // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+                ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
             }
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
+                ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
             }
 
             if (conn != null) {
@@ -1937,40 +1938,40 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                         if (zeile == 41) {
                             seite = seite + 1;
                             zeile = 1;
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 730, "Beilage 4 - Abziehbare Vorsteuerbeträge");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 730, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 700, "Datum");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 700, "Beschreibung");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 410, 700, "UStr");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 450, 700, "Netto");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 700, "Steuer");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 730, "Beilage 4 - Abziehbare Vorsteuerbeträge");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 730, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 700, "Datum");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 700, "Beschreibung");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 410, 700, "UStr");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 450, 700, "Netto");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 700, "Steuer");
                         }
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_RECHDATUM"));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 56, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_RECHDATUM"));
                         if (resultBest.getString("EINNAHMEN_BESCHREIBUNG").length() > 55) {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 130, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_BESCHREIBUNG").substring(0, 59) + "...");
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 130, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_BESCHREIBUNG").substring(0, 59) + "...");
                         } else {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 130, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_BESCHREIBUNG"));
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 130, 680 - 15 * (zeile - 1), resultBest.getString("EINNAHMEN_BESCHREIBUNG"));
                         }
                         Netto = resultBest.getFloat("EINNAHMEN_KOSTEN") * 100.0 / (100 + resultBest.getInt("EINNAHMEN_USTR"));
                         Ustr = resultBest.getFloat("EINNAHMEN_KOSTEN") - Netto;
                         AusgabeRB(cos, fontPlain, 11, Color.BLACK, 430, 680 - 15 * (zeile - 1), Integer.toString(resultBest.getInt("EINNAHMEN_USTR")));
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 470, 680 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Netto)));
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 520, 680 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Ustr)));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 470, 680 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Netto)));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 520, 680 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Ustr)));
                         zeile = zeile + 1;
 
                         GesamtNetto = GesamtNetto + Netto;
                         GesamtUstr = GesamtUstr + Ustr;
                     } // while
                     Linie(cos,1,56, 687 - 15 * zeile, 539, 687 - 15 * zeile);
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 680 - 15 * (zeile + 1), "Gesamtsumme der Umsätze");
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 470, 680 - 15 * (zeile + 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(GesamtNetto)));
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 520, 680 - 15 * (zeile + 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(GesamtUstr)));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 680 - 15 * (zeile + 1), "Gesamtsumme der Umsätze");
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 470, 680 - 15 * (zeile + 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(GesamtNetto)));
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 520, 680 - 15 * (zeile + 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(GesamtUstr)));
 
                     
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " , exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " , exept.getMessage());
                 } // try
             } // if
 
@@ -1985,27 +1986,27 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             zeile = 1;
             seite = 1;
 
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 730, "Beilage 4 - Abziehbare Vorsteuerbeträge");
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 730, "Seite " + Integer.toString(seite));
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 700, "Datum");
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 700, "Beschreibung");
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 450, 700, "Netto");
-            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 700, "Steuer");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 730, "Beilage 4 - Abziehbare Vorsteuerbeträge");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 730, "Seite " + Integer.toString(seite));
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 700, "Datum");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 700, "Beschreibung");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 450, 700, "Netto");
+            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 700, "Steuer");
 
             conn = null;
 
             try { // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+                ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
             }
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
+                ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
             }
 
             if (conn != null) {
@@ -2022,25 +2023,25 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                         if (zeile == 41) {
                             seite = seite + 1;
                             zeile = 1;
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
-                            Ausgabe(cos, fontBold, 11,Color.BLACK,  56, 730, "Beilage 4 - Abziehbare Vorsteuerbeträge");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 730, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 700, "Datum");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 700, "Beschreibung");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 450, 700, "Netto");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 700, "Steuer");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 755, "Anlagen zur Umsatzsteuervoranmeldung, Steuernummer " + field_Zeile3.getText());
+                            AusgabeLB(cos, fontBold, 11,Color.BLACK,  56, 730, "Beilage 4 - Abziehbare Vorsteuerbeträge");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 730, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 700, "Datum");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 700, "Beschreibung");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 450, 700, "Netto");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 700, "Steuer");
                         }
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 680 - 15 * (zeile - 1), resultBest.getString("AUSGABEN_RECHDATUM"));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 56, 680 - 15 * (zeile - 1), resultBest.getString("AUSGABEN_RECHDATUM"));
                         if (resultBest.getString("AUSGABEN_BESCHREIBUNG").length() > 60) {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 130, 680 - 15 * (zeile - 1), resultBest.getString("AUSGABEN_BESCHREIBUNG").substring(0, 59) + "...");
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 130, 680 - 15 * (zeile - 1), resultBest.getString("AUSGABEN_BESCHREIBUNG").substring(0, 59) + "...");
                         } else {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 130, 680 - 15 * (zeile - 1), resultBest.getString("AUSGABEN_BESCHREIBUNG"));
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 130, 680 - 15 * (zeile - 1), resultBest.getString("AUSGABEN_BESCHREIBUNG"));
                         }
                         Netto = resultBest.getFloat("AUSGABEN_KOSTEN") * 100.0 / (100 + resultBest.getInt("AUSGABEN_USTR"));
                         Ustr = resultBest.getFloat("AUSGABEN_KOSTEN") - Netto;
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 470, 680 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Netto)));
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 520, 680 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Ustr)));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 470, 680 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Netto)));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 520, 680 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Ustr)));
                         zeile = zeile + 1;
 
                         GesamtNetto = GesamtNetto + Netto;
@@ -2048,9 +2049,9 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                     } // while
                     Linie(cos,1,56, 687 - 15 * zeile, 539, 687 - 15 * zeile);
                     cos.closeAndStroke();
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 680 - 15 * (zeile + 1), "Gesamtsumme der Umsätze");
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 470, 680 - 15 * (zeile + 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(GesamtNetto)));
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 520, 680 - 15 * (zeile + 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(GesamtUstr)));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 680 - 15 * (zeile + 1), "Gesamtsumme der Umsätze");
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 470, 680 - 15 * (zeile + 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(GesamtNetto)));
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 520, 680 - 15 * (zeile + 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(GesamtUstr)));
 
                     if (resultBuch != null) {
                         resultBuch.close();
@@ -2069,7 +2070,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                     }
 
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
                     // System.exit(1);
                 } // try
             } // if
@@ -2081,14 +2082,14 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 document.save(outputFileName + "-anlagen.pdf");
             document.close();
 
-            Modulhelferlein.Infomeldung("Anlagen zur Umsatzsteuervoranmeldung als PDF gespeichert!");
+            ModulHelferlein.Infomeldung("Anlagen zur Umsatzsteuervoranmeldung als PDF gespeichert!");
             try {
                 Runtime.getRuntime().exec("cmd.exe /c " + outputFileName + "-anlagen.pdf");
             } catch (IOException exept) {
-                Modulhelferlein.Fehlermeldung("Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Exception: " + exept.getMessage());
             } // try 
         } catch (IOException e1) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e1.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e1.getMessage());
         }
     }
 
@@ -2102,28 +2103,28 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
         // Berechne Feld 81 aus den Einnahmen - 19%
         field_KZ81.setText(berechne_81(zeitraum));
         UStr81 = (double) (Integer.parseInt(field_KZ81.getText()) * 19 / 100);
-        UStr81 = Modulhelferlein.round2dec(UStr81);
+        UStr81 = ModulHelferlein.round2dec(UStr81);
         field_Zeile26.setText(Double.toString(UStr81));
 
         // Berechne Feld 86 aus den Buchbestellungen/Einnahmen - 7%
         field_KZ86.setText(berechne_86(zeitraum));
         UStr86 = (double) (Integer.parseInt(field_KZ86.getText()) * 7 / 100);
-        UStr86 = Modulhelferlein.round2dec(UStr86);
+        UStr86 = ModulHelferlein.round2dec(UStr86);
         field_Zeile27.setText(Double.toString(UStr86));
 
         // Berechne Feld 35, 36 aus den Einnahmen <> 7%, 19%
         field_KZ35.setText(berechne_35(zeitraum));
         field_KZ36.setText(berechne_36(field_Monat.getSelectedIndex()));
         UStr35 = Double.parseDouble(field_KZ36.getText());
-        UStr35 = Modulhelferlein.round2dec(UStr35);
+        UStr35 = ModulHelferlein.round2dec(UStr35);
 
         // Berechne Feld 66 aus den Ausgaben - jeweils die UStr aufsummieren    
         field_KZ66.setText(berechne_66(zeitraum));
         UStr66 = Double.parseDouble(field_KZ66.getText());
-        UStr66 = Modulhelferlein.round2dec(UStr66);
+        UStr66 = ModulHelferlein.round2dec(UStr66);
 
         // Berechne Feld 83     
-        UStr83 = Modulhelferlein.round2dec(UStr81 + UStr86 + UStr35 - UStr66);
+        UStr83 = ModulHelferlein.round2dec(UStr81 + UStr86 + UStr35 - UStr66);
         field_KZ83.setText(Double.toString(UStr83));
     }
 
@@ -2279,15 +2280,15 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
         }
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
         }
 
         if (conn != null) {
@@ -2315,7 +2316,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
             } // try
         } // if
         return Long.toString(Math.round(Math.ceil(Gesamtsumme)));
@@ -2404,15 +2405,15 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
         }
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
         }
 
         if (conn != null) {
@@ -2440,10 +2441,10 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
             } // try
         } // if
-        return Modulhelferlein.str2dec(Modulhelferlein.round2dec(Gesamtsumme));
+        return ModulHelferlein.str2dec(ModulHelferlein.round2dec(Gesamtsumme));
     }
 
     /**
@@ -2528,15 +2529,15 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
         }
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
         }
 
         if (conn != null) {
@@ -2564,7 +2565,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
                 // System.exit(1);
             } // try
         } // if
@@ -2654,15 +2655,15 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
         }
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
         }
 
         if (conn != null) {
@@ -2730,7 +2731,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
                 // System.exit(1);
             } // try
         } // if
@@ -2819,15 +2820,15 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
         }
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich.");
         }
 
         if (conn != null) {
@@ -2856,11 +2857,11 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
                 // System.exit(1);
             } // try
         } // if
-        return Modulhelferlein.str2dec(Modulhelferlein.round2dec(GesamtUstr));
+        return ModulHelferlein.str2dec(ModulHelferlein.round2dec(GesamtUstr));
     }
 
     /**
@@ -2924,8 +2925,8 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             field_Zeile13_21.setForeground(Color.BLUE);
             field_Zeile13_21.setOpaque(false);
             field_Zeile13_21.addActionListener((ActionEvent e) -> {
-                if (Modulhelferlein.checkNumberFormatInt(field_Zeile13_21.getText()) < 0) {
-                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Postleitzahl");
+                if (ModulHelferlein.checkNumberFormatInt(field_Zeile13_21.getText()) < 0) {
+                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Postleitzahl");
                 }
             });
             field_Zeile13_21.setForeground(Color.BLUE);
@@ -2995,11 +2996,11 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             field_Zeile26.setEditable(false);
             meinFenster.add(field_Zeile26);
             field_KZ81.addActionListener((ActionEvent e) -> {
-                if (Modulhelferlein.checkNumberFormatInt(field_KZ81.getText()) < 0) {
-                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+                if (ModulHelferlein.checkNumberFormatInt(field_KZ81.getText()) < 0) {
+                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
                 } else {
                     Double d = (double) (Integer.parseInt(field_KZ81.getText()) * 19 / 100);
-                    d = Modulhelferlein.round2dec(d);
+                    d = ModulHelferlein.round2dec(d);
                     field_Zeile26.setText(Double.toString(d));
                 }
             });
@@ -3014,11 +3015,11 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             field_Zeile27.setEditable(false);
             meinFenster.add(field_Zeile27);
             field_KZ86.addActionListener((ActionEvent e) -> {
-                if (Modulhelferlein.checkNumberFormatInt(field_KZ86.getText()) < 0) {
-                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+                if (ModulHelferlein.checkNumberFormatInt(field_KZ86.getText()) < 0) {
+                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
                 } else {
                     Double d = (double) (Integer.parseInt(field_KZ86.getText()) * 7 / 100);
-                    d = Modulhelferlein.round2dec(d);
+                    d = ModulHelferlein.round2dec(d);
                     field_Zeile27.setText(Double.toString(d));
                 }
             });
@@ -3030,20 +3031,20 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             field_KZ35.setBounds(200, 280, 50, 15);
             field_KZ35.setForeground(Color.BLUE);
             field_KZ35.addActionListener((ActionEvent e) -> {
-                if (Modulhelferlein.checkNumberFormatInt(field_KZ35.getText()) < 0) {
-                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+                if (ModulHelferlein.checkNumberFormatInt(field_KZ35.getText()) < 0) {
+                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
                 }
             });
             meinFenster.add(field_KZ35);
             field_KZ36.setBounds(280, 280, 65, 15);
             field_KZ36.setForeground(Color.BLUE);
             field_KZ36.addActionListener((ActionEvent e) -> {
-                if (Modulhelferlein.checkNumberFormatFloat(field_KZ36.getText()) < 0) {
-                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
+                if (ModulHelferlein.checkNumberFormatFloat(field_KZ36.getText()) < 0) {
+                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
                 } else {
                     Float f = Float.parseFloat(field_KZ36.getText());
-                    field_KZ36.setText(Modulhelferlein.str2dec(Modulhelferlein.round2dec(f)));
-                    UStr35 = Modulhelferlein.round2dec(Double.parseDouble(field_KZ36.getText()));
+                    field_KZ36.setText(ModulHelferlein.str2dec(ModulHelferlein.round2dec(f)));
+                    UStr35 = ModulHelferlein.round2dec(Double.parseDouble(field_KZ36.getText()));
                 }
             });
             meinFenster.add(field_KZ36);
@@ -3054,8 +3055,8 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             field_KZ66.setBounds(700, 220, 65, 15);
             field_KZ66.setForeground(Color.BLUE);
             field_KZ66.addActionListener((ActionEvent e) -> {
-                if (Modulhelferlein.checkNumberFormatFloat(field_KZ66.getText()) < 0) {
-                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
+                if (ModulHelferlein.checkNumberFormatFloat(field_KZ66.getText()) < 0) {
+                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
                 }
             });
             meinFenster.add(field_KZ66);
@@ -3066,8 +3067,8 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
             field_KZ83.setBounds(700, 300, 65, 15);
             field_KZ83.setForeground(Color.BLUE);
             field_KZ83.addActionListener((ActionEvent e) -> {
-                if (Modulhelferlein.checkNumberFormatFloat(field_KZ83.getText()) < 0) {
-                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
+                if (ModulHelferlein.checkNumberFormatFloat(field_KZ83.getText()) < 0) {
+                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
                 }
             });
             meinFenster.add(field_KZ83);
@@ -3181,17 +3182,17 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
 
             // Datenbank-Treiber laden
             try {
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
                 System.exit(1);
             }
 
             // Verbindung zur Datenbank über die JDBC-Brücke
             try {
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "SQL-Exception: Verbindung zur Datenbank nicht moeglich: " + exept.getMessage());
             } // try
 
@@ -3257,7 +3258,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                             rbMonat.setSelected(true);
                         }
                         field_KZ35.setText(Integer.toString(result.getInt("USTVA_KZ35")));
-                        field_KZ36.setText(Modulhelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
+                        field_KZ36.setText(ModulHelferlein.Fstr2dec(result.getFloat("USTVA_KZ36")));
                         field_KZ66.setText(Float.toString(result.getFloat("USTVA_KZ66")));
                         field_KZ81.setText(Integer.toString(result.getInt("USTVA_KZ81")));
                         field_KZ83.setText(Float.toString(result.getFloat("USTVA_KZ83")));
@@ -3301,7 +3302,7 @@ public class ModulAbrechnungUSteuerVorA implements ActionListener {
                     }
 
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQLException: SQL-Anfrage nicht moeglich: " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQLException: SQL-Anfrage nicht moeglich: " + exept.getMessage());
                 } // try
             } // if
 
