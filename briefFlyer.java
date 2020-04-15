@@ -1,7 +1,24 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *
+ * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
+ * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
+ *
+ * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von Software
+ *                    Dipl.Inform Thomas Zimmermann
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package milesVerlagMain;
 
@@ -136,13 +153,12 @@ public class briefFlyer {
                     AutorEintrag = AutorEintrag.substring(0, AutorEintrag.length() - 2);
                     Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 700, AutorEintrag, 220);
                     // Titel
-                    //String Titel = spell.formatText(resultBuch.getString("BUCH_TITEL"), 40);
-                    String Titel = spell.formatText(resultBuch.getString("BUCH_TITEL"), 220, cos, fontUniBold, 12);
+                    //String Titel = ModulSilbentrennung.formatText(resultBuch.getString("BUCH_TITEL"), 40);
+                    String Titel = ModulSilbentrennung.formatText(resultBuch.getString("BUCH_TITEL"), 220, cos, fontUniBold, 12);
                     String[] SplitTitel = Titel.split("~#!#~");
                     Titel = resultBuch.getString("BUCH_TITEL");
                     int zeile = 670;
-                    int i = 0;
-                    for (i = 0; i < SplitTitel.length; i++) {
+                    for (int i = 0; i < SplitTitel.length; i++) {
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 57, zeile - i * 15, SplitTitel[i]);
                     }
                     // Buchdaten
@@ -172,13 +188,13 @@ public class briefFlyer {
                     Beschreibung = Beschreibung.replace("\n", Trenner);
                     Beschreibung = Beschreibung.replace("\r", Trenner);
                     
-                    //Beschreibung = spell.formatText(Beschreibung, 40);
-                    Beschreibung = spell.formatText(Beschreibung, 220, cos, fontUniPlain, 11);
+                    //Beschreibung = ModulSilbentrennung.formatText(Beschreibung, 40);
+                    Beschreibung = ModulSilbentrennung.formatText(Beschreibung, 220, cos, fontUniPlain, 11);
                     
                     String[] Flyertext = Beschreibung.split(Trenner);
                     
                     zeile = zeile - 40;
-                    for (i = 0; i < Flyertext.length; i++) {
+                    for (int i = 0; i < Flyertext.length; i++) {
                         //System.out.println("Brief: "+Flyertext[i]);
                         AusgabeBS(cos, fontPlain, 11, Color.BLACK, 57, zeile - i * 16, Flyertext[i], 230);
                     }
@@ -298,6 +314,6 @@ public class briefFlyer {
             } catch (SQLException ex) {
                 Modulhelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
             }
-        };
+        }
     } // void
 }
