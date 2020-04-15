@@ -1,5 +1,10 @@
 /*
- * Copyright (C) 2018 thoma
+ *
+ * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
+ * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
+ *
+ * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von Software
+ *                    Dipl.Inform Thomas Zimmermann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +18,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package milesVerlagMain;
 
