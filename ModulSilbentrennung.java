@@ -26,7 +26,7 @@ package milesVerlagMain;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.* ;
-import static milesVerlagMain.Modulhelferlein.Trenner;
+import static milesVerlagMain.ModulHelferlein.Trenner;
 import net.davidashen.text.Hyphenator;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
