@@ -3,7 +3,7 @@
  * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
  * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
  *
- * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von SOftware
+ * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von Software
  *                    Dipl.Inform Thomas Zimmermann
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,14 +22,11 @@
  */
 package milesVerlagMain;
 
-//~--- non-JDK imports --------------------------------------------------------
-//~--- JDK imports ------------------------------------------------------------
 import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
-import javax.mail.Address;
 import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -39,7 +36,6 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.Transport;
-import javax.mail.URLName;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
