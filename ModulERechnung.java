@@ -3,7 +3,7 @@
  * Das JAVA-Programm Miles-Verlag Verlagsverwaltung stellt alle notwendigen
  * Funktionen für die Verwaltung des Carola Hartman Miles-Verlags bereit.
  *
- * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von SOftware
+ * Copyright (C) 2017 EDV-Beratung und Betrieb, Entwicklung von Software
  *                    Dipl.Inform Thomas Zimmermann
  *
  * This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,6 @@ import static com.neovisionaries.i18n.CountryCode.DE;
 import static com.neovisionaries.i18n.CurrencyCode.EUR;
 import io.konik.InvoiceTransformer;
 import io.konik.PdfHandler;
-import io.konik.calculation.InvoiceCalculator;
 import io.konik.zugferd.Invoice;
 import io.konik.zugferd.entity.Address;
 import io.konik.zugferd.entity.DebtorFinancialAccount;
@@ -864,10 +863,7 @@ public class ModulERechnung {
         System.out.println("Erzeue ZUGFeRD-PDF");
         try {
             PdfHandler handler = new PdfHandler();
-            InputStream inputPdf = null;
-
-            inputPdf = new FileInputStream(inputFile);
-
+            InputStream inputPdf = new FileInputStream(inputFile);
             OutputStream resultingPdf = new FileOutputStream(outputFile);
             handler.appendInvoice(invoice, inputPdf, resultingPdf);
         } catch (IOException ex) {
