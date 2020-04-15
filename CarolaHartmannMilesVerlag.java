@@ -45,45 +45,44 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-//import org.apache.pdfbox.exceptions.COSVisitorException;
 /**
- *
- * @author thomas
+ * Hauptprogramm
+ * 
  */
 public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
     private void backupDatenbank() {
         String cmdline = null;
-        if (Modulhelferlein.dbLive) {
-            cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P"+Modulhelferlein.dbPort+
-                                                          " -u"+Modulhelferlein.dbUser+
-                                                          " -p"+Modulhelferlein.dbPassword+
+        if (ModulHelferlein.dbLive) {
+            cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P"+ModulHelferlein.dbPort+
+                                                          " -u"+ModulHelferlein.dbUser+
+                                                          " -p"+ModulHelferlein.dbPassword+
                                                           " milesverlag > "
                     + "\""
-                    + Modulhelferlein.pathSicherung
+                    + ModulHelferlein.pathSicherung
                     + "\""
                     + "\\"
                     + "miles-verlag.backup-"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + ".sql";
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + ".sql";
         } else {
-            cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P"+Modulhelferlein.dbPort+
-                                                          " -u"+Modulhelferlein.dbUser+
-                                                          " -p"+Modulhelferlein.dbPassword+
+            cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P"+ModulHelferlein.dbPort+
+                                                          " -u"+ModulHelferlein.dbUser+
+                                                          " -p"+ModulHelferlein.dbPassword+
                                                          "milesverlag-train > "
                     + "\""
-                    + Modulhelferlein.pathSicherung
+                    + ModulHelferlein.pathSicherung
                     + "\""
                     + "\\"
                     + "miles-verlag.backup-"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + ".sql";
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + ".sql";
         }
 
         try {
             System.out.println("Datenbanksicherung: cmd /c " + cmdline);
             Runtime.getRuntime().exec("cmd /c " + cmdline);
-            Modulhelferlein.Infomeldung("Datenbank wurde gesichert!");
+            ModulHelferlein.Infomeldung("Datenbank wurde gesichert!");
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         }
     }
 
@@ -108,7 +107,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         // 3    Benutzername 
         // 4    Kennwort
         if (parameter != 6) {
-            Modulhelferlein.Fehlermeldung("Die Anzahl der Parameter stimmt nicht!");
+            ModulHelferlein.Fehlermeldung("Die Anzahl der Parameter stimmt nicht!");
             System.exit(-1);
         }
 
@@ -117,7 +116,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         this.setSize(650, 210);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        if (Modulhelferlein.dbLive) {
+        if (ModulHelferlein.dbLive) {
             this.setContentPane(new ModulBackground("background.jpg"));
         } else {
             this.setContentPane(new ModulBackground("BackgroundTraining.jpg"));
@@ -126,62 +125,62 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon("CarolaHartmannMilesVerlag.png");
         this.setIconImage(img.getImage());
 
-        Modulhelferlein.CurDate = new Date();
+        ModulHelferlein.CurDate = new Date();
 
-        Modulhelferlein.dbUrl = Modulhelferlein.dbUrl + ":" + Modulhelferlein.dbPort + "/" + Modulhelferlein.dbName;
+        ModulHelferlein.dbUrl = ModulHelferlein.dbUrl + ":" + ModulHelferlein.dbPort + "/" + ModulHelferlein.dbName;
 
         ModulAusgabe.main(null);
 
-        Modulhelferlein.pathUserDir = System.getProperty("user.dir");
-        System.out.println("UserDir = " + Modulhelferlein.pathUserDir);
+        ModulHelferlein.pathUserDir = System.getProperty("user.dir");
+        System.out.println("UserDir = " + ModulHelferlein.pathUserDir);
 
         // prüfe, ob ein Nutzer aktiv ist
-        File file = new File(Modulhelferlein.Semaphore);
+        File file = new File(ModulHelferlein.Semaphore);
         String Benutzer = null;
         if (file.canRead() || file.isFile()) {
             BufferedReader in = null;
             try {
-                in = new BufferedReader(new FileReader(Modulhelferlein.Semaphore));
+                in = new BufferedReader(new FileReader(ModulHelferlein.Semaphore));
                 Benutzer = in.readLine();
                 System.out.println("aktiver Benutzer: " + Benutzer);
             } catch (IOException e) {
-                Modulhelferlein.Fehlermeldung("Prüfe, ob Nutzer aktiv ist", "IOException", e.getMessage());
+                ModulHelferlein.Fehlermeldung("Prüfe, ob Nutzer aktiv ist", "IOException", e.getMessage());
             } finally {
                 if (in != null) {
                     try {
                         in.close();
                     } catch (IOException e) {
-                        Modulhelferlein.Fehlermeldung("Prüfe, ob Nutzer aktiv ist", "IOException", e.getMessage());
+                        ModulHelferlein.Fehlermeldung("Prüfe, ob Nutzer aktiv ist", "IOException", e.getMessage());
                     }
                 }
             }
-            Modulhelferlein.Fehlermeldung("Das Programm wird bereits genutzt", Benutzer);
+            ModulHelferlein.Fehlermeldung("Das Programm wird bereits genutzt", Benutzer);
             System.exit(0);
         } else { // kein Nutzer aktiv
             // Datenbank-Treiber laden
             try {
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Carola Hartmann Miles-Verlag", "ClassNotFoundException: Treiber nicht gefunden: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Carola Hartmann Miles-Verlag", "ClassNotFoundException: Treiber nicht gefunden: ", exept.getMessage());
                 System.exit(1);
             }
 
             // Verbindung zur Datenbank über die JDBC-Brücke
             try {
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
                 //Logger.getLogger(CarolaHartmannMilesVerlag.class.getName()).log(Level.SEVERE, "SQL-Exception: Verbindung zur Datenbank nicht moeglich: " + exept.getMessage(), exept);
-                Modulhelferlein.Fehlermeldung("Carola Hartmann Miles-Verlag",
+                ModulHelferlein.Fehlermeldung("Carola Hartmann Miles-Verlag",
                         "SQL-Exception: Verbindung zur Datenbank nicht moeglich: ", exept.getMessage());
                 // Starte XAMPP
-                if (exept.getMessage().equals("Unknown database '" + Modulhelferlein.dbName + "'")) {
+                if (exept.getMessage().equals("Unknown database '" + ModulHelferlein.dbName + "'")) {
                     _DlgDatenbankErstellen.main(null);
                 } else {
                     try {
                         Runtime.getRuntime().exec("C:/xampp/xampp-control.exe");
                     } catch (IOException e) {
                         //Logger.getLogger(CarolaHartmannMilesVerlag.class.getName()).log(Level.SEVERE, "IO-Exception: " + e.getMessage(), e);
-                        Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+                        ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
                     } // try
                 } // if
             } // try
@@ -214,19 +213,19 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                         } // result.next tbl_benutzer
                         // Benutzerauswahl
                         if (i == 0) {
-                            Modulhelferlein.CHMVBenutzer = JOptionPane.showInputDialog(null, "<html>Es gibt noch keinen Benutzer!<br>Wie heißt der Benutzer (Vorname Name):</html>", "Benutzer anlegen", JOptionPane.QUESTION_MESSAGE);
-                            if (Modulhelferlein.CHMVBenutzer == null) {
-                                Modulhelferlein.Fehlermeldung("Systemstart", "kein Benutzer ausgewählt!");
+                            ModulHelferlein.CHMVBenutzer = JOptionPane.showInputDialog(null, "<html>Es gibt noch keinen Benutzer!<br>Wie heißt der Benutzer (Vorname Name):</html>", "Benutzer anlegen", JOptionPane.QUESTION_MESSAGE);
+                            if (ModulHelferlein.CHMVBenutzer == null) {
+                                ModulHelferlein.Fehlermeldung("Systemstart", "kein Benutzer ausgewählt!");
                                 System.exit(-1);
                             }
                             NeuerBenutzer = true;
                             result.moveToInsertRow();
                             result.updateInt("BENUTZER_ID", 1);
-                            result.updateString("BENUTZER_NAME", Modulhelferlein.CHMVBenutzer);
+                            result.updateString("BENUTZER_NAME", ModulHelferlein.CHMVBenutzer);
                             result.insertRow();
-                            System.err.println("Benutzer ist " + Modulhelferlein.CHMVBenutzer);
+                            System.err.println("Benutzer ist " + ModulHelferlein.CHMVBenutzer);
                         } else {
-                            Modulhelferlein.CHMVBenutzer = (String) JOptionPane.showInputDialog(
+                            ModulHelferlein.CHMVBenutzer = (String) JOptionPane.showInputDialog(
                                     null,
                                     "Wer ist der Benutzer?",
                                     "Benutzerauswahl",
@@ -234,8 +233,8 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                                     null,
                                     BenutzerOption,
                                     BenutzerOption[0]);
-                            if (Modulhelferlein.CHMVBenutzer == null) {
-                                Modulhelferlein.CHMVBenutzer = BenutzerOption[0];
+                            if (ModulHelferlein.CHMVBenutzer == null) {
+                                ModulHelferlein.CHMVBenutzer = BenutzerOption[0];
                             }
                         } //
                         resultKonfiguration = SQLAnfrageKonfiguration.executeQuery("SHOW TABLES LIKE 'tbl_konfiguration'");
@@ -248,90 +247,90 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                                 if (NeuerBenutzer) {
                                     resultKonfiguration = SQLAnfrageKonfiguration.executeQuery("SELECT * FROM tbl_konfiguration WHERE KONFIGURATION_ID='1'");
                                     resultKonfiguration.first();
-                                    resultKonfiguration.updateString("Konfiguration_Benutzer", Modulhelferlein.CHMVBenutzer);
+                                    resultKonfiguration.updateString("Konfiguration_Benutzer", ModulHelferlein.CHMVBenutzer);
                                     resultKonfiguration.updateRow();
                                 }
-                                menuItemBenutzer.setText(Modulhelferlein.CHMVBenutzer);
+                                menuItemBenutzer.setText(ModulHelferlein.CHMVBenutzer);
                                 resultKonfiguration = SQLAnfrage.executeQuery("SELECT * FROM tbl_konfiguration");
                                 while (resultKonfiguration.next()) {
-                                    Modulhelferlein.pathBenutzer = resultKonfiguration.getString("Konfiguration_Benutzer");
-                                    if (Modulhelferlein.pathBenutzer.equals("Mailkonfiguration")) {
+                                    ModulHelferlein.pathBenutzer = resultKonfiguration.getString("Konfiguration_Benutzer");
+                                    if (ModulHelferlein.pathBenutzer.equals("Mailkonfiguration")) {
                                         System.out.println("Mailkonfiguration gelesen");
-                                        Modulhelferlein.MailHost = resultKonfiguration.getString("Konfiguration_Stammdaten");
-                                        System.out.println("-> Host      "+Modulhelferlein.MailHost);
-                                        Modulhelferlein.MailPort = resultKonfiguration.getString("Konfiguration_Einnahmen");
-                                        System.out.println("-> Port      "+Modulhelferlein.MailPort);
-                                        Modulhelferlein.MailIMAPHost = resultKonfiguration.getString("Konfiguration_Sicherung");
-                                        System.out.println("-> IMAP-Host "+Modulhelferlein.MailIMAPHost);
-                                        Modulhelferlein.MailIMAPPort = resultKonfiguration.getString("Konfiguration_Mahnungen");
-                                        System.out.println("-> IMAP-Port "+Modulhelferlein.MailIMAPPort);
-                                        Modulhelferlein.MailIMAPGesendet = resultKonfiguration.getString("Konfiguration_Rechnungen");
-                                        System.out.println("-> IMAP-Sent "+Modulhelferlein.MailIMAPGesendet);
-                                        Modulhelferlein.MailUser = resultKonfiguration.getString("Konfiguration_Ausgaben");
-                                        System.out.println("-> User      "+Modulhelferlein.MailUser);
-                                        Modulhelferlein.MailPass = resultKonfiguration.getString("Konfiguration_Umsaetze");
+                                        ModulHelferlein.MailHost = resultKonfiguration.getString("Konfiguration_Stammdaten");
+                                        System.out.println("-> Host      "+ModulHelferlein.MailHost);
+                                        ModulHelferlein.MailPort = resultKonfiguration.getString("Konfiguration_Einnahmen");
+                                        System.out.println("-> Port      "+ModulHelferlein.MailPort);
+                                        ModulHelferlein.MailIMAPHost = resultKonfiguration.getString("Konfiguration_Sicherung");
+                                        System.out.println("-> IMAP-Host "+ModulHelferlein.MailIMAPHost);
+                                        ModulHelferlein.MailIMAPPort = resultKonfiguration.getString("Konfiguration_Mahnungen");
+                                        System.out.println("-> IMAP-Port "+ModulHelferlein.MailIMAPPort);
+                                        ModulHelferlein.MailIMAPGesendet = resultKonfiguration.getString("Konfiguration_Rechnungen");
+                                        System.out.println("-> IMAP-Sent "+ModulHelferlein.MailIMAPGesendet);
+                                        ModulHelferlein.MailUser = resultKonfiguration.getString("Konfiguration_Ausgaben");
+                                        System.out.println("-> User      "+ModulHelferlein.MailUser);
+                                        ModulHelferlein.MailPass = resultKonfiguration.getString("Konfiguration_Umsaetze");
                                         System.out.println("-> Passwort  ****************");
                                     }
-                                    if (Modulhelferlein.pathBenutzer.equals("Waehrung")) {
+                                    if (ModulHelferlein.pathBenutzer.equals("Waehrung")) {
                                         System.out.println("Währungsdaten gelesen");
-                                        Modulhelferlein.USD = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Stammdaten"));
-                                        Modulhelferlein.GBP = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Einnahmen"));
-                                        Modulhelferlein.CHF = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Ausgaben"));
-                                        Modulhelferlein.NOK = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Umsaetze"));
-                                        Modulhelferlein.ILS = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Rechnungen"));
-                                        Modulhelferlein.DKK = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Sicherung"));
-                                        Modulhelferlein.CAD = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Mahnungen"));
+                                        ModulHelferlein.USD = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Stammdaten"));
+                                        ModulHelferlein.GBP = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Einnahmen"));
+                                        ModulHelferlein.CHF = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Ausgaben"));
+                                        ModulHelferlein.NOK = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Umsaetze"));
+                                        ModulHelferlein.ILS = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Rechnungen"));
+                                        ModulHelferlein.DKK = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Sicherung"));
+                                        ModulHelferlein.CAD = Float.parseFloat(resultKonfiguration.getString("Konfiguration_Mahnungen"));
                                     }
-                                    if (Modulhelferlein.pathBenutzer.equals("Datensicherung")) {
+                                    if (ModulHelferlein.pathBenutzer.equals("Datensicherung")) {
                                         System.out.println("Konfiguration Datensicherung gelesen");
-                                        Modulhelferlein.pathQuelle = resultKonfiguration.getString("Konfiguration_Stammdaten");
-                                        System.out.println("-> Quelle "+Modulhelferlein.pathQuelle);
-                                        Modulhelferlein.pathZiel = resultKonfiguration.getString("Konfiguration_Einnahmen");
-                                        System.out.println("-> Ziel   "+Modulhelferlein.pathZiel);
+                                        ModulHelferlein.pathQuelle = resultKonfiguration.getString("Konfiguration_Stammdaten");
+                                        System.out.println("-> Quelle "+ModulHelferlein.pathQuelle);
+                                        ModulHelferlein.pathZiel = resultKonfiguration.getString("Konfiguration_Einnahmen");
+                                        System.out.println("-> Ziel   "+ModulHelferlein.pathZiel);
                                     }
-                                    if (Modulhelferlein.pathBenutzer.equals(Modulhelferlein.CHMVBenutzer)) {
+                                    if (ModulHelferlein.pathBenutzer.equals(ModulHelferlein.CHMVBenutzer)) {
                                         System.out.println("Benutzerkonfiguration gelesen");
-                                        Modulhelferlein.pathBerichte = resultKonfiguration.getString("Konfiguration_Stammdaten");
-                                        Modulhelferlein.pathEinnahmen = resultKonfiguration.getString("Konfiguration_Einnahmen");
-                                        Modulhelferlein.pathAusgaben = resultKonfiguration.getString("Konfiguration_Ausgaben");
-                                        Modulhelferlein.pathUmsaetze = resultKonfiguration.getString("Konfiguration_Umsaetze");
-                                        Modulhelferlein.pathRechnungen = resultKonfiguration.getString("Konfiguration_Rechnungen");
-                                        Modulhelferlein.pathSicherung = resultKonfiguration.getString("Konfiguration_Sicherung");
-                                        Modulhelferlein.pathRezensionen = resultKonfiguration.getString("Konfiguration_Mahnungen");
-                                        Modulhelferlein.pathKonfiguration = resultKonfiguration.getString("Konfiguration_Termine");
-                                        Modulhelferlein.pathBuchprojekte = resultKonfiguration.getString("Konfiguration_Schriftverkehr");
-                                        Modulhelferlein.pathSteuer = resultKonfiguration.getString("Konfiguration_Steuer");
+                                        ModulHelferlein.pathBerichte = resultKonfiguration.getString("Konfiguration_Stammdaten");
+                                        ModulHelferlein.pathEinnahmen = resultKonfiguration.getString("Konfiguration_Einnahmen");
+                                        ModulHelferlein.pathAusgaben = resultKonfiguration.getString("Konfiguration_Ausgaben");
+                                        ModulHelferlein.pathUmsaetze = resultKonfiguration.getString("Konfiguration_Umsaetze");
+                                        ModulHelferlein.pathRechnungen = resultKonfiguration.getString("Konfiguration_Rechnungen");
+                                        ModulHelferlein.pathSicherung = resultKonfiguration.getString("Konfiguration_Sicherung");
+                                        ModulHelferlein.pathRezensionen = resultKonfiguration.getString("Konfiguration_Mahnungen");
+                                        ModulHelferlein.pathKonfiguration = resultKonfiguration.getString("Konfiguration_Termine");
+                                        ModulHelferlein.pathBuchprojekte = resultKonfiguration.getString("Konfiguration_Schriftverkehr");
+                                        ModulHelferlein.pathSteuer = resultKonfiguration.getString("Konfiguration_Steuer");
                                     } // if
                                 } // while
                             } // if
                         } else { // tbl_konfiguration existiert nicht
-                            Modulhelferlein.Fehlermeldung("Tabelle Konfiguration muss erstellt werden!");
-                            Modulhelferlein.pathBerichte = "";
-                            Modulhelferlein.pathEinnahmen = "";
-                            Modulhelferlein.pathAusgaben = "";
-                            Modulhelferlein.pathUmsaetze = "";
-                            Modulhelferlein.pathRechnungen = "";
-                            Modulhelferlein.pathSicherung = "";
-                            Modulhelferlein.pathRezensionen = "";
-                            Modulhelferlein.pathKonfiguration = "";
-                            Modulhelferlein.pathBuchprojekte = "";
-                            Modulhelferlein.pathBenutzer = "";
-                            Modulhelferlein.CHMVBenutzer = "";
+                            ModulHelferlein.Fehlermeldung("Tabelle Konfiguration muss erstellt werden!");
+                            ModulHelferlein.pathBerichte = "";
+                            ModulHelferlein.pathEinnahmen = "";
+                            ModulHelferlein.pathAusgaben = "";
+                            ModulHelferlein.pathUmsaetze = "";
+                            ModulHelferlein.pathRechnungen = "";
+                            ModulHelferlein.pathSicherung = "";
+                            ModulHelferlein.pathRezensionen = "";
+                            ModulHelferlein.pathKonfiguration = "";
+                            ModulHelferlein.pathBuchprojekte = "";
+                            ModulHelferlein.pathBenutzer = "";
+                            ModulHelferlein.CHMVBenutzer = "";
                         } // tbl_konfiguration existiert nicht
                     } // if shown tbl_benutzer
                     else {
-                        Modulhelferlein.Fehlermeldung("Tabelle Benutzer muss erstellt werden!");
-                        Modulhelferlein.CHMVBenutzer = "";
+                        ModulHelferlein.Fehlermeldung("Tabelle Benutzer muss erstellt werden!");
+                        ModulHelferlein.CHMVBenutzer = "";
                     } // tbl_benutzer existiert nicht
 
                     PrintWriter pWriter = null;
 
                     System.out.println("Programm ist gestartet");
                     try {
-                        pWriter = new PrintWriter(new BufferedWriter(new FileWriter(Modulhelferlein.Semaphore)));
-                        pWriter.println(Modulhelferlein.CHMVBenutzer);
+                        pWriter = new PrintWriter(new BufferedWriter(new FileWriter(ModulHelferlein.Semaphore)));
+                        pWriter.println(ModulHelferlein.CHMVBenutzer);
                     } catch (IOException ioe) {
-                        Modulhelferlein.Fehlermeldung("Semaphore schreiben", ioe.getMessage());
+                        ModulHelferlein.Fehlermeldung("Semaphore schreiben", ioe.getMessage());
                     } finally {
                         if (pWriter != null) {
                             pWriter.flush();
@@ -339,7 +338,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                         }
                     }
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung(
+                    ModulHelferlein.Fehlermeldung(
                             "SQLException:"
                             + "\n"
                             + "SQL-Anfrage nicht moeglich: "
@@ -974,12 +973,12 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         //try {
         //    Runtime.getRuntime().exec("cmd /c start " + System.getProperty("user.dir") + "/miles-Verlag-Handbuch.html");
         //} catch (IOException exept) {
-        //    Modulhelferlein.Fehlermeldung("Exception: " + exept.getMessage());
+        //    ModulHelferlein.Fehlermeldung("Exception: " + exept.getMessage());
         //}
         try {
             Runtime.getRuntime().exec("cmd.exe /c CarolaHartmannMilesVerlagHandbuch.pdf");
         } catch (IOException exept) {
-            Modulhelferlein.Fehlermeldung("Hilfe", "Handbuch öffen: IO-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Hilfe", "Handbuch öffen: IO-Exception: ", exept.getMessage());
         } // try Handbuch öffnen
     }//GEN-LAST:event_jMenuItemHilfeHilfeActionPerformed
 
@@ -995,7 +994,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             // TODO add your handling code here:
             berKonfiguration.bericht();
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + ex.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + ex.getMessage());
             //Logger.getLogger(CarolaHartmannMilesVerlag.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }//GEN-LAST:event_jMenuItemBerichteKonfigurationActionPerformed
@@ -1034,7 +1033,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         try {
             Runtime.getRuntime().exec("cmd /c start  https://www.bod.de/mybod.html");
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IOException: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IOException: " + e.getMessage());
         }
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungInternetBODActionPerformed
 
@@ -1045,7 +1044,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             Runtime.getRuntime().exec(
                     "cmd /c start https://www.berliner-volksbank.de/banking-private/entry?trackid=piwik908caf721f22c378");
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IOException: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IOException: " + e.getMessage());
         }
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungInternetVolksbankActionPerformed
 
@@ -1056,7 +1055,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             Runtime.getRuntime().exec(
                     "cmd /c start http://www.printus.de");
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IOException: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IOException: " + e.getMessage());
         }
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungInternetPrintusActionPerformed
 
@@ -1067,7 +1066,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             Runtime.getRuntime().exec(
                     "cmd /c start http://www.vistaprint.de");
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IOException: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IOException: " + e.getMessage());
         }
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungInternetVistaprintActionPerformed
 
@@ -1078,7 +1077,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             Runtime.getRuntime().exec(
                     "cmd /c start http://www.amazon.de");
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         }
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungInternetAmazonActionPerformed
 
@@ -1088,7 +1087,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         try {
             Runtime.getRuntime().exec("cmd /c start https://www.vlb.de/login.html");
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IOException: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IOException: " + e.getMessage());
         }
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungInternetVLBActionPerformed
 
@@ -1100,7 +1099,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: " + e.getMessage());
         }
 
         System.exit(0);
@@ -1115,20 +1114,20 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
     private void jMenuItemServerKonfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemServerKonfigurationActionPerformed
         // TODO add your handling code here:
         System.out.println("Dialog Konfiguration verwalten");
-        String[] args = {Modulhelferlein.CHMVBenutzer};
+        String[] args = {ModulHelferlein.CHMVBenutzer};
         VerwaltenDatenbankKonfigurationPfade.main(args);
     }//GEN-LAST:event_jMenuItemServerKonfigurationActionPerformed
 
     private void jMenuItemVerlagsfuehrungSteuerEURActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungSteuerEURActionPerformed
         // TODO add your handling code here:
         System.out.println("Dialog Einnahmenueberschussrechnung");
-        Modulhelferlein.Infomeldung("noch nicht implementiert");
+        ModulHelferlein.Infomeldung("noch nicht implementiert");
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungSteuerEURActionPerformed
 
     private void jMenuItemVerlagsfuehrungSteuerUstrEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungSteuerUstrEActionPerformed
         // TODO add your handling code here:
         System.out.println("Dialog Umsatzsteuererklärung");
-        Modulhelferlein.Infomeldung("noch nicht implementiert");
+        ModulHelferlein.Infomeldung("noch nicht implementiert");
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungSteuerUstrEActionPerformed
 
     private void jMenuItemVerlagsfuehrungSteuerUstrVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerlagsfuehrungSteuerUstrVAActionPerformed
@@ -1150,7 +1149,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         try {
             Runtime.getRuntime().exec("C:/xampp/xampp-control.exe");
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         }
     }//GEN-LAST:event_jMenuItemSoftwareXAMPPActionPerformed
 
@@ -1161,7 +1160,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             Runtime.getRuntime().exec(
                     "cmd /c start http://localhost:8888/phpmyadmin/");
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         }
     }//GEN-LAST:event_jMenuItemSoftwareSQLActionPerformed
 
@@ -1189,7 +1188,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         String Filename = "";
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "Datenbanksicherung", "sql");
-        JFileChooser chooser = new JFileChooser(Modulhelferlein.pathSicherung);
+        JFileChooser chooser = new JFileChooser(ModulHelferlein.pathSicherung);
 
         chooser.setMultiSelectionEnabled(false);
         chooser.setFileFilter(filter);
@@ -1201,26 +1200,26 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             Filename = chooser.getSelectedFile().getName();
             String cmdline = "";
             try {
-                if (Modulhelferlein.dbLive) {
-                    cmdline = "C:\\xampp\\mysql\\bin\\mysql.exe -P"+Modulhelferlein.dbPort+
-                                                          " -u"+Modulhelferlein.dbUser+
-                                                          " -p"+Modulhelferlein.dbPassword
-                            + " milesverlag < " + Modulhelferlein.pathSicherung
+                if (ModulHelferlein.dbLive) {
+                    cmdline = "C:\\xampp\\mysql\\bin\\mysql.exe -P"+ModulHelferlein.dbPort+
+                                                          " -u"+ModulHelferlein.dbUser+
+                                                          " -p"+ModulHelferlein.dbPassword
+                            + " milesverlag < " + ModulHelferlein.pathSicherung
                             + "\\"
                             + Filename;
                 } else {
-                    cmdline = "C:\\xampp\\mysql\\bin\\mysql.exe -P"+Modulhelferlein.dbPort+
-                                                          " -u"+Modulhelferlein.dbUser+
-                                                          " -p"+Modulhelferlein.dbPassword
-                            + " milesverlag-train < " + Modulhelferlein.pathSicherung
+                    cmdline = "C:\\xampp\\mysql\\bin\\mysql.exe -P"+ModulHelferlein.dbPort+
+                                                          " -u"+ModulHelferlein.dbUser+
+                                                          " -p"+ModulHelferlein.dbPassword
+                            + " milesverlag-train < " + ModulHelferlein.pathSicherung
                             + "\\"
                             + Filename;
                 }
                 System.out.println("Datenbankwiederherstellung: cmd /c " + cmdline);
                 Runtime.getRuntime().exec("cmd /c " + cmdline);
-                Modulhelferlein.Infomeldung("Datenbank wurde wiederhergestellt");
+                ModulHelferlein.Infomeldung("Datenbank wurde wiederhergestellt");
             } catch (IOException e) {
-                Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
             }
         }
     }//GEN-LAST:event_jMenuItemSoftwareDBWiederherstellenActionPerformed
@@ -1351,7 +1350,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         // semaphore löschen
-        File file = new File(Modulhelferlein.Semaphore);
+        File file = new File(ModulHelferlein.Semaphore);
         if (file.exists()) {
             file.delete();
         }
@@ -1395,7 +1394,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         try {
             Runtime.getRuntime().exec("cmd /c start https://evatr.bff-online.de/eVatR/index_html");
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IOException: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IOException: " + e.getMessage());
         }
         _DlgPruefenUstrID.main(null);
     }//GEN-LAST:event_jMenuItemVerlagsfuehrungInternetPruefenUStrIDActionPerformed
@@ -1437,7 +1436,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                     SQLAnfrageSQL.executeUpdate(SQL);
                 }
             } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("SQL-Befehl ausführen", "SQL-Exception", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Befehl ausführen", "SQL-Exception", ex.getMessage());
             }
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -1458,7 +1457,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         try {
             Runtime.getRuntime().exec("cmd /c start https://www.iban-rechner.de");
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("Aufruf IBAN-Rechner", "IO-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Aufruf IBAN-Rechner", "IO-Exception: ", e.getMessage());
         }
     }//GEN-LAST:event_jMenuItemVerlagsfuerhungInternetIBANActionPerformed
 
@@ -1485,15 +1484,15 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         parameter = args.length;
 
         if (parameter != 6) {
-            Modulhelferlein.Fehlermeldung("Die Anzahl der Parameter stimmt nicht!");
+            ModulHelferlein.Fehlermeldung("Die Anzahl der Parameter stimmt nicht!");
             System.exit(-1);
         }
-        Modulhelferlein.dbUrl = args[0];
-        Modulhelferlein.dbPort = args[1];
-        Modulhelferlein.dbName = args[2];
-        Modulhelferlein.dbUser = args[3];
-        Modulhelferlein.dbPassword = args[4];
-        Modulhelferlein.dbLive = "live".equals(args[5]);
+        ModulHelferlein.dbUrl = args[0];
+        ModulHelferlein.dbPort = args[1];
+        ModulHelferlein.dbName = args[2];
+        ModulHelferlein.dbUser = args[3];
+        ModulHelferlein.dbPassword = args[4];
+        ModulHelferlein.dbLive = "live".equals(args[5]);
 
         FlatLightLaf.install();
         //try {
