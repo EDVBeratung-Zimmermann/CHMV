@@ -56,10 +56,10 @@ public class ModulJahresabschluss {
                 JOptionPane.YES_NO_OPTION) == 0) {
 
             // Sicherungskopie der gesamten Datenbank mit neuem Namen
-            String Jahr = String.valueOf(Integer.parseInt(Modulhelferlein.printSimpleDateFormat("yyyy")) - 1);
+            String Jahr = String.valueOf(Integer.parseInt(ModulHelferlein.printSimpleDateFormat("yyyy")) - 1);
             String cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P3063 -uroot -pclausewitz milesverlag > "
                     + "\""
-                    + Modulhelferlein.pathSicherung
+                    + ModulHelferlein.pathSicherung
                     + "\""
                     + "\\"
                     + "miles-verlag."
@@ -68,10 +68,10 @@ public class ModulJahresabschluss {
                     + ".sql";
             try {
                 Runtime.getRuntime().exec("cmd /c " + cmdline);
-                Modulhelferlein.Infomeldung("Jahressicherung " + Jahr + " wurde erstellt!");
+                ModulHelferlein.Infomeldung("Jahressicherung " + Jahr + " wurde erstellt!");
                 System.out.println("Jahressicherung ist erstellt");
             } catch (IOException e) {
-                Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
             }
 
             // Bestellnummer zurücksetzen
@@ -79,16 +79,16 @@ public class ModulJahresabschluss {
 
             // Datenbank-Treiber laden
             try {
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+                ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
             }
 
             // Verbindung zur Datenbank über die JDBC-Brücke
             try {
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
+                ModulHelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
             }
 
             // final Connection conn2=conn;
@@ -105,7 +105,7 @@ public class ModulJahresabschluss {
                         result.updateString("BESTELLNR_NUMMER", "1");
                         result.updateRow();
                     }
-                    Modulhelferlein.Infomeldung("Bestellnummer ist zurückgesetzt!");
+                    ModulHelferlein.Infomeldung("Bestellnummer ist zurückgesetzt!");
                     System.out.println("Bestellnummer ist zurückgesetzt");
 
                     // Tabellen zurücksetzen
@@ -113,13 +113,13 @@ public class ModulJahresabschluss {
                     SQLAnfrage.executeUpdate("DELETE FROM TBL_EINNAHMEN WHERE EINNAHMEN_BEZAHLT <> '1970-01-01'");
 
                     System.out.println("Tabelle Einnahmen ist zurückgesetzt");
-                    Modulhelferlein.Infomeldung("Tabelle Einnahmen ist zurückgesetzt!");
+                    ModulHelferlein.Infomeldung("Tabelle Einnahmen ist zurückgesetzt!");
 
                     // Ausgaben
                     SQLAnfrage.executeUpdate("DELETE FROM TBL_AUSGABEN WHERE AUSGABEN_BEZAHLT <> '1970-01-01'");
 
                     System.out.println("Tabelle Ausgaben ist zurückgesetzt");
-                    Modulhelferlein.Infomeldung("Tabelle Ausgaben ist zurückgesetzt!");
+                    ModulHelferlein.Infomeldung("Tabelle Ausgaben ist zurückgesetzt!");
 
                     // Bestellungen + BestellDetails
                     SQLAnfrage = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -135,10 +135,10 @@ public class ModulJahresabschluss {
                     } // while
                     SQLAnfrage.executeUpdate("DELETE FROM TBL_BESTELLUNG WHERE BESTELLUNG_BEZAHLT <> '1970-01-01'");
                     System.out.println("Tabelle Bestellungen ist zurückgesetzt");
-                    Modulhelferlein.Infomeldung("Tabelle Bestellungen ist zurückgesetzt!");
+                    ModulHelferlein.Infomeldung("Tabelle Bestellungen ist zurückgesetzt!");
                     
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. "
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. "
                             + exept.getMessage());
                 } // try catch
             }  // if conn != null
