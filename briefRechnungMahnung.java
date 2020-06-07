@@ -41,6 +41,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -50,60 +52,58 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.xml.transform.TransformerException;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.AusgabeDB;
-import static milesVerlagMain.Modulhelferlein.AusgabeLeistung;
-import static milesVerlagMain.Modulhelferlein.Linie;
-import static milesVerlagMain.Modulhelferlein.SpracheAnrede;
-import static milesVerlagMain.Modulhelferlein.SpracheAnzahl;
-import static milesVerlagMain.Modulhelferlein.SpracheAutor;
-import static milesVerlagMain.Modulhelferlein.SpracheBelegexemplar;
-import static milesVerlagMain.Modulhelferlein.SpracheBeruf;
-import static milesVerlagMain.Modulhelferlein.SpracheBestelldatum;
-import static milesVerlagMain.Modulhelferlein.SpracheBestellzeichen;
-import static milesVerlagMain.Modulhelferlein.SpracheEULieferung;
-import static milesVerlagMain.Modulhelferlein.SpracheEinMahnung1;
-import static milesVerlagMain.Modulhelferlein.SpracheEinMahnung2;
-import static milesVerlagMain.Modulhelferlein.SpracheEinleitung1;
-import static milesVerlagMain.Modulhelferlein.SpracheEinleitung2;
-import static milesVerlagMain.Modulhelferlein.SpracheEinzelpreis;
-import static milesVerlagMain.Modulhelferlein.SpracheGesamtVersand;
-import static milesVerlagMain.Modulhelferlein.SpracheGesamtpreis;
-import static milesVerlagMain.Modulhelferlein.SpracheGeschenk;
-import static milesVerlagMain.Modulhelferlein.SpracheGruss;
-import static milesVerlagMain.Modulhelferlein.SpracheMahnung;
-import static milesVerlagMain.Modulhelferlein.SpracheNetto;
-import static milesVerlagMain.Modulhelferlein.SprachePflichtexempar;
-import static milesVerlagMain.Modulhelferlein.SpracheRechnung;
-import static milesVerlagMain.Modulhelferlein.SpracheRechnungsdatum;
-import static milesVerlagMain.Modulhelferlein.SpracheRechnungsnummer;
-import static milesVerlagMain.Modulhelferlein.SpracheReverseCharge;
-import static milesVerlagMain.Modulhelferlein.SpracheRezensionsexemplar;
-import static milesVerlagMain.Modulhelferlein.SpracheSchluss1;
-import static milesVerlagMain.Modulhelferlein.SpracheSchluss21;
-import static milesVerlagMain.Modulhelferlein.SpracheSchluss22;
-import static milesVerlagMain.Modulhelferlein.SpracheSchluss3;
-import static milesVerlagMain.Modulhelferlein.SpracheSteuerfrei1;
-import static milesVerlagMain.Modulhelferlein.SpracheSteuerfrei2;
-import static milesVerlagMain.Modulhelferlein.SpracheStorniert;
-import static milesVerlagMain.Modulhelferlein.SpracheRemittende;
-import static milesVerlagMain.Modulhelferlein.SpracheTitel;
-import static milesVerlagMain.Modulhelferlein.SpracheUmsatzsteuer;
-import static milesVerlagMain.Modulhelferlein.SpracheUstrID;
-import static milesVerlagMain.Modulhelferlein.SpracheVerrechnung1;
-import static milesVerlagMain.Modulhelferlein.SpracheVerrechnung2;
-import static milesVerlagMain.Modulhelferlein.SpracheVerrechnung3;
-import static milesVerlagMain.Modulhelferlein.SpracheVersanddatum;
-import static milesVerlagMain.Modulhelferlein.SpracheVersandkosten;
-import static milesVerlagMain.Modulhelferlein.SpracheAnlage1;
-import static milesVerlagMain.Modulhelferlein.SpracheAnlage2;
+import static milesVerlagMain.ModulHelferlein.AusgabeDB;
+import static milesVerlagMain.ModulHelferlein.AusgabeLeistung;
+import static milesVerlagMain.ModulHelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.SpracheAnrede;
+import static milesVerlagMain.ModulHelferlein.SpracheAnzahl;
+import static milesVerlagMain.ModulHelferlein.SpracheAutor;
+import static milesVerlagMain.ModulHelferlein.SpracheBelegexemplar;
+import static milesVerlagMain.ModulHelferlein.SpracheBeruf;
+import static milesVerlagMain.ModulHelferlein.SpracheBestelldatum;
+import static milesVerlagMain.ModulHelferlein.SpracheBestellzeichen;
+import static milesVerlagMain.ModulHelferlein.SpracheEULieferung;
+import static milesVerlagMain.ModulHelferlein.SpracheEinMahnung1;
+import static milesVerlagMain.ModulHelferlein.SpracheEinMahnung2;
+import static milesVerlagMain.ModulHelferlein.SpracheEinleitung1;
+import static milesVerlagMain.ModulHelferlein.SpracheEinleitung2;
+import static milesVerlagMain.ModulHelferlein.SpracheEinzelpreis;
+import static milesVerlagMain.ModulHelferlein.SpracheGesamtVersand;
+import static milesVerlagMain.ModulHelferlein.SpracheGesamtpreis;
+import static milesVerlagMain.ModulHelferlein.SpracheGeschenk;
+import static milesVerlagMain.ModulHelferlein.SpracheGruss;
+import static milesVerlagMain.ModulHelferlein.SpracheMahnung;
+import static milesVerlagMain.ModulHelferlein.SpracheNetto;
+import static milesVerlagMain.ModulHelferlein.SprachePflichtexempar;
+import static milesVerlagMain.ModulHelferlein.SpracheRechnung;
+import static milesVerlagMain.ModulHelferlein.SpracheRechnungsdatum;
+import static milesVerlagMain.ModulHelferlein.SpracheRechnungsnummer;
+import static milesVerlagMain.ModulHelferlein.SpracheReverseCharge;
+import static milesVerlagMain.ModulHelferlein.SpracheRezensionsexemplar;
+import static milesVerlagMain.ModulHelferlein.SpracheSchluss1;
+import static milesVerlagMain.ModulHelferlein.SpracheSchluss21;
+import static milesVerlagMain.ModulHelferlein.SpracheSchluss22;
+import static milesVerlagMain.ModulHelferlein.SpracheSchluss3;
+import static milesVerlagMain.ModulHelferlein.SpracheSteuerfrei1;
+import static milesVerlagMain.ModulHelferlein.SpracheSteuerfrei2;
+import static milesVerlagMain.ModulHelferlein.SpracheStorniert;
+import static milesVerlagMain.ModulHelferlein.SpracheRemittende;
+import static milesVerlagMain.ModulHelferlein.SpracheTitel;
+import static milesVerlagMain.ModulHelferlein.SpracheUmsatzsteuer;
+import static milesVerlagMain.ModulHelferlein.SpracheUstrID;
+import static milesVerlagMain.ModulHelferlein.SpracheVerrechnung1;
+import static milesVerlagMain.ModulHelferlein.SpracheVerrechnung2;
+import static milesVerlagMain.ModulHelferlein.SpracheVerrechnung3;
+import static milesVerlagMain.ModulHelferlein.SpracheVersanddatum;
+import static milesVerlagMain.ModulHelferlein.SpracheVersandkosten;
+import static milesVerlagMain.ModulHelferlein.SpracheAnlage1;
+import static milesVerlagMain.ModulHelferlein.SpracheAnlage2;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDMetadata;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 //import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
@@ -136,6 +136,7 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblWidth;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblLayoutType;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblLayoutType;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
 
 public class briefRechnungMahnung {
 
@@ -171,14 +172,14 @@ public class briefRechnungMahnung {
 
     public static void briefDOC(String RechNr, Integer Typ, String MahnNr) throws Exception {
 
-        String outputFileName = Modulhelferlein.pathRechnungen + "\\Einnahmen"
+        String outputFileName = ModulHelferlein.pathRechnungen + "\\Einnahmen"
                 + "\\Rechnung"
                 + "-"
                 + "CHMV"
                 + "-"
                 + RechNr
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + "-";
 
         String ISBN = "";
@@ -213,16 +214,16 @@ public class briefRechnungMahnung {
         Integer twipsPerInch = 1440;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Brief Rechnung", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Rechnung", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank ?ber die JDBC-Br?cke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Brief Rechnung", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Rechnung", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank ?ber die JDBC-Br?cke
 
@@ -418,7 +419,7 @@ public class briefRechnungMahnung {
                     run.setText(" ");
                     run.setText(RechNr);
                     run.addBreak();
-                    run.setText(Modulhelferlein.printDateFormat("dd.MM.yyyy", Modulhelferlein.SQLDate2Date(result.getDate("BESTELLUNG_RECHDAT"))));
+                    run.setText(ModulHelferlein.printDateFormat("dd.MM.yyyy", ModulHelferlein.SQLDate2Date(result.getDate("BESTELLUNG_RECHDAT"))));
                     run.addBreak();
                     run.addBreak();
                     run.setBold(false);
@@ -451,12 +452,12 @@ public class briefRechnungMahnung {
                     // Betreff
                     if ((result.getInt("BESTELLUNG_LAND") == 20) || (result.getInt("BESTELLUNG_LAND") == 10) || (result.getInt("BESTELLUNG_LAND") == 0)) {
                         runBetreff.setText("Ihre Buchbestellung vom "
-                                + Modulhelferlein.printDateFormat("dd.MM.yyyy",
-                                        Modulhelferlein.SQLDate2Date(result.getDate("BESTELLUNG_DATUM"))));
+                                + ModulHelferlein.printDateFormat("dd.MM.yyyy",
+                                        ModulHelferlein.SQLDate2Date(result.getDate("BESTELLUNG_DATUM"))));
                     } else {
                         runBetreff.setText("Your order from "
-                                + Modulhelferlein.printDateFormat("dd.MM.yyyy",
-                                        Modulhelferlein.SQLDate2Date(result.getDate("BESTELLUNG_DATUM"))));
+                                + ModulHelferlein.printDateFormat("dd.MM.yyyy",
+                                        ModulHelferlein.SQLDate2Date(result.getDate("BESTELLUNG_DATUM"))));
                     }
 
                     cell = rows.getCell(1);
@@ -498,7 +499,7 @@ public class briefRechnungMahnung {
                                 runAnrede.setText("Sehr geehrte Damen und Herren,");
                             } else {
                                 // String POC[] = resultK.getString("ADRESSEN_POC").split(" ");
-                                // Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 540, resultK.getString("ADRESSEN_ANREDE") + " " + POC[1] + ",");
+                                // AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 540, resultK.getString("ADRESSEN_ANREDE") + " " + POC[1] + ",");
                                 runAnrede.setText(resultK.getString("ADRESSEN_ANREDE") + " " + resultK.getString("ADRESSEN_NAMENSZUSATZ") + " " + resultK.getString("ADRESSEN_NAME") + ",");
                             } // if
                         } else {
@@ -509,7 +510,7 @@ public class briefRechnungMahnung {
                                 runAnrede.setText("Dear Madam, dear Sir,");
                             } else {
                                 // String POC[] = resultK.getString("ADRESSEN_POC").split(" ");
-                                // Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 540, resultK.getString("ADRESSEN_ANREDE") + " " + POC[1] + ",");
+                                // AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 540, resultK.getString("ADRESSEN_ANREDE") + " " + POC[1] + ",");
                                 runAnrede.setText(resultK.getString("ADRESSEN_ANREDE") + " " + resultK.getString("ADRESSEN_NAMENSZUSATZ") + " " + resultK.getString("ADRESSEN_NAME") + ",");
                             } // if
                         } else {
@@ -595,7 +596,7 @@ public class briefRechnungMahnung {
                         // Buchdetails holen
                         if (resultBD.getBoolean("BESTELLUNG_DETAIL_SONST")) {
                             ZBetrag = (double) resultBD.getFloat("BESTELLUNG_DETAIL_SONST_PREIS");
-                            ZBetrag = Modulhelferlein.round2dec(ZBetrag);
+                            ZBetrag = ModulHelferlein.round2dec(ZBetrag);
                             rows = tableBestellung.createRow();
 
                             cell = rows.getCell(0);
@@ -620,7 +621,7 @@ public class briefRechnungMahnung {
                             runFooter = paragraphBestellung.createRun();
                             runFooter.setFontSize(10);
                             runFooter.setBold(false);
-                            runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag)));
+                            runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag)));
                         } else {
                             Buch = resultBD.getInt("BESTELLUNG_DETAIL_BUCH");
                             Sql = "SELECT * FROM TBL_BUCH WHERE BUCH_ID = '" + Integer.toString(Buch) + "'";
@@ -665,9 +666,9 @@ public class briefRechnungMahnung {
 
                             ZPreis = (double) resultBuch.getFloat("BUCH_PREIS");
                             ZPreis = ZPreis - ZPreis / 100 * resultBD.getFloat("BESTELLUNG_DETAIL_RABATT");
-                            ZPreis = Modulhelferlein.round2dec(ZPreis);
+                            ZPreis = ModulHelferlein.round2dec(ZPreis);
                             ZBetrag = resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
-                            ZBetrag = Modulhelferlein.round2dec(ZBetrag);
+                            ZBetrag = ModulHelferlein.round2dec(ZBetrag);
 
                             cell = rows.getCell(1);
                             paragraphBestellung = cell.getParagraphs().get(0);
@@ -690,11 +691,11 @@ public class briefRechnungMahnung {
                             runFooter = paragraphBestellung.createRun();
                             runFooter.setFontSize(10);
                             runFooter.setBold(false);
-                            runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(resultBuch.getFloat("BUCH_PREIS") * 1.0)));
+                            runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(resultBuch.getFloat("BUCH_PREIS") * 1.0)));
                             runFooter.addBreak();
                             if (resultBD.getFloat("BESTELLUNG_DETAIL_RABATT") != 0) {
                                 runFooter.setText("- " + Float.toString(resultBD.getFloat("BESTELLUNG_DETAIL_RABATT"))
-                                        + "% = " + Modulhelferlein.str2dec(ZPreis));
+                                        + "% = " + ModulHelferlein.str2dec(ZPreis));
                             }
 
                             cell = rows.getCell(3);
@@ -703,7 +704,7 @@ public class briefRechnungMahnung {
                             runFooter = paragraphBestellung.createRun();
                             runFooter.setFontSize(10);
                             runFooter.setBold(false);
-                            runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag)));
+                            runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag)));
                             runFooter.addBreak();
                             runFooter.setText("");
                         }
@@ -745,7 +746,7 @@ public class briefRechnungMahnung {
                             runFooter = paragraphBestellung.createRun();
                             runFooter.setFontSize(10);
                             runFooter.setBold(true);
-                            runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                            runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                             rows = tableBestellung.createRow();
 
@@ -788,15 +789,15 @@ public class briefRechnungMahnung {
                             runFooter = paragraphBestellung.createRun();
                             runFooter.setFontSize(10);
                             runFooter.setBold(false);
-                            runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag / 107 * 100)));
+                            runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag / 107 * 100)));
                             runFooter.addBreak();
-                            runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag - Betrag / 107 * 100)));
+                            runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag - Betrag / 107 * 100)));
                             if (result.getFloat("BESTELLUNG_VERSAND") > 0) {
                                 Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                 runFooter.addBreak();
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                 runFooter.addBreak();
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                             }
                             break;
                         case 10: // EU-Ausland - Deutsch
@@ -832,7 +833,7 @@ public class briefRechnungMahnung {
                             runFooter = paragraphBestellung.createRun();
                             runFooter.setFontSize(10);
                             runFooter.setBold(true);
-                            runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                            runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                             rows = tableBestellung.createRow();
 
@@ -883,18 +884,18 @@ public class briefRechnungMahnung {
                             runFooter.setText("");
 
                             if (result.getBoolean("BESTELLUNG_PRIVAT")) { // Privatkunde
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag / 107 * 100)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag / 107 * 100)));
                                 runFooter.addBreak();
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag - Betrag / 107 * 100)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag - Betrag / 107 * 100)));
                             } else { //Geschäftskunde
                                 runFooter.addBreak();
                             }
                             if (result.getFloat("BESTELLUNG_VERSAND") > 0) {
                                 Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                 runFooter.addBreak();
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                 runFooter.addBreak();
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                             }
                             break;
                         case 11: // EU-Ausland - Englisch
@@ -930,7 +931,7 @@ public class briefRechnungMahnung {
                             runFooter = paragraphBestellung.createRun();
                             runFooter.setFontSize(10);
                             runFooter.setBold(true);
-                            runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                            runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                             rows = tableBestellung.createRow();
 
@@ -982,15 +983,15 @@ public class briefRechnungMahnung {
                             runFooter.setText("");
 
                             if (result.getBoolean("BESTELLUNG_PRIVAT")) { // Privatkunde
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag / 107 * 100)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag / 107 * 100)));
                                 runFooter.addBreak();
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag - Betrag / 107 * 100)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag - Betrag / 107 * 100)));
                                 if (result.getFloat("BESTELLUNG_VERSAND") > 0) {
                                     Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                     runFooter.addBreak();
-                                    runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                    runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                     runFooter.addBreak();
-                                    runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                 }
                             } else { //Geschäftskunde
                                 runFooter.setText("Innergemeinscahftliche Lieferung");
@@ -999,9 +1000,9 @@ public class briefRechnungMahnung {
                                 if (result.getFloat("BESTELLUNG_VERSAND") > 0) {
                                     Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                     runFooter.addBreak();
-                                    runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                    runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                     runFooter.addBreak();
-                                    runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                 }
                             }
                             break;
@@ -1047,13 +1048,13 @@ public class briefRechnungMahnung {
                             runFooter = paragraphBestellung.createRun();
                             runFooter.setFontSize(10);
                             runFooter.setBold(false);
-                            runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                            runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                             if (result.getFloat("BESTELLUNG_VERSAND") > 0) {
                                 Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                 runFooter.addBreak();
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                 runFooter.addBreak();
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                             }
                             break;
                         case 20: // Nicht-EU-Ausland - Deutsch
@@ -1098,18 +1099,18 @@ public class briefRechnungMahnung {
                             runFooter = paragraphBestellung.createRun();
                             runFooter.setFontSize(10);
                             runFooter.setBold(false);
-                            runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                            runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                             if (result.getFloat("BESTELLUNG_VERSAND") > 0) {
                                 Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                 runFooter.addBreak();
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                 runFooter.addBreak();
-                                runFooter.setText(Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                runFooter.setText(ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                             }
                             break;
                     }
 
-                    Betrag = Modulhelferlein.round2dec(Betrag);
+                    Betrag = ModulHelferlein.round2dec(Betrag);
 
                     // Bezahlung
                     Bildschirmausgabe("... erzeuge Textblock Bezahlung ...");
@@ -1120,7 +1121,7 @@ public class briefRechnungMahnung {
                     runBezahlung.setFontSize(12);
                     if ((result.getInt("BESTELLUNG_LAND") == 20) || (result.getInt("BESTELLUNG_LAND") == 10) || (result.getInt("BESTELLUNG_LAND") == 0)) {
                         runBezahlung.addBreak();
-                        runBezahlung.setText("Den Rechnungsbetrag von " + Modulhelferlein.str2dec(Betrag) + " EURO bitten wir innerhalb von 14 Tagen auf unser Konto bei der Berliner Volksbank zu überweisen.");
+                        runBezahlung.setText("Den Rechnungsbetrag von " + ModulHelferlein.str2dec(Betrag) + " EURO bitten wir innerhalb von 14 Tagen auf unser Konto bei der Berliner Volksbank zu überweisen.");
                         runBezahlung.addBreak();
                         runBezahlung.addBreak();
 
@@ -1134,7 +1135,7 @@ public class briefRechnungMahnung {
                         runBezahlung.addBreak();
                         runBezahlung.setText("Diplom Kauffrau");
                     } else {
-                        runBezahlung.setText("Please transfer the amount of " + Modulhelferlein.str2dec(Betrag) + " EURO on the Invoice within 21 days to our bank account at");
+                        runBezahlung.setText("Please transfer the amount of " + ModulHelferlein.str2dec(Betrag) + " EURO on the Invoice within 21 days to our bank account at");
                         runBezahlung.setText("the Berliner Volksbank.");
                         runBezahlung.addBreak();
                         runBezahlung.addBreak();
@@ -1192,12 +1193,12 @@ public class briefRechnungMahnung {
                             FileOutputStream out = new FileOutputStream(new File(outputFileName))) {
                         document.write(out);
                     }
-                    Modulhelferlein.Infomeldung("Rechnung Nr. " + RechNr, "ist als DOC gespeichert unter ", outputFileName);
+                    ModulHelferlein.Infomeldung("Rechnung Nr. " + RechNr, "ist als DOC gespeichert unter ", outputFileName);
                     Dialog.setVisible(false);
                     try {
                         Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung("Brief Rechnung", "Ausgabe Brief: IO-Exception: ", exept.getMessage());
+                        ModulHelferlein.Fehlermeldung("Brief Rechnung", "Ausgabe Brief: IO-Exception: ", exept.getMessage());
                     }// try Brief ausgeben
 
                     // Adressetikett drucken
@@ -1225,7 +1226,7 @@ public class briefRechnungMahnung {
 
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Brief Rechnung", "SQL-Exception: SQL-Anfrage nicht moeglich: ",
+                ModulHelferlein.Fehlermeldung("Brief Rechnung", "SQL-Exception: SQL-Anfrage nicht moeglich: ",
                         exept.getMessage());
                 // System.exit(1);
             } // try SQL-Anfragen an die Datenbank
@@ -1268,32 +1269,34 @@ public class briefRechnungMahnung {
         String setTaxTotal = "0";        //.setTaxTotal(new Amount(19, EUR))
         String setDuePayable = "0";      //.setDuePayable(new Amount(119, EUR))
         String setTotalPrepaid = "0";    //.setTotalPrepaid(new Amount(0, EUR))
-        String setGrandTotal = "0";      //.setGrandTotal(new Amount(119, EUR))));                                                               
+        String setGrandTotal = "0";      //.setGrandTotal(new Amount(119, EUR))));   
 
-        String outputFileName = Modulhelferlein.pathRechnungen + "\\Einnahmen"
+        Boolean Corona = false;          // Corona-Ermäßigung UStr im Zeitraum 01.07.2020 - 31.12.2020
+
+        String outputFileName = ModulHelferlein.pathRechnungen + "\\Einnahmen"
                 + "\\Rechnung"
                 + "-"
                 + "CHMV"
                 + "-"
                 + RechNr
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + "-";
 
         String ISBN = "";
         System.out.println("- Dateiname ist " + outputFileName);
 //helferlein.Infomeldung("Dateiname " + outputFileName);
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Brief Rechnung", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Rechnung", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
         System.out.println("- Datenbanktreiber geladen");
         try { // Verbindung zur Datenbank ?ber die JDBC-Br?cke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Brief Rechnung", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Rechnung", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank ?ber die JDBC-Br?cke
 
@@ -1316,6 +1319,15 @@ public class briefRechnungMahnung {
                 result = SQLAnfrage.executeQuery("SELECT * FROM TBL_BESTELLUNG WHERE BESTELLUNG_RECHNR = '" + RechNr + "'");
                 result.next();
                 System.out.println("- Bestellung ist eingelesen");
+                // gibt es Corona-Ermäßigung: BESTELLUNG_RECHDAT im Zeitraum 2020-07-01 und 2020-12-31
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date date1 = sdf.parse("2020-06-30");
+                Date date2 = sdf.parse("2021-01-01");
+                if ((result.getDate("BESTELLUNG_RECHDAT").compareTo(date1) > 0) && (result.getDate("BESTELLUNG_RECHDAT").compareTo(date2) < 0)) {
+                    Corona = true;
+                } else {
+                    Corona = false;
+                }
                 // Kunde lesen
                 if (result.getInt("BESTELLUNG_KUNDE") > 0) {
                     resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Integer.toString(result.getInt("BESTELLUNG_KUNDE")) + "'");
@@ -1352,22 +1364,22 @@ public class briefRechnungMahnung {
                         //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                     } catch (FileNotFoundException fnfex) {
                         System.out.println("- No image for you");
-                        Modulhelferlein.Fehlermeldung("Rechnung erzeugen - Header", "FileNotFound-Exception", fnfex.getMessage());
+                        ModulHelferlein.Fehlermeldung("Rechnung erzeugen - Header", "FileNotFound-Exception", fnfex.getMessage());
                     }
                     System.out.println("- Kopfzeile erzeugt");
 // Fu?zeile
-                    Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
-                    Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, "Alt Kladow 16d");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
-                    Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, "Alt Kladow 16d");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
                     System.out.println("- Fußzeile erzeugt");
 // Faltmarke, Lochmarke, Faltmarke
                     Linie(cos, 1, 0, 595, 15, 595);
@@ -1376,12 +1388,12 @@ public class briefRechnungMahnung {
 
                     System.out.println("- Faltmarke erzeugt");
 // Absenderzeile
-                    Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, "C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin");
+                    AusgabeLB(cos, fontPlain, 8, Color.BLACK, 50, 751, "C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin");
                     Linie(cos, 1, 50, 749, 297, 749);
 
                     System.out.println("- Absenderzeile erzeugt");
 // Datum, Rechnungsnummer, Bestell-Typ
-                    InvoiceDate = Modulhelferlein.printDateFormat("dd.MM.yyyy", Modulhelferlein.SQLDate2Date(result.getDate("BESTELLUNG_RECHDAT")));
+                    InvoiceDate = ModulHelferlein.printDateFormat("dd.MM.yyyy", ModulHelferlein.SQLDate2Date(result.getDate("BESTELLUNG_RECHDAT")));
                     Integer Sprache = 0;
                     if ((result.getInt("BESTELLUNG_LAND") == 20) || (result.getInt("BESTELLUNG_LAND") == 10) || (result.getInt("BESTELLUNG_LAND") == 0)) {
                         Sprache = 0; // Deutsch
@@ -1391,35 +1403,35 @@ public class briefRechnungMahnung {
                         InvoiceLanguage = "en";
                     }
                     InvoiceName = SpracheRechnung[Sprache];
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, SpracheRechnungsdatum[Sprache] + " " + Modulhelferlein.printDateFormat("dd.MM.yyyy", Modulhelferlein.SQLDate2Date(result.getDate("BESTELLUNG_RECHDAT"))));
-                    Ausgabe(cos, fontPlain, 10, Color.BLACK, 354, 640, SpracheVersanddatum[Sprache]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 685, SpracheRechnungsnummer[Sprache] + " " + RechNr);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 354, 655, SpracheRechnungsdatum[Sprache] + " " + ModulHelferlein.printDateFormat("dd.MM.yyyy", ModulHelferlein.SQLDate2Date(result.getDate("BESTELLUNG_RECHDAT"))));
+                    AusgabeLB(cos, fontPlain, 10, Color.BLACK, 354, 640, SpracheVersanddatum[Sprache]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 354, 685, SpracheRechnungsnummer[Sprache] + " " + RechNr);
                     switch (Typ) {
                         case 0:
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
                             break;
                         case 1:
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheRezensionsexemplar[Sprache]);
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheRezensionsexemplar[Sprache]);
                             break;
                         case 2:
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 354, 705, SprachePflichtexempar[Sprache]);
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 354, 705, SprachePflichtexempar[Sprache]);
                             break;
                         case 3:
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheBelegexemplar[Sprache]);
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheBelegexemplar[Sprache]);
                             break;
                         case 4:
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheGeschenk[Sprache]);
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheGeschenk[Sprache]);
                             break;
                         case 5:
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheRemittende[Sprache]);
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 354, 720, SpracheRechnung[Sprache]);
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 354, 705, SpracheRemittende[Sprache]);
                             break;
                         case 99:
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 720, MahnNr + ". " + SpracheMahnung[Sprache]);
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 354, 720, MahnNr + ". " + SpracheMahnung[Sprache]);
                             break;
                     }
 
@@ -1430,15 +1442,15 @@ public class briefRechnungMahnung {
                     if (result.getInt("BESTELLUNG_KUNDE") > 0) {
                         System.out.println("- erzeuge Adresse aus Kundendatenbank");
                         args[0] = resultK.getString("ADRESSEN_ZUSATZ_1");
-                        args[1] = Modulhelferlein.makeAnrede(resultK.getString("ADRESSEN_NAMENSZUSATZ"),
+                        args[1] = ModulHelferlein.makeAnrede(resultK.getString("ADRESSEN_NAMENSZUSATZ"),
                                 resultK.getString("ADRESSEN_VORNAME"),
                                 resultK.getString("ADRESSEN_NAME"));
                         args[2] = resultK.getString("ADRESSEN_ZUSATZ_2");
                         args[3] = resultK.getString("ADRESSEN_STRASSE");
                         args[4] = resultK.getString("ADRESSEN_PLZ") + " " + resultK.getString("ADRESSEN_ORT");
                         args[5] = resultK.getString("ADRESSEN_ZUSATZ_3");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 410, 560, resultK.getString("ADRESSEN_USTR_ID"));
-                        BuyerName = Modulhelferlein.makeAnrede(resultK.getString("ADRESSEN_NAMENSZUSATZ"),
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 410, 560, resultK.getString("ADRESSEN_USTR_ID"));
+                        BuyerName = ModulHelferlein.makeAnrede(resultK.getString("ADRESSEN_NAMENSZUSATZ"),
                                 resultK.getString("ADRESSEN_VORNAME"),
                                 resultK.getString("ADRESSEN_NAME"));
                         BuyerPLZ = resultK.getString("ADRESSEN_PLZ");
@@ -1459,7 +1471,7 @@ public class briefRechnungMahnung {
                         if (!args[5].equals("")) {
                             BuyerLand = args[5];
                         }
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 410, 560, result.getString("BESTELLUNG_USTR_ID"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 410, 560, result.getString("BESTELLUNG_USTR_ID"));
                         BuyerName = result.getString("BESTELLUNG_ZEILE_2");
                         if (result.getString("BESTELLUNG_ZEILE_5").contains(" ")) {
                             String[] PLZOrt = result.getString("BESTELLUNG_ZEILE_5").split(" ");
@@ -1483,28 +1495,28 @@ public class briefRechnungMahnung {
                             ZeilenNr = ZeilenNr + 1;
                         }
                     }
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 730, AdressZeile[1]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 715, AdressZeile[2]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 700, AdressZeile[3]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 730, AdressZeile[1]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 715, AdressZeile[2]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 700, AdressZeile[3]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
                     System.out.println("- Adresse erzeugt");
 // Betreff, Anrede
                     BuyerBestellzeichen = result.getString("BESTELLUNG_BESTNR");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, SpracheBestelldatum[Sprache] + " "
-                            + Modulhelferlein.printDateFormat("dd.MM.yyyy", Modulhelferlein.SQLDate2Date(result.getDate("BESTELLUNG_DATUM"))));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 300, 575, SpracheBestellzeichen[Sprache]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 410, 575, result.getString("BESTELLUNG_BESTNR"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 300, 560, SpracheUstrID[Sprache]);
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 575, SpracheBestelldatum[Sprache] + " "
+                            + ModulHelferlein.printDateFormat("dd.MM.yyyy", ModulHelferlein.SQLDate2Date(result.getDate("BESTELLUNG_DATUM"))));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 300, 575, SpracheBestellzeichen[Sprache]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 410, 575, result.getString("BESTELLUNG_BESTNR"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 300, 560, SpracheUstrID[Sprache]);
                     // Anrede
                     if (result.getInt("BESTELLUNG_KUNDE") > 0) {
                         if (resultK.getString("ADRESSEN_ANREDE").equals("")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 540, SpracheAnrede[Sprache]);
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 540, SpracheAnrede[Sprache]);
                         } else {
                             // String POC[] = resultK.getString("ADRESSEN_POC").split(" ");
-                            // Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 540, resultK.getString("ADRESSEN_ANREDE") + " " + POC[1] + ",");
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 540, Modulhelferlein.makeAnrede(resultK.getString("ADRESSEN_ANREDE"), resultK.getString("ADRESSEN_NAMENSZUSATZ"), resultK.getString("ADRESSEN_NAME")) + ",");
+                            // AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 540, resultK.getString("ADRESSEN_ANREDE") + " " + POC[1] + ",");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 540, ModulHelferlein.makeAnrede(resultK.getString("ADRESSEN_ANREDE"), resultK.getString("ADRESSEN_NAMENSZUSATZ"), resultK.getString("ADRESSEN_NAME")) + ",");
                         } // if
                     } else {
                     }
@@ -1512,12 +1524,12 @@ public class briefRechnungMahnung {
 // Text
                     switch (Typ) {
                         case 99:  // Mahnung
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 510, SpracheEinMahnung1[Sprache]);
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 495, SpracheEinMahnung2[Sprache]);
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 510, SpracheEinMahnung1[Sprache]);
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 495, SpracheEinMahnung2[Sprache]);
                             break;
                         default:
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 510, SpracheEinleitung1[Sprache]);
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 495, SpracheEinleitung2[Sprache]);
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 510, SpracheEinleitung1[Sprache]);
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 495, SpracheEinleitung2[Sprache]);
                     }
 // Buchbestellungen
                     Double Betrag = 0.0;
@@ -1545,8 +1557,8 @@ public class briefRechnungMahnung {
                         Produkte = new String[itemcount];
                         itemcount = 6;
                         Produkte[0] = "0";
-                        Produkte[2] = Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND")));
-                        Produkte[3] = Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND")));
+                        Produkte[2] = ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND")));
+                        Produkte[3] = ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND")));
                         Produkte[4] = "1";
                         switch (Sprache) {
                             case 0:
@@ -1566,13 +1578,13 @@ public class briefRechnungMahnung {
                     Integer Basiszeile = 450;
 
                     if (Einseitig) { // es passt alles auf 1 Seite
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 55, 470, SpracheAnzahl[Sprache]);
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, 470, SpracheAutor[Sprache]);
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 420, 470, SpracheEinzelpreis[Sprache]);
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 485, 470, SpracheGesamtpreis[Sprache]);
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, 460, SpracheTitel[Sprache]);
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 435, 460, "in Euro");
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 500, 460, "in Euro");
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 55, 470, SpracheAnzahl[Sprache]);
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, 470, SpracheAutor[Sprache]);
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 420, 470, SpracheEinzelpreis[Sprache]);
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 485, 470, SpracheGesamtpreis[Sprache]);
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, 460, SpracheTitel[Sprache]);
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 435, 460, "in Euro");
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 500, 460, "in Euro");
                         Linie(cos, 1, 55, 455, 540, 455);
 
                         resultBD.beforeFirst();
@@ -1580,16 +1592,21 @@ public class briefRechnungMahnung {
                             // Buchdetails holen
                             if (resultBD.getBoolean("BESTELLUNG_DETAIL_SONST")) {
                                 ZBetrag = (double) resultBD.getFloat("BESTELLUNG_DETAIL_SONST_PREIS");
-                                ZBetrag = Modulhelferlein.round2dec(ZBetrag);
+                                ZBetrag = ModulHelferlein.round2dec(ZBetrag);
                                 Gesamt19 = Gesamt19 + ZBetrag;
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 70, Basiszeile - (zeilenNr + 1) * 11, "1");
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 70, Basiszeile - (zeilenNr + 1) * 11, "1");
                                 AusgabeLeistung(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, resultBD.getString("BESTELLUNG_DETAIL_SONST_TEXT"), 300);
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 450, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag)));
-                                AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag)));
-                                Produkte[itemcount] = "19";
+                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 450, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag)));
+                                AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag)));
+                                if (Corona) {
+                                    Produkte[itemcount] = "16";
+                                    Produkte[itemcount + 3] = ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag / 116 * 100));
+                                } else {
+                                    Produkte[itemcount] = "19";
+                                    Produkte[itemcount + 3] = ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag / 119 * 100));
+                                }
                                 Produkte[itemcount + 1] = resultBD.getString("BESTELLUNG_DETAIL_SONST_TEXT");
-                                Produkte[itemcount + 2] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag));
-                                Produkte[itemcount + 3] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag / 119 * 100));
+                                Produkte[itemcount + 2] = ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag));
                                 Produkte[itemcount + 4] = "1";
                                 Produkte[itemcount + 5] = "ohne";
                                 zeilenNr = zeilenNr + 1;
@@ -1609,7 +1626,7 @@ public class briefRechnungMahnung {
                                         ISBN = "Multi";
                                     }
                                 }
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 70, Basiszeile - (zeilenNr + 1) * 11, Integer.toString(resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL")));
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 70, Basiszeile - (zeilenNr + 1) * 11, Integer.toString(resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL")));
 
                                 // Autor holen
                                 String[] col_Autorliste = resultBuch.getString("BUCH_AUTOR").split(",");
@@ -1629,33 +1646,38 @@ public class briefRechnungMahnung {
 
                                 ZPreis = (double) resultBuch.getFloat("BUCH_PREIS");
                                 ZPreis = ZPreis - ZPreis / 100 * resultBD.getFloat("BESTELLUNG_DETAIL_RABATT");
-                                ZPreis = Modulhelferlein.round2dec(ZPreis);
+                                ZPreis = ModulHelferlein.round2dec(ZPreis);
                                 ZBetrag = resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
                                 Gesamt7 = Gesamt7 + ZBetrag;
-                                ZBetrag = Modulhelferlein.round2dec(ZBetrag);
+                                ZBetrag = ModulHelferlein.round2dec(ZBetrag);
 
-                                Ausgabe(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN")) + ", " + AutorEintrag);
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 450, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(resultBuch.getFloat("BUCH_PREIS") * 1.0)));
-                                AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag)));
+                                AusgabeLB(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN")) + ", " + AutorEintrag);
+                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 450, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(resultBuch.getFloat("BUCH_PREIS") * 1.0)));
+                                AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag)));
 
                                 zeilenNr = zeilenNr + 1;
 
                                 String strTitel = resultBuch.getString("BUCH_TITEL");
                                 if (strTitel.length() > 70) {
-                                    Ausgabe(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, strTitel.substring(0, 70) + "...");
+                                    AusgabeLB(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, strTitel.substring(0, 70) + "...");
                                 } else {
-                                    Ausgabe(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, strTitel);
+                                    AusgabeLB(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, strTitel);
                                 }
 
                                 if (resultBD.getFloat("BESTELLUNG_DETAIL_RABATT") != 0) {
-                                    Ausgabe(cos, fontPlain, 9, Color.BLACK, 420, Basiszeile - (zeilenNr + 1) * 11, "- " + Float.toString(resultBD.getFloat("BESTELLUNG_DETAIL_RABATT")) + "% = " + Modulhelferlein.str2dec(ZPreis));
+                                    AusgabeLB(cos, fontPlain, 9, Color.BLACK, 420, Basiszeile - (zeilenNr + 1) * 11, "- " + Float.toString(resultBD.getFloat("BESTELLUNG_DETAIL_RABATT")) + "% = " + ModulHelferlein.str2dec(ZPreis));
                                 }
-                                Produkte[itemcount] = "7";
+                                if (Corona) {
+                                    Produkte[itemcount] = "5";
+                                    Produkte[itemcount + 3] = ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag / 105 * 100));
+                                } else {
+                                    Produkte[itemcount] = "7";
+                                    Produkte[itemcount + 3] = ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag / 107 * 100));
+                                }
                                 Produkte[itemcount + 1] = resultBuch.getString("BUCH_TITEL");
-                                Produkte[itemcount + 2] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag));
-                                Produkte[itemcount + 3] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag / 107 * 100));
+                                Produkte[itemcount + 2] = ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag));
                                 Produkte[itemcount + 4] = resultBD.getString("BESTELLUNG_DETAIL_ANZAHL");
-                                Produkte[itemcount + 5] = Modulhelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN"));
+                                Produkte[itemcount + 5] = ModulHelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN"));
                             }
                             System.out.println("- Schreibe Position " + itemcount.toString() + ": " + Produkte[itemcount] + ", " + Produkte[itemcount + 1] + ", " + Produkte[itemcount + 2] + ", " + Produkte[itemcount + 3] + ", " + Produkte[itemcount + 4] + ", " + Produkte[itemcount + 5]);
                             Betrag = Betrag + ZBetrag;
@@ -1668,23 +1690,34 @@ public class briefRechnungMahnung {
                             case 0: //Inland - Deutsch : Privatkunde = Geschäftskunde
                                 // Umsatzsteuer ist auszuweisen
                                 zeilenNr = zeilenNr + 1;
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis");
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis");
+                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                 Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
                                 zeilenNr = zeilenNr + 1;
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Nettogesamtbetrag");
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec((Gesamt19 / 119 * 100) + (Gesamt7 / 107 * 100))));
-
-                                zeilenNr = zeilenNr + 1;
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% Mehrwertsteuer");
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt7 - Gesamt7 / 107 * 100)));
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Nettogesamtbetrag");
+                                if (Corona) {
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec((Gesamt19 / 116 * 100) + (Gesamt7 / 105 * 100))));
+                                    zeilenNr = zeilenNr + 1;
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 5% Mehrwertsteuer");
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt7 - Gesamt7 / 105 * 100)));
+                                } else {
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec((Gesamt19 / 119 * 100) + (Gesamt7 / 107 * 100))));
+                                    zeilenNr = zeilenNr + 1;
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% Mehrwertsteuer");
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt7 - Gesamt7 / 107 * 100)));
+                                }
 
                                 if (Gesamt19 > 0) {
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% Mehrwertsteuer");
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt19 - Gesamt19 / 119 * 100)));
+                                    if (Corona) {
+                                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "16% Mehrwertsteuer");
+                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt19 - Gesamt19 / 116 * 100)));
+                                    } else {
+                                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% Mehrwertsteuer");
+                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt19 - Gesamt19 / 119 * 100)));
+                                    }
                                 }
 
                                 zeilenNr = zeilenNr + 1;
@@ -1694,11 +1727,11 @@ public class briefRechnungMahnung {
                                     zeilenNr = zeilenNr + 1;
                                     Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
-                                    Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Versandkosten");
-                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                    AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Versandkosten");
+                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis mit Versand");
-                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis mit Versand");
+                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
                                 }
                                 break;
@@ -1707,33 +1740,49 @@ public class briefRechnungMahnung {
                                 if (result.getBoolean("BESTELLUNG_PRIVAT")) { // Privatkunde
                                     // Umsatzsteuer ist auszuweisen
 
-                                    // Ausgabe Gesamtsumme Brutto => Betrag
+                                    // AusgabeLB Gesamtsumme Brutto => Betrag
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
-                                    // Ausgabe Nettobetrag => Betrag - UStr 7% - UStr 19%
+                                    // AusgabeLB Nettobetrag => Betrag - UStr 7% - UStr 19%
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec((Betrag - (Gesamt19 - Gesamt19 / 119 * 100) - (Gesamt7 - Gesamt7 / 107 * 100)))));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec((Betrag - (Gesamt19 - Gesamt19 / 119 * 100) - (Gesamt7 - Gesamt7 / 107 * 100)))));
 
 //                                    zeilenNr = zeilenNr + 1;
-//                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% " + SpracheUmsatzsteuer[Sprache]);
-//                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt7 - Gesamt7 / 107 * 100)));
-                                    // Ausgabe Umsatzsteuer 7%
-                                    if (Gesamt7 > 0) {
-                                        zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "7% " + SpracheUmsatzsteuer[Sprache]);
-                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt7 - Gesamt7 / 107 * 100)));
-                                    }
+//                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% " + SpracheUmsatzsteuer[Sprache]);
+//                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt7 - Gesamt7 / 107 * 100)));
+                                    if (Corona) {
+                                        // AusgabeLB Umsatzsteuer 5%
+                                        if (Gesamt7 > 0) {
+                                            zeilenNr = zeilenNr + 1;
+                                            AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "5% " + SpracheUmsatzsteuer[Sprache]);
+                                            AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt7 - Gesamt7 / 105 * 100)));
+                                        }
 
-                                    // Ausgabe Umsatzsteuer 19%
-                                    if (Gesamt19 > 0) {
-                                        zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% " + SpracheUmsatzsteuer[Sprache]);
-                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt19 - Gesamt19 / 119 * 100)));
+                                        // AusgabeLB Umsatzsteuer 16%
+                                        if (Gesamt19 > 0) {
+                                            zeilenNr = zeilenNr + 1;
+                                            AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "16% " + SpracheUmsatzsteuer[Sprache]);
+                                            AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt19 - Gesamt19 / 116 * 100)));
+                                        }
+                                    } else {
+                                        // AusgabeLB Umsatzsteuer 7%
+                                        if (Gesamt7 > 0) {
+                                            zeilenNr = zeilenNr + 1;
+                                            AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "7% " + SpracheUmsatzsteuer[Sprache]);
+                                            AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt7 - Gesamt7 / 107 * 100)));
+                                        }
+
+                                        // AusgabeLB Umsatzsteuer 19%
+                                        if (Gesamt19 > 0) {
+                                            zeilenNr = zeilenNr + 1;
+                                            AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% " + SpracheUmsatzsteuer[Sprache]);
+                                            AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt19 - Gesamt19 / 119 * 100)));
+                                        }
                                     }
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
@@ -1741,11 +1790,11 @@ public class briefRechnungMahnung {
                                         Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                         zeilenNr = zeilenNr + 1;
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
                                     }
                                 } else { //Geschäftskunde
@@ -1755,20 +1804,24 @@ public class briefRechnungMahnung {
                                     setGrandTotal = setTaxBasisTotal;
 
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
-                                    Betrag = Gesamt7 / 107 * 100 + Gesamt19 / 119 * 100;
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
+                                    if (Corona) {
+                                        Betrag = Gesamt7 / 105 * 100 + Gesamt19 / 116 * 100;
+                                    } else {
+                                        Betrag = Gesamt7 / 107 * 100 + Gesamt19 / 119 * 100;
+                                    }
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheEULieferung[Sprache]);
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheEULieferung[Sprache]);
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheReverseCharge[Sprache]);
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheReverseCharge[Sprache]);
 
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
@@ -1776,11 +1829,11 @@ public class briefRechnungMahnung {
                                         Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                         zeilenNr = zeilenNr + 1;
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
                                     }
                                 }
@@ -1792,47 +1845,47 @@ public class briefRechnungMahnung {
                                 setDuePayable = setTaxBasisTotal;
                                 setGrandTotal = setTaxBasisTotal;
 
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, SpracheGesamtpreis[Sprache]);
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, SpracheGesamtpreis[Sprache]);
+                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                 Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 1) * 11, 540, Basiszeile - 2 - (zeilenNr + 1) * 11);
 
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 2) * 11, SpracheSteuerfrei1[Sprache]);
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 3) * 11, SpracheSteuerfrei2[Sprache]);
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 2) * 11, SpracheSteuerfrei1[Sprache]);
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 3) * 11, SpracheSteuerfrei2[Sprache]);
 
                                 Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 3) * 11, 540, Basiszeile - 2 - (zeilenNr + 3) * 11);
 
                                 if (result.getFloat("BESTELLUNG_VERSAND") > 0) {
                                     Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 4) * 11, 540, Basiszeile - 2 - (zeilenNr + 4) * 11);
-                                    Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 4) * 11, SpracheVersandkosten[Sprache]);
-                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 4) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
-                                    Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 5) * 11, SpracheGesamtVersand[Sprache]);
-                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 5) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 4) * 11, SpracheVersandkosten[Sprache]);
+                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 4) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                    AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 5) * 11, SpracheGesamtVersand[Sprache]);
+                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 5) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 5) * 11, 540, Basiszeile - 2 - (zeilenNr + 5) * 11);
 
                                 }
                                 break;
                         } // switch
 
-                        Betrag = Modulhelferlein.round2dec(Betrag);
+                        Betrag = ModulHelferlein.round2dec(Betrag);
                         System.out.println("- Gesamtsumme/Steuer geschrieben");
 
 // Schlusstext Bezahlung
                         if (result.getBoolean("BESTELLUNG_BEZAHLUNG")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 215, SpracheVerrechnung1[Sprache]);
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheVerrechnung1[Sprache] + " ") / 1000 * 12), 215, Modulhelferlein.str2dec(Betrag) + " Euro ");
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheVerrechnung1[Sprache] + " ") / 1000 * 12)
-                                    + Math.round(fontBold.getStringWidth(Modulhelferlein.str2dec(Betrag)) / 1000 * 12)
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 215, SpracheVerrechnung1[Sprache]);
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheVerrechnung1[Sprache] + " ") / 1000 * 12), 215, ModulHelferlein.str2dec(Betrag) + " Euro ");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheVerrechnung1[Sprache] + " ") / 1000 * 12)
+                                    + Math.round(fontBold.getStringWidth(ModulHelferlein.str2dec(Betrag)) / 1000 * 12)
                                     + Math.round(fontPlain.getStringWidth(" Euro ") / 1000 * 12), 215, SpracheVerrechnung2[Sprache]);
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 200, SpracheVerrechnung3[Sprache]);
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 200, SpracheVerrechnung3[Sprache]);
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 215, SpracheSchluss1[Sprache]);
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheSchluss1[Sprache] + " ") / 1000 * 12), 215, Modulhelferlein.str2dec(Betrag) + " Euro ");
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheSchluss1[Sprache] + " ") / 1000 * 12)
-                                    + Math.round(fontBold.getStringWidth(Modulhelferlein.str2dec(Betrag)) / 1000 * 12)
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 215, SpracheSchluss1[Sprache]);
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheSchluss1[Sprache] + " ") / 1000 * 12), 215, ModulHelferlein.str2dec(Betrag) + " Euro ");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheSchluss1[Sprache] + " ") / 1000 * 12)
+                                    + Math.round(fontBold.getStringWidth(ModulHelferlein.str2dec(Betrag)) / 1000 * 12)
                                     + Math.round(fontPlain.getStringWidth(" Euro ") / 1000 * 12), 215, SpracheSchluss21[Sprache] + result.getString("BESTELLUNG_ZAHLUNGSZIEL") + SpracheSchluss22[Sprache]);
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 200, SpracheSchluss3[Sprache]);
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 200, SpracheSchluss3[Sprache]);
                         }
                         System.out.println("- Bezahlhinweis geschrieben");
 // Schlusstext Hinweis
@@ -1849,14 +1902,14 @@ public class briefRechnungMahnung {
                             ZeilenNr = 1;
                             while (i < woerter - 1) {
                                 zeile = splitBeschreibung[i];
-                                laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
+                                laenge = ModulHelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
                                 while ((laenge < 490) && (zeile.length() < 90) && (i < woerter - 1)) {
                                     zeile = zeile + " " + splitBeschreibung[i + 1];
                                     i = i + 1;
-                                    laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
+                                    laenge = ModulHelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
                                 }
                                 //helferlein.Infomeldung(Float.toString(laenge) + " => " + zeile);                                
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 180 - 15 * (ZeilenNr - 1), zeile);
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 180 - 15 * (ZeilenNr - 1), zeile);
                                 i = i + 1;
                                 ZeilenNr = ZeilenNr + 1;
                             }
@@ -1864,15 +1917,15 @@ public class briefRechnungMahnung {
                         }
 
 // Schlussformel
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 150, SpracheGruss[Sprache]);
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 85, "Carola Hartmann");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 70, SpracheBeruf[Sprache]);
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 150, SpracheGruss[Sprache]);
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 85, "Carola Hartmann");
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 70, SpracheBeruf[Sprache]);
                         System.out.println("- Schlussformel geschrieben");
 
 //helferlein.Infomeldung("Fertig") ;                      
                         if (result.getBoolean("BESTELLUNG_STORNIERT")) {
-                            Ausgabe(cos, fontBold, 24, Color.RED, 55, 550, SpracheStorniert[Sprache]);
-                            Ausgabe(cos, fontBold, 24, Color.RED, 420, 715, SpracheStorniert[Sprache]);
+                            AusgabeLB(cos, fontBold, 24, Color.RED, 55, 550, SpracheStorniert[Sprache]);
+                            AusgabeLB(cos, fontBold, 24, Color.RED, 420, 715, SpracheStorniert[Sprache]);
                         }
 
                         outputFileName = outputFileName + ISBN + ".pdf";
@@ -1883,7 +1936,7 @@ public class briefRechnungMahnung {
                         System.out.println("- Schreibe Hinweis auf Anlage");
 
 // Schreibe Hinweis auf Anlage
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 400, SpracheAnlage1[Sprache]);
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 400, SpracheAnlage1[Sprache]);
 
 // Berechne Gesamtsumme
                         resultBD.beforeFirst();
@@ -1891,7 +1944,7 @@ public class briefRechnungMahnung {
                             // Buchdetails holen
                             if (resultBD.getBoolean("BESTELLUNG_DETAIL_SONST")) {
                                 ZBetrag = (double) resultBD.getFloat("BESTELLUNG_DETAIL_SONST_PREIS");
-                                ZBetrag = Modulhelferlein.round2dec(ZBetrag);
+                                ZBetrag = ModulHelferlein.round2dec(ZBetrag);
                                 Gesamt19 = Gesamt19 + ZBetrag;
                             } else {
                                 Buch = resultBD.getInt("BESTELLUNG_DETAIL_BUCH");
@@ -1902,10 +1955,10 @@ public class briefRechnungMahnung {
 
                                 ZPreis = (double) resultBuch.getFloat("BUCH_PREIS");
                                 ZPreis = ZPreis - ZPreis / 100 * resultBD.getFloat("BESTELLUNG_DETAIL_RABATT");
-                                ZPreis = Modulhelferlein.round2dec(ZPreis);
+                                ZPreis = ModulHelferlein.round2dec(ZPreis);
                                 ZBetrag = resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
                                 Gesamt7 = Gesamt7 + ZBetrag;
-                                ZBetrag = Modulhelferlein.round2dec(ZBetrag);
+                                ZBetrag = ModulHelferlein.round2dec(ZBetrag);
                             }
                             Betrag = Betrag + ZBetrag;
                         } // while
@@ -1943,24 +1996,24 @@ public class briefRechnungMahnung {
                         } // switch
 
 // Schreibe Bezahlung 
-                        Betrag = Modulhelferlein.round2dec(Betrag);
+                        Betrag = ModulHelferlein.round2dec(Betrag);
                         System.out.println("- Gesamtsumme/Steuer geschrieben");
 
 // Schlusstext Bezahlung
                         if (result.getBoolean("BESTELLUNG_BEZAHLUNG")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 215, SpracheVerrechnung1[Sprache]);
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheVerrechnung1[Sprache] + " ") / 1000 * 12), 215, Modulhelferlein.str2dec(Betrag) + " Euro ");
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheVerrechnung1[Sprache] + " ") / 1000 * 12)
-                                    + Math.round(fontBold.getStringWidth(Modulhelferlein.str2dec(Betrag)) / 1000 * 12)
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 215, SpracheVerrechnung1[Sprache]);
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheVerrechnung1[Sprache] + " ") / 1000 * 12), 215, ModulHelferlein.str2dec(Betrag) + " Euro ");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheVerrechnung1[Sprache] + " ") / 1000 * 12)
+                                    + Math.round(fontBold.getStringWidth(ModulHelferlein.str2dec(Betrag)) / 1000 * 12)
                                     + Math.round(fontPlain.getStringWidth(" Euro ") / 1000 * 12), 215, SpracheVerrechnung2[Sprache]);
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 200, SpracheVerrechnung3[Sprache]);
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 200, SpracheVerrechnung3[Sprache]);
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 215, SpracheSchluss1[Sprache]);
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheSchluss1[Sprache] + " ") / 1000 * 12), 215, Modulhelferlein.str2dec(Betrag) + " Euro ");
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheSchluss1[Sprache] + " ") / 1000 * 12)
-                                    + Math.round(fontBold.getStringWidth(Modulhelferlein.str2dec(Betrag)) / 1000 * 12)
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 215, SpracheSchluss1[Sprache]);
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheSchluss1[Sprache] + " ") / 1000 * 12), 215, ModulHelferlein.str2dec(Betrag) + " Euro ");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55 + Math.round(fontPlain.getStringWidth(SpracheSchluss1[Sprache] + " ") / 1000 * 12)
+                                    + Math.round(fontBold.getStringWidth(ModulHelferlein.str2dec(Betrag)) / 1000 * 12)
                                     + Math.round(fontPlain.getStringWidth(" Euro ") / 1000 * 12), 215, SpracheSchluss21[Sprache] + result.getString("BESTELLUNG_ZAHLUNGSZIEL") + SpracheSchluss22[Sprache]);
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 200, SpracheSchluss3[Sprache]);
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 200, SpracheSchluss3[Sprache]);
                         }
                         System.out.println("- Bezahlhinweis geschrieben");
 // Schlusstext Hinweis
@@ -1977,14 +2030,14 @@ public class briefRechnungMahnung {
                             ZeilenNr = 1;
                             while (i < woerter - 1) {
                                 zeile = splitBeschreibung[i];
-                                laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
+                                laenge = ModulHelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
                                 while ((laenge < 490) && (zeile.length() < 90) && (i < woerter - 1)) {
                                     zeile = zeile + " " + splitBeschreibung[i + 1];
                                     i = i + 1;
-                                    laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
+                                    laenge = ModulHelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
                                 }
                                 //helferlein.Infomeldung(Float.toString(laenge) + " => " + zeile);                                
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 180 - 15 * (ZeilenNr - 1), zeile);
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 180 - 15 * (ZeilenNr - 1), zeile);
                                 i = i + 1;
                                 ZeilenNr = ZeilenNr + 1;
                             }
@@ -1992,15 +2045,15 @@ public class briefRechnungMahnung {
                         }
 
 // Schlussformel
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 150, SpracheGruss[Sprache]);
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 85, "Carola Hartmann");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 70, SpracheBeruf[Sprache]);
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 150, SpracheGruss[Sprache]);
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 85, "Carola Hartmann");
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 70, SpracheBeruf[Sprache]);
                         System.out.println("- Schlussformel geschrieben");
 
 //helferlein.Infomeldung("Fertig") ;                      
                         if (result.getBoolean("BESTELLUNG_STORNIERT")) {
-                            Ausgabe(cos, fontBold, 24, Color.RED, 55, 550, SpracheStorniert[Sprache]);
-                            Ausgabe(cos, fontBold, 24, Color.RED, 420, 715, SpracheStorniert[Sprache]);
+                            AusgabeLB(cos, fontBold, 24, Color.RED, 55, 550, SpracheStorniert[Sprache]);
+                            AusgabeLB(cos, fontBold, 24, Color.RED, 420, 715, SpracheStorniert[Sprache]);
                         }
 
                         outputFileName = outputFileName + ISBN + ".pdf";
@@ -2012,7 +2065,7 @@ public class briefRechnungMahnung {
                         page = new PDPage(PDRectangle.A4);
                         document.addPage(page);
                         cos = new PDPageContentStream(document, page);
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 730, SpracheAnlage2[Sprache]);
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 730, SpracheAnlage2[Sprache]);
                         // Kopfzeile mit Bild
                         try {
                             BufferedImage awtImage = ImageIO.read(new File("header-brief.jpg"));
@@ -2024,21 +2077,21 @@ public class briefRechnungMahnung {
                             //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                         } catch (FileNotFoundException fnfex) {
                             System.out.println("- No image for you");
-                            Modulhelferlein.Fehlermeldung("Rechnung erzeugen - Header", "FileNotFound-Exception", fnfex.getMessage());
+                            ModulHelferlein.Fehlermeldung("Rechnung erzeugen - Header", "FileNotFound-Exception", fnfex.getMessage());
                         }
 // Fu?zeile
-                        Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
-                        Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, "Alt Kladow 16d");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
-                        Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+                        AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+                        AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, "Alt Kladow 16d");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+                        AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
                         System.out.println("- Fußzeile erzeugt");
 
 // Faltmarke, Lochmarke, Faltmarke
@@ -2047,13 +2100,13 @@ public class briefRechnungMahnung {
                         Linie(cos, 1, 0, 285, 15, 285);
 
 // Schreibe Details
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 55, 700, SpracheAnzahl[Sprache]);
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, 700, SpracheAutor[Sprache]);
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 420, 700, SpracheEinzelpreis[Sprache]);
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 485, 700, SpracheGesamtpreis[Sprache]);
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, 690, SpracheTitel[Sprache]);
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 435, 690, "in Euro");
-                        Ausgabe(cos, fontBold, 9, Color.BLACK, 500, 690, "in Euro");
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 55, 700, SpracheAnzahl[Sprache]);
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, 700, SpracheAutor[Sprache]);
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 420, 700, SpracheEinzelpreis[Sprache]);
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 485, 700, SpracheGesamtpreis[Sprache]);
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, 690, SpracheTitel[Sprache]);
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 435, 690, "in Euro");
+                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 500, 690, "in Euro");
                         Linie(cos, 1, 55, 685, 540, 685);
 
                         Basiszeile = 688;
@@ -2062,16 +2115,16 @@ public class briefRechnungMahnung {
                             // Buchdetails holen
                             if (resultBD.getBoolean("BESTELLUNG_DETAIL_SONST")) {
                                 ZBetrag = (double) resultBD.getFloat("BESTELLUNG_DETAIL_SONST_PREIS");
-                                ZBetrag = Modulhelferlein.round2dec(ZBetrag);
+                                ZBetrag = ModulHelferlein.round2dec(ZBetrag);
                                 Gesamt19 = Gesamt19 + ZBetrag;
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 70, Basiszeile - (zeilenNr + 1) * 11, "1");
-                                Modulhelferlein.AusgabeLeistung(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, resultBD.getString("BESTELLUNG_DETAIL_SONST_TEXT"), 300);
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 450, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag)));
-                                AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag)));
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 70, Basiszeile - (zeilenNr + 1) * 11, "1");
+                                ModulHelferlein.AusgabeLeistung(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, resultBD.getString("BESTELLUNG_DETAIL_SONST_TEXT"), 300);
+                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 450, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag)));
+                                AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag)));
                                 Produkte[itemcount] = "19";
                                 Produkte[itemcount + 1] = resultBD.getString("BESTELLUNG_DETAIL_SONST_TEXT");
-                                Produkte[itemcount + 2] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag));
-                                Produkte[itemcount + 3] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag / 119 * 100));
+                                Produkte[itemcount + 2] = ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag));
+                                Produkte[itemcount + 3] = ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag / 119 * 100));
                                 Produkte[itemcount + 4] = "1";
                                 Produkte[itemcount + 5] = "ohne";
                                 zeilenNr = zeilenNr + 1;
@@ -2091,7 +2144,7 @@ public class briefRechnungMahnung {
                                         ISBN = "Multi";
                                     }
                                 }
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 70, Basiszeile - (zeilenNr + 1) * 11, Integer.toString(resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL")));
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 70, Basiszeile - (zeilenNr + 1) * 11, Integer.toString(resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL")));
 
                                 // Autor holen
                                 String[] col_Autorliste = resultBuch.getString("BUCH_AUTOR").split(",");
@@ -2111,33 +2164,33 @@ public class briefRechnungMahnung {
 
                                 ZPreis = (double) resultBuch.getFloat("BUCH_PREIS");
                                 ZPreis = ZPreis - ZPreis / 100 * resultBD.getFloat("BESTELLUNG_DETAIL_RABATT");
-                                ZPreis = Modulhelferlein.round2dec(ZPreis);
+                                ZPreis = ModulHelferlein.round2dec(ZPreis);
                                 ZBetrag = resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
                                 Gesamt7 = Gesamt7 + ZBetrag;
-                                ZBetrag = Modulhelferlein.round2dec(ZBetrag);
+                                ZBetrag = ModulHelferlein.round2dec(ZBetrag);
 
-                                Ausgabe(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN")) + ", " + AutorEintrag);
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 450, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(resultBuch.getFloat("BUCH_PREIS") * 1.0)));
-                                AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag)));
+                                AusgabeLB(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN")) + ", " + AutorEintrag);
+                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 450, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(resultBuch.getFloat("BUCH_PREIS") * 1.0)));
+                                AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag)));
 
                                 zeilenNr = zeilenNr + 1;
 
                                 String strTitel = resultBuch.getString("BUCH_TITEL");
                                 if (strTitel.length() > 70) {
-                                    Ausgabe(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, strTitel.substring(0, 70) + "...");
+                                    AusgabeLB(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, strTitel.substring(0, 70) + "...");
                                 } else {
-                                    Ausgabe(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, strTitel);
+                                    AusgabeLB(cos, fontItalic, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, strTitel);
                                 }
 
                                 if (resultBD.getFloat("BESTELLUNG_DETAIL_RABATT") != 0) {
-                                    Ausgabe(cos, fontPlain, 9, Color.BLACK, 420, Basiszeile - (zeilenNr + 1) * 11, "- " + Float.toString(resultBD.getFloat("BESTELLUNG_DETAIL_RABATT")) + "% = " + Modulhelferlein.str2dec(ZPreis));
+                                    AusgabeLB(cos, fontPlain, 9, Color.BLACK, 420, Basiszeile - (zeilenNr + 1) * 11, "- " + Float.toString(resultBD.getFloat("BESTELLUNG_DETAIL_RABATT")) + "% = " + ModulHelferlein.str2dec(ZPreis));
                                 }
                                 Produkte[itemcount] = "7";
                                 Produkte[itemcount + 1] = resultBuch.getString("BUCH_TITEL");
-                                Produkte[itemcount + 2] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag));
-                                Produkte[itemcount + 3] = Modulhelferlein.df.format(Modulhelferlein.round2dec(ZBetrag / 107 * 100));
+                                Produkte[itemcount + 2] = ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag));
+                                Produkte[itemcount + 3] = ModulHelferlein.df.format(ModulHelferlein.round2dec(ZBetrag / 107 * 100));
                                 Produkte[itemcount + 4] = resultBD.getString("BESTELLUNG_DETAIL_ANZAHL");
-                                Produkte[itemcount + 5] = Modulhelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN"));
+                                Produkte[itemcount + 5] = ModulHelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN"));
                             }
                             System.out.println("- Schreibe Position " + itemcount.toString() + ": " + Produkte[itemcount] + ", " + Produkte[itemcount + 1] + ", " + Produkte[itemcount + 2] + ", " + Produkte[itemcount + 3] + ", " + Produkte[itemcount + 4] + ", " + Produkte[itemcount + 5]);
                             Betrag = Betrag + ZBetrag;
@@ -2151,23 +2204,23 @@ public class briefRechnungMahnung {
                             case 0: //Inland - Deutsch : Privatkunde = Geschäftskunde
                                 // Umsatzsteuer ist auszuweisen
                                 zeilenNr = zeilenNr + 1;
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis");
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis");
+                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                 Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
                                 zeilenNr = zeilenNr + 1;
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Nettogesamtbetrag");
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec((Gesamt19 / 119 * 100) + (Gesamt7 / 107 * 100))));
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Nettogesamtbetrag");
+                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec((Gesamt19 / 119 * 100) + (Gesamt7 / 107 * 100))));
 
                                 zeilenNr = zeilenNr + 1;
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% Mehrwertsteuer");
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt7 - Gesamt7 / 107 * 100)));
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% Mehrwertsteuer");
+                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt7 - Gesamt7 / 107 * 100)));
 
                                 if (Gesamt19 > 0) {
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% Mehrwertsteuer");
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt19 - Gesamt19 / 119 * 100)));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% Mehrwertsteuer");
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt19 - Gesamt19 / 119 * 100)));
                                 }
 
                                 zeilenNr = zeilenNr + 1;
@@ -2177,11 +2230,11 @@ public class briefRechnungMahnung {
                                     zeilenNr = zeilenNr + 1;
                                     Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
-                                    Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Versandkosten");
-                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                    AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Versandkosten");
+                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis mit Versand");
-                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis mit Versand");
+                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
                                 }
                                 break;
@@ -2190,23 +2243,23 @@ public class briefRechnungMahnung {
                                 if (result.getBoolean("BESTELLUNG_PRIVAT")) { // Privatkunde
                                     // Umsatzsteuer ist auszuweisen
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 1) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec((Gesamt19 - Gesamt19 / 119 * 100) + (Gesamt7 - Gesamt7 / 107 * 100))));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec((Gesamt19 - Gesamt19 / 119 * 100) + (Gesamt7 - Gesamt7 / 107 * 100))));
 
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% " + SpracheUmsatzsteuer[Sprache]);
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag - Betrag / 107 * 100)));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% " + SpracheUmsatzsteuer[Sprache]);
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag - Betrag / 107 * 100)));
 
                                     if (Gesamt19 > 0) {
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% " + SpracheUmsatzsteuer[Sprache]);
-                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag - Betrag / 107 * 100)));
+                                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% " + SpracheUmsatzsteuer[Sprache]);
+                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag - Betrag / 107 * 100)));
                                     }
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
@@ -2214,11 +2267,11 @@ public class briefRechnungMahnung {
                                         Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                         zeilenNr = zeilenNr + 1;
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
                                     }
                                 } else { //Geschäftskunde
@@ -2229,20 +2282,20 @@ public class briefRechnungMahnung {
                                     setGrandTotal = setTaxBasisTotal;
 
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
                                     Betrag = Betrag / 107 * 100;
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheEULieferung[Sprache]);
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheEULieferung[Sprache]);
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheReverseCharge[Sprache]);
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheReverseCharge[Sprache]);
 
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
@@ -2250,11 +2303,11 @@ public class briefRechnungMahnung {
                                         Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                         zeilenNr = zeilenNr + 1;
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
                                     }
                                 }
@@ -2266,23 +2319,23 @@ public class briefRechnungMahnung {
                                 setDuePayable = setTaxBasisTotal;
                                 setGrandTotal = setTaxBasisTotal;
 
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, SpracheGesamtpreis[Sprache]);
-                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, SpracheGesamtpreis[Sprache]);
+                                AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                 Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 1) * 11, 540, Basiszeile - 2 - (zeilenNr + 1) * 11);
 
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 2) * 11, SpracheSteuerfrei1[Sprache]);
-                                Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 3) * 11, SpracheSteuerfrei2[Sprache]);
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 2) * 11, SpracheSteuerfrei1[Sprache]);
+                                AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 3) * 11, SpracheSteuerfrei2[Sprache]);
 
                                 Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 3) * 11, 540, Basiszeile - 2 - (zeilenNr + 3) * 11);
 
                                 if (result.getFloat("BESTELLUNG_VERSAND") > 0) {
                                     Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 4) * 11, 540, Basiszeile - 2 - (zeilenNr + 4) * 11);
-                                    Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 4) * 11, SpracheVersandkosten[Sprache]);
-                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 4) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
-                                    Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 5) * 11, SpracheGesamtVersand[Sprache]);
-                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 5) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 4) * 11, SpracheVersandkosten[Sprache]);
+                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 4) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                    AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 5) * 11, SpracheGesamtVersand[Sprache]);
+                                    AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 5) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 5) * 11, 540, Basiszeile - 2 - (zeilenNr + 5) * 11);
 
                                 }
@@ -2291,12 +2344,12 @@ public class briefRechnungMahnung {
                         cos.close();
                     } // if - Else-Zweig mehr als 8 Bestellungen
                     System.out.println("- alle Bestelldetails geschrieben");
-                    setLineTotal = Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt19 / 119 * 100 + Gesamt7 / 107 * 100 + result.getFloat("BESTELLUNG_VERSAND")));
+                    setLineTotal = ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt19 / 119 * 100 + Gesamt7 / 107 * 100 + result.getFloat("BESTELLUNG_VERSAND")));
                     setChargeTotal = "0";
                     setAllowanceTotal = "0";
                     setTaxBasisTotal = setLineTotal;
-                    setTaxTotal = Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt19 - Gesamt19 / 119 * 100 + Gesamt7 - Gesamt7 / 107 * 100));
-                    setGrandTotal = Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt19 + Gesamt7 + result.getFloat("BESTELLUNG_VERSAND")));
+                    setTaxTotal = ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt19 - Gesamt19 / 119 * 100 + Gesamt7 - Gesamt7 / 107 * 100));
+                    setGrandTotal = ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt19 + Gesamt7 + result.getFloat("BESTELLUNG_VERSAND")));
                     setTotalPrepaid = "0";
                     setDuePayable = setGrandTotal;
 
@@ -2306,23 +2359,23 @@ public class briefRechnungMahnung {
                             case "": // Inland : Privatkunde = Geschäftskunde
                             case "DEUTSCHLAND" : // Umsatzsteuer ist auszuweisen
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis");
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis");
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Nettogesamtbetrag");
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec((Gesamt19 / 119 * 100) + (Gesamt7 / 107 * 100))));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Nettogesamtbetrag");
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec((Gesamt19 / 119 * 100) + (Gesamt7 / 107 * 100))));
 
                                     zeilenNr = zeilenNr + 1;
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% Mehrwertsteuer");
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt7 - Gesamt7 / 107 * 100)));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% Mehrwertsteuer");
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt7 - Gesamt7 / 107 * 100)));
 
                                     if (Gesamt19 > 0) {
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% Mehrwertsteuer");
-                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamt19 - Gesamt19 / 119 * 100)));
+                                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% Mehrwertsteuer");
+                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamt19 - Gesamt19 / 119 * 100)));
                                     }
 
                                     zeilenNr = zeilenNr + 1;
@@ -2332,11 +2385,11 @@ public class briefRechnungMahnung {
                                         zeilenNr = zeilenNr + 1;
                                         Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Versandkosten");
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Versandkosten");
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis mit Versand");
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "Gesamtpreis mit Versand");
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
                                     }
                                 break;
@@ -2347,23 +2400,23 @@ public class briefRechnungMahnung {
                             case "IRLAND"
                                     if (result.getBoolean("BESTELLUNG_PRIVAT")) { // Privatkunde, Umsatzsteuer ist auszuweisen
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
-                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
+                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                         
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 1) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
-                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec((Gesamt19 - Gesamt19 / 119 * 100) + (Gesamt7 - Gesamt7 / 107 * 100))));
+                                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
+                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec((Gesamt19 - Gesamt19 / 119 * 100) + (Gesamt7 - Gesamt7 / 107 * 100))));
 
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% " + SpracheUmsatzsteuer[Sprache]);
-                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag - Betrag / 107 * 100)));
+                                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, " 7% " + SpracheUmsatzsteuer[Sprache]);
+                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag - Betrag / 107 * 100)));
 
                                         if (Gesamt19 > 0) {
                                             zeilenNr = zeilenNr + 1;
-                                            Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% " + SpracheUmsatzsteuer[Sprache]);
-                                            AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag - Betrag / 107 * 100)));
+                                            AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, "19% " + SpracheUmsatzsteuer[Sprache]);
+                                            AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag - Betrag / 107 * 100)));
                                         }
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
@@ -2371,11 +2424,11 @@ public class briefRechnungMahnung {
                                             Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                             zeilenNr = zeilenNr + 1;
                                             Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
-                                            Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
-                                            AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                            AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
+                                            AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                             zeilenNr = zeilenNr + 1;
-                                            Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
-                                            AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                            AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
+                                            AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                             Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
                                         }
                                     } else { //Geschäftskunde - keine Umsatzsteuer - Reverse Charge, innergeimnschaftliche Lieferung
@@ -2384,20 +2437,20 @@ public class briefRechnungMahnung {
                                         setGrandTotal = setTaxBasisTotal;
 
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
-                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtpreis[Sprache]);
+                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
+                                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheNetto[Sprache]);
                                         Betrag = Betrag / 107 * 100;
-                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                        AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheEULieferung[Sprache]);
+                                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheEULieferung[Sprache]);
                                         zeilenNr = zeilenNr + 1;
-                                        Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheReverseCharge[Sprache]);
+                                        AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheReverseCharge[Sprache]);
 
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
 
@@ -2405,11 +2458,11 @@ public class briefRechnungMahnung {
                                             Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                             zeilenNr = zeilenNr + 1;
                                             Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
-                                            Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
-                                            AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                            AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheVersandkosten[Sprache]);
+                                            AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
                                             zeilenNr = zeilenNr + 1;
-                                            Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
-                                            AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                            AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr) * 11, SpracheGesamtVersand[Sprache]);
+                                            AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                             Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr) * 11, 540, Basiszeile - 2 - (zeilenNr) * 11);
                                         }
                                     }
@@ -2419,23 +2472,23 @@ public class briefRechnungMahnung {
                                     setDuePayable = setTaxBasisTotal;
                                     setGrandTotal = setTaxBasisTotal;
 
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, SpracheGesamtpreis[Sprache]);
-                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 1) * 11, SpracheGesamtpreis[Sprache]);
+                                    AusgabeDB(cos, fontBold, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 1) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
 
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 1) * 11, 540, Basiszeile - 2 - (zeilenNr + 1) * 11);
 
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 2) * 11, SpracheSteuerfrei1[Sprache]);
-                                    Ausgabe(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 3) * 11, SpracheSteuerfrei2[Sprache]);
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 2) * 11, SpracheSteuerfrei1[Sprache]);
+                                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 3) * 11, SpracheSteuerfrei2[Sprache]);
 
                                     Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 3) * 11, 540, Basiszeile - 2 - (zeilenNr + 3) * 11);
 
                                     if (result.getFloat("BESTELLUNG_VERSAND") > 0) {
                                         Betrag = Betrag + result.getFloat("BESTELLUNG_VERSAND");
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 4) * 11, 540, Basiszeile - 2 - (zeilenNr + 4) * 11);
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 4) * 11, SpracheVersandkosten[Sprache]);
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 4) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
-                                        Ausgabe(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 5) * 11, SpracheGesamtVersand[Sprache]);
-                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 5) * 11, Modulhelferlein.df.format(Modulhelferlein.round2dec(Betrag)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 4) * 11, SpracheVersandkosten[Sprache]);
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 4) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(result.getFloat("BESTELLUNG_VERSAND") * 1.0)));
+                                        AusgabeLB(cos, fontPlain, 9, Color.BLACK, 100, Basiszeile - (zeilenNr + 5) * 11, SpracheGesamtVersand[Sprache]);
+                                        AusgabeDB(cos, fontPlain, 9, Color.BLACK, 520, Basiszeile - (zeilenNr + 5) * 11, ModulHelferlein.df.format(ModulHelferlein.round2dec(Betrag)));
                                         Linie(cos, 1, 55, Basiszeile - 2 - (zeilenNr + 5) * 11, 540, Basiszeile - 2 - (zeilenNr + 5) * 11);
                                     }
                                 break;
@@ -2463,7 +2516,7 @@ public class briefRechnungMahnung {
                         // won't happen here, as the provided value is valid
                         throw new IllegalArgumentException(e);
                     } catch (TransformerException ex) {
-                        Modulhelferlein.Fehlermeldung("PDF/A-Erstellung Honorabrechung", "TransformerException-Exception: " + ex.getMessage());
+                        ModulHelferlein.Fehlermeldung("PDF/A-Erstellung Honorabrechung", "TransformerException-Exception: " + ex.getMessage());
                     }
                     System.out.println("- XMP Metadata geschrieben");
 // sRGB output intent
@@ -2482,7 +2535,7 @@ public class briefRechnungMahnung {
                     document.close();
                     //} try PDPageContentStream cos = new PDPageContentStream(document, page))
                 }
-                Modulhelferlein.Infomeldung("Rechnung Nr. " + RechNr, "ist als PDF gespeichert unter ", outputFileName);
+                ModulHelferlein.Infomeldung("Rechnung Nr. " + RechNr, "ist als PDF gespeichert unter ", outputFileName);
 
                 // E-Rechnung erstellen
                 if (ERechnung != 0) {
@@ -2524,21 +2577,24 @@ public class briefRechnungMahnung {
 
                 try {
                     switch (ERechnung) {
-                        case 0 : Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
+                        case 0:
+                            Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                             break;
-                        case 1 : Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + ".XRechnung.xml" + "\"");
+                        case 1:
+                            Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + ".XRechnung.xml" + "\"");
                             break;
-                        case 2 : Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + ".ZUGFeRD.pdf" + "\"");
+                        case 2:
+                            Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + ".ZUGFeRD.pdf" + "\"");
                             break;
                     }
                 } catch (IOException exept) {
-                    Modulhelferlein.Fehlermeldung("Brief Rechnung", "Ausgabe Brief: IO-Exception: ", exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("Brief Rechnung", "Ausgabe Brief: IO-Exception: ", exept.getMessage());
                 } // try Brief ausgeben
 
                 // Adressetikett drucken
                 if (result.getInt("BESTELLUNG_KUNDE") > 0) {
                     Zeile1 = resultK.getString("ADRESSEN_ZUSATZ_1");
-                    Zeile2 = Modulhelferlein.makeAnrede(resultK.getString("ADRESSEN_NAMENSZUSATZ"), resultK.getString("ADRESSEN_VORNAME"), resultK.getString("ADRESSEN_NAME"));
+                    Zeile2 = ModulHelferlein.makeAnrede(resultK.getString("ADRESSEN_NAMENSZUSATZ"), resultK.getString("ADRESSEN_VORNAME"), resultK.getString("ADRESSEN_NAME"));
                     Zeile3 = resultK.getString("ADRESSEN_ZUSATZ_2");
                     Zeile4 = resultK.getString("ADRESSEN_STRASSE");
                     Zeile5 = resultK.getString("ADRESSEN_PLZ") + " " + resultK.getString("ADRESSEN_ORT");
@@ -2555,7 +2611,7 @@ public class briefRechnungMahnung {
                 _DlgAdresseDrucken.main(argumente);
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Brief Rechnung", "SQL-Exception: SQL-Anfrage nicht moeglich: ",
+                ModulHelferlein.Fehlermeldung("Brief Rechnung", "SQL-Exception: SQL-Anfrage nicht moeglich: ",
                         exept.getMessage());
                 // System.exit(1);
             } // try SQL-Anfragen an die Datenbank
@@ -2567,56 +2623,56 @@ public class briefRechnungMahnung {
                 resultK.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
         try {
             if (resultA != null) {
                 resultA.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
         try {
             if (resultBD != null) {
                 resultBD.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
         try {
             if (resultBuch != null) {
                 resultBuch.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
         try {
             if (SQLAnfrageK != null) {
                 SQLAnfrageK.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
         try {
             if (SQLAnfrageA != null) {
                 SQLAnfrageA.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
         try {
             if (SQLAnfrageBD != null) {
                 SQLAnfrageBD.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
         try {
             if (SQLAnfrageBuch != null) {
                 SQLAnfrageBuch.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
     } // void brief
 
