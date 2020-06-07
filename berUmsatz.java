@@ -38,17 +38,17 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import java.awt.Color;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.SQLDate2Normal;
+import static milesVerlagMain.ModulHelferlein.SQLDate2Normal;
 
 import jxl.*;
 import static jxl.format.Alignment.LEFT;
 import static jxl.format.Alignment.RIGHT;
 import jxl.write.*;
-import static milesVerlagMain.Modulhelferlein.AusgabeDB;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.AusgabeDB;
+import static milesVerlagMain.ModulHelferlein.Linie;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
 
 /**
  * Klasse zur Erzeugung einer Umsatzübersicht
@@ -96,13 +96,13 @@ public class berUmsatz {
         ResultSet resultBestellungDetails = null;
 
         String outputFileName;
-        outputFileName = Modulhelferlein.pathBerichte + "\\Umsätze"
+        outputFileName = ModulHelferlein.pathBerichte + "\\Umsätze"
                 + "\\Umsatz-"
                 + strVon
                 + "-"
                 + strBis
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".xls";
 //helferlein.Infomeldung(outputFileName);
         try {
@@ -135,8 +135,8 @@ public class berUmsatz {
 
                 Connection conn = null;
 
-                Class.forName(Modulhelferlein.dbDriver);
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                Class.forName(ModulHelferlein.dbDriver);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
 
                 final Connection conn2 = conn;
 
@@ -301,10 +301,10 @@ public class berUmsatz {
                             sheet_Einnahmen.addCell(label);
                             label = new Label(2, zeile, strKunde);
                             sheet_Einnahmen.addCell(label);
-                            //label = new Label(3, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)), arial10formatR);
+                            //label = new Label(3, zeile, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)), arial10formatR);
                             //sheet_Einnahmen.addCell(label);
                             // Number number = new Number(3, 4, 3.1459);
-                            jxl.write.Number number = new jxl.write.Number(3, zeile, Modulhelferlein.round2dec(Gesamtzeile), arial10formatR);
+                            jxl.write.Number number = new jxl.write.Number(3, zeile, ModulHelferlein.round2dec(Gesamtzeile), arial10formatR);
                             sheet_Einnahmen.addCell(number);
 
                             if (resultBestellung.getString("BESTELLUNG_BEZAHLT").equals("1970-01-01")) {
@@ -325,9 +325,9 @@ public class berUmsatz {
 
                         label = new Label(0, zeile, "Gesamtsumme der Einnahmen aus Buchbestellungen:", arial10formatBold);
                         sheet_Einnahmen.addCell(label);
-                        //label = new Label(6, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)), arial10formatBold);
+                        //label = new Label(6, zeile, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)), arial10formatBold);
                         //sheet_Einnahmen.addCell(label);
-                        jxl.write.Number number = new jxl.write.Number(6, zeile, Modulhelferlein.round2dec(Gesamtsumme), arial10formatBold);
+                        jxl.write.Number number = new jxl.write.Number(6, zeile, ModulHelferlein.round2dec(Gesamtsumme), arial10formatBold);
                         sheet_Einnahmen.addCell(number);
 
                         zeile = zeile + 3;
@@ -376,9 +376,9 @@ public class berUmsatz {
                             sheet_Einnahmen.addCell(label);
                             label = new Label(2, zeile, resultBestellung.getString("EINNAHMEN_LIEFERANT"));
                             sheet_Einnahmen.addCell(label);
-                            //label = new Label(3, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(resultBestellung.getFloat("EINNAHMEN_KOSTEN"))), arial10formatR);
+                            //label = new Label(3, zeile, ModulHelferlein.df.format(ModulHelferlein.round2dec(resultBestellung.getFloat("EINNAHMEN_KOSTEN"))), arial10formatR);
                             //sheet_Einnahmen.addCell(label);
-                            number = new jxl.write.Number(3, zeile, Modulhelferlein.round2dec(resultBestellung.getFloat("EINNAHMEN_KOSTEN")), arial10formatR);
+                            number = new jxl.write.Number(3, zeile, ModulHelferlein.round2dec(resultBestellung.getFloat("EINNAHMEN_KOSTEN")), arial10formatR);
                             sheet_Einnahmen.addCell(number);
 
                             if (resultBestellung.getString("EINNAHMEN_BEZAHLT").equals("1970-01-01")) {
@@ -415,18 +415,20 @@ public class berUmsatz {
 
                         label = new Label(0, zeile, "Gesamtsumme der sonstigen Einnahmen:", arial10formatBold);
                         sheet_Einnahmen.addCell(label);
-                        //label = new Label(6, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)), arial10formatBold);
+                        //label = new Label(6, zeile, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)), arial10formatBold);
                         //sheet_Einnahmen.addCell(label);
-                        number = new jxl.write.Number(6, zeile, Modulhelferlein.round2dec(Gesamtsumme), arial10formatBold);
+                        number = new jxl.write.Number(6, zeile, ModulHelferlein.round2dec(Gesamtsumme), arial10formatBold);
                         sheet_Einnahmen.addCell(number);
 
-                        // Aufbau des Tabellenblattes sheet_Ausgaben
+// Aufbau des Tabellenblattes sheet_Ausgaben
                         label = new Label(0, 0, "Carola Hartmann Miles-Verlag", arial14formatBold);
                         sheet_Ausgaben.addCell(label);
                         label = new Label(0, 1, "Eingehende (bezahlte) Rechnungen", arial14formatBold);
                         sheet_Ausgaben.addCell(label);
                         label = new Label(0, 3, "abziehbare Vorsteuerbeträge aus Rechnungen von anderen Unternehmen " + strVon + " - " + strBis, arial14formatBold);
                         sheet_Ausgaben.addCell(label);
+        
+        // Block mit 19%
                         label = new Label(0, 5, "Rechnungen mit UStr-Satz 19%", arial10formatBold);
                         sheet_Ausgaben.addCell(label);
                         label = new Label(0, 7, "RechnungsNr", arial10formatBold);
@@ -463,14 +465,14 @@ public class berUmsatz {
                         while (resultBestellung.next()) { // geht durch alle zeilen
                             Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                            // Ausgabe RechNr, Kunde, Betrag
+                            // AusgabeLB RechNr, Kunde, Betrag
                             label = new Label(0, zeile, resultBestellung.getString("AUSGABEN_RECHNNR"), arial10formatL);
                             sheet_Ausgaben.addCell(label);
                             label = new Label(1, zeile, SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")), arial10formatL);
                             sheet_Ausgaben.addCell(label);
                             label = new Label(2, zeile, resultBestellung.getString("AUSGABEN_LIEFERANT"), arial10formatL);
                             sheet_Ausgaben.addCell(label);
-                            number = new jxl.write.Number(3, zeile, Modulhelferlein.round2dec(Gesamtzeile), arial10formatR);
+                            number = new jxl.write.Number(3, zeile, ModulHelferlein.round2dec(Gesamtzeile), arial10formatR);
                             sheet_Ausgaben.addCell(number);
 
                             if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
@@ -487,15 +489,84 @@ public class berUmsatz {
                         //Gesamteinnahmen = Gesamteinnahmen + Gesamtsumme;
                         label = new Label(0, zeile + 1, "Gesamtsumme der Ausgaben", arial10formatL);
                         sheet_Ausgaben.addCell(label);
-                        number = new jxl.write.Number(3, zeile + 1, Modulhelferlein.round2dec(Gesamtsumme), arial10formatR);
+                        number = new jxl.write.Number(3, zeile + 1, ModulHelferlein.round2dec(Gesamtsumme), arial10formatR);
                         sheet_Ausgaben.addCell(number);
                         label = new Label(0, zeile + 2, "UStr 19%", arial10formatL);
                         sheet_Ausgaben.addCell(label);
-                        number = new jxl.write.Number(3, zeile + 2, Modulhelferlein.round2dec(Gesamtsumme - Gesamtsumme / 119 * 100), arial10formatR);
+                        number = new jxl.write.Number(3, zeile + 2, ModulHelferlein.round2dec(Gesamtsumme - Gesamtsumme / 119 * 100), arial10formatR);
                         sheet_Ausgaben.addCell(number);
 
+        // Block mit 16%
                         zeile = zeile + 5;
+                        label = new Label(0, zeile, "Rechnungen mit UStr-Satz 16%", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(0, zeile + 2, "RechnungsNr", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(1, zeile + 2, "Datum", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(2, zeile + 2, "Lieferant", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(3, zeile + 2, "Preis in €", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(4, zeile + 2, "Bezahlt", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(2, zeile + 3, "Bezug", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(3, zeile + 3, "Brutto", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
 
+                        zeile = zeile + 5;
+                        Gesamtsumme = 0D;
+                        if (Umfang) { // Alle
+                            Sql = "SELECT * FROM TBL_AUSGABEN "
+                                    + " WHERE ((AUSGABEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "')"
+                                    + " OR (AUSGABEN_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "'))"
+                                    + " AND (AUSGABEN_USTR = '16')"
+                                    + " ORDER BY AUSGABEN_RECHDATUM";
+                        } else { // bezahlte
+                            Sql = "SELECT * FROM TBL_AUSGABEN "
+                                    + " WHERE ((AUSGABEN_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "')"
+                                    + " AND (AUSGABEN_USTR = '16'))"
+                                    + " ORDER BY AUSGABEN_RECHDATUM";
+                        }
+                        resultBestellung = SQLBestellung.executeQuery(Sql); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert
+
+                        while (resultBestellung.next()) { // geht durch alle zeilen
+                            Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
+
+                            // AusgabeLB RechNr, Kunde, Betrag
+                            label = new Label(0, zeile, resultBestellung.getString("AUSGABEN_RECHNNR"), arial10formatL);
+                            sheet_Ausgaben.addCell(label);
+                            label = new Label(1, zeile, SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")), arial10formatL);
+                            sheet_Ausgaben.addCell(label);
+                            label = new Label(2, zeile, resultBestellung.getString("AUSGABEN_LIEFERANT"), arial10formatL);
+                            sheet_Ausgaben.addCell(label);
+                            number = new jxl.write.Number(3, zeile, ModulHelferlein.round2dec(Gesamtzeile), arial10formatR);
+                            sheet_Ausgaben.addCell(number);
+
+                            if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
+                                label = new Label(4, zeile, "----------", arial10formatL);
+                                sheet_Ausgaben.addCell(label);
+                            } else {
+                                label = new Label(4, zeile, SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")), arial10formatL);
+                                sheet_Ausgaben.addCell(label);
+                            }
+                            zeile = zeile + 1;
+
+                            Gesamtsumme = Gesamtsumme + Gesamtzeile;
+                        } // geht durch alle zeilen
+                        //Gesamteinnahmen = Gesamteinnahmen + Gesamtsumme;
+                        label = new Label(0, zeile + 1, "Gesamtsumme der Ausgaben", arial10formatL);
+                        sheet_Ausgaben.addCell(label);
+                        number = new jxl.write.Number(3, zeile + 1, ModulHelferlein.round2dec(Gesamtsumme), arial10formatR);
+                        sheet_Ausgaben.addCell(number);
+                        label = new Label(0, zeile + 2, "UStr 16%", arial10formatL);
+                        sheet_Ausgaben.addCell(label);
+                        number = new jxl.write.Number(3, zeile + 2, ModulHelferlein.round2dec(Gesamtsumme - Gesamtsumme / 107 * 100), arial10formatR);
+                        sheet_Ausgaben.addCell(number);
+
+        // Block mit 7%
+                        zeile = zeile + 5;
                         label = new Label(0, zeile, "Rechnungen mit UStr-Satz 7%", arial10formatBold);
                         sheet_Ausgaben.addCell(label);
                         label = new Label(0, zeile + 2, "RechnungsNr", arial10formatBold);
@@ -532,14 +603,14 @@ public class berUmsatz {
                         while (resultBestellung.next()) { // geht durch alle zeilen
                             Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                            // Ausgabe RechNr, Kunde, Betrag
+                            // AusgabeLB RechNr, Kunde, Betrag
                             label = new Label(0, zeile, resultBestellung.getString("AUSGABEN_RECHNNR"), arial10formatL);
                             sheet_Ausgaben.addCell(label);
                             label = new Label(1, zeile, SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")), arial10formatL);
                             sheet_Ausgaben.addCell(label);
                             label = new Label(2, zeile, resultBestellung.getString("AUSGABEN_LIEFERANT"), arial10formatL);
                             sheet_Ausgaben.addCell(label);
-                            number = new jxl.write.Number(3, zeile, Modulhelferlein.round2dec(Gesamtzeile), arial10formatR);
+                            number = new jxl.write.Number(3, zeile, ModulHelferlein.round2dec(Gesamtzeile), arial10formatR);
                             sheet_Ausgaben.addCell(number);
 
                             if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
@@ -556,15 +627,84 @@ public class berUmsatz {
                         //Gesamteinnahmen = Gesamteinnahmen + Gesamtsumme;
                         label = new Label(0, zeile + 1, "Gesamtsumme der Ausgaben", arial10formatL);
                         sheet_Ausgaben.addCell(label);
-                        number = new jxl.write.Number(3, zeile + 1, Modulhelferlein.round2dec(Gesamtsumme), arial10formatR);
+                        number = new jxl.write.Number(3, zeile + 1, ModulHelferlein.round2dec(Gesamtsumme), arial10formatR);
                         sheet_Ausgaben.addCell(number);
                         label = new Label(0, zeile + 2, "UStr 7%", arial10formatL);
                         sheet_Ausgaben.addCell(label);
-                        number = new jxl.write.Number(3, zeile + 2, Modulhelferlein.round2dec(Gesamtsumme - Gesamtsumme / 107 * 100), arial10formatR);
+                        number = new jxl.write.Number(3, zeile + 2, ModulHelferlein.round2dec(Gesamtsumme - Gesamtsumme / 107 * 100), arial10formatR);
                         sheet_Ausgaben.addCell(number);
 
+        // Block mit 5%
                         zeile = zeile + 5;
+                        label = new Label(0, zeile, "Rechnungen mit UStr-Satz 5%", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(0, zeile + 2, "RechnungsNr", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(1, zeile + 2, "Datum", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(2, zeile + 2, "Lieferant", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(3, zeile + 2, "Preis in €", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(4, zeile + 2, "Bezahlt", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(2, zeile + 3, "Bezug", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
+                        label = new Label(3, zeile + 3, "Brutto", arial10formatBold);
+                        sheet_Ausgaben.addCell(label);
 
+                        zeile = zeile + 5;
+                        Gesamtsumme = 0D;
+                        if (Umfang) { // Alle
+                            Sql = "SELECT * FROM TBL_AUSGABEN "
+                                    + " WHERE ((AUSGABEN_RECHDATUM BETWEEN '" + strVon + "'  AND '" + strBis + "')"
+                                    + " OR (AUSGABEN_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "'))"
+                                    + " AND (AUSGABEN_USTR = '5')"
+                                    + " ORDER BY AUSGABEN_RECHDATUM";
+                        } else { // bezahlte
+                            Sql = "SELECT * FROM TBL_AUSGABEN "
+                                    + " WHERE ((AUSGABEN_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "')"
+                                    + " AND (AUSGABEN_USTR = '5'))"
+                                    + " ORDER BY AUSGABEN_RECHDATUM";
+                        }
+                        resultBestellung = SQLBestellung.executeQuery(Sql); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert
+
+                        while (resultBestellung.next()) { // geht durch alle zeilen
+                            Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
+
+                            // AusgabeLB RechNr, Kunde, Betrag
+                            label = new Label(0, zeile, resultBestellung.getString("AUSGABEN_RECHNNR"), arial10formatL);
+                            sheet_Ausgaben.addCell(label);
+                            label = new Label(1, zeile, SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")), arial10formatL);
+                            sheet_Ausgaben.addCell(label);
+                            label = new Label(2, zeile, resultBestellung.getString("AUSGABEN_LIEFERANT"), arial10formatL);
+                            sheet_Ausgaben.addCell(label);
+                            number = new jxl.write.Number(3, zeile, ModulHelferlein.round2dec(Gesamtzeile), arial10formatR);
+                            sheet_Ausgaben.addCell(number);
+
+                            if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
+                                label = new Label(4, zeile, "----------", arial10formatL);
+                                sheet_Ausgaben.addCell(label);
+                            } else {
+                                label = new Label(4, zeile, SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")), arial10formatL);
+                                sheet_Ausgaben.addCell(label);
+                            }
+                            zeile = zeile + 1;
+
+                            Gesamtsumme = Gesamtsumme + Gesamtzeile;
+                        } // geht durch alle zeilen
+                        //Gesamteinnahmen = Gesamteinnahmen + Gesamtsumme;
+                        label = new Label(0, zeile + 1, "Gesamtsumme der Ausgaben", arial10formatL);
+                        sheet_Ausgaben.addCell(label);
+                        number = new jxl.write.Number(3, zeile + 1, ModulHelferlein.round2dec(Gesamtsumme), arial10formatR);
+                        sheet_Ausgaben.addCell(number);
+                        label = new Label(0, zeile + 2, "UStr 5%", arial10formatL);
+                        sheet_Ausgaben.addCell(label);
+                        number = new jxl.write.Number(3, zeile + 2, ModulHelferlein.round2dec(Gesamtsumme - Gesamtsumme / 107 * 100), arial10formatR);
+                        sheet_Ausgaben.addCell(number);
+
+        // Block mit 0%
+                        zeile = zeile + 5;
                         label = new Label(0, zeile, "Rechnungen mit UStr-Satz 0%", arial10formatBold);
                         sheet_Ausgaben.addCell(label);
                         label = new Label(0, zeile + 2, "RechnungsNr", arial10formatBold);
@@ -601,14 +741,14 @@ public class berUmsatz {
                         while (resultBestellung.next()) { // geht durch alle zeilen
                             Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                            // Ausgabe RechNr, Kunde, Betrag
+                            // AusgabeLB RechNr, Kunde, Betrag
                             label = new Label(0, zeile, resultBestellung.getString("AUSGABEN_RECHNNR"), arial10formatL);
                             sheet_Ausgaben.addCell(label);
                             label = new Label(1, zeile, SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")), arial10formatL);
                             sheet_Ausgaben.addCell(label);
                             label = new Label(2, zeile, resultBestellung.getString("AUSGABEN_LIEFERANT"), arial10formatL);
                             sheet_Ausgaben.addCell(label);
-                            number = new jxl.write.Number(3, zeile, Modulhelferlein.round2dec(Gesamtzeile), arial10formatR);
+                            number = new jxl.write.Number(3, zeile, ModulHelferlein.round2dec(Gesamtzeile), arial10formatR);
                             sheet_Ausgaben.addCell(number);
 
                             if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
@@ -625,30 +765,30 @@ public class berUmsatz {
                         //Gesamteinnahmen = Gesamteinnahmen + Gesamtsumme;
                         label = new Label(0, zeile + 1, "Gesamtsumme der Ausgaben", arial10formatL);
                         sheet_Ausgaben.addCell(label);
-                        number = new jxl.write.Number(3, zeile + 1, Modulhelferlein.round2dec(Gesamtsumme), arial10formatR);
+                        number = new jxl.write.Number(3, zeile + 1, ModulHelferlein.round2dec(Gesamtsumme), arial10formatR);
                         sheet_Ausgaben.addCell(number);
                         label = new Label(0, zeile + 2, "UStr 0%", arial10formatL);
                         sheet_Ausgaben.addCell(label);
-                        number = new jxl.write.Number(3, zeile + 2, Modulhelferlein.round2dec(Gesamtsumme - Gesamtsumme / 100 * 100), arial10formatR);
+                        number = new jxl.write.Number(3, zeile + 2, ModulHelferlein.round2dec(Gesamtsumme - Gesamtsumme / 100 * 100), arial10formatR);
                         sheet_Ausgaben.addCell(number);
 
                         // Fertig - alles schließen
                         try {// workbook write
                             workbook.write();
                         } catch (IOException e) {
-                            Modulhelferlein.Fehlermeldung("XLS-Bericht Umsatz", "IO-Exception: ", e.getMessage());
+                            ModulHelferlein.Fehlermeldung("XLS-Bericht Umsatz", "IO-Exception: ", e.getMessage());
                         } // workbook write
 
                         try { // try workbook close
                             workbook.close();
                         } catch (IOException e) {
-                            Modulhelferlein.Fehlermeldung("XLS-Bericht Umsatz", "IO-Exception: ", e.getMessage());
+                            ModulHelferlein.Fehlermeldung("XLS-Bericht Umsatz", "IO-Exception: ", e.getMessage());
                         } // try workbook close
 
                         try { // try XLS anzeigen
                             Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                         } catch (IOException exept) {
-                            Modulhelferlein.Fehlermeldung("Bericht Umsatz", "Anzeige XLS-Export: Exception: ", exept.getMessage());
+                            ModulHelferlein.Fehlermeldung("Bericht Umsatz", "Anzeige XLS-Export: Exception: ", exept.getMessage());
                         } // try XLS anzeigen
 
                         if (SQLBuch != null) {
@@ -674,24 +814,24 @@ public class berUmsatz {
                         }
 
                     } catch (SQLException exept) {
-                        Modulhelferlein.Fehlermeldung("Bericht Umsätze: ", "XLS-Export: SQL-Exception: SQL-Anfrage nicht moeglich: ", exept.getMessage());
+                        ModulHelferlein.Fehlermeldung("Bericht Umsätze: ", "XLS-Export: SQL-Exception: SQL-Anfrage nicht moeglich: ", exept.getMessage());
 
                     } // try Datenbankabfrage
                 } // Datenbankverbindung steht
 
             } catch (WriteException e) {
-                Modulhelferlein.Fehlermeldung("Bericht Umsätze: ", "XWrite-Exception: ", e.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht Umsätze: ", "XWrite-Exception: ", e.getMessage());
             } catch (ClassNotFoundException ex) {
-                Modulhelferlein.Fehlermeldung("Bericht Umsätze: ", "ClassNotFound-Exception: ", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht Umsätze: ", "ClassNotFound-Exception: ", ex.getMessage());
             } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("Bericht Umsätze: ", "SQL-Exception: ", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht Umsätze: ", "SQL-Exception: ", ex.getMessage());
             } // try Tabellenblätter schreiben
 
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("Bericht Umsätze: ", "XLS-Bericht Umsätze: IO-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bericht Umsätze: ", "XLS-Bericht Umsätze: IO-Exception: ", e.getMessage());
         } // try Workbook create
 
-        Modulhelferlein.Infomeldung("Bericht Umsätze: ", "Liste der Umsätze ist als XLS gespeichert!");
+        ModulHelferlein.Infomeldung("Bericht Umsätze: ", "Liste der Umsätze ist als XLS gespeichert!");
     } // XLS-Bericht erzeugen
 
     /**
@@ -703,7 +843,7 @@ public class berUmsatz {
      * @param strBis Ende des Zeitraums
      */
     public static void berUmsatzDOC(boolean Umfang, String strVon, String strBis) {
-        Modulhelferlein.Infomeldung("noch nicht implementiert");
+        ModulHelferlein.Infomeldung("noch nicht implementiert");
     }
 
     /**
@@ -761,13 +901,13 @@ public class berUmsatz {
         PDPageContentStream cos;
 
         String outputFileName;
-        outputFileName = Modulhelferlein.pathBerichte + "\\Umsätze"
+        outputFileName = ModulHelferlein.pathBerichte + "\\Umsätze"
                 + "\\Umsatz-"
                 + strVon
                 + "-"
                 + strBis
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".pdf";
 
         String Bemerkung = "";
@@ -788,26 +928,26 @@ public class berUmsatz {
         try { // Start a new content stream which will "hold" the to be created content
             cos = new PDPageContentStream(document, page);
 
-            Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
-            Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 750, "Umsatz im Zeitraum " + strVon + " - " + strBis);
-            Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 600, "Teil 1 - Einnahmen aus Buchbestellungen");
-            Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 485, "Teil 2 - Weitere Einnahmen");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 460, "- Kundenbestellungen");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 440, "- Druckkostenzuschüsse");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 420, "- Vergütungen VG Wort");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 400, "- Margenabrechnungen BoD");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 380, "- Sonstige Einnahmen");
-            Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 350, "Teil 3- Ausgaben");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 325, "- Portokosten");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 305, "- Büromaterial");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 285, "- Buchbestellungen");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 265, "- Honorarabrechnung");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 245, "- Kontoführung");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 225, "- Telefonkosten");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 205, "- Mieten für Büro- und Lagerräume");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 185, "- Bucherstellung");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 165, "- Fahrtkosten");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 145, "- Sonstiges");
+            AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
+            AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 750, "Umsatz im Zeitraum " + strVon + " - " + strBis);
+            AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 600, "Teil 1 - Einnahmen aus Buchbestellungen");
+            AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 485, "Teil 2 - Weitere Einnahmen");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 460, "- Kundenbestellungen");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 440, "- Druckkostenzuschüsse");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 420, "- Vergütungen VG Wort");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 400, "- Margenabrechnungen BoD");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 380, "- Sonstige Einnahmen");
+            AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 350, "Teil 3- Ausgaben");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 325, "- Portokosten");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 305, "- Büromaterial");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 285, "- Buchbestellungen");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 265, "- Honorarabrechnung");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 245, "- Kontoführung");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 225, "- Telefonkosten");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 205, "- Mieten für Büro- und Lagerräume");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 185, "- Bucherstellung");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 165, "- Fahrtkosten");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 145, "- Sonstiges");
 
             cos.close();
             page = new PDPage(A4);
@@ -818,15 +958,15 @@ public class berUmsatz {
             Connection conn = null;
 
             try { // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Umsatz", "ClassNotFoundException: Treiber nicht gefunden: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht Umsatz", "ClassNotFoundException: Treiber nicht gefunden: ", exept.getMessage());
             } // try Datenbank-Treiber laden
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Umsatz", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht Umsatz", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
             } // try Verbindung zur Datenbank über die JDBC-Brücke
 
             final Connection conn2 = conn;
@@ -837,14 +977,14 @@ public class berUmsatz {
                     Integer zeile = 1;
                     Integer seite = 1;
 
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Einnahmen aus Buchbestellungen");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 220, 740, "Kunde");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 550, 740, "Bemerkung");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Einnahmen aus Buchbestellungen");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 220, 740, "Kunde");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 550, 740, "Bemerkung");
 
                     Linie(cos, 1, 56, 735, 539, 735);
 
@@ -926,15 +1066,15 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Einnahmen aus Buchbestellungen");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Einnahmen aus Buchbestellungen");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
 
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 220, 740, "Kunde");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 550, 740, "Bemerkung");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 220, 740, "Kunde");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 550, 740, "Bemerkung");
 
                             Linie(cos, 1, 56, 735, 539, 735);
 
@@ -992,18 +1132,18 @@ public class berUmsatz {
                         // Gesamtsumme berechnen
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("BESTELLUNG_DATUM")));
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 130, 720 - 15 * (zeile - 1), resultBestellung.getString("BESTELLUNG_RECHNR"));
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 220, 720 - 15 * (zeile - 1), strKunde);
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("BESTELLUNG_DATUM")));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 130, 720 - 15 * (zeile - 1), resultBestellung.getString("BESTELLUNG_RECHNR"));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 220, 720 - 15 * (zeile - 1), strKunde);
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("BESTELLUNG_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("BESTELLUNG_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("BESTELLUNG_BEZAHLT")));
                         }
 
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 550, 720 - 15 * (zeile - 1), Bemerkung);
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 550, 720 - 15 * (zeile - 1), Bemerkung);
 
                         zeile = zeile + 1;
                     } // while bestellungen
@@ -1011,8 +1151,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
-                    AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
+                    AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     einBuch = Gesamtsumme;
 
                     // close the content stream for page 
@@ -1028,12 +1168,12 @@ public class berUmsatz {
                     Gesamtsumme = 0D;
                     einKunde = 0D;
 
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kundenbestellungen BoD");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kundenbestellungen BoD");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
                     Linie(cos, 1, 56, 735, 539, 735);
 
@@ -1061,12 +1201,12 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Margenabrechungen BoD");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Margenabrechungen BoD");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
                             Linie(cos, 1, 56, 735, 539, 735);
 
@@ -1075,14 +1215,14 @@ public class berUmsatz {
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
                         einKunde = Gesamtzeile;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 130, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_RECHNNR"));
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 130, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_RECHNNR"));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("EINNAHMEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -1092,8 +1232,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     einKunde = Gesamtsumme;
 
                     cos.close();
@@ -1107,12 +1247,12 @@ public class berUmsatz {
                     seite = 1;
                     Gesamtsumme = 0D;
 
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Margenabrechungen BoD");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Margenabrechungen BoD");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
                     Linie(cos, 1, 56, 735, 539, 735);
 
@@ -1140,12 +1280,12 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Margenabrechungen BoD");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Margenabrechungen BoD");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
                             Linie(cos, 1, 56, 735, 539, 735);
 
@@ -1153,14 +1293,14 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 130, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_RECHNNR"));
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 130, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_RECHNNR"));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("EINNAHMEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -1170,8 +1310,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     einMarge = Gesamtsumme;
 
                     cos.close();
@@ -1185,13 +1325,13 @@ public class berUmsatz {
                     seite = 1;
                     Gesamtsumme = 0D;
 
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Druckkostenzuschüsse");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 220, 740, "Autor");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Druckkostenzuschüsse");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 220, 740, "Autor");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
                     Linie(cos, 1, 56, 735, 539, 735);
 
@@ -1219,13 +1359,13 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Druckkostenzuschüsse");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 220, 740, "Autor");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Druckkostenzuschüsse");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 220, 740, "Autor");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
                             Linie(cos, 1, 56, 735, 539, 735);
 
@@ -1233,15 +1373,15 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 130, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_RECHNNR"));
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 220, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_LIEFERANT"));
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 130, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_RECHNNR"));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 220, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_LIEFERANT"));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("EINNAHMEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -1251,8 +1391,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     einDruck = Gesamtsumme;
 
                     cos.close();
@@ -1266,11 +1406,11 @@ public class berUmsatz {
                     seite = 1;
                     Gesamtsumme = 0D;
 
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Auszahlungen VG-Wort");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Auszahlungen VG-Wort");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
                     Linie(cos, 1, 56, 735, 539, 735);
 
@@ -1298,11 +1438,11 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Auszahlungen VG-Wort");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Auszahlungen VG-Wort");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
                             Linie(cos, 1, 56, 735, 539, 735);
 
@@ -1310,10 +1450,10 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")));
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BEZAHLT")));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BEZAHLT")));
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         zeile = zeile + 1;
@@ -1322,8 +1462,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     einVGW = Gesamtsumme;
 
                     cos.close();
@@ -1337,13 +1477,13 @@ public class berUmsatz {
                     seite = 1;
                     Gesamtsumme = 0D;
 
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - sonstige Einnahmen");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 220, 740, "Lieferant");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - sonstige Einnahmen");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 220, 740, "Lieferant");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
                     Linie(cos, 1, 56, 735, 539, 735);
 
@@ -1371,13 +1511,13 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - sonstige Einnahmen");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 220, 740, "Lieferant");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
-                            Ausgabe(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - sonstige Einnahmen");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 740, "Datum");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 130, 740, "RechnungsNr");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 220, 740, "Lieferant");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 400, 740, "Einnahmen");
+                            AusgabeLB(cos, fontBold, 11, Color.BLACK, 480, 740, "Bezahlt");
 
                             Linie(cos, 1, 56, 735, 539, 735);
 
@@ -1385,15 +1525,15 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 130, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_RECHNNR"));
-                        Ausgabe(cos, fontPlain, 11, Color.BLACK, 220, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_LIEFERANT"));
-                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 130, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_RECHNNR"));
+                        AusgabeLB(cos, fontPlain, 11, Color.BLACK, 220, 720 - 15 * (zeile - 1), resultBestellung.getString("EINNAHMEN_LIEFERANT"));
+                        AusgabeDB(cos, fontPlain, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("EINNAHMEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 11, Color.BLACK, 480, 720 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("EINNAHMEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -1402,8 +1542,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 720 - 15 * (zeile - 1), 539, 720 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
-                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 56, 720 - 15 * (zeile - 1), "Gesamtsumme der Einnahmen : ");
+                    AusgabeDB(cos, fontBold, 11, Color.BLACK, 440, 720 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     einSonst = Gesamtsumme;
 
                     // close the content stream for page 
@@ -1414,33 +1554,33 @@ public class berUmsatz {
                     document.addPage(page);
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 750, "Einnahmen im Zeitraum " + strVon + " - " + strBis);
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 600, "Einnahmen aus Buchbestellungen");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 600, Modulhelferlein.df.format(Modulhelferlein.round2dec(einBuch)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 600, "Euro");
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 485, "Weitere Einnahmen");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 485, Modulhelferlein.df.format(Modulhelferlein.round2dec(einKunde + einDruck + einVGW + einMarge + einSonst)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 485, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 460, "- Kundenbestellungen");
-                    AusgabeDB(cos, fontBold, 14, Color.BLACK, 440, 460, Modulhelferlein.df.format(Modulhelferlein.round2dec(einKunde)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 460, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 440, "- Druckkostenzuschüsse");
-                    AusgabeDB(cos, fontBold, 14, Color.BLACK, 440, 440, Modulhelferlein.df.format(Modulhelferlein.round2dec(einDruck)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 440, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 420, "- Vergütungen VG Wort");
-                    AusgabeDB(cos, fontBold, 14, Color.BLACK, 440, 420, Modulhelferlein.df.format(Modulhelferlein.round2dec(einVGW)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 420, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 400, "- Margenabrechnungen BoD");
-                    AusgabeDB(cos, fontBold, 14, Color.BLACK, 440, 400, Modulhelferlein.df.format(Modulhelferlein.round2dec(einMarge)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 400, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 120, 380, "- Sonstige Einnahmen");
-                    AusgabeDB(cos, fontBold, 14, Color.BLACK, 440, 380, Modulhelferlein.df.format(Modulhelferlein.round2dec(einSonst)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 380, "Euro");
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 750, "Einnahmen im Zeitraum " + strVon + " - " + strBis);
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 600, "Einnahmen aus Buchbestellungen");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 600, ModulHelferlein.df.format(ModulHelferlein.round2dec(einBuch)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 600, "Euro");
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 485, "Weitere Einnahmen");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 485, ModulHelferlein.df.format(ModulHelferlein.round2dec(einKunde + einDruck + einVGW + einMarge + einSonst)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 485, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 460, "- Kundenbestellungen");
+                    AusgabeDB(cos, fontBold, 14, Color.BLACK, 440, 460, ModulHelferlein.df.format(ModulHelferlein.round2dec(einKunde)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 460, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 440, "- Druckkostenzuschüsse");
+                    AusgabeDB(cos, fontBold, 14, Color.BLACK, 440, 440, ModulHelferlein.df.format(ModulHelferlein.round2dec(einDruck)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 440, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 420, "- Vergütungen VG Wort");
+                    AusgabeDB(cos, fontBold, 14, Color.BLACK, 440, 420, ModulHelferlein.df.format(ModulHelferlein.round2dec(einVGW)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 420, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 400, "- Margenabrechnungen BoD");
+                    AusgabeDB(cos, fontBold, 14, Color.BLACK, 440, 400, ModulHelferlein.df.format(ModulHelferlein.round2dec(einMarge)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 400, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 120, 380, "- Sonstige Einnahmen");
+                    AusgabeDB(cos, fontBold, 14, Color.BLACK, 440, 380, ModulHelferlein.df.format(ModulHelferlein.round2dec(einSonst)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 380, "Euro");
 
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 300, "Gesamtsumme der Einnahmen : ");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 300, Modulhelferlein.df.format(Modulhelferlein.round2dec(einKunde + einBuch + einDruck + einVGW + einMarge + einSonst)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 300, "Euro");
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 300, "Gesamtsumme der Einnahmen : ");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 300, ModulHelferlein.df.format(ModulHelferlein.round2dec(einKunde + einBuch + einDruck + einVGW + einMarge + einSonst)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 300, "Euro");
 
                     // close the content stream for page 
                     cos.close();
@@ -1450,18 +1590,18 @@ public class berUmsatz {
                     document.addPage(page);
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 750, "Ausgaben im Zeitraum " + strVon + " - " + strBis);
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 600, "- Porto-Kosten");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 580, "- Büromaterial");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 560, "- Buchbestellungen bei BoD");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 540, "- Honorarabrechnung");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 520, "- Kontoführung");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 500, "- Telefonkosten");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 480, "- Büro- und Lagerräume inkl. Nebenkosten");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 460, "- Bucherstellung");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 440, "- Kfz-/Fahrtkosten");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 420, "- Sonstige");
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 750, "Ausgaben im Zeitraum " + strVon + " - " + strBis);
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 600, "- Porto-Kosten");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 580, "- Büromaterial");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 560, "- Buchbestellungen bei BoD");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 540, "- Honorarabrechnung");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 520, "- Kontoführung");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 500, "- Telefonkosten");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 480, "- Büro- und Lagerräume inkl. Nebenkosten");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 460, "- Bucherstellung");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 440, "- Kfz-/Fahrtkosten");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 420, "- Sonstige");
 
                     // close the content stream for page 
                     cos.close();
@@ -1476,13 +1616,13 @@ public class berUmsatz {
                     seite = 1;
                     Gesamtsumme = 0D;
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Portokosten");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Portokosten");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                     Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1510,13 +1650,13 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Portokosten");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Portokosten");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                             Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1524,15 +1664,15 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 220, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_LIEFERANT"));
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 220, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_LIEFERANT"));
+                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -1541,8 +1681,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Porto: ");
-                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Porto: ");
+                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     ausPorto = Gesamtsumme;
 
                     // close the content stream for page 
@@ -1558,14 +1698,14 @@ public class berUmsatz {
 
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Büromaterial");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 220, 730, "Lieferant");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Büromaterial");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 220, 730, "Lieferant");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                     Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1595,14 +1735,14 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Büromaterial");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 220, 730, "Lieferant");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Büromaterial");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 220, 730, "Lieferant");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                             Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1610,15 +1750,15 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 220, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_LIEFERANT"));
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 220, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_LIEFERANT"));
+                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -1627,8 +1767,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Büromaterial: ");
-                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Büromaterial: ");
+                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     ausMat = Gesamtsumme;
 
                     // close the content stream for page 
@@ -1644,14 +1784,14 @@ public class berUmsatz {
 
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Buchbestellungen bei BoD");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Buchbestellungen bei BoD");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                     Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1681,14 +1821,14 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Buchbestellungen bei BoD");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Buchbestellungen bei BoD");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                             Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1696,15 +1836,15 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 220, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 220, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
+                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -1713,8 +1853,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Buchbestellungen bei BoD: ");
-                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Buchbestellungen bei BoD: ");
+                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     ausBest = Gesamtsumme;
 
                     // close the content stream for page 
@@ -1730,13 +1870,13 @@ public class berUmsatz {
 
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Honorarabrechnung");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "Autor");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Honorarabrechnung");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "Autor");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                     Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1766,13 +1906,13 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Honorarabrechnung");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "Autor");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Honorarabrechnung");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "Autor");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                             Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1780,14 +1920,14 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_LIEFERANT"));
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_LIEFERANT"));
+                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -1796,8 +1936,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Honorarabrechnung: ");
-                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Honorarabrechnung: ");
+                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     ausHon = Gesamtsumme;
 
                     // close the content stream for page 
@@ -1813,13 +1953,13 @@ public class berUmsatz {
 
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kontoführung");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "Kontoauszug Nr");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kontoführung");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "Kontoauszug Nr");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                     Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1849,13 +1989,13 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kontoführung");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "Kontoauszug Nr");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kontoführung");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "Kontoauszug Nr");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                             Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1863,14 +2003,14 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
+                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -1879,7 +2019,7 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Kontoführung: ");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Kontoführung: ");
                     ausKonto = Gesamtsumme;
 
                     // close the content stream for page 
@@ -1895,13 +2035,13 @@ public class berUmsatz {
 
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Telefonkosten");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Telefonkosten");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                     Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1931,13 +2071,13 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Telefonkosten");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Telefonkosten");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                             Linie(cos, 1, 56, 725, 539, 725);
 
@@ -1945,14 +2085,14 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
+                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -1961,8 +2101,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Telefonkosten: ");
-                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Telefonkosten: ");
+                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     ausTel = Gesamtsumme;
 
                     // close the content stream for page 
@@ -1978,13 +2118,13 @@ public class berUmsatz {
 
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Büro- und Lagerräume inkl. Nebenkosten");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Büro- und Lagerräume inkl. Nebenkosten");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                     Linie(cos, 1, 56, 725, 539, 725);
 
@@ -2014,13 +2154,13 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Büro und Lagerräume inkl. Nebenkosten");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Büro und Lagerräume inkl. Nebenkosten");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                             Linie(cos, 1, 56, 725, 539, 725);
 
@@ -2028,14 +2168,14 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
+                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -2044,8 +2184,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Büro- und Lagerräume inkl. Nebenkosten: ");
-                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Büro- und Lagerräume inkl. Nebenkosten: ");
+                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     ausBuero = Gesamtsumme;
 
                     // close the content stream for page 
@@ -2061,14 +2201,14 @@ public class berUmsatz {
 
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kosten für Bucherstellung");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kosten für Bucherstellung");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                     Linie(cos, 1, 56, 725, 539, 725);
 
@@ -2098,14 +2238,14 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kosten für Bucherstellung");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kosten für Bucherstellung");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                             Linie(cos, 1, 56, 725, 539, 725);
 
@@ -2113,15 +2253,15 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 220, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 220, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
+                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -2130,8 +2270,8 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Bucherstellung: ");
-                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Bucherstellung: ");
+                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
                     ausErst = Gesamtsumme;
 
                     // close the content stream for page 
@@ -2147,13 +2287,13 @@ public class berUmsatz {
 
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - sonstige Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - sonstige Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                     Linie(cos, 1, 56, 725, 539, 725);
 
@@ -2183,13 +2323,13 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kfz-/Fahrtkosten");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Kfz-/Fahrtkosten");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "Beschreibung");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                             Linie(cos, 1, 56, 725, 539, 725);
 
@@ -2197,14 +2337,14 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
+                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -2213,7 +2353,7 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Kfz-/Fahrtkosten: ");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für Kfz-/Fahrtkosten: ");
                     ausFahrt = Gesamtsumme;
 
                     // close the content stream for page 
@@ -2229,14 +2369,14 @@ public class berUmsatz {
 
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - sonstige Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - sonstige Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                     Linie(cos, 1, 56, 725, 539, 725);
 
@@ -2266,14 +2406,14 @@ public class berUmsatz {
 
                             zeile = 1;
                             seite = seite + 1;
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - sonstige Ausgaben");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - sonstige Ausgaben");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Ausgaben im Zeitraum " + strVon + " - " + strBis + ", Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 770, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 730, "Datum");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 130, 730, "RechnungsNr");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 220, 730, "Beschreibung");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 400, 730, "Ausgaben");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 480, 730, "Bezahlt");
 
                             Linie(cos, 1, 56, 725, 539, 725);
 
@@ -2281,15 +2421,15 @@ public class berUmsatz {
 
                         Gesamtzeile = resultBestellung.getFloat("AUSGABEN_KOSTEN") * 1.0;
 
-                        // Ausgabe RechNr, Kunde, Betrag    
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 220, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        // AusgabeLB RechNr, Kunde, Betrag    
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_RECHDATUM")));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 130, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_RECHNNR"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 220, 710 - 15 * (zeile - 1), resultBestellung.getString("AUSGABEN_BESCHREIBUNG"));
+                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 440, 710 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
                         if (resultBestellung.getString("AUSGABEN_BEZAHLT").equals("1970-01-01")) {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), "----------");
                         } else {
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 480, 710 - 15 * (zeile - 1), SQLDate2Normal(resultBestellung.getString("AUSGABEN_BEZAHLT")));
                         }
 
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
@@ -2298,7 +2438,7 @@ public class berUmsatz {
                     Linie(cos, 1, 56, 710 - 15 * (zeile - 1), 539, 710 - 15 * (zeile - 1));
 
                     zeile = zeile + 1;
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für sonstige Ausgaben: ");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 710 - 15 * (zeile - 1), "Gesamtsumme der Ausgaben für sonstige Ausgaben: ");
                     ausSonst = Gesamtsumme;
 
                     // close the content stream for page 
@@ -2309,42 +2449,42 @@ public class berUmsatz {
                     document.addPage(page);
                     cos = new PDPageContentStream(document, page);
 
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 750, "Ausgaben im Zeitraum " + strVon + " - " + strBis);
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 580, "- Porto-Kosten");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 580, Modulhelferlein.df.format(Modulhelferlein.round2dec(ausPorto)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 580, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 560, "- Büromaterial");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 560, Modulhelferlein.df.format(Modulhelferlein.round2dec(ausMat)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 560, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 540, "- Buchbestellungen bei BoD");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 540, Modulhelferlein.df.format(Modulhelferlein.round2dec(ausBest)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 540, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 520, "- Honorarabrechnung");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 520, Modulhelferlein.df.format(Modulhelferlein.round2dec(ausHon)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 520, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 500, "- Kontoführung");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 500, Modulhelferlein.df.format(Modulhelferlein.round2dec(ausKonto)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 500, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 480, "- Telefonkosten");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 480, Modulhelferlein.df.format(Modulhelferlein.round2dec(ausTel)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 480, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 460, "- Büro- und Lagerräume inkl. Nebenkosten");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 460, Modulhelferlein.df.format(Modulhelferlein.round2dec(ausBuero)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 460, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 440, "- Bucherstellung");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 440, Modulhelferlein.df.format(Modulhelferlein.round2dec(ausErst)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 440, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 420, "- Kfz-/Fahrtkosten");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 420, Modulhelferlein.df.format(Modulhelferlein.round2dec(ausFahrt)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 420, "Euro");
-                    Ausgabe(cos, fontBold, 14, Color.BLACK, 100, 400, "- Sonstige");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 400, Modulhelferlein.df.format(Modulhelferlein.round2dec(ausSonst)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 400, "Euro");
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 770, "Carola Hartmann Miles-Verlag");
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 750, "Ausgaben im Zeitraum " + strVon + " - " + strBis);
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 580, "- Porto-Kosten");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 580, ModulHelferlein.df.format(ModulHelferlein.round2dec(ausPorto)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 580, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 560, "- Büromaterial");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 560, ModulHelferlein.df.format(ModulHelferlein.round2dec(ausMat)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 560, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 540, "- Buchbestellungen bei BoD");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 540, ModulHelferlein.df.format(ModulHelferlein.round2dec(ausBest)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 540, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 520, "- Honorarabrechnung");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 520, ModulHelferlein.df.format(ModulHelferlein.round2dec(ausHon)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 520, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 500, "- Kontoführung");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 500, ModulHelferlein.df.format(ModulHelferlein.round2dec(ausKonto)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 500, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 480, "- Telefonkosten");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 480, ModulHelferlein.df.format(ModulHelferlein.round2dec(ausTel)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 480, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 460, "- Büro- und Lagerräume inkl. Nebenkosten");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 460, ModulHelferlein.df.format(ModulHelferlein.round2dec(ausBuero)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 460, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 440, "- Bucherstellung");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 440, ModulHelferlein.df.format(ModulHelferlein.round2dec(ausErst)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 440, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 420, "- Kfz-/Fahrtkosten");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 420, ModulHelferlein.df.format(ModulHelferlein.round2dec(ausFahrt)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 420, "Euro");
+                    AusgabeLB(cos, fontBold, 14, Color.BLACK, 100, 400, "- Sonstige");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 400, ModulHelferlein.df.format(ModulHelferlein.round2dec(ausSonst)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 400, "Euro");
 
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 56, 300, "Gesamtsumme der Ausgaben : ");
-                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 300, Modulhelferlein.df.format(Modulhelferlein.round2dec(ausPorto + ausMat + ausBest + ausPflicht + ausRez + ausHon + ausKonto + ausTel + ausBuero + ausErst + ausFahrt + ausSonst)));
-                    Ausgabe(cos, fontBold, 16, Color.BLACK, 500, 300, "Euro");
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 56, 300, "Gesamtsumme der Ausgaben : ");
+                    AusgabeDB(cos, fontBold, 16, Color.BLACK, 440, 300, ModulHelferlein.df.format(ModulHelferlein.round2dec(ausPorto + ausMat + ausBest + ausPflicht + ausRez + ausHon + ausKonto + ausTel + ausBuero + ausErst + ausFahrt + ausSonst)));
+                    AusgabeLB(cos, fontBold, 16, Color.BLACK, 500, 300, "Euro");
 
                     // close the content stream for page 
                     cos.close();
@@ -2354,12 +2494,12 @@ public class berUmsatz {
 
                     document.close();
 
-                    Modulhelferlein.Infomeldung(
+                    ModulHelferlein.Infomeldung(
                             "Liste der Umsätze ist als PDF gespeichert!");
                     try {
                         Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung("Exception: ", exept.getMessage());
+                        ModulHelferlein.Fehlermeldung("Exception: ", exept.getMessage());
                     } // try PDF anzeigen
 
                     if (SQLBuch != null) {
@@ -2381,11 +2521,11 @@ public class berUmsatz {
                         resultBuch.close();
                     }
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("Bericht Umsätze: SQL-Exception: SQL-Anfrage nicht moeglich: ", exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("Bericht Umsätze: SQL-Exception: SQL-Anfrage nicht moeglich: ", exept.getMessage());
                 } // try 
             }
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("Bericht Umsätze: IO-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bericht Umsätze: IO-Exception: ", e.getMessage());
         } // try
 
     } // void
