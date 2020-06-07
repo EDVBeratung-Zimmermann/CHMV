@@ -221,11 +221,11 @@ public class _DlgUebersichtUmsaetze extends javax.swing.JDialog {
         java.util.Date bisDate = jDateChooserBis.getDate();
 
         if (jRadioButtonPDF.isSelected()) { // Format PDF
-            berUmsatz.berUmsatzPDF(rbAlle.isSelected(), Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berUmsatz.berUmsatzPDF(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         } else if (jRadioButtonXLS.isSelected()) { // Format XLSX
-            berUmsatz.berUmsatzXLS(rbAlle.isSelected(), Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berUmsatz.berUmsatzXLS(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         } else { // Format DOCX
-            berUmsatz.berUmsatzDOC(rbAlle.isSelected(), Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berUmsatz.berUmsatzDOC(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         }
         this.dispose();
     }//GEN-LAST:event_jButtonDruckenActionPerformed
