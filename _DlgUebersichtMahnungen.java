@@ -222,11 +222,11 @@ public class _DlgUebersichtMahnungen extends javax.swing.JDialog {
         java.util.Date bisDate = jDateChooserBis.getDate();
 
         if (jRadioButtonPDF.isSelected()) { // Format PDF
-            berMahnungen.berichtPDF(Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berMahnungen.berichtPDF(ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         } else if (jRadioButtonXLS.isSelected()) { // Format XLSX
-            berMahnungen.berichtXLS(Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berMahnungen.berichtXLS(ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         } else { // Format DOCX
-            berMahnungen.berichtDOC(Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berMahnungen.berichtDOC(ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         }
         this.dispose();
     }//GEN-LAST:event_jButtonDruckenActionPerformed
