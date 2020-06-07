@@ -26,7 +26,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import com.toedter.calendar.*;
-import net.miginfocom.swing.*;
 
 /**
  *
@@ -223,11 +222,11 @@ public class _DlgUebersichtAusgaben extends javax.swing.JDialog {
         java.util.Date bisDate = jDateChooserBis.getDate();
 
         if (jRadioButtonPDF.isSelected()) { // Format PDF
-            berAusgaben.berichtPDF(rbAlle.isSelected(), Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berAusgaben.berichtPDF(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         } else if (jRadioButtonXLS.isSelected()) { // Format XLSX
-            berAusgaben.berichtXLS(rbAlle.isSelected(), Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berAusgaben.berichtXLS(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         } else { // Format DOCX
-            berAusgaben.berichtDOC(rbAlle.isSelected(), Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berAusgaben.berichtDOC(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         }
         this.dispose();
     }//GEN-LAST:event_jButtonDruckenActionPerformed
