@@ -26,6 +26,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import com.toedter.calendar.*;
+import java.text.ParseException;
 
 /**
  *
@@ -223,8 +224,12 @@ public class _DlgUebersichtAusgaben extends javax.swing.JDialog {
 
         if (jRadioButtonPDF.isSelected()) { // Format PDF
             berAusgaben.berichtPDF(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
-        } else if (jRadioButtonXLS.isSelected()) { // Format XLSX
+        } else if (jRadioButtonXLS.isSelected()) { try {
+            // Format XLSX
             berAusgaben.berichtXLS(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            } catch (ParseException ex) {
+                ModulHelferlein.Fehlermeldung("Ausgabenübersicht drucken", "Parse-Exception", ex.getMessage());
+            }
         } else { // Format DOCX
             berAusgaben.berichtDOC(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         }
