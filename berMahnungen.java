@@ -32,15 +32,14 @@ import java.sql.Statement;
 import java.util.Calendar;
 import java.awt.Color;
 
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.AusgabeDB;
+import static milesVerlagMain.ModulHelferlein.AusgabeDB;
 
 import jxl.Workbook;
 import static jxl.format.Alignment.LEFT;
 import static jxl.format.Alignment.RIGHT;
 import jxl.write.*;
-import static milesVerlagMain.Modulhelferlein.Linie;
-import static milesVerlagMain.Modulhelferlein.SQLDate2Normal;
+import static milesVerlagMain.ModulHelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.SQLDate2Normal;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
@@ -49,6 +48,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
 
 /**
  * Klasse zur Erzeugung einer Liste von offenen Einnahmen
@@ -98,9 +98,9 @@ public class berMahnungen {
         Statement SQLBestellung = null;
         Statement SQLBestellungDetails = null;
 
-        outputFileName = Modulhelferlein.pathBerichte + "\\Mahnungen\\"
+        outputFileName = ModulHelferlein.pathBerichte + "\\Mahnungen\\"
                 + "Liste-Mahnungen-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".xls";
 
         try { // Erstelle Workbook
@@ -123,7 +123,7 @@ public class berMahnungen {
 
                 // Aufbau des Tabellenblattes sheet_Adressen
                 Label label = new Label(0, 0, "Übersicht der offenen Rechnungen/Einnahmen im Zeitraum " + strVon + " - " + strBis, arial10formatBold);
-                label = new Label(0, 1, "Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"), arial10formatBold);
+                label = new Label(0, 1, "Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"), arial10formatBold);
 
                 label = new Label(0, 3, "RechNr", arial10formatBold);
                 sheet_Mahnungen.addCell(label);
@@ -135,15 +135,15 @@ public class berMahnungen {
                 Connection conn = null;
 
                 try { // Datenbank-Treiber laden
-                    Class.forName(Modulhelferlein.dbDriver);
+                    Class.forName(ModulHelferlein.dbDriver);
                 } catch (ClassNotFoundException exept) {
-                    Modulhelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Datenbankanbindung: ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Datenbankanbindung: ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
                 } // try Datenbank-Treiber laden
 
                 try { // Verbindung zur Datenbank über die JDBC-Brücke
-                    conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                    conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Datenbankanbindung: SQL-Exception: Verbindung nicht moeglich: " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Datenbankanbindung: SQL-Exception: Verbindung nicht moeglich: " + exept.getMessage());
                 } // try Verbindung zur Datenbank über die JDBC-Brücke
 
                 final Connection conn2 = conn;
@@ -301,10 +301,10 @@ public class berMahnungen {
                             sheet_Mahnungen.addCell(label);
                             label = new Label(2, zeile, strKunde);
                             sheet_Mahnungen.addCell(label);
-                            //label = new Label(3, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)), arial10formatR);
+                            //label = new Label(3, zeile, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)), arial10formatR);
                             //sheet_Mahnungen.addCell(label);
                             // Number number = new Number(3, 4, 3.1459);
-                            jxl.write.Number number = new jxl.write.Number(3, zeile, Modulhelferlein.round2dec(Gesamtzeile), arial10formatR);
+                            jxl.write.Number number = new jxl.write.Number(3, zeile, ModulHelferlein.round2dec(Gesamtzeile), arial10formatR);
                             sheet_Mahnungen.addCell(number);
 
                             if (resultBestellung.getString("BESTELLUNG_BEZAHLT").equals("1970-01-01")) {
@@ -325,9 +325,9 @@ public class berMahnungen {
 
                         label = new Label(0, zeile, "Gesamtsumme der offenen Einnahmen aus Buchbestellungen:", arial10formatBold);
                         sheet_Mahnungen.addCell(label);
-                        //label = new Label(6, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)), arial10formatBold);
+                        //label = new Label(6, zeile, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)), arial10formatBold);
                         //sheet_Mahnungen.addCell(label);
-                        jxl.write.Number number = new jxl.write.Number(6, zeile, Modulhelferlein.round2dec(Gesamtsumme1), arial10formatBold);
+                        jxl.write.Number number = new jxl.write.Number(6, zeile, ModulHelferlein.round2dec(Gesamtsumme1), arial10formatBold);
                         sheet_Mahnungen.addCell(number);
 
                         zeile = zeile + 3;
@@ -370,9 +370,9 @@ public class berMahnungen {
                             sheet_Mahnungen.addCell(label);
                             label = new Label(2, zeile, resultBestellung.getString("EINNAHMEN_LIEFERANT"));
                             sheet_Mahnungen.addCell(label);
-                            //label = new Label(3, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(resultBestellung.getFloat("EINNAHMEN_KOSTEN"))), arial10formatR);
+                            //label = new Label(3, zeile, ModulHelferlein.df.format(ModulHelferlein.round2dec(resultBestellung.getFloat("EINNAHMEN_KOSTEN"))), arial10formatR);
                             //sheet_Mahnungen.addCell(label);
-                            number = new jxl.write.Number(3, zeile, Modulhelferlein.round2dec(resultBestellung.getFloat("EINNAHMEN_KOSTEN")), arial10formatR);
+                            number = new jxl.write.Number(3, zeile, ModulHelferlein.round2dec(resultBestellung.getFloat("EINNAHMEN_KOSTEN")), arial10formatR);
                             sheet_Mahnungen.addCell(number);
 
                             if (resultBestellung.getString("EINNAHMEN_BEZAHLT").equals("1970-01-01")) {
@@ -409,37 +409,37 @@ public class berMahnungen {
 
                         label = new Label(0, zeile, "Gesamtsumme der sonstigen offenen Einnahmen:", arial10formatBold);
                         sheet_Mahnungen.addCell(label);
-                        //label = new Label(6, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)), arial10formatBold);
+                        //label = new Label(6, zeile, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)), arial10formatBold);
                         //sheet_Mahnungen.addCell(label);
-                        number = new jxl.write.Number(6, zeile, Modulhelferlein.round2dec(Gesamtsumme2), arial10formatBold);
+                        number = new jxl.write.Number(6, zeile, ModulHelferlein.round2dec(Gesamtsumme2), arial10formatBold);
                         sheet_Mahnungen.addCell(number);
 
                         zeile = zeile + 3;
 
                         label = new Label(0, zeile, "Gesamtsumme aller offenen Einnahmen:", arial10formatBold);
                         sheet_Mahnungen.addCell(label);
-                        //label = new Label(6, zeile, Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)), arial10formatBold);
+                        //label = new Label(6, zeile, ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)), arial10formatBold);
                         //sheet_Mahnungen.addCell(label);
-                        number = new jxl.write.Number(6, zeile, Modulhelferlein.round2dec(Gesamtsumme1 + Gesamtsumme2), arial10formatBold);
+                        number = new jxl.write.Number(6, zeile, ModulHelferlein.round2dec(Gesamtsumme1 + Gesamtsumme2), arial10formatBold);
                         sheet_Mahnungen.addCell(number);
 
                         // Fertig - alles schließen
                         try {// workbook write
                             workbook.write();
                         } catch (IOException e) {
-                            Modulhelferlein.Fehlermeldung("XLS-Bericht Umsatz", "IO-Exception: ", e.getMessage());
+                            ModulHelferlein.Fehlermeldung("XLS-Bericht Umsatz", "IO-Exception: ", e.getMessage());
                         } // workbook write
 
                         try { // try workbook close
                             workbook.close();
                         } catch (IOException e) {
-                            Modulhelferlein.Fehlermeldung("XLS-Bericht Umsatz", "IO-Exception: ", e.getMessage());
+                            ModulHelferlein.Fehlermeldung("XLS-Bericht Umsatz", "IO-Exception: ", e.getMessage());
                         } // try workbook close
 
                         try { // try XLS anzeigen
                             Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                         } catch (IOException exept) {
-                            Modulhelferlein.Fehlermeldung("Bericht Umsatz", "Anzeige XLS-Export: Exception: ", exept.getMessage());
+                            ModulHelferlein.Fehlermeldung("Bericht Umsatz", "Anzeige XLS-Export: Exception: ", exept.getMessage());
                         } // try XLS anzeigen
 
                         if (SQLBuch != null) {
@@ -465,23 +465,23 @@ public class berMahnungen {
                         }
 
                     } catch (SQLException exept) {
-                        Modulhelferlein.Fehlermeldung("Bericht Umsätze: ", "XLS-Export: SQL-Exception: SQL-Anfrage nicht moeglich: ", exept.getMessage());
+                        ModulHelferlein.Fehlermeldung("Bericht Umsätze: ", "XLS-Export: SQL-Exception: SQL-Anfrage nicht moeglich: ", exept.getMessage());
 
                     } // try Datenbankabfrage
                 } // Datenbankverbindung steht
                 else {
-                    Modulhelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Datenbankanbindung besteht nicht");
+                    ModulHelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Datenbankanbindung besteht nicht");
                 } // keine Datenbankverbindung
 
             } catch (WriteException e) {
-                Modulhelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Write-Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("XLS-Bericht Mahnungen: Write-Exception: " + e.getMessage());
             } // try Tabellenblätter schreiben
 
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("XLS-Bericht Mahnungen: IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("XLS-Bericht Mahnungen: IO-Exception: " + e.getMessage());
         } // try Workbook create
 
-        Modulhelferlein.Infomeldung("Bericht Mahnungen ist als XLS gespeichert!");
+        ModulHelferlein.Infomeldung("Bericht Mahnungen ist als XLS gespeichert!");
 
     }
 
@@ -493,7 +493,7 @@ public class berMahnungen {
      * @param strBis Ende des Zeitraums
      */
     public static void berichtDOC(String strVon, String strBis) {
-        Modulhelferlein.Infomeldung("Diese Funktion ist noch nicht implementiert!");
+        ModulHelferlein.Infomeldung("Diese Funktion ist noch nicht implementiert!");
     }
 
     /**
@@ -523,9 +523,9 @@ public class berMahnungen {
         PDPageContentStream cos;
 
         String outputFileName;
-        outputFileName = Modulhelferlein.pathBerichte + "\\Mahnungen\\"
+        outputFileName = ModulHelferlein.pathBerichte + "\\Mahnungen\\"
                 + "Liste-Mahnungen-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".pdf";
 
         PDDocumentInformation docInfo = document.getDocumentInformation();
@@ -548,27 +548,27 @@ public class berMahnungen {
 
             String KundenName = "";
 
-            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "Übersicht der offenen Rechnungen/Einnahmen im Zeitraum " + strVon + " - " + strBis);
-            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 755, "Seite " + Integer.toString(seite));
-            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 735, "RechNr");
-            Ausgabe(cos, fontBold, 12, Color.BLACK, 200, 735, "Kunde");
-            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 735, "Betrag");
+            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "Übersicht der offenen Rechnungen/Einnahmen im Zeitraum " + strVon + " - " + strBis);
+            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 755, "Seite " + Integer.toString(seite));
+            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 735, "RechNr");
+            AusgabeLB(cos, fontBold, 12, Color.BLACK, 200, 735, "Kunde");
+            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 735, "Betrag");
 
             Linie(cos, 1, 56, 730, 539, 730);
 
             Connection conn = null;
 
             try { // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Mahnungen: ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht Mahnungen: ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
             } // try Datenbank-Treiber laden
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Mahnungen: SQL-Exception: Verbindung nicht moeglich: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht Mahnungen: SQL-Exception: Verbindung nicht moeglich: " + exept.getMessage());
             } // try Verbindung zur Datenbank über die JDBC-Brücke
 
             if (conn != null) {
@@ -608,12 +608,12 @@ public class berMahnungen {
                             zeile = 1;
                             seite = seite + 1;
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "Übersicht der offenen Rechnungen/Einnahmen im Zeitraum " + strVon + " - " + strBis);
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 755, "Seite " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 735, "RechNr");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 200, 735, "Kunde");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 735, "Betrag");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "Übersicht der offenen Rechnungen/Einnahmen im Zeitraum " + strVon + " - " + strBis);
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 755, "Seite " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 735, "RechNr");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 200, 735, "Kunde");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 735, "Betrag");
 
                             Linie(cos, 1, 56, 730, 539, 730);
                         } // if
@@ -654,11 +654,11 @@ public class berMahnungen {
                         // Gesamtsumme berechnen
                         Gesamtsumme = Gesamtsumme + Gesamtzeile;
 
-                        // Ausgabe RechNr, Kunde, Betrag
+                        // AusgabeLB RechNr, Kunde, Betrag
 //helferlein.Infomeldung("erzeuge ausgabe ");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 715 - 15 * (zeile - 1), resultBestellung.getString("BESTELLUNG_RECHNR"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 200, 715 - 15 * (zeile - 1), KundenName);
-                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 520, 715 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtzeile)));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 715 - 15 * (zeile - 1), resultBestellung.getString("BESTELLUNG_RECHNR"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 200, 715 - 15 * (zeile - 1), KundenName);
+                        AusgabeDB(cos, fontPlain, 12, Color.BLACK, 520, 715 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtzeile)));
 
                         zeile = zeile + 1;
                     } // while bestellungen
@@ -667,8 +667,8 @@ public class berMahnungen {
 
                     zeile = zeile + 1;
 
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 715 - 15 * (zeile - 1), "Gesamtsumme der Mahnungen : ");
-                    AusgabeDB(cos, fontPlain, 12, Color.BLACK, 520, 715 - 15 * (zeile - 1), Modulhelferlein.df.format(Modulhelferlein.round2dec(Gesamtsumme)));
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 715 - 15 * (zeile - 1), "Gesamtsumme der Mahnungen : ");
+                    AusgabeDB(cos, fontPlain, 12, Color.BLACK, 520, 715 - 15 * (zeile - 1), ModulHelferlein.df.format(ModulHelferlein.round2dec(Gesamtsumme)));
 
                     // close the content stream for page 
                     cos.close();
@@ -678,12 +678,12 @@ public class berMahnungen {
 
                     document.close();
 
-                    Modulhelferlein.Infomeldung(
+                    ModulHelferlein.Infomeldung(
                             "Liste der offenen Rechnungen/Einnahmen/Mahnungen ist als PDF gespeichert!");
                     try {
                         Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung("Bericht Mahnungen: Exception: ", exept.getMessage());
+                        ModulHelferlein.Fehlermeldung("Bericht Mahnungen: Exception: ", exept.getMessage());
                     } // try PDF anzeigen
 
                     if (resultKunde != null) {
@@ -707,12 +707,12 @@ public class berMahnungen {
                     }
 
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("Bericht Mahnungen: SQL-Exception: SQL-Anfrage nicht moeglich: " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("Bericht Mahnungen: SQL-Exception: SQL-Anfrage nicht moeglich: " + exept.getMessage());
                 } // try 
 
             } // if 
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         } // try
 
     } // void
