@@ -25,6 +25,7 @@ package milesVerlagMain;
 import java.awt.*;
 import javax.swing.*;
 import com.toedter.calendar.*;
+import java.text.ParseException;
 
 /**
  *
@@ -221,8 +222,12 @@ public class _DlgUebersichtEinnahmen extends javax.swing.JDialog {
 
         if (jRadioButtonPDF.isSelected()) { // Format PDF
             berEinnahmen.berichtPDF(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
-        } else if (jRadioButtonXLS.isSelected()) { // Format XLSX
+        } else if (jRadioButtonXLS.isSelected()) { try {
+            // Format XLSX
             berEinnahmen.berichtXLS(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            } catch (ParseException ex) {
+                ModulHelferlein.Fehlermeldung("Einnahmenübersicht drucken", "Parse-Exception", ex.getMessage());
+            }
         } else { // Format DOCX
             berEinnahmen.berichtDOC(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         }
