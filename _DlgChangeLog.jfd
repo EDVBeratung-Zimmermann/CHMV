@@ -139,6 +139,11 @@
             <void method="setProperty">
              <string>text</string>
              <string>Feature
+ * Umsatzsteueranpassung auf Grund Corona einpflegen
+     - Rechnung/Mahnung
+     - Umsatzübersicht Ausgaben
+
+Feature
  * Flyer erstellen
 
 Bug-Fix
