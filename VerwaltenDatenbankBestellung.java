@@ -92,7 +92,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     }
                 } catch (SQLException ex) {
                     //Logger.getLogger(VerwaltenDatenbankBestellung.class.getName()).log(Level.SEVERE, null, ex);
-                    Modulhelferlein.Fehlermeldung("Stornierung Rechnung","SQL-Exception",ex.getMessage());
+                    ModulHelferlein.Fehlermeldung("Stornierung Rechnung","SQL-Exception",ex.getMessage());
                 }
             } else {
                 field_storniert.setSelected(false);
@@ -254,16 +254,16 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("DB-Bestellung", "Treiber nicht gefunden: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("DB-Bestellung", "Treiber nicht gefunden: ", exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("DB-Bestellung", "Verbindung nicht moeglich: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("DB-Bestellung", "Verbindung nicht moeglich: ", exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank über die JDBC-Brücke
 
@@ -403,7 +403,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     field_Ueberweisung.setSelected(!resultB.getBoolean("BESTELLUNG_BEZAHLUNG"));
                     field_Bestellzeichen.setText(resultB.getString("BESTELLUNG_BESTNR"));
                     field_RechNr.setText(resultB.getString("BESTELLUNG_RECHNR"));
-                    field_RechDat.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
+                    field_RechDat.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
                     field_Zeile1.setText(resultB.getString("BESTELLUNG_ZEILE_1"));
                     field_Zeile2.setText(resultB.getString("BESTELLUNG_ZEILE_2"));
                     field_Zeile3.setText(resultB.getString("BESTELLUNG_ZEILE_3"));
@@ -447,8 +447,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                             field_Sprache.setSelected(true);
                             break;
                     }
-                    field_Bestelldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
-                    field_Bezahldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
+                    field_Bestelldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
+                    field_Bezahldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
                     if (resultB.getInt("BESTELLUNG_KUNDE") < 0) {
                         manuell.setSelected(true);
                         KDB.setSelected(false);
@@ -498,7 +498,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                                 Double ZPreis = resultBuch.getFloat("BUCH_PREIS") * 1D;
                                 ZPreis = ZPreis - ZPreis / 100 * resultBD.getFloat("BESTELLUNG_DETAIL_RABATT");
 
-                                ZPreis = Modulhelferlein.round2dec(ZPreis);
+                                ZPreis = ModulHelferlein.round2dec(ZPreis);
                                 Betrag7 = Betrag7 + resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
                             }
                         }
@@ -526,7 +526,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                                 break;
                         }
                         Rechnungsbetrag = Rechnungsbetrag + resultB.getFloat("BESTELLUNG_VERSAND");
-                        field_Betrag.setText(Modulhelferlein.str2dec(Rechnungsbetrag));
+                        field_Betrag.setText(ModulHelferlein.str2dec(Rechnungsbetrag));
 
                         resultBD.first();
                         countB = 1;
@@ -636,7 +636,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     cbBuch.setEditable(false);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("DB-Bestellung", "SQL-Exception: SQL-Anfrage nicht moeglich: ",
+                ModulHelferlein.Fehlermeldung("DB-Bestellung", "SQL-Exception: SQL-Anfrage nicht moeglich: ",
                         exept.getMessage());
                 // System.exit(1);
             } // try SQL-Anfragen an die Datenbank
@@ -1469,7 +1469,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             do {
             } while ((!gefunden) && resultB.next());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestellung: Weitersuchen", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestellung: Weitersuchen", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_WSuchenActionPerformed
 
@@ -1518,7 +1518,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_UstrID.setText(resultB.getString("BESTELLUNG_USTR_ID"));
             field_Link.setText(resultB.getString("BESTELLUNG_LINK"));
             field_Versand.setText(Float.toString(resultB.getFloat("BESTELLUNG_VERSAND")));
-            field_RechDat.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
+            field_RechDat.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
             switch (resultB.getInt("BESTELLUNG_LAND")) {
                 case 0:
                     field_Land.setSelected(false);
@@ -1551,8 +1551,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     field_Sprache.setSelected(true);
                     break;
             }
-            field_Bestelldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
-            field_Bezahldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
+            field_Bestelldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
+            field_Bezahldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
             field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
             field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
             if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
@@ -1610,7 +1610,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     Double ZPreis = resultBuch.getFloat("BUCH_PREIS") * 1D;
                     ZPreis = ZPreis - ZPreis / 100 * resultBD.getFloat("BESTELLUNG_DETAIL_RABATT");
 
-                    ZPreis = Modulhelferlein.round2dec(ZPreis);
+                    ZPreis = ModulHelferlein.round2dec(ZPreis);
                     Betrag7 = Betrag7 + resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
                 }
             }
@@ -1638,7 +1638,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     break;
             }
             Rechnungsbetrag = Rechnungsbetrag + resultB.getFloat("BESTELLUNG_VERSAND");
-            field_Betrag.setText(Modulhelferlein.str2dec(Rechnungsbetrag));
+            field_Betrag.setText(ModulHelferlein.str2dec(Rechnungsbetrag));
 
             resultBD.first();
             field_B_CountMax.setText(Integer.toString(countBMax));
@@ -1708,7 +1708,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             }
 			System.out.println("- Bestellung zum Anfang - " + field_RechNr.getText());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestellung: zum Anfang", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestellung: zum Anfang", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_AnfangActionPerformed
 
@@ -1731,9 +1731,9 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             resultB.updateInt("BESTELLUNG_TYP", 0);
             resultB.updateInt("BESTELLUNG_ID", ID);
             resultB.updateInt("BESTELLUNG_ZAHLUNGSZIEL", 14);
-            resultB.updateDate("BESTELLUNG_BEZAHLT", Modulhelferlein.Date2SQLDate(new Date(0)));
-            resultB.updateDate("BESTELLUNG_DATUM", Modulhelferlein.Date2SQLDate(CurDate));
-            resultB.updateDate("BESTELLUNG_RECHDAT", Modulhelferlein.Date2SQLDate(CurDate));
+            resultB.updateDate("BESTELLUNG_BEZAHLT", ModulHelferlein.Date2SQLDate(new Date(0)));
+            resultB.updateDate("BESTELLUNG_DATUM", ModulHelferlein.Date2SQLDate(CurDate));
+            resultB.updateDate("BESTELLUNG_RECHDAT", ModulHelferlein.Date2SQLDate(CurDate));
             resultB.updateInt("BESTELLUNG_KUNDE", -1);
             resultB.updateString("BESTELLUNG_BESTNR", "ohne");
             resultB.updateString("BESTELLUNG_ZEILE_1", "");
@@ -1761,7 +1761,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             while (BestNrString.length() < 3) {
                 BestNrString = "0" + BestNrString;
             }
-            resultB.updateString("BESTELLUNG_RECHNR", Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + "-" + BestNrString);
+            resultB.updateString("BESTELLUNG_RECHNR", ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + "-" + BestNrString);
             resultB.insertRow();
 
             resultBNr.updateInt("BESTELLNR_NUMMER", BestNr + 1);
@@ -1855,9 +1855,9 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             }
             field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
             field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
-            field_Bestelldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
-            field_Bezahldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
-            field_RechDat.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
+            field_Bestelldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
+            field_Bezahldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
+            field_RechDat.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
             manuell.setSelected(true);
 
             // Schalterzustände setzen Bestelldetails   
@@ -1884,7 +1884,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             cbBuch.setEditable(false);
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestellung: Einfügen", "SQL-Exception: Einfügen: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestellung: Einfügen", "SQL-Exception: Einfügen: ", exept.getMessage());
         }
     }//GEN-LAST:event_EinfuegenActionPerformed
 
@@ -1896,19 +1896,19 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
         try {
-            if (Modulhelferlein.checkNumberFormatFloat(field_Versand.getText()) < 0) {
-                Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Versandkosten", "es ist keine korrekte Zahl");
-            } else if ((Modulhelferlein.checkNumberFormatFloat(field_B_Rabatt.getText()) < 0) && (countB > 0)) {
-                Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Rabattes", "es ist keine korrekte Zahl");
-            } else if (Modulhelferlein.checkNumberFormatInt(field_Zahlungsziel.getText()) < 0) {
-                Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Tage", "es ist keine korrekte Ganzzahl");
+            if (ModulHelferlein.checkNumberFormatFloat(field_Versand.getText()) < 0) {
+                ModulHelferlein.Infomeldung("fehlerhafte Eingabe der Versandkosten", "es ist keine korrekte Zahl");
+            } else if ((ModulHelferlein.checkNumberFormatFloat(field_B_Rabatt.getText()) < 0) && (countB > 0)) {
+                ModulHelferlein.Infomeldung("fehlerhafte Eingabe des Rabattes", "es ist keine korrekte Zahl");
+            } else if (ModulHelferlein.checkNumberFormatInt(field_Zahlungsziel.getText()) < 0) {
+                ModulHelferlein.Infomeldung("fehlerhafte Eingabe der Tage", "es ist keine korrekte Ganzzahl");
             } else {
-                if ((Modulhelferlein.checkNumberFormatInt(field_B_Anzahl.getText()) < 0) && (countB > 0)) {
-                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Anzahl", "es ist keine korrekte Ganzzahl");
+                if ((ModulHelferlein.checkNumberFormatInt(field_B_Anzahl.getText()) < 0) && (countB > 0)) {
+                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe der Anzahl", "es ist keine korrekte Ganzzahl");
                 } else {
-                    resultB.updateDate("BESTELLUNG_BEZAHLT", Modulhelferlein.Date2SQLDate(field_Bezahldatum.getDate()));
-                    resultB.updateDate("BESTELLUNG_DATUM", Modulhelferlein.Date2SQLDate(field_Bestelldatum.getDate()));
-                    resultB.updateDate("BESTELLUNG_RECHDAT", Modulhelferlein.Date2SQLDate(field_RechDat.getDate()));
+                    resultB.updateDate("BESTELLUNG_BEZAHLT", ModulHelferlein.Date2SQLDate(field_Bezahldatum.getDate()));
+                    resultB.updateDate("BESTELLUNG_DATUM", ModulHelferlein.Date2SQLDate(field_Bestelldatum.getDate()));
+                    resultB.updateDate("BESTELLUNG_RECHDAT", ModulHelferlein.Date2SQLDate(field_RechDat.getDate()));
                     if (manuell.isSelected()) {
                         resultB.updateInt("BESTELLUNG_KUNDE", -1);
                     } else {
@@ -1981,7 +1981,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             }
 			System.out.println("- Bestellung update - " + field_RechNr.getText());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestellung: Update:", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestellung: Update:", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -2077,9 +2077,9 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                         field_Sprache.setSelected(true);
                         break;
                 }
-                field_Bestelldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
-                field_Bezahldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
-                field_RechDat.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
+                field_Bestelldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
+                field_Bezahldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
+                field_RechDat.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
                 field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
                 field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
                 if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
@@ -2154,12 +2154,12 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                         Double ZPreis = resultBuch.getFloat("BUCH_PREIS") * 1D;
                         ZPreis = ZPreis - ZPreis / 100 * resultBD.getFloat("BESTELLUNG_DETAIL_RABATT");
 
-                        ZPreis = Modulhelferlein.round2dec(ZPreis);
+                        ZPreis = ModulHelferlein.round2dec(ZPreis);
                         Rechnungsbetrag = Rechnungsbetrag + resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
                     }
                 }
                 Rechnungsbetrag = Rechnungsbetrag + resultB.getFloat("BESTELLUNG_VERSAND");
-                field_Betrag.setText(Modulhelferlein.str2dec(Rechnungsbetrag));
+                field_Betrag.setText(ModulHelferlein.str2dec(Rechnungsbetrag));
 
                 if (countBMax == 0) {
                     // Schalterzustände setzen
@@ -2229,7 +2229,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     BLoeschen.setEnabled(true);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Bestellung: Löschen", "SQL-Exception: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bestellung: Löschen", "SQL-Exception: ", exept.getMessage());
             }
         }
     }//GEN-LAST:event_LoeschenActionPerformed
@@ -2242,77 +2242,77 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 resultB.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
         }
         try {
             if (resultBD != null) {
                 resultBD.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
         }
         try {
             if (resultK != null) {
                 resultK.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
         }
         try {
             if (resultBNr != null) {
                 resultBNr.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
         }
         try {
             if (resultBuch != null) {
                 resultBuch.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
         }
         try {
             if (SQLAnfrageB != null) {
                 SQLAnfrageB.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
         }
         try {
             if (SQLAnfrageBD != null) {
                 SQLAnfrageBD.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
         }
         try {
             if (SQLAnfrageK != null) {
                 SQLAnfrageK.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
         }
         try {
             if (SQLAnfrageBNr != null) {
                 SQLAnfrageBNr.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
         }
         try {
             if (SQLAnfrageBuch != null) {
                 SQLAnfrageBuch.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
         }
         try {
             if (conn != null) {
                 conn.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestell-Dialog schließen", "SQL-Exception: ", e.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed
@@ -2383,7 +2383,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Link.setText(resultB.getString("BESTELLUNG_LINK"));
             field_UstrID.setText(resultB.getString("BESTELLUNG_USTR_ID"));
             field_Versand.setText(Float.toString(resultB.getFloat("BESTELLUNG_VERSAND")));
-            field_RechDat.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
+            field_RechDat.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
             switch (resultB.getInt("BESTELLUNG_LAND")) {
                 case 0:
                     field_Land.setSelected(false);
@@ -2416,8 +2416,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     field_Sprache.setSelected(true);
                     break;
             }
-            field_Bestelldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
-            field_Bezahldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
+            field_Bestelldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
+            field_Bezahldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
             field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
             field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
             if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
@@ -2462,7 +2462,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     Double ZPreis = resultBuch.getFloat("BUCH_PREIS") * 1D;
                     ZPreis = ZPreis - ZPreis / 100 * resultBD.getFloat("BESTELLUNG_DETAIL_RABATT");
 
-                    ZPreis = Modulhelferlein.round2dec(ZPreis);
+                    ZPreis = ModulHelferlein.round2dec(ZPreis);
                     Betrag7 = Betrag7 + resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
                 }
             }
@@ -2490,7 +2490,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     break;
             }
             Rechnungsbetrag = Rechnungsbetrag + resultB.getFloat("BESTELLUNG_VERSAND");
-            field_Betrag.setText(Modulhelferlein.str2dec(Rechnungsbetrag));
+            field_Betrag.setText(ModulHelferlein.str2dec(Rechnungsbetrag));
 
             resultBD.first();
             field_B_CountMax.setText(Integer.toString(countBMax));
@@ -2560,7 +2560,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             }
 			System.out.println("- Bestellung zurueck - " + field_RechNr.getText());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestellung: zum vorherigen", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestellung: zum vorherigen", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_ZurueckActionPerformed
 
@@ -2630,7 +2630,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Link.setText(resultB.getString("BESTELLUNG_LINK"));
             field_UstrID.setText(resultB.getString("BESTELLUNG_USTR_ID"));
             field_Versand.setText(Float.toString(resultB.getFloat("BESTELLUNG_VERSAND")));
-            field_RechDat.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
+            field_RechDat.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
             switch (resultB.getInt("BESTELLUNG_LAND")) {
                 case 0:
                     field_Land.setSelected(false);
@@ -2663,8 +2663,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     field_Sprache.setSelected(true);
                     break;
             }
-            field_Bestelldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
-            field_Bezahldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
+            field_Bestelldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
+            field_Bezahldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
             field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
             field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
             if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
@@ -2709,7 +2709,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     Double ZPreis = resultBuch.getFloat("BUCH_PREIS") * 1D;
                     ZPreis = ZPreis - ZPreis / 100 * resultBD.getFloat("BESTELLUNG_DETAIL_RABATT");
 
-                    ZPreis = Modulhelferlein.round2dec(ZPreis);
+                    ZPreis = ModulHelferlein.round2dec(ZPreis);
                     Betrag7 = Betrag7 + resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
                 }
             }
@@ -2737,7 +2737,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     break;
             }
             Rechnungsbetrag = Rechnungsbetrag + resultB.getFloat("BESTELLUNG_VERSAND");
-            field_Betrag.setText(Modulhelferlein.str2dec(Rechnungsbetrag));
+            field_Betrag.setText(ModulHelferlein.str2dec(Rechnungsbetrag));
 
             resultBD.first();
             field_B_CountMax.setText(Integer.toString(countBMax));
@@ -2807,7 +2807,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             }
 			System.out.println("- Bestellung vor - " + field_RechNr.getText());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestellung: zum nächsten", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestellung: zum nächsten", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_VorActionPerformed
 
@@ -2855,7 +2855,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_UstrID.setText(resultB.getString("BESTELLUNG_USTR_ID"));
             field_Link.setText(resultB.getString("BESTELLUNG_LINK"));
             field_Versand.setText(Float.toString(resultB.getFloat("BESTELLUNG_VERSAND")));
-            field_RechDat.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
+            field_RechDat.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
             switch (resultB.getInt("BESTELLUNG_LAND")) {
                 case 0:
                     field_Land.setSelected(false);
@@ -2888,8 +2888,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     field_Sprache.setSelected(true);
                     break;
             }
-            field_Bestelldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
-            field_Bezahldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
+            field_Bestelldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
+            field_Bezahldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
             field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
             field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
             if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
@@ -2947,7 +2947,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     Double ZPreis = resultBuch.getFloat("BUCH_PREIS") * 1D;
                     ZPreis = ZPreis - ZPreis / 100 * resultBD.getFloat("BESTELLUNG_DETAIL_RABATT");
 
-                    ZPreis = Modulhelferlein.round2dec(ZPreis);
+                    ZPreis = ModulHelferlein.round2dec(ZPreis);
                     Betrag7 = Betrag7 + resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
                 }
             }
@@ -2975,7 +2975,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     break;
             }
             Rechnungsbetrag = Rechnungsbetrag + resultB.getFloat("BESTELLUNG_VERSAND");
-            field_Betrag.setText(Modulhelferlein.str2dec(Rechnungsbetrag));
+            field_Betrag.setText(ModulHelferlein.str2dec(Rechnungsbetrag));
 
             resultBD.first();
             field_B_CountMax.setText(Integer.toString(countBMax));
@@ -3045,7 +3045,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             }
 			System.out.println("- Bestellung zum Ende gehen - " + field_RechNr.getText());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestellung: zum Ende", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestellung: zum Ende", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_EndeActionPerformed
 
@@ -3094,7 +3094,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 iSQLAnfrageBD.close();
             }
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Bestellung drucken: Bestand anpassen", "SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestellung drucken: Bestand anpassen", "SQL-Exception", ex.getMessage());
         }
 
         String[] args = {"Rechnung", field_RechNr.getText(), "0"};
@@ -3114,7 +3114,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             args[2] = "4";
         }
         _DlgAusgabeFormat.main(args);
-// Modulhelferlein.Infomeldung("Aufruf Brief Rechnung für RechNr " + field_RechNr.getText());
+// ModulHelferlein.Infomeldung("Aufruf Brief Rechnung für RechNr " + field_RechNr.getText());
 
         dispose();
     }//GEN-LAST:event_DruckenActionPerformed
@@ -3135,7 +3135,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         UpdateActionPerformed(evt);
 
         FileFilter filter = new FileNameExtensionFilter("Rechnungsdatei", "PDF", "DOC", "XML");
-        JFileChooser chooser = new JFileChooser(Modulhelferlein.pathRechnungen);
+        JFileChooser chooser = new JFileChooser(ModulHelferlein.pathRechnungen);
         chooser.setAcceptAllFileFilterUsed(false);
         chooser.setMultiSelectionEnabled(false);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -3159,7 +3159,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 Kunde,
                 field_EMail.getText(),
                 field_DHL.getText(),
-                Modulhelferlein.printDateFormat("dd.MM.yyyy", field_Bestelldatum.getDate())};
+                ModulHelferlein.printDateFormat("dd.MM.yyyy", field_Bestelldatum.getDate())};
             ModulEMail.main(args);
         }
     }//GEN-LAST:event_MahnungActionPerformed
@@ -3225,7 +3225,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             BLoeschen.setEnabled(true);
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestelldetails: zum Anfang", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestelldetails: zum Anfang", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BAnfangActionPerformed
 
@@ -3301,7 +3301,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             }
             cbBuch.setSelectedItem(eintrag);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestelldetails: zum vorherigen", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestelldetails: zum vorherigen", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BZurueckActionPerformed
 
@@ -3369,7 +3369,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             }
             cbBuch.setSelectedItem(eintrag);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestelldetails: zum nächsten", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestelldetails: zum nächsten", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BVorActionPerformed
 
@@ -3429,7 +3429,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             BLoeschen.setEnabled(true);
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestelldetails: zum Ende", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestelldetails: zum Ende", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BEndeActionPerformed
 
@@ -3437,14 +3437,14 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         // TODO add your handling code here:
         System.out.println("- Bestellung Detail Update");
         try {
-            if (Modulhelferlein.checkNumberFormatFloat(field_B_Rabatt.getText()) < 0) {
-                Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Rabattes - es ist keine korrekte Zahl");
+            if (ModulHelferlein.checkNumberFormatFloat(field_B_Rabatt.getText()) < 0) {
+                ModulHelferlein.Infomeldung("fehlerhafte Eingabe des Rabattes - es ist keine korrekte Zahl");
             } else {
-                if (Modulhelferlein.checkNumberFormatInt(field_B_Anzahl.getText()) < 0) {
-                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Anzahl - es ist keine korrekte Ganzzahl");
+                if (ModulHelferlein.checkNumberFormatInt(field_B_Anzahl.getText()) < 0) {
+                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe der Anzahl - es ist keine korrekte Ganzzahl");
                 } else {
-                    if (Modulhelferlein.checkNumberFormatFloat(field_B_Preis.getText()) < 0) {
-                        Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Preises - es ist keine korrekte Zahl");
+                    if (ModulHelferlein.checkNumberFormatFloat(field_B_Preis.getText()) < 0) {
+                        ModulHelferlein.Infomeldung("fehlerhafte Eingabe des Preises - es ist keine korrekte Zahl");
                     } else {
                         System.out.println("- Anzahl: " + field_B_Anzahl.getText());
                         resultBD.updateInt("BESTELLUNG_DETAIL_ANZAHL", Integer.parseInt(field_B_Anzahl.getText()));
@@ -3455,7 +3455,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                         resultBD.updateInt("BESTELLUNG_DETAIL_BUCH", Integer.parseInt(buch[0]));
                         System.out.println("- RechnR: " + field_RechNr.getText());
                         resultBD.updateString("BESTELLUNG_DETAIL_RECHNR", field_RechNr.getText());
-                        resultBD.updateDate("BESTELLUNG_DETAIL_DATUM", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
+                        resultBD.updateDate("BESTELLUNG_DETAIL_DATUM", ModulHelferlein.Date2SQLDate(ModulHelferlein.CurDate));
                         resultBD.updateBoolean("BESTELLUNG_DETAIL_SONST", field_B_Sonstiges.isSelected());
                         resultBD.updateString("BESTELLUNG_DETAIL_SONST_TEXT", field_B_Text.getText());
                         resultBD.updateFloat("BESTELLUNG_DETAIL_SONST_PREIS", Float.parseFloat(field_B_Preis.getText()));
@@ -3468,7 +3468,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 }
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestelldetails: Update: ", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestelldetails: Update: ", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BUpdateActionPerformed
 
@@ -3497,7 +3497,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             resultBD.updateFloat("BESTELLUNG_DETAIL_RABATT", 0F);
             resultBD.updateInt("BESTELLUNG_DETAIL_ANZAHL", 0);
             resultBD.updateInt("BESTELLUNG_DETAIL_BUCH", 0);
-            resultBD.updateDate("BESTELLUNG_DETAIL_DATUM", Modulhelferlein.Date2SQLDate(CurDate));
+            resultBD.updateDate("BESTELLUNG_DETAIL_DATUM", ModulHelferlein.Date2SQLDate(CurDate));
             resultBD.updateString("BESTELLUNG_DETAIL_RECHNR", field_RechNr.getText());
             resultBD.updateBoolean("BESTELLUNG_DETAIL_SONST", false);
             resultBD.updateString("BESTELLUNG_DETAIL_SONST_TEXT", "");
@@ -3530,7 +3530,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_B_Anzahl.setEditable(true);
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bestellung", "Bestelldetails: Einfügen: SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestellung", "Bestelldetails: Einfügen: SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BEinfuegenActionPerformed
 
@@ -3586,7 +3586,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     Bestand = 0;
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Bestelldetails: Löschen: SQL-Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bestelldetails: Löschen: SQL-Exception: " + exept.getMessage());
             }
         }
     }//GEN-LAST:event_BLoeschenActionPerformed
@@ -3600,29 +3600,29 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             try {
                 field_Link.setText(chooser.getSelectedFile().getCanonicalPath());
             } catch (IOException e) {
-                Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
             }
         } // if
     }//GEN-LAST:event_BDateiActionPerformed
 
     private void field_VersandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_VersandActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatFloat(field_Versand.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Versandkosten", "die ist keine korrekte Zahl");
+        if (ModulHelferlein.checkNumberFormatFloat(field_Versand.getText()) < 0) {
+            ModulHelferlein.Infomeldung("fehlerhafte Eingabe der Versandkosten", "die ist keine korrekte Zahl");
         }
     }//GEN-LAST:event_field_VersandActionPerformed
 
     private void field_B_AnzahlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_B_AnzahlActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatInt(field_B_Anzahl.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe", "die ist keine korrekte Ganzzahl");
+        if (ModulHelferlein.checkNumberFormatInt(field_B_Anzahl.getText()) < 0) {
+            ModulHelferlein.Infomeldung("fehlerhafte Eingabe", "die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_B_AnzahlActionPerformed
 
     private void field_B_RabattActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_B_RabattActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatInt(field_B_Anzahl.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe", "die ist keine korrekte Ganzzahl");
+        if (ModulHelferlein.checkNumberFormatInt(field_B_Anzahl.getText()) < 0) {
+            ModulHelferlein.Infomeldung("fehlerhafte Eingabe", "die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_B_RabattActionPerformed
 
@@ -3668,8 +3668,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
     private void field_B_PreisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_B_PreisActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatFloat(field_B_Preis.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Preises", "die ist keine korrekte Zahl");
+        if (ModulHelferlein.checkNumberFormatFloat(field_B_Preis.getText()) < 0) {
+            ModulHelferlein.Infomeldung("fehlerhafte Eingabe des Preises", "die ist keine korrekte Zahl");
         }
     }//GEN-LAST:event_field_B_PreisActionPerformed
 
@@ -3745,7 +3745,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 field_Link.setText(resultB.getString("BESTELLUNG_LINK"));
                 field_UstrID.setText(resultB.getString("BESTELLUNG_USTR_ID"));
                 field_Versand.setText(Float.toString(resultB.getFloat("BESTELLUNG_VERSAND")));
-                field_RechDat.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
+                field_RechDat.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_RECHDAT")));
                 switch (resultB.getInt("BESTELLUNG_LAND")) {
                     case 0:
                         field_Land.setSelected(false);
@@ -3778,8 +3778,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                         field_Sprache.setSelected(true);
                         break;
                 }
-                field_Bestelldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
-                field_Bezahldatum.setDate(Modulhelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
+                field_Bestelldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_DATUM")));
+                field_Bezahldatum.setDate(ModulHelferlein.Date2SQLDate(resultB.getDate("BESTELLUNG_BEZAHLT")));
                 field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
                 field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
                 if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
@@ -3824,7 +3824,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                         Double ZPreis = resultBuch.getFloat("BUCH_PREIS") * 1D;
                         ZPreis = ZPreis - ZPreis / 100 * resultBD.getFloat("BESTELLUNG_DETAIL_RABATT");
 
-                        ZPreis = Modulhelferlein.round2dec(ZPreis);
+                        ZPreis = ModulHelferlein.round2dec(ZPreis);
                         Betrag7 = Betrag7 + resultBD.getInt("BESTELLUNG_DETAIL_ANZAHL") * ZPreis;
                     }
                 }
@@ -3852,7 +3852,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                         break;
                 }
                 Rechnungsbetrag = Rechnungsbetrag + resultB.getFloat("BESTELLUNG_VERSAND");
-                field_Betrag.setText(Modulhelferlein.str2dec(Rechnungsbetrag));
+                field_Betrag.setText(ModulHelferlein.str2dec(Rechnungsbetrag));
 
                 resultBD.first();
                 field_B_CountMax.setText(Integer.toString(countBMax));
@@ -3923,7 +3923,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
 
             }
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Bestellungen verwalten", "direkt zur Bestellung gehen: SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestellungen verwalten", "direkt zur Bestellung gehen: SQL-Exception", ex.getMessage());
         }
     }//GEN-LAST:event_jList1MouseClicked
 
@@ -3934,8 +3934,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 "Land",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
-                Modulhelferlein.Laender,
-                Modulhelferlein.Laender[0]);
+                ModulHelferlein.Laender,
+                ModulHelferlein.Laender[0]);
         if (Land != null) {
             field_Zeile6.setText(Land);
         }
@@ -3958,7 +3958,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 listModel.addElement(eintragRechnung);
             } // while
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Bestellungen verwalten", "Bestellungen auflisten: SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Bestellungen verwalten", "Bestellungen auflisten: SQL-Exception", ex.getMessage());
         }
     }
 
