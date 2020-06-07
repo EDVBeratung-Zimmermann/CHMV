@@ -195,11 +195,11 @@ public class _DlgUebersichtZahlungen extends javax.swing.JDialog {
         java.util.Date bisDate = jDateChooserBis.getDate();
 
         if (jRadioButtonPDF.isSelected()) { // Format PDF
-            berZahlungen.berichtPDF(Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berZahlungen.berichtPDF(ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         } else if (jRadioButtonXLS.isSelected()) { // Format XLSX
-            berZahlungen.berichtXLS(Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berZahlungen.berichtXLS(ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         } else { // Format DOCX
-            berZahlungen.berichtDOC(Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate), Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate));
+            berZahlungen.berichtDOC(ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         }
         this.dispose();
     }//GEN-LAST:event_jButtonDruckenActionPerformed
