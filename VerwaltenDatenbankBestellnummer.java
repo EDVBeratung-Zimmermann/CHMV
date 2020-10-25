@@ -66,16 +66,16 @@ public class VerwaltenDatenbankBestellnummer extends javax.swing.JDialog {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
+            ModulHelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
         }
 
         // final Connection conn2=conn;
@@ -95,7 +95,7 @@ public class VerwaltenDatenbankBestellnummer extends javax.swing.JDialog {
                     jTextFieldBestellnummer.setText(col_Nummer);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("BESTELLNUMMER: SQL-Exception: SQL-Anfrage nicht moeglich. "
+                ModulHelferlein.Fehlermeldung("BESTELLNUMMER: SQL-Exception: SQL-Anfrage nicht moeglich. "
                         + exept.getMessage());
 
                 // System.exit(1);
@@ -206,7 +206,7 @@ public class VerwaltenDatenbankBestellnummer extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
 
         this.dispose();
@@ -216,14 +216,14 @@ public class VerwaltenDatenbankBestellnummer extends javax.swing.JDialog {
 
         // TODO add your handling code here:
         try {
-            if (Modulhelferlein.checkNumberFormatInt(jTextFieldBestellnummer.getText()) < 0) {
-                Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+            if (ModulHelferlein.checkNumberFormatInt(jTextFieldBestellnummer.getText()) < 0) {
+                ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
             } else {
                 result.updateString("BESTELLNR_NUMMER", jTextFieldBestellnummer.getText());
                 result.updateRow();
             }    // else
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("BESTELLNUMMER: SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("BESTELLNUMMER: SQL-Exception: " + exept.getMessage());
         }
 
         // Schließen des Dialoges
@@ -233,8 +233,8 @@ public class VerwaltenDatenbankBestellnummer extends javax.swing.JDialog {
     private void jTextFieldBestellnummerActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_jTextFieldBestellnummerActionPerformed
 
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatInt(jTextFieldBestellnummer.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+        if (ModulHelferlein.checkNumberFormatInt(jTextFieldBestellnummer.getText()) < 0) {
+            ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }    // GEN-LAST:event_jTextFieldBestellnummerActionPerformed
 

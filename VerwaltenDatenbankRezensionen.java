@@ -140,17 +140,17 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung(
+            ModulHelferlein.Fehlermeldung(
                     "ClassNotFoundException: Treiber nicht gefunden: "
                     + exept.getMessage());
         } // try Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung(
+            ModulHelferlein.Fehlermeldung(
                     "SQL-Excetion: Verbindung nicht moeglich: "
                     + exept.getMessage());
         } // Verbindung zur Datenbank über die JDBC-Brücke
@@ -170,7 +170,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
                             + ", " + resultZeitschrift.getString("ADRESSEN_ZEITSCHRIFT"));
                 } // while
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: " + exept.getMessage());
             } // try
 
             // Anfrage zur Erstellung der Rezensentenliste erzeugen        	
@@ -188,7 +188,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
                             + ", " + resultRezensent.getString("ADRESSEN_VORNAME"));
                 } // while
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: " + exept.getMessage());
             } // try
 
             // Anfrage zur Erstellung einer Auswahlliste der Bücher erzeugen            
@@ -206,7 +206,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
                             + ", " + resultBuch.getString("BUCH_TITEL"));
                 } // while
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: " + exept.getMessage());
             } // try
 
             SQLAnfrage = null;
@@ -290,7 +290,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
                     Schliessen.setEnabled(true);
                 } // if
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: "
+                ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: "
                         + exept.getMessage());
             } // try // Anfrage erzeugen
         } // if
@@ -620,7 +620,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             SQLAnfrageZeitschrift.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed
@@ -709,7 +709,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
                     Schliessen.setEnabled(true);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             }
         }
     }//GEN-LAST:event_LoeschenActionPerformed
@@ -773,7 +773,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
                 } // if
             } // for
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EinfuegenActionPerformed
 
@@ -798,7 +798,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
             result.updateString("REZENSION_DATEI", field_Datei.getText());
             result.updateRow();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -857,7 +857,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
                 } // if
             } // for
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_VorActionPerformed
 
@@ -909,7 +909,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
                 } // if
             } // for
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_AnfangActionPerformed
 
@@ -968,7 +968,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
                 } // if
             } // for
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_ZurueckActionPerformed
 
@@ -1036,7 +1036,7 @@ public class VerwaltenDatenbankRezensionen extends javax.swing.JDialog {
                 } // if
             } // for
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EndeActionPerformed
 

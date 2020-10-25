@@ -78,12 +78,12 @@ public class _DlgDatensicherung extends javax.swing.JDialog {
             Dialog.setVisible(true);
 
             String[] command = {"cmd", "/c", "robocopy.exe",
-                Modulhelferlein.pathQuelle,
-                Modulhelferlein.pathZiel,
+                ModulHelferlein.pathQuelle,
+                ModulHelferlein.pathZiel,
                 "/S", "/E", "/TS", "/FP", "/M", "/R:3", "/W:3"
             };
-            String OutFilename = Modulhelferlein.pathSicherung + "/"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+            String OutFilename = ModulHelferlein.pathSicherung + "/"
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                     + "-Vollsicherung.log";
             Integer exitVal = 0;
             try {
@@ -109,93 +109,93 @@ public class _DlgDatensicherung extends javax.swing.JDialog {
                             bufferedWriter.write(dlgTextarea.getText());
                         }
                     } catch (IOException e) {
-                        Modulhelferlein.Fehlermeldung("Fehler beim Schreiben der Log-Datei: " + e.getMessage());
+                        ModulHelferlein.Fehlermeldung("Fehler beim Schreiben der Log-Datei: " + e.getMessage());
                     }
                     switch (exitValue) {
                         case 0:
-                            Modulhelferlein.Infomeldung("KEINE ÄNDERUNG\n"
+                            ModulHelferlein.Infomeldung("KEINE ÄNDERUNG\n"
                                     + "Quelle und Ziel sind snychron");
                             break;
                         case 1:
-                            Modulhelferlein.Infomeldung("OK\n"
+                            ModulHelferlein.Infomeldung("OK\n"
                                     + "Verlagsdaten wurden fehlerfrei gesichert");
                             break;
                         case 2:
-                            Modulhelferlein.Infomeldung("EXTRA DATEIEN\n"
+                            ModulHelferlein.Infomeldung("EXTRA DATEIEN\n"
                                     + "Im Zielverzeichnis befinden sich Dateien, die nicht im Quellverzeichnis sind.\n"
                                     + "Details sind in der Log-Datei.\n"
                                     + "Verlagsdaten wurden nicht gesichert");
                             break;
                         case 3:
-                            Modulhelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
+                            ModulHelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
                                     + "Im Zielverzeichnis befinden sich Dateien, die nicht im Quellverzeichnis sind.\n"
                                     + "Einige Dateien wurden fehlerfrei gesichert");
                             break;
                         case 4:
-                            Modulhelferlein.Infomeldung("UNGEREIMTHEITEN\n"
+                            ModulHelferlein.Infomeldung("UNGEREIMTHEITEN\n"
                                     + "Verlagsdaten wurden nicht gesichert");
                             break;
                         case 8:
-                            Modulhelferlein.Infomeldung("FEHLER\n"
+                            ModulHelferlein.Infomeldung("FEHLER\n"
                                     + "Einige Dateien oder Verzeichnisse konnten nicht kopiert werden.\n"
                                     + "Details sind in der Log-Datei.");
                             break;
                         case 5:
-                            Modulhelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
+                            ModulHelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
                                     + "Ungereimtheiten bei Dateien und/oder Verzeichnissen wurden festgestellt.\n"
                                     + "Einige Dateien wurden fehlerfrei kopiert. ");
                             break;
                         case 6:
-                            Modulhelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
+                            ModulHelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
                                     + "Ungereimtheiten wurden festgestellt. Zusätzliche Dateien wurden festgestellt.\n"
                                     + "Dateien wurden nicht kopiert.");
                             break;
                         case 7:
-                            Modulhelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
+                            ModulHelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
                                     + "Ungereimtheiten wurden festgestellt.\n"
                                     + "Zusätzliche Dateien wurden festgestellt.\n"
                                     + "Einige Dateien wurden fehlerfrei kopiert.");
                             break;
                         case 9:
-                            Modulhelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
+                            ModulHelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
                                     + "Details siehe Handbuch");
                             break;
                         case 10:
-                            Modulhelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
+                            ModulHelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
                                     + "Details siehe Handbuch");
                             break;
                         case 11:
-                            Modulhelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
+                            ModulHelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
                                     + "Details siehe Handbuch");
                             break;
                         case 12:
-                            Modulhelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
+                            ModulHelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
                                     + "Details siehe Handbuch");
                             break;
                         case 13:
-                            Modulhelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
+                            ModulHelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
                                     + "Details siehe Handbuch");
                             break;
                         case 14:
-                            Modulhelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
+                            ModulHelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
                                     + "Details siehe Handbucht");
                             break;
                         case 15:
-                            Modulhelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
+                            ModulHelferlein.Infomeldung("TEILWEISE ERFOLGREICH\n"
                                     + "Details siehe Handbuch");
                             break;
                         default:
-                            Modulhelferlein.Infomeldung("FATALER FEHLER\n"
+                            ModulHelferlein.Infomeldung("FATALER FEHLER\n"
                                     + "Verlagsdaten wurden nicht gesichert");
                             break;
                     }
 
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
-                    Modulhelferlein.Fehlermeldung(e.getMessage());
+                    ModulHelferlein.Fehlermeldung(e.getMessage());
                 }
             } catch (IOException ex) {
-                Modulhelferlein.Fehlermeldung("Fehler beim Schreiben der Log-Datei: " + ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Fehler beim Schreiben der Log-Datei: " + ex.getMessage());
             }
             Dialog.setVisible(false);
         }

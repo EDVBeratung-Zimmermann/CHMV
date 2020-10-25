@@ -139,16 +139,16 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung(
+            ModulHelferlein.Fehlermeldung(
                     "ClassNotFoundException: Treiber nicht gefunden. "
                     + exept.getMessage());
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             // final Connection conn2=conn;
 
             if (conn != null) {
@@ -210,11 +210,11 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
                         Schliessen.setEnabled(true);
                     }
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
                 }
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung nicht moeglich. " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung nicht moeglich. " + exept.getMessage());
         }
 
     }
@@ -502,7 +502,7 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             if (resultIsEmpty) {
-                Modulhelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
+                ModulHelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
             } else {
                 String password = JOptionPane.showInputDialog("Bestätigung Kennwort?");
                 if (password.equals(field_Kennwort.getText())) {
@@ -520,18 +520,18 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
                     result.updateInt("BENUTZER_RECHTE", Integer.parseInt(Rechte[0]));
                     result.updateRow();
                     // Konfiguration KONFIGURATION_BENUTZER anpassen
-                    resultKonfiguration = SQLAnfrageKonfiguration.executeQuery("SELECT * FROM tbl_konfiguration WHERE KONFIGURATION_BENUTZER ='" + Modulhelferlein.CHMVBenutzer + "'");
+                    resultKonfiguration = SQLAnfrageKonfiguration.executeQuery("SELECT * FROM tbl_konfiguration WHERE KONFIGURATION_BENUTZER ='" + ModulHelferlein.CHMVBenutzer + "'");
                     resultKonfiguration.first();
                     resultKonfiguration.updateString("KONFIGURATION_BENUTZER", field_Beschreibung.getText());
                     resultKonfiguration.updateRow();
                 } else {
-                    Modulhelferlein.Fehlermeldung("Die Kennwörter stimmen nicht überein!");
+                    ModulHelferlein.Fehlermeldung("Die Kennwörter stimmen nicht überein!");
                 }
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         } catch (NoSuchAlgorithmException exept) {
-            Modulhelferlein.Fehlermeldung("NoSuchAlgorithm-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("NoSuchAlgorithm-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -543,7 +543,7 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
                     "Neuer Benutzer",
                     JOptionPane.PLAIN_MESSAGE);
             if ("".equals(eingabeBenutzer)) {
-                Modulhelferlein.Fehlermeldung("Kein neuer Benutzer angegeben");
+                ModulHelferlein.Fehlermeldung("Kein neuer Benutzer angegeben");
             } else {
                 maxID = maxID + 1;
                 result.moveToInsertRow();
@@ -591,11 +591,11 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
                 resultKonfiguration.updateString("Konfiguration_Schriftverkehr", "");
                 resultKonfiguration.updateString("Konfiguration_Steuer", "");
                 resultKonfiguration.updateString("Konfiguration_Benutzer", eingabeBenutzer);
-                Modulhelferlein.CHMVBenutzer = eingabeBenutzer;
+                ModulHelferlein.CHMVBenutzer = eingabeBenutzer;
                 resultKonfiguration.insertRow();
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EinfuegenActionPerformed
 
@@ -643,7 +643,7 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
                     Schliessen.setEnabled(true);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             }
         }
     }//GEN-LAST:event_LoeschenActionPerformed
@@ -680,11 +680,11 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
                 field_ID.setText(Integer.toString(result.getInt("BENUTZER_ID")));
                 field_Beschreibung.setText(result.getString("BENUTZER_NAME"));
             } else {
-                Modulhelferlein.Infomeldung("Datensatz wurde nicht gefunden!");
+                ModulHelferlein.Infomeldung("Datensatz wurde nicht gefunden!");
                 AnfangActionPerformed(evt);
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             Logger.getLogger(VerwaltenDatenbankEinnahmen.class.getName()).log(Level.SEVERE, null, exept);
         }
 
@@ -720,11 +720,11 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
                 field_ID.setText(Integer.toString(result.getInt("BENUTZER_ID")));
                 field_Beschreibung.setText(result.getString("BENUTZER_NAME"));
             } else {
-                Modulhelferlein.Infomeldung("Datensatz wurde nicht gefunden!");
+                ModulHelferlein.Infomeldung("Datensatz wurde nicht gefunden!");
                 AnfangActionPerformed(evt);
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             Logger.getLogger(VerwaltenDatenbankEinnahmen.class.getName()).log(Level.SEVERE, null, exept);
         }
     }//GEN-LAST:event_WSuchenActionPerformed
@@ -741,7 +741,7 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed
@@ -775,7 +775,7 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
             field_ID.setText(Integer.toString(result.getInt("BENUTZER_ID")));
             field_Beschreibung.setText(result.getString("BENUTZER_NAME"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_ZurueckActionPerformed
 
@@ -802,7 +802,7 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
             field_ID.setText(Integer.toString(result.getInt("BENUTZER_ID")));
             field_Beschreibung.setText(result.getString("BENUTZER_NAME"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_AnfangActionPerformed
 
@@ -847,7 +847,7 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
             field_ID.setText(Integer.toString(result.getInt("BENUTZER_ID")));
             field_Beschreibung.setText(result.getString("BENUTZER_NAME"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_VorActionPerformed
 
@@ -874,7 +874,7 @@ public class VerwaltenDatenbankBenutzer extends javax.swing.JDialog {
             field_ID.setText(Integer.toString(result.getInt("BENUTZER_ID")));
             field_Beschreibung.setText(result.getString("BENUTZER_NAME"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EndeActionPerformed
 

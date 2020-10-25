@@ -47,18 +47,18 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
         initComponents();
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Tabelle leeren",
+            ModulHelferlein.Fehlermeldung("Tabelle leeren",
                     "ClassNotFoundException: Treiber nicht gefunden: "
                     , exept.getMessage());
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Tabelle leeren",
+            ModulHelferlein.Fehlermeldung("Tabelle leeren",
                     "SQL-Excetion: Verbindung nicht moeglich: "
                     , exept.getMessage());
         }
@@ -303,7 +303,7 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
             try {
                 SQLAnfrage = conn.createStatement();
             } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception", "Leeren der Tabellen", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception", "Leeren der Tabellen", ex.getMessage());
             }
             if (JOptionPane.showConfirmDialog(null,
                     "Sollen die Tabellen wirklich geleert werden?",
@@ -313,107 +313,107 @@ public class _DlgTabellenLeeren extends javax.swing.JDialog {
                     if (checkBoxBrief.isSelected()) {
                         SQL = "DELETE FROM TBL_BRIEFE";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BRIEFE wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle BRIEFE wurde geleert");
                     }
                     if (jCheckBox19.isSelected()) {
                         SQL = "DELETE FROM TBL_VERKAUF";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle VERKAUF wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle VERKAUF wurde geleert");
                     }
                     if (jCheckBox9.isSelected()) {
                         SQL = "DELETE FROM TBL_BESTELLUNG_DETAIL";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BESTELLUNG_DETAIL wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle BESTELLUNG_DETAIL wurde geleert");
                     }
                     if (jCheckBox5.isSelected()) {
                         SQL = "DELETE FROM TBL_AUSGABEN";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle AUSGABEN wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle AUSGABEN wurde geleert");
                     }
                     if (jCheckBox7.isSelected()) {
                         SQL = "DELETE FROM TBL_BESTELLUNG";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BESTELLUNG wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle BESTELLUNG wurde geleert");
                     }
                     if (jCheckBox6.isSelected()) {
                         SQL = "DELETE FROM TBL_EINNAHMEN";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle EINNAHMEN wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle EINNAHMEN wurde geleert");
                     }
                     if (jCheckBox13.isSelected()) {
                         SQL = "DELETE FROM TBL_USTVA";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle USTVA wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle USTVA wurde geleert");
                     }
                     if (jCheckBox20.isSelected()) {
                         SQL = "DELETE FROM TBL_BENUTZER";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BENUTZER wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle BENUTZER wurde geleert");
                     }
                     if (jCheckBox1.isSelected()) {
                         SQL = "DELETE FROM TBL_ADRESSE";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle ADRESSE wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle ADRESSE wurde geleert");
                     }
                     if (jCheckBox2.isSelected()) {
                         SQL = "DELETE FROM TBL_BUCH";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BUCH wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle BUCH wurde geleert");
                     }
                     if (jCheckBox8.isSelected()) {
                         SQL = "DELETE FROM TBL_REZENSION";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle REZENSION wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle REZENSION wurde geleert");
                     }
                     if (jCheckBox11.isSelected()) {
                         SQL = "DELETE FROM TBL_TERMINE";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle TERMINE wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle TERMINE wurde geleert");
                     }
                     if (jCheckBox12.isSelected()) {
                         SQL = "DELETE FROM TBL_BESTELLNR";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BESTELLNR wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle BESTELLNR wurde geleert");
                     }
                     if (jCheckBox3.isSelected()) {
                         SQL = "DELETE FROM TBL_MAILVERTEILER";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle MAILVERTEILER wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle MAILVERTEILER wurde geleert");
                     }
                     if (jCheckBox4.isSelected()) {
                         SQL = "DELETE FROM TBL_MAILADRESSE";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle MAILADRESSE wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle MAILADRESSE wurde geleert");
                     }
                     if (jCheckBox14.isSelected()) {
                         SQL = "DELETE FROM TBL_REZENSIONEN_AUS";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle Rezensionen ausgehend wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle Rezensionen ausgehend wurde geleert");
                     }
                     if (jCheckBox15.isSelected()) {
                         SQL = "DELETE FROM TBL_REZENSIONEN_AUS_DETAIL";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle Rezensionen ausgehend Details wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle Rezensionen ausgehend Details wurde geleert");
                     }
                     if (jCheckBox16.isSelected()) {
                         SQL = "DELETE FROM TBL_HILFE_BUCH";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle Hilfe Buch wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle Hilfe Buch wurde geleert");
                     }
                     if (jCheckBox17.isSelected()) {
                         SQL = "DELETE FROM TBL_HONORAR";
                         SQLAnfrage.executeUpdate(SQL);
                         SQL = "DELETE FROM TBL_VERRECHNUNG";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle Honorar, Verrechnung wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle Honorar, Verrechnung wurde geleert");
                     }
                     if (jCheckBox18.isSelected()) {
                         SQL = "DELETE FROM TBL_AUFGABEN";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle AUFGABEN wurde geleert");
+                        ModulHelferlein.Infomeldung("Tabelle AUFGABEN wurde geleert");
                     }
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("Tabelle leeren",
+                    ModulHelferlein.Fehlermeldung("Tabelle leeren",
                             "Leeren der Tabellen nicht möglich:" , exept.getMessage());
                 }
             }

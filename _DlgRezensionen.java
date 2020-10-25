@@ -52,16 +52,16 @@ public class _DlgRezensionen extends javax.swing.JDialog {
 
 // Auswahlliste für Bücher erstellen
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Treiber nicht gefunden: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Treiber nicht gefunden: ", exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Verbindung nicht moeglich: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Verbindung nicht moeglich: ", exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank über die JDBC-Brücke
 
@@ -89,7 +89,7 @@ public class _DlgRezensionen extends javax.swing.JDialog {
                     field_ISBN.addItem(eintrag);
                 } // while
             } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("Auswalliste für Bücher erzeugen", "SQL-Exception", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Auswalliste für Bücher erzeugen", "SQL-Exception", ex.getMessage());
             }
         }
 

@@ -34,11 +34,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.imageio.ImageIO;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.AusgabeBS;
-import static milesVerlagMain.Modulhelferlein.AusgabeZ;
-import static milesVerlagMain.Modulhelferlein.Linie;
-import static milesVerlagMain.Modulhelferlein.Trenner;
+import static milesVerlagMain.ModulHelferlein.AusgabeBS;
+import static milesVerlagMain.ModulHelferlein.AusgabeZ;
+import static milesVerlagMain.ModulHelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Trenner;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -47,6 +46,8 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  *
@@ -61,21 +62,21 @@ public class briefFlyer {
     private static ResultSet resultAutor;
 
     private static void FlyerDOC(String buchISBN) {
-        Modulhelferlein.Infomeldung("DOC noch nicht implementiert");
+        ModulHelferlein.Infomeldung("DOC noch nicht implementiert");
     }
 
     private static void FlyerXLS(String buchISBN) {
-        Modulhelferlein.Infomeldung("XLS noch nicht implementiert");
+        ModulHelferlein.Infomeldung("XLS noch nicht implementiert");
     }
 
     private static void FlyerPDF(String buchISBN) {
-        String outputFileName = Modulhelferlein.pathBuchprojekte + "/" + buchISBN + "/Flyer";
+        String outputFileName = ModulHelferlein.pathBuchprojekte + "/" + buchISBN + "/Flyer";
 
-        if (Modulhelferlein.checkDir(outputFileName)) {
+        if (ModulHelferlein.checkDir(outputFileName)) {
             outputFileName = outputFileName + "/Flyer-"
                     + buchISBN
                     + "-"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                     + ".pdf";
 
             try {
@@ -125,7 +126,7 @@ public class briefFlyer {
                 //Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
                 //Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-                //Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
+                //Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
                 //Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
                 //Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
                 //Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
@@ -159,24 +160,24 @@ public class briefFlyer {
                     Titel = resultBuch.getString("BUCH_TITEL");
                     int zeile = 670;
                     for (int i = 0; i < SplitTitel.length; i++) {
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 57, zeile - i * 15, SplitTitel[i]);
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 57, zeile - i * 15, SplitTitel[i]);
                     }
                     // Buchdaten
                     // ISBN, Seitenzahl
                     zeile = zeile - 35;
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, zeile, "ISBN: " + Modulhelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN"))
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 57, zeile, "ISBN: " + ModulHelferlein.makeISBN13(resultBuch.getString("BUCH_ISBN"))
                             + ", " + resultBuch.getString("BUCH_SEITEN") + " Seiten");
                     zeile = zeile - 20;
                     // Buchtyp, Preis
                     switch (resultBuch.getInt("Buch_HC")) {
                         case 0:
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, Paperback");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, Paperback");
                             break;
                         case 1:
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, Hardcover");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, Hardcover");
                             break;
                         case 2:
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, E-Book");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 57, 620, resultBuch.getString("BUCH_PREIS") + " Euro, E-Book");
                             break;
                     }
 
@@ -213,16 +214,16 @@ public class briefFlyer {
                         System.out.println("No image for you");
                     }
 // Bestellung
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 315, 410, "Bestellcoupon");
-                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 395, "Hiermit bestelle ich ..... Exemplar(e) des Buches");
-                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 380, "zum Preis von " + resultBuch.getString("BUCH_PREIS") + " Euro je Exemplar.");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 315, 410, "Bestellcoupon");
+                    AusgabeLB(cos, fontPlain, 11, Color.BLACK, 315, 395, "Hiermit bestelle ich ..... Exemplar(e) des Buches");
+                    AusgabeLB(cos, fontPlain, 11, Color.BLACK, 315, 380, "zum Preis von " + resultBuch.getString("BUCH_PREIS") + " Euro je Exemplar.");
 
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 315, 350, "Bitte senden Sie Ihre Bestellung an");
-                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 330, "Carola Hartmann Miles Verlag");
-                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 315, "Alt-Kladow 16D");
-                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 300, "14089 Berlin");
-                    Ausgabe(cos, fontBold, 11, Color.BLACK, 315, 280, "oder per E-Mail an");
-                    Ausgabe(cos, fontPlain, 11, Color.BLACK, 315, 260, "miles-verlag@t-online.de");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 315, 350, "Bitte senden Sie Ihre Bestellung an");
+                    AusgabeLB(cos, fontPlain, 11, Color.BLACK, 315, 330, "Carola Hartmann Miles Verlag");
+                    AusgabeLB(cos, fontPlain, 11, Color.BLACK, 315, 315, "Alt-Kladow 16D");
+                    AusgabeLB(cos, fontPlain, 11, Color.BLACK, 315, 300, "14089 Berlin");
+                    AusgabeLB(cos, fontBold, 11, Color.BLACK, 315, 280, "oder per E-Mail an");
+                    AusgabeLB(cos, fontPlain, 11, Color.BLACK, 315, 260, "miles-verlag@t-online.de");
 
 // Absender
                     Linie(cos, 2, 312, 57, 538, 57);
@@ -230,15 +231,15 @@ public class briefFlyer {
                     Linie(cos, 2, 312, 57, 312, 240);
                     Linie(cos, 2, 538, 57, 538, 240);
 
-                    Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 230, "Absender");
+                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 315, 230, "Absender");
                     Linie(cos, 1, 315, 200, 535, 200);
-                    Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 190, "Name");
+                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 315, 190, "Name");
                     Linie(cos, 1, 315, 160, 535, 160);
-                    Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 150, "Straße");
+                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 315, 150, "Straße");
                     Linie(cos, 1, 315, 120, 535, 120);
-                    Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 110, "Postleitzahl, Ort");
+                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 315, 110, "Postleitzahl, Ort");
                     Linie(cos, 1, 315, 80, 535, 80);
-                    Ausgabe(cos, fontBold, 9, Color.BLACK, 315, 70, "Datum, Unterschrift");
+                    AusgabeLB(cos, fontBold, 9, Color.BLACK, 315, 70, "Datum, Unterschrift");
 
 // Make sure that the content stream is closed:
                     cos.close();
@@ -247,23 +248,23 @@ public class briefFlyer {
                     document.save(outputFileName);
                     document.close();
 
-                    Modulhelferlein.Infomeldung("Flyer ist als PDF gespeichert!");
+                    ModulHelferlein.Infomeldung("Flyer ist als PDF gespeichert!");
                     resultBuch.updateString("BUCH_FLYER", outputFileName);
                     resultBuch.updateString("BUCH_TITEL", Titel);
                     System.out.println("Update Link zum Flyer: " + outputFileName);
                     resultBuch.updateRow();
                 } catch (SQLException ex) {
-                    Modulhelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
+                    ModulHelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
                 }
 
                 try {
                     Runtime.getRuntime().exec("cmd.exe /c " + outputFileName);
                 } catch (IOException exept) {
-                    Modulhelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
                 }// try Brief ausgeben
 
             } catch (IOException ex) {
-                Modulhelferlein.Fehlermeldung("IO-Exception: " + ex.getMessage());
+                ModulHelferlein.Fehlermeldung("IO-Exception: " + ex.getMessage());
             }
         } else {
             System.out.println("Verzeichnis " + outputFileName + " konnte nicht angelegt werden");
@@ -275,16 +276,16 @@ public class briefFlyer {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Flyer erstellen", "Datenbanktreiber nicht gefunden: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Flyer erstellen", "Datenbanktreiber nicht gefunden: ", exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Flyer erstellen", "Verbindung zur Datenbank nicht moeglich: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Flyer erstellen", "Verbindung zur Datenbank nicht moeglich: ", exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank über die JDBC-Brücke
 
@@ -312,7 +313,7 @@ public class briefFlyer {
                         break;
                 }
             } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
             }
         }
     } // void

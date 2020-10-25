@@ -180,7 +180,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
         newPolicy = new ModulMyOwnFocusTraversalPolicy(order);
         setFocusTraversalPolicy(newPolicy);
 
-        for (String AdressTypListe : Modulhelferlein.AdressTypListe) {
+        for (String AdressTypListe : ModulHelferlein.AdressTypListe) {
             field_Typ.addItem(AdressTypListe);
         }
 
@@ -188,17 +188,17 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung(
+            ModulHelferlein.Fehlermeldung(
                     "Treiber nicht gefunden. " + exept.getMessage());
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung(
+            ModulHelferlein.Fehlermeldung(
                     "SQL-Exception: Verbindung nicht moeglich. "
                     + exept.getMessage());
         } //try catch Datenbank
@@ -316,7 +316,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "SQL-Exception: SQL-Anfrage nicht moeglich. "
                         + exept.getMessage());
             } // try catch resultset
@@ -368,7 +368,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                 listModel.addElement(eintragAutor);
             } // while
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Adressenverwalten", "Adressbestand auflisten: SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Adressenverwalten", "Adressbestand auflisten: SQL-Exception", ex.getMessage());
         }
     }
 
@@ -1083,7 +1083,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
             }
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_ZurueckActionPerformed
 
@@ -1161,7 +1161,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                     break;
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_AnfangActionPerformed
 
@@ -1257,7 +1257,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                     break;
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_VorActionPerformed
 
@@ -1335,7 +1335,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                     break;
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_EndeActionPerformed
 
@@ -1397,7 +1397,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
             result.updateRow();
             initListeAdressbestand();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -1513,7 +1513,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                     break;
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
         }
 
     }//GEN-LAST:event_EinfuegenActionPerformed
@@ -1637,7 +1637,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                     field_Rabatt.setText("");
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
             }
         }
     }//GEN-LAST:event_LoeschenActionPerformed
@@ -1753,12 +1753,12 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                             break;
                     }
                 } else {
-                    Modulhelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
+                    ModulHelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
                     AnfangActionPerformed(evt);
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
             }
         }
     }//GEN-LAST:event_SuchenActionPerformed
@@ -1866,12 +1866,12 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                         break;
                 }
             } else {
-                Modulhelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
+                ModulHelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
                 AnfangActionPerformed(evt);
             }
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
         }
 
     }//GEN-LAST:event_WSuchenActionPerformed
@@ -1879,7 +1879,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
     private void DruckenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DruckenActionPerformed
         // TODO add your handling code here:
         String[] args = {field_Zusatz_1.getText(),
-            Modulhelferlein.makeAnrede(field_Namenszusatz.getText(),
+            ModulHelferlein.makeAnrede(field_Namenszusatz.getText(),
             field_Vorname.getText(),
             field_Firmenname.getText()),
             field_Zusatz_2.getText(),
@@ -1896,15 +1896,15 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: ", exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed
 
     private void field_RabattActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_RabattActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatInt(field_Rabatt.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+        if (ModulHelferlein.checkNumberFormatInt(field_Rabatt.getText()) < 0) {
+            ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_RabattActionPerformed
 
@@ -2002,7 +2002,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                 }
             }
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Adressen verwalten", "SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Adressen verwalten", "SQL-Exception", ex.getMessage());
         }
     }//GEN-LAST:event_jListAdressbestandMouseClicked
 
@@ -2013,8 +2013,8 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                 "Land",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
-                Modulhelferlein.Laender,
-                Modulhelferlein.Laender[0]);
+                ModulHelferlein.Laender,
+                ModulHelferlein.Laender[0]);
         if (Land != null) {
             field_Zusatz_3.setText(Land);
         }

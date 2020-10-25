@@ -38,6 +38,11 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import java.awt.Color;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static milesVerlagMain.ModulHelferlein.SQLDate2Normal;
 
 import jxl.*;
@@ -67,7 +72,7 @@ public class berUmsatz {
      * @param strBis Ende des Zeitraums
      */
     public static void berUmsatzXLS(boolean Umfang, String strVon, String strBis) {
-
+//System.out.println(String.valueOf(Umfang)+ " " + strVon + " " + strBis);
         Double Gesamtsumme = 0D;
         Double Gesamtzeile = 0D;
         Double Gesamt7 = 0D;
@@ -188,10 +193,31 @@ public class berUmsatz {
                             Sql = Sql + " WHERE (BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "')"
                                     + " ORDER BY BESTELLUNG_RECHNR, BESTELLUNG_DATUM";
                         }
-//helferlein.Infomeldung(Sql);                        
+System.out.println(Sql);                        
                         resultBestellung = SQLBestellung.executeQuery(Sql);
                         Gesamtsumme = 0D;
+                        
+                        // gibt es Corona-Ermäßigung: BESTELLUNG_RECHDAT im Zeitraum 2020-07-01 und 2020-12-31
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        Date date1 = null;
+                        Date date2 = null;
+                        try {
+                            date1 = sdf.parse("2020-06-30");
+                            date2 = sdf.parse("2021-01-01");
+                        } catch (ParseException ex) {
+                            ModulHelferlein.Fehlermeldung("Corona-Datumsangaben für UStr", "ParseException", ex.getMessage());
+                        }
+                        java.lang.Boolean Corona;
+                        
                         while (resultBestellung.next()) { // geht durch alle zeilen
+                            if ((resultBestellung.getDate("BESTELLUNG_RECHDAT").compareTo(date1) > 0) && (resultBestellung.getDate("BESTELLUNG_RECHDAT").compareTo(date2) < 0)) {
+                                Corona = true;
+                            } else {
+                                Corona = false;
+                            }
+System.out.println("Corona-Zeitraum ist geprüft");   
+                            
+System.out.println(resultBestellung.getString("BESTELLUNG_RECHNR"));
                             // Kundendaten holen
                             if (resultBestellung.getInt("BESTELLUNG_KUNDE") > 0) {
                                 resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
@@ -202,7 +228,7 @@ public class berUmsatz {
                                 strKunde = resultBestellung.getString("BESTELLUNG_ZEILE_2");
                                 strLand = resultBestellung.getString("BESTELLUNG_ZEILE_6");
                             }
-
+System.out.println("   - Kundendaten geholt");
                             // Bemerkungsfeld bestimmen
                             switch (resultBestellung.getInt("BESTELLUNG_TYP")) {
                                 case 5:
@@ -252,8 +278,10 @@ public class berUmsatz {
                             Gesamtzeile = 0D;
 
                             while (resultBestellungDetails.next()) {
+System.out.println("   - Bestelldetails -> " + resultBestellungDetails.getString("BESTELLUNG_DETAIL_BUCH"));
                                 resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID = '" + resultBestellungDetails.getString("BESTELLUNG_DETAIL_BUCH") + "'");
                                 resultBuch.next();
+System.out.println("   - Bestelldetails -> " + resultBuch.getString("BUCH_TITEL"));
                                 if (resultBestellungDetails.getBoolean("BESTELLUNG_DETAIL_SONST")) {
                                     Anzahl = 1;
                                     Rabatt = 0;
@@ -320,6 +348,7 @@ public class berUmsatz {
                             zeile = zeile + 1;
                         } // while bestellungen geht durch alle zeilen
                         // Gesamteinnahmen = Gesamteinnahmen + Gesamtsumme;
+System.out.println("Einnahmen sind errechnet");
 
                         zeile = zeile + 1;
 

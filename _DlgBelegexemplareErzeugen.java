@@ -53,16 +53,16 @@ public class _DlgBelegexemplareErzeugen extends javax.swing.JDialog {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("ClassNotFoundException: Treiber nicht gefunden. " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("ClassNotFoundException: Treiber nicht gefunden. " + exept.getMessage());
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich. " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich. " + exept.getMessage());
         }
 
         try {
@@ -78,7 +78,7 @@ public class _DlgBelegexemplareErzeugen extends javax.swing.JDialog {
             }    // while
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich. " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich. " + exept.getMessage());
         }        // try
 
         initComponents();
@@ -243,7 +243,7 @@ public class _DlgBelegexemplareErzeugen extends javax.swing.JDialog {
                     try {
 //helferlein.Infomeldung(Autor); 
                         if (rbPDF.isSelected()) {
-                            Modulhelferlein.Infomeldung("Schreibe Brief für " + splitRezensent[1]);
+                            ModulHelferlein.Infomeldung("Schreibe Brief für " + splitRezensent[1]);
                             briefBelegexemplar.briefPDF(Anrede, Autor, Titel, Beschreibung, ISBN,
                                     splitRezensent[1], result.getString("ADRESSEN_ZEITSCHRIFT"),
                                     result.getString("ADRESSEN_ZUSATZ_1"),
@@ -253,8 +253,8 @@ public class _DlgBelegexemplareErzeugen extends javax.swing.JDialog {
                                     result.getString("ADRESSEN_STRASSE"),
                                     result.getString("ADRESSEN_PLZ") + " " + result.getString("ADRESSEN_ORT"),
                                     result.getString("ADRESSEN_ANREDE"), Preis, Seiten);
-                            Modulhelferlein.Infomeldung("Schreibe Pseude-Rechnung für " + splitRezensent[1]);
-                            briefRechnungMahnung.briefPDF(Modulhelferlein.makeBestellung(result.getString("ADRESSEN_ZEITSCHRIFT"),
+                            ModulHelferlein.Infomeldung("Schreibe Pseude-Rechnung für " + splitRezensent[1]);
+                            briefRechnungMahnung.briefPDF(ModulHelferlein.makeBestellung(result.getString("ADRESSEN_ZEITSCHRIFT"),
                                     result.getString("ADRESSEN_ZUSATZ_1"),
                                     result.getString("ADRESSEN_ZUSATZ_2"),
                                     result.getString("ADRESSEN_NAMENSZUSATZ")
@@ -278,7 +278,7 @@ public class _DlgBelegexemplareErzeugen extends javax.swing.JDialog {
                                     result.getString("ADRESSEN_PLZ") + " " + result.getString("ADRESSEN_ORT"),
                                     result.getString("ADRESSEN_ANREDE"), Preis, Seiten);
 
-                            briefRechnungMahnung.briefDOC(Modulhelferlein.makeBestellung(result.getString("ADRESSEN_ZEITSCHRIFT"),
+                            briefRechnungMahnung.briefDOC(ModulHelferlein.makeBestellung(result.getString("ADRESSEN_ZEITSCHRIFT"),
                                     result.getString("ADRESSEN_ZUSATZ_1"),
                                     result.getString("ADRESSEN_ZUSATZ_2"),
                                     result.getString("ADRESSEN_NAMENSZUSATZ")
@@ -292,10 +292,10 @@ public class _DlgBelegexemplareErzeugen extends javax.swing.JDialog {
                                     "");
                         }
                     } catch (Exception e) {
-                        Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+                        ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
                     }    // try
                 } catch (SQLException e1) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: " + e1.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: " + e1.getMessage());
                 }        // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert
             } // for
         } // if
@@ -308,7 +308,7 @@ public class _DlgBelegexemplareErzeugen extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed

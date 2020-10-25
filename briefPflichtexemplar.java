@@ -44,8 +44,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Linie;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
@@ -69,6 +68,8 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblLayoutType;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblWidth;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblLayoutType;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblWidth;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 public class briefPflichtexemplar {
 
@@ -86,14 +87,14 @@ public class briefPflichtexemplar {
 
     public static void briefDNBDOC(String Autor, String Titel, String ISBN, String Jahr) {
 
-        String outputFileName = Modulhelferlein.pathBuchprojekte + "\\" + ISBN + "\\Pflichtexemplare"
+        String outputFileName = ModulHelferlein.pathBuchprojekte + "\\" + ISBN + "\\Pflichtexemplare"
                 + "\\Pflichtexemplar"
                 + "-"
                 + ISBN
                 + "-"
                 + "DNB"
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".doc";
 
         Dialog.setSize(600, 500);
@@ -231,7 +232,7 @@ public class briefPflichtexemplar {
             run.setText(" ");
             run.setText(" ");
             run.addBreak();
-            run.setText(Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+            run.setText(ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
             run.addBreak();
             run.addBreak();
             run.setText(" ");
@@ -339,17 +340,17 @@ public class briefPflichtexemplar {
                     FileOutputStream out = new FileOutputStream(new File(outputFileName))) {
                 document.write(out);
             } catch (FileNotFoundException ex) {
-                Modulhelferlein.Fehlermeldung("Brief Pflichtexemplar", "FilenotFound-Exception", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Brief Pflichtexemplar", "FilenotFound-Exception", ex.getMessage());
             } catch (IOException ex) {
-                Modulhelferlein.Fehlermeldung("Brief Pflichtexemplar", "IO-Exception", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Brief Pflichtexemplar", "IO-Exception", ex.getMessage());
             }
 
-            Modulhelferlein.Infomeldung(outputFileName + " ist als DOC gespeichert!");
+            ModulHelferlein.Infomeldung(outputFileName + " ist als DOC gespeichert!");
             Dialog.setVisible(false);
             try {
                 Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
             } catch (IOException exept) {
-                Modulhelferlein.Fehlermeldung("Ausgabe Brief",
+                ModulHelferlein.Fehlermeldung("Ausgabe Brief",
                         "IO-Exception: ", exept.getMessage());
             }// try Brief ausgeben
 
@@ -357,22 +358,22 @@ public class briefPflichtexemplar {
             _DlgAdresseDrucken.main(args);
 
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("Brief Pflichtexemplar", "IO-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Pflichtexemplar", "IO-Exception", ex.getMessage());
         } catch (InvalidFormatException ex) {
-            Modulhelferlein.Fehlermeldung("Brief Pflichtexemplar", "InvalidFormat-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Pflichtexemplar", "InvalidFormat-Exception", ex.getMessage());
         } // try Brief erzeugen
     } // void
 
     public static void briefBLBDOC(String Autor, String Titel, String ISBN, String Jahr) {
 
-        String outputFileName = Modulhelferlein.pathBuchprojekte + "\\" + ISBN + "\\Pflichtexemplare"
+        String outputFileName = ModulHelferlein.pathBuchprojekte + "\\" + ISBN + "\\Pflichtexemplare"
                 + "\\Pflichtexemplar"
                 + "-"
                 + ISBN
                 + "-"
                 + "BLB"
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".doc";
 
         Dialog.setSize(600, 500);
@@ -509,7 +510,7 @@ public class briefPflichtexemplar {
             run.setText(" ");
             run.setText(" ");
             run.addBreak();
-            run.setText(Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+            run.setText(ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
             run.addBreak();
             run.addBreak();
             run.setText(" ");
@@ -617,12 +618,12 @@ public class briefPflichtexemplar {
                 document.write(out);
             }
 
-            Modulhelferlein.Infomeldung(outputFileName + " ist als DOC gespeichert!");
+            ModulHelferlein.Infomeldung(outputFileName + " ist als DOC gespeichert!");
             Dialog.setVisible(false);
             try {
                 Runtime.getRuntime().exec("cmd.exe /c " + outputFileName);
             } catch (IOException exept) {
-                Modulhelferlein.Fehlermeldung("Anzeige des Briefes",
+                ModulHelferlein.Fehlermeldung("Anzeige des Briefes",
                         "IO-Exception: ", exept.getMessage());
             }// try Brief ausgeben
 
@@ -630,23 +631,23 @@ public class briefPflichtexemplar {
             _DlgAdresseDrucken.main(args);
 
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("Brief Pflichtexemplar", "IO-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Pflichtexemplar", "IO-Exception", ex.getMessage());
         } catch (InvalidFormatException ex) {
-            Modulhelferlein.Fehlermeldung("Brief Pflichtexemplar", "InvalidFormat-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Pflichtexemplar", "InvalidFormat-Exception", ex.getMessage());
         } // try
     }
 
     public static void briefDNBPDF(String Autor, String Titel, String ISBN, String Jahr) {
         try {
 
-            String outputFileName = Modulhelferlein.pathBuchprojekte + "\\" + ISBN + "\\Pflichtexemplare"
+            String outputFileName = ModulHelferlein.pathBuchprojekte + "\\" + ISBN + "\\Pflichtexemplare"
                     + "\\Pflichtexemplar"
                     + "-"
                     + ISBN
                     + "-"
                     + "DNB"
                     + "-"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                     + ".pdf";
 
             // Create a document and add a page to it
@@ -674,48 +675,48 @@ public class briefPflichtexemplar {
                 System.out.println("No image for you");
             }
 // Fu?zeile
-            Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
-            Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
-            Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+            AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+            AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+            AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 // Faltmarke, Lochmarke, Faltmarke
                         Linie(cos,1,0,595,15,595);
                         Linie(cos,1,0,415,25,415);
                         Linie(cos,1,0,285,15,285);
 // Absenderzeile
             Linie(cos,1,50, 749, 297, 749);
-            Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
+            AusgabeLB(cos, fontPlain, 8, Color.BLACK, 50, 751, ModulHelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
 // Datum
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
 // Adresse
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 730, "Deutsche Nationalbibliothek ");
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 715, "Pflichtexemplarstelle");
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 700, "Referat L 1.3");
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 685, "Deutscher Platz 1");
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, "04103 Leipzig");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 730, "Deutsche Nationalbibliothek ");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 715, "Pflichtexemplarstelle");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 700, "Referat L 1.3");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 685, "Deutscher Platz 1");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 655, "04103 Leipzig");
 // Betreff
-            Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, "Pflichtexemplare der Publikationen des Carola Hartmann Miles-Verlag");
+            AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 575, "Pflichtexemplare der Publikationen des Carola Hartmann Miles-Verlag");
 // Anrede
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 540, "Sehr geehrte Damen und Herren,");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 540, "Sehr geehrte Damen und Herren,");
 // Text
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 510, Modulhelferlein.CheckStr("beiliegend übersende ich Ihnen zwei Pflichtexemplare unserer Neuerscheinung von"));
-            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 490, Autor);
-            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 475, Titel);
-            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 460, "ISBN: " + Modulhelferlein.makeISBN13(ISBN));
-            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 445, "Carola Hartmann Miles-Verlag, " + Jahr);
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 425, "zur Aufnahme in die Deutsche Nationalbibliothek.");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 510, ModulHelferlein.CheckStr("beiliegend übersende ich Ihnen zwei Pflichtexemplare unserer Neuerscheinung von"));
+            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 100, 490, Autor);
+            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 100, 475, Titel);
+            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 100, 460, "ISBN: " + ModulHelferlein.makeISBN13(ISBN));
+            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 100, 445, "Carola Hartmann Miles-Verlag, " + Jahr);
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 425, "zur Aufnahme in die Deutsche Nationalbibliothek.");
 // Schlussformel
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 390, Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 330, "Carola Hartmann");
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 315, "Diplom Kauffrau");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 390, ModulHelferlein.CheckStr("Mit freundlichen Grüßen"));
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 330, "Carola Hartmann");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 315, "Diplom Kauffrau");
 // Save the results and ensure that the document is properly closed:
 // Make sure that the content stream is closed:
             cos.close();
@@ -724,20 +725,20 @@ public class briefPflichtexemplar {
             document.save(outputFileName);
             document.close();
 
-            Modulhelferlein.Infomeldung("Brief an die Deutsche Nationalbibliothek ist als PDF gespeichert!");
+            ModulHelferlein.Infomeldung("Brief an die Deutsche Nationalbibliothek ist als PDF gespeichert!");
             try {
                 Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
             } catch (IOException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "Ausgabe Brief", "IO-Exception: ", exept.getMessage());
             }// try Brief ausgeben
 
             String[] args = {" ", "Deutsche Nationalbibliothek", "Referat L 1.3", "Deutscher Platz 1", "04103 Leipzig", ""};
             _DlgAdresseDrucken.main(args);
 
-        } // void briefDNB // void briefDNB
+        } // void briefDNB // void briefDNB // void briefDNB // void briefDNB
         catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("Brief Pflichtexemplar", "IO-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Pflichtexemplar", "IO-Exception", ex.getMessage());
         }
 
     }
@@ -746,14 +747,14 @@ public class briefPflichtexemplar {
         try {
             //helferlein.Infomeldung(Autor + "-"+Titel+"-"+ISBN+"-"+Jahr);
 
-            String outputFileName = Modulhelferlein.pathBuchprojekte + "\\" + ISBN + "\\Pflichtexemplare"
+            String outputFileName = ModulHelferlein.pathBuchprojekte + "\\" + ISBN + "\\Pflichtexemplare"
                     + "\\Pflichtexemplar"
                     + "-"
                     + ISBN
                     + "-"
                     + "BLB"
                     + "-"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                     + ".pdf";
 
             // Create a document and add a page to it
@@ -781,48 +782,48 @@ public class briefPflichtexemplar {
                 System.out.println("No image for you");
             }
 // Fu?zeile
-            Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
-            Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
-            Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+            AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+            AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+            AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+            AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 // Faltmarke, Lochmarke, Faltmarke
                         Linie(cos,1,0,595,15,595);
                         Linie(cos,1,0,415,25,415);
                         Linie(cos,1,0,285,15,285);
 // Absenderzeile
             Linie(cos,1,50, 749, 297, 749);
-            Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
+            AusgabeLB(cos, fontPlain, 8, Color.BLACK, 50, 751, ModulHelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
 // Datum
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
 // Adresse
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 730, "Zentral- und Landesbibliothek Berlin");
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 700, "Pflichtexemplarstelle");
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 685, Modulhelferlein.CheckStr("Breite Straße 30 - 36"));
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, "10178 Berlin");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 730, "Zentral- und Landesbibliothek Berlin");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 700, "Pflichtexemplarstelle");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 685, ModulHelferlein.CheckStr("Breite Straße 30 - 36"));
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 655, "10178 Berlin");
 // Betreff
-            Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, "Pflichtexemplare der Publikationen des Carola Hartmann Miles-Verlag");
+            AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 575, "Pflichtexemplare der Publikationen des Carola Hartmann Miles-Verlag");
 // Anrede
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 540, "Sehr geehrte Damen und Herren,");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 540, "Sehr geehrte Damen und Herren,");
 // Text
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 510, Modulhelferlein.CheckStr("beiliegend übersende ich Ihnen ein Pflichtexemplar unserer Neuerscheinung von"));
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 510, ModulHelferlein.CheckStr("beiliegend übersende ich Ihnen ein Pflichtexemplar unserer Neuerscheinung von"));
 
-            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 490, Autor);
-            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 475, Titel);
-            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 460, "ISBN: " + Modulhelferlein.makeISBN13(ISBN));
-            Ausgabe(cos, fontItalic, 12, Color.BLACK, 100, 445, "Carola Hartmann Miles-Verlag, " + Jahr);
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 425, "zur Aufnahme in die Zentral- und Landesbibliothek Berlin.");
+            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 100, 490, Autor);
+            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 100, 475, Titel);
+            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 100, 460, "ISBN: " + ModulHelferlein.makeISBN13(ISBN));
+            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 100, 445, "Carola Hartmann Miles-Verlag, " + Jahr);
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 425, "zur Aufnahme in die Zentral- und Landesbibliothek Berlin.");
 // Schlussformel
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 390, Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 330, "Carola Hartmann");
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 315, "Diplom Kauffrau");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 390, ModulHelferlein.CheckStr("Mit freundlichen Grüßen"));
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 330, "Carola Hartmann");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 315, "Diplom Kauffrau");
 // Save the results and ensure that the document is properly closed:
 // Make sure that the content stream is closed:
             cos.close();
@@ -831,11 +832,11 @@ public class briefPflichtexemplar {
             document.save(outputFileName);
             document.close();
 
-            Modulhelferlein.Infomeldung("Brief an die Zentral- und Landesbibliothek Berlin ist als PDF gespeichert!");
+            ModulHelferlein.Infomeldung("Brief an die Zentral- und Landesbibliothek Berlin ist als PDF gespeichert!");
             try {
                 Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
             } catch (IOException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "Ausgabe Brief: Exception: " + exept.getMessage());
             }// try Brief ausgeben
 
@@ -843,7 +844,7 @@ public class briefPflichtexemplar {
             _DlgAdresseDrucken.main(args);
 
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("Brief Pflichtexemplar", "IO-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Pflichtexemplar", "IO-Exception", ex.getMessage());
         }
 
     }

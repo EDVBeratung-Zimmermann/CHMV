@@ -31,8 +31,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Linie;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
@@ -42,6 +41,8 @@ import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  * Klasse zur Erzeugung einer ‹bersicht der Lieferanten
@@ -66,9 +67,9 @@ public class berLieferanten {
             cos = new PDPageContentStream(document, page1);
 
             String outputFileName;
-            outputFileName = Modulhelferlein.pathBerichte + "\\Adressen\\"
+            outputFileName = ModulHelferlein.pathBerichte + "\\Adressen\\"
                     + "Adressen-Lieferanten-"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + ".pdf";
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + ".pdf";
 
             PDDocumentInformation docInfo = document.getDocumentInformation();
 
@@ -86,7 +87,7 @@ public class berLieferanten {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "ClassNotFoundException: Treiber nicht gefunden: "
                         + exept.getMessage());
             }
@@ -96,7 +97,7 @@ public class berLieferanten {
                 conn = DriverManager.getConnection(
                         "jdbc:mysql://localhost/miles-verlag", "root", "clausewitz");
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "SQL-Exception: Verbindung nicht moeglich: "
                         + exept.getMessage());
             }
@@ -117,40 +118,40 @@ public class berLieferanten {
                     Integer zeile = 1;
                     Integer seite = 1;
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Lieferanten");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "‹bersicht der Lieferanten, Stand: "
-                            + Modulhelferlein.printSimpleDateFormat(
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Lieferanten");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "‹bersicht der Lieferanten, Stand: "
+                            + ModulHelferlein.printSimpleDateFormat(
                                     "dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 720, "Firma");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 235, 720, "Kundennummer");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 720, "Ansprechpartner");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 705, "Straﬂe und Hausnummer");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 705, "PLZ");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 420, 705, "Ort");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 690, "Telefon");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 690, "Telefax");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 675, "e-Mail");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 675, "Internet");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 660, "Benutzerkennung");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 660, "Kennwort");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 720, "Firma");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 235, 720, "Kundennummer");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 720, "Ansprechpartner");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 705, "Straﬂe und Hausnummer");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 705, "PLZ");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 420, 705, "Ort");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 690, "Telefon");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 690, "Telefax");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 675, "e-Mail");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 675, "Internet");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 660, "Benutzerkennung");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 660, "Kennwort");
                     Linie(cos, 3, 56, 655, 539, 655);
 
                     while (result.next()) { // geht durch alle zeilen
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 715 - zeile * 75, result.getString("LIEFERANT_ID"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 80, 715 - zeile * 75, result.getString("LIEFERANT_NAME"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 235, 715 - zeile * 75, result.getString("LIEFERANT_Kundennummer"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 390, 715 - zeile * 75, result.getString("LIEFERANT_POC"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 80, 700 - zeile * 75, result.getString("LIEFERANT_STRASSE"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 390, 700 - zeile * 75, result.getString("LIEFERANT_PLZ"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 420, 700 - zeile * 75, result.getString("LIEFERANT_ORT"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 80, 685 - zeile * 75, result.getString("LIEFERANT_TELEFON"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 390, 685 - zeile * 75, result.getString("LIEFERANT_TELEFAX"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 80, 670 - zeile * 75, result.getString("LIEFERANT_EMAIL"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 390, 670 - zeile * 75, result.getString("LIEFERANT_WEB"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 80, 655 - zeile * 75, result.getString("LIEFERANT_ANMELDUNG"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 390, 655 - zeile * 75, result.getString("LIEFERANT_KENNWORT"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 715 - zeile * 75, result.getString("LIEFERANT_ID"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 80, 715 - zeile * 75, result.getString("LIEFERANT_NAME"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 235, 715 - zeile * 75, result.getString("LIEFERANT_Kundennummer"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 390, 715 - zeile * 75, result.getString("LIEFERANT_POC"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 80, 700 - zeile * 75, result.getString("LIEFERANT_STRASSE"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 390, 700 - zeile * 75, result.getString("LIEFERANT_PLZ"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 420, 700 - zeile * 75, result.getString("LIEFERANT_ORT"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 80, 685 - zeile * 75, result.getString("LIEFERANT_TELEFON"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 390, 685 - zeile * 75, result.getString("LIEFERANT_TELEFAX"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 80, 670 - zeile * 75, result.getString("LIEFERANT_EMAIL"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 390, 670 - zeile * 75, result.getString("LIEFERANT_WEB"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 80, 655 - zeile * 75, result.getString("LIEFERANT_ANMELDUNG"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 390, 655 - zeile * 75, result.getString("LIEFERANT_KENNWORT"));
                         Linie(cos, 1, 56, 652 - zeile * 75, 539, 652 - zeile * 75);
 
                         zeile = zeile + 1;
@@ -163,24 +164,24 @@ public class berLieferanten {
                             document.addPage(page);
                             cos = new PDPageContentStream(document, page);
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Lieferanten");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "‹bersicht der Lieferanten, Stand: "
-                                    + Modulhelferlein.printSimpleDateFormat(
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Lieferanten");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "‹bersicht der Lieferanten, Stand: "
+                                    + ModulHelferlein.printSimpleDateFormat(
                                             "dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 720, "Firma");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 235, 720, "Kundennummer");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 720, "Ansprechpartner");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 705, "Straﬂe und Hausnummer");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 705, "PLZ");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 420, 705, "Ort");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 690, "Telefon");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 690, "Telefax");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 675, "e-Mail");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 675, "Internet");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 660, "Benutzerkennung");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 660, "Kennwort");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 720, "Firma");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 235, 720, "Kundennummer");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 720, "Ansprechpartner");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 705, "Straﬂe und Hausnummer");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 705, "PLZ");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 420, 705, "Ort");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 690, "Telefon");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 690, "Telefax");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 675, "e-Mail");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 675, "Internet");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 660, "Benutzerkennung");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 660, "Kennwort");
                             Linie(cos, 3, 56, 655, 539, 655);
                         }
                     }
@@ -192,25 +193,25 @@ public class berLieferanten {
                     document.save(outputFileName);
                     document.close();
 
-                    Modulhelferlein.Infomeldung(
+                    ModulHelferlein.Infomeldung(
                             "Liste der Lieferanten ist als PDF gespeichert!");
                     try {
                         Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung(
+                        ModulHelferlein.Fehlermeldung(
                                 "Exception: " + exept.getMessage());
                     }
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung(
+                    ModulHelferlein.Fehlermeldung(
                             "SQLException: SQL-Anfrage nicht moeglich: ",
                              exept.getMessage());
                 } catch (IOException e) {
-                    Modulhelferlein.Fehlermeldung("IO-Exception: ", e.getMessage());
+                    ModulHelferlein.Fehlermeldung("IO-Exception: ", e.getMessage());
                 }
             }
 
         } catch (FileNotFoundException e) {
-            Modulhelferlein.Fehlermeldung("FileNotFoundException: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("FileNotFoundException: ", e.getMessage());
         } catch (IOException e1) {
             // TODO Auto-generated catch block
 

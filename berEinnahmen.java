@@ -114,7 +114,7 @@ public class berEinnahmen {
         outputFileName = outputFileName + ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + "-"
                 + strBis + "-" + strVon
                 + ".xls";
-
+System.out.println("Dateinamen ist generiert");
         try {
             WritableWorkbook workbook = Workbook.createWorkbook(new File(outputFileName));
             WritableSheet sheet_Uebersicht = workbook.createSheet("Übersicht", 0);
@@ -184,7 +184,7 @@ public class berEinnahmen {
                 final Connection conn2 = conn;
 
                 if (conn2 != null) { // Datenbankverbindung steht
-
+System.out.println("Verbindung zur Datenbank steht");
                     try { // Datenbankabfrage
                         // Aufbau des Tabellenblattes sheet_Buecher
                         // Datum RechNr Kunde Einnahmen Bezahlt Bemerkung
@@ -217,12 +217,13 @@ public class berEinnahmen {
 
                         String Sql = "SELECT * FROM TBL_BESTELLUNG";
                         if (Umfang) {
-                            Sql = Sql + " WHERE BESTELLUNG_RECHDAT BETWEEN '" + strVon + "'  AND '" + strBis + "'"
-                                    + " OR BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "'";
+                            Sql = Sql + " WHERE (BESTELLUNG_RECHDAT BETWEEN '" + strVon + "'  AND '" + strBis + "')"
+                                    + " OR (BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "')";
                         } else {
-                            Sql = Sql + " WHERE BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "'";
+                            Sql = Sql + " WHERE (BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "')";
                         }
                         Sql = Sql + " ORDER BY BESTELLUNG_RECHNR";
+System.out.println("Abfrage mit " + Sql);                        
                         resultBestellung = SQLBestellung.executeQuery(Sql);
 
                         // gibt es Corona-Ermäßigung: BESTELLUNG_RECHDAT im Zeitraum 2020-07-01 und 2020-12-31
@@ -230,13 +231,13 @@ public class berEinnahmen {
                         Date date1 = sdf.parse("2020-06-30");
                         Date date2 = sdf.parse("2021-01-01");
                         java.lang.Boolean Corona;
-                        if ((resultBestellung.getDate("BESTELLUNG_RECHDAT").compareTo(date1) > 0) && (resultBestellung.getDate("BESTELLUNG_RECHDAT").compareTo(date2) < 0)) {
-                            Corona = true;
-                        } else {
-                            Corona = false;
-                        }
-
                         while (resultBestellung.next()) { // geht durch alle zeilen
+                            if ((resultBestellung.getDate("BESTELLUNG_RECHDAT").compareTo(date1) > 0) && (resultBestellung.getDate("BESTELLUNG_RECHDAT").compareTo(date2) < 0)) {
+                                Corona = true;
+                            } else {
+                                Corona = false;
+                            }
+System.out.println("Corona-Zeitraum ist geprüft");   
                             // Kundendaten holen
                             if (resultBestellung.getInt("BESTELLUNG_KUNDE") > 0) {
                                 resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");

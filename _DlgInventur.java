@@ -198,7 +198,7 @@ public class _DlgInventur extends javax.swing.JDialog {
                 berBuchbestand.berichtXLS("ISBN"); 
             }
         } else {
-            Modulhelferlein.Infomeldung("Ausgabe DOC","Funktion noch nicht implementiert");
+            ModulHelferlein.Infomeldung("Ausgabe DOC","Funktion noch nicht implementiert");
         }
         this.dispose();
     }//GEN-LAST:event_jButtonDruckenActionPerformed

@@ -35,8 +35,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 //import org.apache.pdfbox.encoding.Encoding;
@@ -50,7 +48,7 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
  * @author Thomas Zimmermann
  *
  */
-public class Modulhelferlein {
+public class ModulHelferlein {
 
     // instance variables - replace the example below with your own
     public static String Trenner = "~#!#~";
@@ -202,15 +200,16 @@ public class Modulhelferlein {
     public static String[] Sprache = {"", ""};
 
     /**
-     * Constructor for objects of class helferlein
+     * Constructor for objects of class ModulHelferlein
      */
-    public Modulhelferlein() {    // initialise instance variables
+    public ModulHelferlein() {    // initialise instance variables
     }
 
     /**
+     * Erstellt aus einer ISBN ohne Trennzeichen eine ISBN mit Trennzeichen
      *
-     * @param ISBN ISBN-Nummer
-     * @return
+     * @param ISBN ISBN-Nummer ohne Trennzeichen
+     * @return ISBN mit Trennzeichen
      */
     public static String makeISBN13(String ISBN) {
         String ISBN13 = ISBN.substring(0, 3) + "-"
@@ -222,9 +221,10 @@ public class Modulhelferlein {
     }
 
     /**
-     *
+     * Prüft, ob das Verzeichnis existiert und legt es ggf. an
+     * 
      * @param dirName Verzeichnisname, das verifiziert/erzeugt werden soll
-     * @return
+     * @return wahr/falsch
      */
     public static boolean checkDir(String dirName) {
         File stats = new File(dirName);
@@ -242,7 +242,8 @@ public class Modulhelferlein {
     }
 
     /**
-     *
+     * Zeichnet eine Linie in der Stärke width von xs,ys nach xe,ye
+     * 
      * @param cos
      * @param Width
      * @param xs
@@ -257,7 +258,7 @@ public class Modulhelferlein {
             cos.lineTo(xe, ye);
             cos.closeAndStroke();
         } catch (IOException ex) {
-            Logger.getLogger(Modulhelferlein.class.getName()).log(Level.SEVERE, null, ex);
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + ex.getMessage());
         }
     }
 
@@ -265,7 +266,7 @@ public class Modulhelferlein {
      * Wandelt ein Datum um 2018-03-05 => 05.03.2018
      *
      * @param Eingabe SQL-Datum
-     * @return normalisierter Datum
+     * @return normalisiertes Datum
      */
     public static String SQLDate2Normal(String Eingabe) {
         String Ausgabe = Eingabe.substring(8, 10) + "."
@@ -274,23 +275,11 @@ public class Modulhelferlein {
         return Ausgabe;
     }
 
-    public static String Normalisiere(String Input) {
-        String Output = Input;
-        String m_text = Input;
-        char[] c = new char[Input.length()];
-        int inside = 0;
-        for (int index = 0; index < Input.length(); index++) {
-            char buchstabe = Input.charAt(index);
-            if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".indexOf(buchstabe) >= 0) {
-                continue; // Wird continue ausgelassen, werden nur die nur genau die Zeichen angezeigt wie in der if bedingung aufgelistet
-            }
-            c[inside++] = buchstabe;
-        }
-        return new String(c, 0, inside); // Gebe neuen String zurück, da Strings "immutable" sind.
-    }
 
     /**
-     *
+     * gibt einen Text an der Stelle x,y in der Größe size im Zeichensatz font
+     * linksbündig mit maximal zwei Zeilen aus und kürzt diesen auf die Breite breite
+     * 
      * @param cos
      * @param font
      * @param size
@@ -304,7 +293,6 @@ public class Modulhelferlein {
         String hilfstext = text + " ENDE ENDE";
         String[] Gesamttext = hilfstext.split(" ");
         Integer woerter = Gesamttext.length;
-//helferlein.Infomeldung("woerter - 1", Gesamttext[woerter-1]);
         System.out.println("Ausgabe Leistung: " + hilfstext + " mit " + Integer.toString(woerter) + " Wörter");
         Gesamttext[woerter - 1] = ""; //ENDE
         woerter = woerter - 2;
@@ -316,15 +304,13 @@ public class Modulhelferlein {
         try {
             while ((i < woerter - 1) && (ZeilenNr < 3)) {
                 zeile[ZeilenNr] = Gesamttext[i];
-                laenge = Modulhelferlein.float2Int(font.getStringWidth(zeile[ZeilenNr] + " " + Gesamttext[i + 1]) / 1000 * size);
+                laenge = ModulHelferlein.float2Int(font.getStringWidth(zeile[ZeilenNr] + " " + Gesamttext[i + 1]) / 1000 * size);
                 while ((laenge < breite) && (zeile[ZeilenNr].length() < 90) && (i < woerter - 1)) {
                     zeile[ZeilenNr] = zeile[ZeilenNr] + " " + Gesamttext[i + 1];
                     i = i + 1;
-                    laenge = Modulhelferlein.float2Int(font.getStringWidth(zeile[ZeilenNr] + " " + Gesamttext[i + 1]) / 1000 * size);
+                    laenge = ModulHelferlein.float2Int(font.getStringWidth(zeile[ZeilenNr] + " " + Gesamttext[i + 1]) / 1000 * size);
                 }
-//helferlein.Infomeldung(Float.toString(laenge) + " => " + zeile);                                
                 i = i + 1;
-//helferlein.Infomeldung(Float.toString(laenge) + " => " + zeile[ZeilenNr]);   
                 ZeilenNr = ZeilenNr + 1;
             }
 
@@ -342,7 +328,7 @@ public class Modulhelferlein {
             cos.showText(zeile[1]);
             cos.endText();
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("Ausgabe Text", "IO-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Ausgabe Text", "IO-Exception: ", e.getMessage());
         }
     }
 
@@ -372,13 +358,13 @@ public class Modulhelferlein {
             cos.showText(text);
             cos.endText();
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         }
     }
 
     /**
      * gibt einen Text an der Stelle x,y in der Größe size im Zeichensatz font
-     * aus
+     * linksbündig aus
      *
      * @param cos Contentstream
      * @param font Zeichensatz
@@ -388,7 +374,7 @@ public class Modulhelferlein {
      * @param y y-Koordinate
      * @param text auszugebender Text
      */
-    public static void Ausgabe(PDPageContentStream cos, PDFont font, int size, Color color, int x, int y, String text) {
+    public static void AusgabeLB(PDPageContentStream cos, PDFont font, int size, Color color, int x, int y, String text) {
         try {
             cos.beginText();
             cos.setFont(font, size);
@@ -397,13 +383,13 @@ public class Modulhelferlein {
             cos.showText(text);
             cos.endText();
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         }
     }
 
     /**
      * gibt einen Text an der Stelle x,y in der Größe size im Zeichensatz font
-     * aus Rechtsbündig
+     * rechtsbündig aus
      *
      * @param cos Contentstream
      * @param font Zeichensatz
@@ -423,7 +409,7 @@ public class Modulhelferlein {
             cos.showText(text);
             cos.endText();
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         }
     }
 
@@ -436,7 +422,7 @@ public class Modulhelferlein {
             cos.showText(text);
             cos.endText();
         } catch (IOException ex) {
-            Logger.getLogger(Modulhelferlein.class.getName()).log(Level.SEVERE, null, ex);
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + ex.getMessage());
         }
     }
 
@@ -501,10 +487,23 @@ public class Modulhelferlein {
                 }
             }
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         }
     }
 
+    /**
+     * gibt einen Text an der Stelle x,y in der Größe size im Zeichensatz font
+     * zentriert aus. Die Breite wird durch breite definiert
+     * 
+     * @param cos
+     * @param font
+     * @param size
+     * @param color
+     * @param x
+     * @param y
+     * @param text
+     * @param breite
+     */
     public static void AusgabeZ(PDPageContentStream cos, PDFont font, int size, Color color, int x, int y, String text, Integer breite) {
 
         try {
@@ -516,7 +515,7 @@ public class Modulhelferlein {
             cos.showText(text);
             cos.endText();
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         }
     }
 
@@ -574,7 +573,7 @@ public class Modulhelferlein {
                 cos.endText();
             }
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         }
     }
 
@@ -755,7 +754,7 @@ public class Modulhelferlein {
         try {
             rDate = sdf.parse(SQLDate);
         } catch (ParseException e) {
-            Modulhelferlein.Fehlermeldung("ParseException: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("ParseException: " + e.getMessage());
         }
 
         return rDate;
@@ -774,7 +773,7 @@ public class Modulhelferlein {
         try {
             rDate = sdf.parse(Date);
         } catch (ParseException e) {
-            Modulhelferlein.Fehlermeldung("ParseException: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("ParseException: " + e.getMessage());
         }
 
         return rDate;
@@ -918,7 +917,8 @@ public class Modulhelferlein {
     }
 
     /**
-     *
+     * Legt eine Bestellung an
+     * 
      * @param Zeile1
      * @param Zeile2
      * @param Zeile3
@@ -957,8 +957,8 @@ public class Modulhelferlein {
         Connection conn;
 
         try {
-            Class.forName(Modulhelferlein.dbDriver);
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            Class.forName(ModulHelferlein.dbDriver);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
 
             if (conn != null) {
 
@@ -998,12 +998,12 @@ public class Modulhelferlein {
                     BestNrString = "0" + BestNrString;
                 }
 
-                BestNrString = Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + "-" + BestNrString;
+                BestNrString = ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + "-" + BestNrString;
                 iresultB.moveToInsertRow();
                 iresultB.updateInt("BESTELLUNG_TYP", Typ);
                 iresultB.updateInt("BESTELLUNG_ID", imaxID + 1);
-                iresultB.updateDate("BESTELLUNG_BEZAHLT", Modulhelferlein.Date2SQLDate(CurDate));
-                iresultB.updateDate("BESTELLUNG_DATUM", Modulhelferlein.Date2SQLDate(CurDate));
+                iresultB.updateDate("BESTELLUNG_BEZAHLT", ModulHelferlein.Date2SQLDate(CurDate));
+                iresultB.updateDate("BESTELLUNG_DATUM", ModulHelferlein.Date2SQLDate(CurDate));
                 iresultB.updateInt("BESTELLUNG_KUNDE", -1);
                 iresultB.updateInt("BESTELLUNG_ZAHLUNGSZIEL", 14);
                 iresultB.updateString("BESTELLUNG_BESTNR", "ohne");
@@ -1024,7 +1024,7 @@ public class Modulhelferlein {
                 iresultB.updateBoolean("BESTELLUNG_BESTAND", true);
                 iresultB.updateBoolean("BESTELLUNG_BEZAHLUNG", false);
                 iresultB.updateString("BESTELLUNG_RECHNR", BestNrString);
-                iresultB.updateDate("BESTELLUNG_RECHDAT", Modulhelferlein.Date2SQLDate(CurDate));
+                iresultB.updateDate("BESTELLUNG_RECHDAT", ModulHelferlein.Date2SQLDate(CurDate));
                 iresultB.updateBoolean("BESTELLUNG_TB", false);
                 iresultB.updateString("BESTELLUNG_TEXT", "");
 
@@ -1039,7 +1039,7 @@ public class Modulhelferlein {
                 iresultBD.updateString("BESTELLUNG_DETAIL_SONST_TEXT", "");
                 iresultBD.updateFloat("BESTELLUNG_DETAIL_SONST_PREIS", 0F);
                 iresultBD.updateInt("BESTELLUNG_DETAIL_BUCH", Buch);
-                iresultBD.updateDate("BESTELLUNG_DETAIL_DATUM", Modulhelferlein.Date2SQLDate(CurDate));
+                iresultBD.updateDate("BESTELLUNG_DETAIL_DATUM", ModulHelferlein.Date2SQLDate(CurDate));
                 iresultBD.updateString("BESTELLUNG_DETAIL_RECHNR", BestNrString);
                 iresultBD.updateInt("BESTELLUNG_DETAIL_ANZAHL", Anzahl);
                 iresultBD.insertRow();
@@ -1060,13 +1060,10 @@ public class Modulhelferlein {
                 iSQLAnfrageBuch.close();
             }
         } catch (ClassNotFoundException ex) {
-            Modulhelferlein.Fehlermeldung("Makebestellung", "ClassNotFound-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Makebestellung", "ClassNotFound-Exception", ex.getMessage());
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Makebestellung", "SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Makebestellung", "SQL-Exception", ex.getMessage());
         }
         return BestNrString;
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

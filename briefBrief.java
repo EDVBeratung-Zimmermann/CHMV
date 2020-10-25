@@ -33,9 +33,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.imageio.ImageIO;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.Linie;
-import static milesVerlagMain.Modulhelferlein.Trenner;
+import static milesVerlagMain.ModulHelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Trenner;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -44,6 +43,8 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 public class briefBrief {
 
@@ -54,14 +55,14 @@ public class briefBrief {
         Connection conn;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden: " + exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             if (conn != null) {
                 try { // Create a document and add a page to it
                     PDDocument document = new PDDocument();
@@ -91,24 +92,24 @@ public class briefBrief {
                         cos.drawImage(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                         //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                     } catch (FileNotFoundException fnfex) {
-                        Modulhelferlein.Fehlermeldung("Brief Rezension", "File not found-Exception", "Keine Bild-Datei gefunden " + fnfex.getMessage());
+                        ModulHelferlein.Fehlermeldung("Brief Rezension", "File not found-Exception", "Keine Bild-Datei gefunden " + fnfex.getMessage());
                         System.out.println("No image for you");
                     }
 // Fu?zeile
-                    Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-                    Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
 
-                    Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 
 // Faltmarke, Lochmarke, Faltmarke
                     Linie(cos, 1, 0, 595, 15, 595);
@@ -117,7 +118,7 @@ public class briefBrief {
 
                     // Absenderzeile
                     Linie(cos, 1, 50, 749, 297, 749);
-                    Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
+                    AusgabeLB(cos, fontPlain, 8, Color.BLACK, 50, 751, ModulHelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
 
 //helferlein.Infomeldung("schreibe adresse");
 // Adresse
@@ -130,7 +131,7 @@ public class briefBrief {
                     String[] args = {"", "", "", "", "", "", ""};
 
                     args[0] = resultAA.getString("ADRESSEN_ZUSATZ_1");
-                    args[1] = Modulhelferlein.makeAnrede(resultAA.getString("ADRESSEN_NAMENSZUSATZ"),
+                    args[1] = ModulHelferlein.makeAnrede(resultAA.getString("ADRESSEN_NAMENSZUSATZ"),
                             resultAA.getString("ADRESSEN_VORNAME"),
                             resultAA.getString("ADRESSEN_NAME"));
                     args[2] = resultAA.getString("ADRESSEN_ZUSATZ_2");
@@ -145,27 +146,27 @@ public class briefBrief {
                             AdressZeilenNr = AdressZeilenNr + 1;
                         }
                     }
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 730, AdressZeile[1]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 715, AdressZeile[2]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 700, AdressZeile[3]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 730, AdressZeile[1]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 715, AdressZeile[2]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 700, AdressZeile[3]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
                     System.out.println("... Adresse geschrieben");
 
 // Datum
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
                     System.out.println("... Datum geschrieben");
 // Betreff
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 625, Betreff);
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 625, Betreff);
                     System.out.println("... Betreffzeile geschrieben");
 // Bezug
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 605, Betreff);
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 605, Betreff);
                     System.out.println("... Bezugzeile geschrieben");
 
 // Anrede
                     if (Anrede) {
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 540, Modulhelferlein.makeAnrede(resultAA.getString("ADRESSEN_ANREDE"), resultAA.getString("ADRESSEN_NAMENSZUSATZ"), resultAA.getString("ADRESSEN_NAME")) + ",");
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 540, ModulHelferlein.makeAnrede(resultAA.getString("ADRESSEN_ANREDE"), resultAA.getString("ADRESSEN_NAMENSZUSATZ"), resultAA.getString("ADRESSEN_NAME")) + ",");
                     }
 // Text
                     Integer Startzeile = 500;
@@ -182,7 +183,7 @@ public class briefBrief {
 
                     String[] splitBeschreibung = Beschreibung.split(Trenner);
                     for (int i = 0; i < splitBeschreibung.length; i++) {
-                        Ausgabe(cos, fontUniPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitBeschreibung[i]);
+                        AusgabeLB(cos, fontUniPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitBeschreibung[i]);
                         ZeilenNr = ZeilenNr + 1;
                         if (Startzeile - 15 * (ZeilenNr - 1) <= 130) { //neue Seite
                             cos.close();
@@ -191,20 +192,20 @@ public class briefBrief {
                             cos = new PDPageContentStream(document, page);
 
                             // Fu?zeile
-                            Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-                            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-                            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-                            Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+                            AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                            AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                            AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                            AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-                            Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-                            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-                            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                            Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+                            AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
+                            AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                            AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                            AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
 
-                            Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-                            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-                            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                            Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+                            AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                            AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                            AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                            AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 
 // Faltmarke, Lochmarke, Faltmarke
                             Linie(cos, 1, 0, 595, 15, 595);
@@ -220,14 +221,14 @@ public class briefBrief {
 
 // Schlussformel
                     ZeilenNr = ZeilenNr + 1;
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 5), Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 5), ModulHelferlein.CheckStr("Mit freundlichen Grüßen"));
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
 
-                    String outputFileName = Modulhelferlein.pathUserDir + "\\Briefe"
+                    String outputFileName = ModulHelferlein.pathUserDir + "\\Briefe"
                             + "\\"
                             + "Brief-"
-                            + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                            + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                             + "-"
                             + resultAA.getString("ADRESSEN_NAME")
                             + ".pdf";
@@ -238,17 +239,17 @@ public class briefBrief {
                     document.save(outputFileName);
                     document.close();
 
-                    Modulhelferlein.Infomeldung("Brief an " + resultAA.getString("ADRESSEN_NAME") + " ist als PDF gespeichert!");
+                    ModulHelferlein.Infomeldung("Brief an " + resultAA.getString("ADRESSEN_NAME") + " ist als PDF gespeichert!");
                     try {
                         Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung(
+                        ModulHelferlein.Fehlermeldung(
                                 "Exception: " + exept.getMessage());
                     }// try Brief ausgeben
 
                     // Adressetikett drucken
                     String Zeile1 = resultAA.getString("ADRESSEN_ZUSATZ_1");
-                    String Zeile2 = Modulhelferlein.makeAnrede(resultAA.getString("ADRESSEN_NAMENSZUSATZ"), resultAA.getString("ADRESSEN_VORNAME"), resultAA.getString("ADRESSEN_NAME"));
+                    String Zeile2 = ModulHelferlein.makeAnrede(resultAA.getString("ADRESSEN_NAMENSZUSATZ"), resultAA.getString("ADRESSEN_VORNAME"), resultAA.getString("ADRESSEN_NAME"));
                     String Zeile3 = resultAA.getString("ADRESSEN_ZUSATZ_2");
                     String Zeile4 = resultAA.getString("ADRESSEN_STRASSE");
                     String Zeile5 = resultAA.getString("ADRESSEN_PLZ") + " " + resultAA.getString("ADRESSEN_ORT");
@@ -257,13 +258,13 @@ public class briefBrief {
                     _DlgAdresseDrucken.main(argumente);
 
                 } catch (IOException exept) {
-                    Modulhelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
                 } // try Erstelle Dokument
             } //if conn != null
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verbindung nicht moeglich: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verbindung nicht moeglich: " + exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank über die JDBC-Brücke
 

@@ -63,13 +63,13 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             try {
                 Dateiname = chooser.getSelectedFile().getCanonicalPath();
                 System.out.println("Cover-Datei");
-                System.out.println("-> " + Modulhelferlein.pathUserDir);
-                System.out.println("-> " + Modulhelferlein.pathBuchprojekte);
+                System.out.println("-> " + ModulHelferlein.pathUserDir);
+                System.out.println("-> " + ModulHelferlein.pathBuchprojekte);
                 System.out.println("-> " + Dateiname);
 
                 field_Cover.setText(Dateiname);
             } catch (IOException ex) {
-                Modulhelferlein.Fehlermeldung("Exception: " + ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Exception: " + ex.getMessage());
             }
         }
     }
@@ -88,7 +88,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             }
             field_Flyer.setText(result.getString("BUCH_FLYER"));
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Flyer erstellen", "SQL-Exception", ex.getMessage());
         }
     }
 
@@ -237,14 +237,14 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
             System.out.println("Treiber nicht gefunden: " + exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank ?ber die JDBC-Br?cke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
             System.out.println(
                     "Verbindung nicht moeglich: " + exept.getMessage());
@@ -347,7 +347,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     lbAutor.setSelectedIndices(select);
 
                     LabelBild.setIcon(new ImageIcon(result.getString("BUCH_COVER")));
-                    //LabelBild.setIcon(new ImageIcon(Modulhelferlein.pathUserDir + "/" + result.getString("BUCH_COVER")));
+                    //LabelBild.setIcon(new ImageIcon(ModulHelferlein.pathUserDir + "/" + result.getString("BUCH_COVER")));
                     //Bild = new Background(result.getString("Buch_COVER"));this.add(Bild); Bild.setBounds(520, 350, 120, 160);
 
                     field_Titel.setText(result.getString("Buch_Titel"));
@@ -427,7 +427,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "SQL-Exception: SQL-Anfrage nicht moeglich: "
                         + exept.getMessage());
                 // System.exit(1);
@@ -1222,7 +1222,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             cbDruckerei.setSelectedItem(field_Druckerei);
             System.out.println("Anfang: ID: " + field_ID.getText() + ", ISBN: " + field_ISBN.getText());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             System.out.println("Anfang:");
         }
     }//GEN-LAST:event_AnfangActionPerformed
@@ -1341,7 +1341,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             }
             System.out.println("Zurück auf ID: " + field_ID.getText() + ", ISBN: " + field_ISBN.getText());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             System.out.println("Zurück");
         }
     }//GEN-LAST:event_ZurueckActionPerformed
@@ -1461,7 +1461,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             }
             System.out.println("Vor auf ID: " + field_ID.getText() + ", ISBN: " + field_ISBN.getText());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             System.out.println("Vor");
         }
     }//GEN-LAST:event_VorActionPerformed
@@ -1573,7 +1573,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             cbDruckerei.setSelectedItem(field_Druckerei);
             System.out.println("Ende: ID: " + field_ID.getText() + ", ISBN: " + field_ISBN.getText());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             System.out.println("Ende");
         }
     }//GEN-LAST:event_EndeActionPerformed
@@ -1581,44 +1581,44 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
         try {
-            if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-                Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Anzahl der Seiten - es ist keine korrekte Ganzzahl");
+            if (ModulHelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
+                ModulHelferlein.Infomeldung("fehlerhafte Eingabe der Anzahl der Seiten - es ist keine korrekte Ganzzahl");
             } else {
-                if (Modulhelferlein.checkNumberFormatInt(field_Jahr.getText()) < 0) {
-                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Erscheinungsjahres - es ist keine korrekte Ganzzahl");
+                if (ModulHelferlein.checkNumberFormatInt(field_Jahr.getText()) < 0) {
+                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe des Erscheinungsjahres - es ist keine korrekte Ganzzahl");
                 } else {
-                    if (Modulhelferlein.checkNumberFormatInt(field_Bestand.getText()) < 0) {
-                        Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Buchbestandes - es ist keine korrekte Ganzzahl");
+                    if (ModulHelferlein.checkNumberFormatInt(field_Bestand.getText()) < 0) {
+                        ModulHelferlein.Infomeldung("fehlerhafte Eingabe des Buchbestandes - es ist keine korrekte Ganzzahl");
                     } else {
-                        if (Modulhelferlein.checkNumberFormatInt(field_Auflage.getText()) < 0) {
-                            Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Auflage- es ist keine korrekte Ganzzahl");
+                        if (ModulHelferlein.checkNumberFormatInt(field_Auflage.getText()) < 0) {
+                            ModulHelferlein.Infomeldung("fehlerhafte Eingabe der Auflage- es ist keine korrekte Ganzzahl");
                         } else {
-                            if (Modulhelferlein.checkNumberFormatFloat(field_Preis.getText()) < 0) {
-                                Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Preises - es ist keine korrekte Zahl");
+                            if (ModulHelferlein.checkNumberFormatFloat(field_Preis.getText()) < 0) {
+                                ModulHelferlein.Infomeldung("fehlerhafte Eingabe des Preises - es ist keine korrekte Zahl");
                             } else {
-                                if (Modulhelferlein.checkNumberFormatFloat(field_EK.getText()) < 0) {
-                                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe des EK-Preises - es ist keine korrekte Zahl");
+                                if (ModulHelferlein.checkNumberFormatFloat(field_EK.getText()) < 0) {
+                                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe des EK-Preises - es ist keine korrekte Zahl");
                                 } else {
-                                    if (Modulhelferlein.checkNumberFormatFloat(field_Marge.getText()) < 0) {
-                                        Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Marge - es ist keine korrekte Zahl");
+                                    if (ModulHelferlein.checkNumberFormatFloat(field_Marge.getText()) < 0) {
+                                        ModulHelferlein.Infomeldung("fehlerhafte Eingabe der Marge - es ist keine korrekte Zahl");
                                     } else {
-                                        if (Modulhelferlein.checkNumberFormatInt(field_Honorar_Prozent.getText()) < 0) {
-                                            Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Prozentwertes für Honorare - es ist keine korrekte Ganzzahl");
+                                        if (ModulHelferlein.checkNumberFormatInt(field_Honorar_Prozent.getText()) < 0) {
+                                            ModulHelferlein.Infomeldung("fehlerhafte Eingabe des Prozentwertes für Honorare - es ist keine korrekte Ganzzahl");
                                         } else {
-                                            if (Modulhelferlein.checkNumberFormatInt(field_Honorar_Anzahl.getText()) < 0) {
-                                                Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Verkeuafsanzahl für Honorare - es ist keine korrekte Ganzzahl");
+                                            if (ModulHelferlein.checkNumberFormatInt(field_Honorar_Anzahl.getText()) < 0) {
+                                                ModulHelferlein.Infomeldung("fehlerhafte Eingabe der Verkeuafsanzahl für Honorare - es ist keine korrekte Ganzzahl");
                                             } else {
-                                                if (Modulhelferlein.checkNumberFormatInt(field_Honorar_2_Prozent.getText()) < 0) {
-                                                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Prozentwertes für Honorare - es ist keine korrekte Ganzzahl");
+                                                if (ModulHelferlein.checkNumberFormatInt(field_Honorar_2_Prozent.getText()) < 0) {
+                                                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe des Prozentwertes für Honorare - es ist keine korrekte Ganzzahl");
                                                 } else {
-                                                    if (Modulhelferlein.checkNumberFormatInt(field_Honorar_2_Anzahl.getText()) < 0) {
-                                                        Modulhelferlein.Infomeldung("fehlerhafte Eingabe der Verkeuafsanzahl für Honorare - es ist keine korrekte Ganzzahl");
+                                                    if (ModulHelferlein.checkNumberFormatInt(field_Honorar_2_Anzahl.getText()) < 0) {
+                                                        ModulHelferlein.Infomeldung("fehlerhafte Eingabe der Verkeuafsanzahl für Honorare - es ist keine korrekte Ganzzahl");
                                                     } else {
-                                                        if (Modulhelferlein.checkNumberFormatFloat(field_BoDFix.getText()) < 0) {
-                                                            Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Fix-Anteils der BoD-Marge - es ist keine korrekte Zahl");
+                                                        if (ModulHelferlein.checkNumberFormatFloat(field_BoDFix.getText()) < 0) {
+                                                            ModulHelferlein.Infomeldung("fehlerhafte Eingabe des Fix-Anteils der BoD-Marge - es ist keine korrekte Zahl");
                                                         } else {
-                                                            if (Modulhelferlein.checkNumberFormatInt(field_Honorar_Prozent.getText()) < 0) {
-                                                                Modulhelferlein.Infomeldung("fehlerhafte Eingabe des Prozentwertes der BoD-Marge - es ist keine korrekte Ganzzahl");
+                                                            if (ModulHelferlein.checkNumberFormatInt(field_Honorar_Prozent.getText()) < 0) {
+                                                                ModulHelferlein.Infomeldung("fehlerhafte Eingabe des Prozentwertes der BoD-Marge - es ist keine korrekte Ganzzahl");
                                                             } else {
                                                                 result.updateString("Buch_Titel", field_Titel.getText());
                                                                 result.updateFloat("Buch_EK", Float.parseFloat(field_EK.getText()));
@@ -1692,7 +1692,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 }
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -1707,23 +1707,23 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             while (eingabeISBN.endsWith(" ")) {
                 eingabeISBN = eingabeISBN.substring(0, eingabeISBN.length() - 1);
             }
-            File dir = new File(Modulhelferlein.pathBuchprojekte + "/" + eingabeISBN + "/");
+            File dir = new File(ModulHelferlein.pathBuchprojekte + "/" + eingabeISBN + "/");
             dir.mkdir();
-            dir = new File(Modulhelferlein.pathBuchprojekte + "/" + eingabeISBN + "/1/");
+            dir = new File(ModulHelferlein.pathBuchprojekte + "/" + eingabeISBN + "/1/");
             dir.mkdir();
-            dir = new File(Modulhelferlein.pathBuchprojekte + "/" + eingabeISBN + "/1/Schriftverkehr/");
+            dir = new File(ModulHelferlein.pathBuchprojekte + "/" + eingabeISBN + "/1/Schriftverkehr/");
             dir.mkdir();
-            dir = new File(Modulhelferlein.pathBuchprojekte + "/" + eingabeISBN + "/1/Vertrag Autor/");
+            dir = new File(ModulHelferlein.pathBuchprojekte + "/" + eingabeISBN + "/1/Vertrag Autor/");
             dir.mkdir();
-            dir = new File(Modulhelferlein.pathBuchprojekte + "/" + eingabeISBN + "/1/Vertrag BoD/");
+            dir = new File(ModulHelferlein.pathBuchprojekte + "/" + eingabeISBN + "/1/Vertrag BoD/");
             dir.mkdir();
-            dir = new File(Modulhelferlein.pathBuchprojekte + "/" + eingabeISBN + "/Belegexemplare/");
+            dir = new File(ModulHelferlein.pathBuchprojekte + "/" + eingabeISBN + "/Belegexemplare/");
             dir.mkdir();
-            dir = new File(Modulhelferlein.pathBuchprojekte + "/" + eingabeISBN + "/Cover/");
+            dir = new File(ModulHelferlein.pathBuchprojekte + "/" + eingabeISBN + "/Cover/");
             dir.mkdir();
-            dir = new File(Modulhelferlein.pathBuchprojekte + "/" + eingabeISBN + "/Pflichtexemplare/");
+            dir = new File(ModulHelferlein.pathBuchprojekte + "/" + eingabeISBN + "/Pflichtexemplare/");
             dir.mkdir();
-            dir = new File(Modulhelferlein.pathBuchprojekte + "/" + eingabeISBN + "/Rezensionen/");
+            dir = new File(ModulHelferlein.pathBuchprojekte + "/" + eingabeISBN + "/Rezensionen/");
             dir.mkdir();
 
             try {
@@ -1887,10 +1887,10 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 cbDruckerei.setSelectedItem(field_Druckerei);
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: Einf?gen: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: Einf?gen: " + exept.getMessage());
             }
         } else {
-            Modulhelferlein.Infomeldung("ohne ISBN kein Buchprojekt!");
+            ModulHelferlein.Infomeldung("ohne ISBN kein Buchprojekt!");
         } // if   
     }//GEN-LAST:event_EinfuegenActionPerformed
 
@@ -2037,7 +2037,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     Schliessen.setEnabled(true);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             }
         }
     }//GEN-LAST:event_LoeschenActionPerformed
@@ -2218,12 +2218,12 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                     cbDruckerei.setSelectedItem(field_Druckerei);
 
                 } else {
-                    Modulhelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
+                    ModulHelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
                     AnfangActionPerformed(evt);
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             }
         }
     }//GEN-LAST:event_SuchenActionPerformed
@@ -2375,11 +2375,11 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 cbDruckerei.setSelectedItem(field_Druckerei);
 
             } else {
-                Modulhelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
+                ModulHelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
                 AnfangActionPerformed(evt);
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_WSuchenActionPerformed
 
@@ -2395,7 +2395,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed
@@ -2425,7 +2425,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
                 result.getString("BUCH_ID")};   // 6
             _DlgAusgabeFormat.main(args);
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Drucke Pflichtexemplar Deutsche Nationalbibliothek", "SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Drucke Pflichtexemplar Deutsche Nationalbibliothek", "SQL-Exception", ex.getMessage());
         }
 
     }//GEN-LAST:event_btnDNBActionPerformed
@@ -2449,7 +2449,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             String[] args = {"Pflichtexemplar", "BLB", field_Autor, field_Titel.getText(), field_ISBN.getText(), field_Jahr.getText(), result.getString("BUCH_ID")};
             _DlgAusgabeFormat.main(args);
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Drucke Pflichtexemplar Berliner Landesbibliothek", "SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Drucke Pflichtexemplar Berliner Landesbibliothek", "SQL-Exception", ex.getMessage());
         }
 
     }//GEN-LAST:event_btnBLBActionPerformed
@@ -2500,13 +2500,13 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             try {
                 Dateiname = chooser.getSelectedFile().getCanonicalPath();
                 System.out.println("Cover-Datei");
-                System.out.println("-> " + Modulhelferlein.pathUserDir);
-                System.out.println("-> " + Modulhelferlein.pathBuchprojekte);
+                System.out.println("-> " + ModulHelferlein.pathUserDir);
+                System.out.println("-> " + ModulHelferlein.pathBuchprojekte);
                 System.out.println("-> " + Dateiname);
 
                 field_Cover_gross.setText(Dateiname);
             } catch (IOException e) {
-                Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
             }
         }
     }//GEN-LAST:event_CoverAddActionPerformed
@@ -2517,7 +2517,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             try {
                 field_Text.setText(chooser.getSelectedFile().getCanonicalPath());
             } catch (IOException e) {
-                Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
             }
         }
     }//GEN-LAST:event_TextAddActionPerformed
@@ -2528,7 +2528,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             try {
                 field_Flyer.setText(chooser.getSelectedFile().getCanonicalPath());
             } catch (IOException e) {
-                Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
             }
         }
     }//GEN-LAST:event_FlyerAddActionPerformed
@@ -2539,7 +2539,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             try {
                 field_Vertrag.setText(chooser.getSelectedFile().getCanonicalPath());
             } catch (IOException e) {
-                Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
             }
         }
     }//GEN-LAST:event_VertragAddActionPerformed
@@ -2550,7 +2550,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
             try {
                 field_VertragBOD.setText(chooser.getSelectedFile().getCanonicalPath());
             } catch (IOException e) {
-                Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
             }
         }
     }//GEN-LAST:event_VertragBODAddActionPerformed
@@ -2562,57 +2562,57 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 
     private void field_SeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_SeitenActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+        if (ModulHelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
+            ModulHelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_SeitenActionPerformed
 
     private void field_BestandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_BestandActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+        if (ModulHelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
+            ModulHelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_BestandActionPerformed
 
     private void field_Honorar_AnzahlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_Honorar_AnzahlActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+        if (ModulHelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
+            ModulHelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_Honorar_AnzahlActionPerformed
 
     private void field_Honorar_ProzentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_Honorar_ProzentActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+        if (ModulHelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
+            ModulHelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_Honorar_ProzentActionPerformed
 
     private void field_AuflageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_AuflageActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+        if (ModulHelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
+            ModulHelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_AuflageActionPerformed
 
     private void field_JahrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_JahrActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
-            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+        if (ModulHelferlein.checkNumberFormatInt(field_Seiten.getText()) < 0) {
+            ModulHelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_field_JahrActionPerformed
 
     private void field_PreisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_PreisActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatFloat(field_Preis.getText()) < 0) {
-            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
+        if (ModulHelferlein.checkNumberFormatFloat(field_Preis.getText()) < 0) {
+            ModulHelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
         }
     }//GEN-LAST:event_field_PreisActionPerformed
 
     private void field_EKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_EKActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatFloat(field_Preis.getText()) < 0) {
-            Modulhelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
+        if (ModulHelferlein.checkNumberFormatFloat(field_Preis.getText()) < 0) {
+            ModulHelferlein.Fehlermeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
         }
     }//GEN-LAST:event_field_EKActionPerformed
 
@@ -2654,7 +2654,7 @@ public class VerwaltenDatenbankBuch extends javax.swing.JDialog {
 //helferlein.Infomeldung(args[1]);            
             _DlgBelegexemplareErzeugen.main(args);
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Belegexemplar erzeugen", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Belegexemplar erzeugen", ex.getMessage());
             //Logger.getLogger(VerwaltenDatenbankBuch.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtnBelegexemplarActionPerformed

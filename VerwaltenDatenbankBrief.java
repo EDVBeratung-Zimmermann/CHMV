@@ -161,16 +161,16 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung(
+            ModulHelferlein.Fehlermeldung(
                     "ClassNotFoundException: Treiber nicht gefunden. "
                     + exept.getMessage());
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             // final Connection conn2=conn;
 
             if (conn != null) {
@@ -219,7 +219,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                         resultIsEmpty = false;
                         field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
                         field_Text.setText(result.getString("BRIEFE_TEXT"));
-                        field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+                        field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
                         field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
                         field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
                         field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
@@ -264,11 +264,11 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                     }
 
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
                 }
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung nicht moeglich. " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung nicht moeglich. " + exept.getMessage());
         }
 
     }
@@ -631,7 +631,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             do {
             } while ((!gefunden) && result.next());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_WSuchenActionPerformed
 
@@ -657,7 +657,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
 
             field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
             field_Text.setText(result.getString("BRIEFE_TEXT"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+            field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
             field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
             field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
             field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
@@ -675,7 +675,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             }
             field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_AnfangActionPerformed
 
@@ -687,7 +687,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             result.moveToInsertRow();
             result.updateInt("BRIEFE_ID", maxID);
             result.updateString("BRIEFE_TEXT", field_Text.getText());
-            result.updateDate("BRIEFE_DATUM", Modulhelferlein.Date2SQLDate(new Date(0)));
+            result.updateDate("BRIEFE_DATUM", ModulHelferlein.Date2SQLDate(new Date(0)));
             result.updateString("BRIEFE_BEZUG", field_Bezug.getText());
             result.updateString("BRIEFE_BETREFF", field_Betreff.getText());
             result.updateBoolean("BRIEFE_ANREDE", field_Anrede.isSelected());
@@ -716,7 +716,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
 
             field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
             field_Text.setText(result.getString("BRIEFE_TEXT"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+            field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
             field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
             field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
             field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
@@ -733,7 +733,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             }
             field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EinfuegenActionPerformed
 
@@ -767,12 +767,12 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             if (gefunden) {
 
             } else {
-                Modulhelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
+                ModulHelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
                 AnfangActionPerformed(evt);
             }
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_SuchenActionPerformed
 
@@ -780,10 +780,10 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             if (resultIsEmpty) {
-                Modulhelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
+                ModulHelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
             } else {
                 result.updateString("BRIEFE_TEXT", field_Text.getText());
-                result.updateDate("BRIEFE_DATUM", Modulhelferlein.Date2SQLDate(field_Datum.getDate()));
+                result.updateDate("BRIEFE_DATUM", ModulHelferlein.Date2SQLDate(field_Datum.getDate()));
                 result.updateString("BRIEFE_BEZUG", field_Bezug.getText());
                 result.updateString("BRIEFE_BETREFF", field_Betreff.getText());
                 result.updateBoolean("BRIEFE_ANREDE", field_Anrede.isSelected());
@@ -792,7 +792,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                 result.updateRow();
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -810,7 +810,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                 if (countMax > 0) {
                     field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
                     field_Text.setText(result.getString("BRIEFE_TEXT"));
-                    field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+                    field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
                     field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
                     field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
                     field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
@@ -859,7 +859,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
                     Schliessen.setEnabled(true);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             }
         }
     }//GEN-LAST:event_LoeschenActionPerformed
@@ -871,7 +871,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed
@@ -905,7 +905,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             }
             field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
             field_Text.setText(result.getString("BRIEFE_TEXT"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+            field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
             field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
             field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
             field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
@@ -923,7 +923,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             }
             field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_ZurueckActionPerformed
 
@@ -956,7 +956,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             }
             field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
             field_Text.setText(result.getString("BRIEFE_TEXT"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+            field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
             field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
             field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
             field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
@@ -974,7 +974,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             }
             field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_VorActionPerformed
 
@@ -1000,7 +1000,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
 
             field_ID.setText(Integer.toString(result.getInt("BRIEFE_ID")));
             field_Text.setText(result.getString("BRIEFE_TEXT"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
+            field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("BRIEFE_DATUM")));
             field_Betreff.setText(result.getString("BRIEFE_BETREFF"));
             field_Bezug.setText(result.getString("BRIEFE_BEZUG"));
             field_Anrede.setSelected(result.getBoolean("BRIEFE_ANREDE"));
@@ -1018,7 +1018,7 @@ public class VerwaltenDatenbankBrief extends javax.swing.JDialog {
             }
             field_Adresse.setSelectedItem(IDstr + ", " + resultA.getString("ADRESSEN_NAME") + ", " + resultA.getString("ADRESSEN_VORNAME"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EndeActionPerformed
 

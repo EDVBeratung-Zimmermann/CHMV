@@ -57,16 +57,16 @@ public class VerwaltenDatenbankKonfigurationSteuer extends javax.swing.JDialog {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
+            ModulHelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
         }
 
         // final Connection conn2=conn;
@@ -99,7 +99,7 @@ public class VerwaltenDatenbankKonfigurationSteuer extends javax.swing.JDialog {
                 } // if notempty
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "SQL-Exception: SQL-Anfrage nicht moeglich. "
                         + exept.getMessage());
                 System.exit(1);
@@ -399,19 +399,19 @@ public class VerwaltenDatenbankKonfigurationSteuer extends javax.swing.JDialog {
                 result.updateRow();
             }
             /*
-            Modulhelferlein.pathBerichte = field_Stammdaten.getText();
-            Modulhelferlein.pathEinnahmen = field_Einnahmen.getText();
-            Modulhelferlein.pathAusgaben = field_Ausgaben.getText();
-            Modulhelferlein.pathUmsaetze = field_Umsaetze.getText();
-            Modulhelferlein.pathRechnungen = field_Rechnungen.getText();
-            Modulhelferlein.pathSicherung = field_Sicherung.getText();
-            Modulhelferlein.pathMahnungen = field_Mahnungen.getText();
-            Modulhelferlein.pathKonfiguration = field_Termine.getText();
-            Modulhelferlein.pathBuchprojekte = field_Schriftverkehr.getText();
-            Modulhelferlein.pathSteuer = field_Steuer.getText();
+            ModulHelferlein.pathBerichte = field_Stammdaten.getText();
+            ModulHelferlein.pathEinnahmen = field_Einnahmen.getText();
+            ModulHelferlein.pathAusgaben = field_Ausgaben.getText();
+            ModulHelferlein.pathUmsaetze = field_Umsaetze.getText();
+            ModulHelferlein.pathRechnungen = field_Rechnungen.getText();
+            ModulHelferlein.pathSicherung = field_Sicherung.getText();
+            ModulHelferlein.pathMahnungen = field_Mahnungen.getText();
+            ModulHelferlein.pathKonfiguration = field_Termine.getText();
+            ModulHelferlein.pathBuchprojekte = field_Schriftverkehr.getText();
+            ModulHelferlein.pathSteuer = field_Steuer.getText();
             */
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
 
         // Dialog schließen
@@ -425,7 +425,7 @@ public class VerwaltenDatenbankKonfigurationSteuer extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_jButtonSchliessenActionPerformed

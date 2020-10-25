@@ -46,10 +46,11 @@ import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Linie;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 
 /**
@@ -66,25 +67,25 @@ public class berBuchbestand {
      * @param Sortierung
      */
     public static void berichtXLS(String Sortierung) {
-        String outputFileName = Modulhelferlein.pathBerichte + "\\Inventur\\"
+        String outputFileName = ModulHelferlein.pathBerichte + "\\Inventur\\"
                 + "Inventur-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + "-" + Sortierung
                 + ".xls";
         Connection conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Bericht Inventur",
+            ModulHelferlein.Fehlermeldung("Bericht Inventur",
                     "ClassNotFoundException: Treiber nicht gefunden. ",
                     exept.getMessage());
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bericht Inventur",
+            ModulHelferlein.Fehlermeldung("Bericht Inventur",
                     "SQL-Exception: Verbindung nicht moeglich: ",
                     exept.getMessage());
         } // Verbindung zur Datenbank über die JDBC-Brücke
@@ -235,34 +236,34 @@ public class berBuchbestand {
                 try {// workbook write
                     workbook.write();
                 } catch (IOException e) {
-                    Modulhelferlein.Fehlermeldung("XLS-Bericht Buchbestand", "IO-Exception: ", e.getMessage());
+                    ModulHelferlein.Fehlermeldung("XLS-Bericht Buchbestand", "IO-Exception: ", e.getMessage());
                 } // workbook write
 
                 try { // try workbook close
                     workbook.close();
                 } catch (IOException e) {
-                    Modulhelferlein.Fehlermeldung("XLS-Bericht Buchbestand", "IO-Exception: ", e.getMessage());
+                    ModulHelferlein.Fehlermeldung("XLS-Bericht Buchbestand", "IO-Exception: ", e.getMessage());
                 } // try workbook close
 
-                Modulhelferlein.Infomeldung("XLS-Bericht Buchbestand","gespeichert unter",outputFileName);
+                ModulHelferlein.Infomeldung("XLS-Bericht Buchbestand","gespeichert unter",outputFileName);
                 
                 try { // try XLS anzeigen
                     Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                 } catch (IOException exept) {
-                    Modulhelferlein.Fehlermeldung("Bericht Buchbestand", "Anzeige XLS-Export: Exception: ", exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("Bericht Buchbestand", "Anzeige XLS-Export: Exception: ", exept.getMessage());
                 } // try XLS anzeigen
 
                 // 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Inventur XLS",
+                ModulHelferlein.Fehlermeldung("Bericht Inventur XLS",
                         "SQL-Exception: Verbindung nicht moeglich: ",
                         exept.getMessage());
             } catch (IOException ex) {
-                Modulhelferlein.Fehlermeldung("Bericht Inventur XLS",
+                ModulHelferlein.Fehlermeldung("Bericht Inventur XLS",
                         "IO-Exception: ",
                         ex.getMessage());
             } catch (WriteException ex) {
-                Modulhelferlein.Fehlermeldung("Bericht Inventur XLS",
+                ModulHelferlein.Fehlermeldung("Bericht Inventur XLS",
                         "Write-Exception: ",
                         ex.getMessage());
             }
@@ -284,9 +285,9 @@ public class berBuchbestand {
         try { //Dokument erstellen
             PDPageContentStream cos = new PDPageContentStream(document, page1);
 
-            String outputFileName = Modulhelferlein.pathBerichte + "\\Inventur\\"
+            String outputFileName = ModulHelferlein.pathBerichte + "\\Inventur\\"
                     + "Inventur-"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                     + "-" + Sortierung
                     + ".pdf";
 
@@ -311,17 +312,17 @@ public class berBuchbestand {
             Connection conn = null;
 
             try { // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Inventur",
+                ModulHelferlein.Fehlermeldung("Bericht Inventur",
                         "ClassNotFoundException: Treiber nicht gefunden. ",
                         exept.getMessage());
             } // Datenbank-Treiber laden
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Inventur",
+                ModulHelferlein.Fehlermeldung("Bericht Inventur",
                         "SQL-Exception: Verbindung nicht moeglich: ",
                         exept.getMessage());
             } // Verbindung zur Datenbank über die JDBC-Brücke
@@ -389,19 +390,19 @@ public class berBuchbestand {
                         // Hilfstabelle nach Autor sortieren ins Resultset:
                         result = SQLAnfrage.executeQuery("SELECT * FROM tbl_HILFE_BUCH ORDER BY BUCH_AUTOR, BUCH_JAHR, BUCH_ISBN");
                     }
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 770, "miles-Verlag Verlagsverwaltung - Stammdaten");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Buchbestand/Inventur, Stand: "
-                            + Modulhelferlein.printSimpleDateFormat(
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 770, "miles-Verlag Verlagsverwaltung - Stammdaten");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Buchbestand/Inventur, Stand: "
+                            + ModulHelferlein.printSimpleDateFormat(
                                     "dd.MM.yyyy"));
 
                     Linie(cos,2,56, 750, 539, 750);
                     
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 735, "ISBN");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 150, 735, "Autor");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 735, "Typ");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 275, 735, "Titel");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 735, "Bestand");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 735, "ISBN");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 150, 735, "Autor");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 735, "Typ");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 275, 735, "Titel");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 735, "Bestand");
 
                     while (result.next()) { // geht durch alle zeilen
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 735 - zeile * 20, result.getString("BUCH_ISBN"), 92);
@@ -427,7 +428,7 @@ public class berBuchbestand {
                         }
 
                         Ausgabe(cos, fontPlain, 12, Color.BLACK, 275, 735 - zeile * 20, result.getString("BUCH_TITEL"), 220);
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 526, 735 - zeile * 20, Integer.toString(result.getInt("BUCH_BESTAND")));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 526, 735 - zeile * 20, Integer.toString(result.getInt("BUCH_BESTAND")));
 
                         zeile = zeile + 1;
 
@@ -439,18 +440,18 @@ public class berBuchbestand {
                             document.addPage(page);
                             cos = new PDPageContentStream(document, page);
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 770, "miles-Verlag Verlagsverwaltung - Stammdaten");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Buchbestand/Inventur, Stand: "
-                                    + Modulhelferlein.printSimpleDateFormat(
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 770, "miles-Verlag Verlagsverwaltung - Stammdaten");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Buchbestand/Inventur, Stand: "
+                                    + ModulHelferlein.printSimpleDateFormat(
                                             "dd.MM.yyyy"));
                             Linie(cos,2,56, 750, 539, 750);
                             
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 735, "ISBN");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 150, 735, "Autor");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 735, "Typ");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 275, 735, "Titel");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 500, 735, "Bestand");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 735, "ISBN");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 150, 735, "Autor");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 735, "Typ");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 275, 735, "Titel");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 500, 735, "Bestand");
                         }
                     } //while
 
@@ -461,27 +462,27 @@ public class berBuchbestand {
                     document.save(outputFileName);
                     document.close();
 
-                    Modulhelferlein.Infomeldung(
+                    ModulHelferlein.Infomeldung(
                             "Bestandsliste der Bücher ist als PDF gespeichert!");
                     try { //Ausgabe der Liste
                         Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung("Bericht Inventur",
+                        ModulHelferlein.Fehlermeldung("Bericht Inventur",
                                 "Exception: ", exept.getMessage());
-                    }//try Ausgabe der Liste
+                    }//try AusgabeLB der Liste
 
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("Bericht Inventur",
+                    ModulHelferlein.Fehlermeldung("Bericht Inventur",
                             "SQL-Exception: SQL-Anfrage nicht möglich: ",
                             exept.getMessage());
                 } catch (IOException  e) {
-                    Modulhelferlein.Fehlermeldung("Bericht Inventur", "IO-Exception: ", e.getMessage());
+                    ModulHelferlein.Fehlermeldung("Bericht Inventur", "IO-Exception: ", e.getMessage());
                 } //SQL-Anfrage
 
             } //if verbindung steht
 
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("Bericht Inventur", "FileNotFoundException: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bericht Inventur", "FileNotFoundException: ", e.getMessage());
         } //try Dokument erstellen
 
     } //void bericht

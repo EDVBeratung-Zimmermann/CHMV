@@ -159,16 +159,16 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
 
      // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung(
+            ModulHelferlein.Fehlermeldung(
                     "ClassNotFoundException: Treiber nicht gefunden. "
                     + exept.getMessage());
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             // final Connection conn2=conn;
 
             if (conn != null) {
@@ -200,7 +200,7 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
                         resultIsEmpty = false;
                         field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
                         field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-                        field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
+                        field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
                         field_erledigt.setText(result.getString("Termin_erledigt"));
                         // Schalterzustände setzen   
                         Anfang.setEnabled(true);
@@ -230,11 +230,11 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
                     }
 
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
                 }
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung nicht moeglich. " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung nicht moeglich. " + exept.getMessage());
         }
 
     }
@@ -507,7 +507,7 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
             do {
             } while ((!gefunden) && result.next());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_WSuchenActionPerformed
 
@@ -533,10 +533,10 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
 
             field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
             field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
+            field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
             field_erledigt.setText(result.getString("Termin_erledigt"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_AnfangActionPerformed
 
@@ -548,7 +548,7 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
             result.moveToInsertRow();
             result.updateInt("Termin_ID", maxID);
             result.updateString("Termin_Beschreibung", "");
-            result.updateDate("Termin_Datum", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
+            result.updateDate("Termin_Datum", ModulHelferlein.Date2SQLDate(ModulHelferlein.CurDate));
             result.updateString("Termin_erledigt", "");
             result.insertRow();
             countMax = countMax + 1;
@@ -574,10 +574,10 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
 
             field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
             field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
+            field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
             field_erledigt.setText(result.getString("Termin_erledigt"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EinfuegenActionPerformed
 
@@ -611,12 +611,12 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
             if (gefunden) {
 
             } else {
-                Modulhelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
+                ModulHelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
                 AnfangActionPerformed(evt);
             }
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_SuchenActionPerformed
 
@@ -624,15 +624,15 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             if (resultIsEmpty) {
-                Modulhelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
+                ModulHelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
             } else {
                 result.updateString("Termin_Beschreibung", field_Beschreibung.getText());
-                result.updateDate("Termin_Datum", Modulhelferlein.Date2SQLDate(field_Datum.getDate()));
+                result.updateDate("Termin_Datum", ModulHelferlein.Date2SQLDate(field_Datum.getDate()));
                 result.updateString("Termin_erledigt", field_erledigt.getText());
                 result.updateRow();
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -650,7 +650,7 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
                 if (countMax > 0) {
                     field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
                     field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-                    field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
+                    field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
                     field_erledigt.setText(result.getString("Termin_erledigt"));
                     // Schalterzustand anpassen
                     Anfang.setEnabled(true);
@@ -683,7 +683,7 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
                     Schliessen.setEnabled(true);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             }
         }
     }//GEN-LAST:event_LoeschenActionPerformed
@@ -695,7 +695,7 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed
@@ -729,10 +729,10 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
             }
             field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
             field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
+            field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
             field_erledigt.setText(result.getString("Termin_erledigt"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_ZurueckActionPerformed
 
@@ -765,10 +765,10 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
             }
             field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
             field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
+            field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
             field_erledigt.setText(result.getString("Termin_erledigt"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_VorActionPerformed
 
@@ -794,10 +794,10 @@ public class VerwaltenDatenbankTermine extends javax.swing.JDialog {
 
             field_ID.setText(Integer.toString(result.getInt("Termin_ID")));
             field_Beschreibung.setText(result.getString("Termin_Beschreibung"));
-            field_Datum.setDate(Modulhelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
+            field_Datum.setDate(ModulHelferlein.SQLDate2Date(result.getDate("Termin_Datum")));
             field_erledigt.setText(result.getString("Termin_erledigt"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EndeActionPerformed
 

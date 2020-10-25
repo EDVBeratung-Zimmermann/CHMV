@@ -43,16 +43,16 @@ public class _DlgAusgabeFormat extends javax.swing.JDialog {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Ausgabe","ClassNotFoundException",exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Ausgabe","ClassNotFoundException",exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank ?ber die JDBC-Br?cke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verbindung nicht moeglich","SQL-Exception",exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verbindung nicht moeglich","SQL-Exception",exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank ?ber die JDBC-Br?cke
 
@@ -220,7 +220,7 @@ public class _DlgAusgabeFormat extends javax.swing.JDialog {
                         briefRechnungMahnung.briefDOC(arg1, Integer.parseInt(arg2), "");
                     }
                 } catch (Exception ex) {
-                    Modulhelferlein.Fehlermeldung("Exception: " + ex.getMessage());
+                    ModulHelferlein.Fehlermeldung("Exception: " + ex.getMessage());
                 }
                 break;
             case "Pflichtexemplar":
@@ -229,7 +229,7 @@ public class _DlgAusgabeFormat extends javax.swing.JDialog {
                         try {
                             if (jRadioButtonPDF.isSelected()) {
                                 briefPflichtexemplar.briefBLBPDF(argumente[2], argumente[3], argumente[4], argumente[5]);
-                                String BestNr = Modulhelferlein.makeBestellung("",
+                                String BestNr = ModulHelferlein.makeBestellung("",
                                                                           "Zentral- und Landesbibliothek Berlin",    
                                                                           "Pflichtexemplarstelle", 
                                                                           "Breite Straﬂe 30 - 36", 
@@ -243,7 +243,7 @@ public class _DlgAusgabeFormat extends javax.swing.JDialog {
                             } else {
                                 briefPflichtexemplar.briefBLBDOC(argumente[2], argumente[3], argumente[4], argumente[5]);
 
-                                briefRechnungMahnung.briefDOC(Modulhelferlein.makeBestellung("", 
+                                briefRechnungMahnung.briefDOC(ModulHelferlein.makeBestellung("", 
                                                                                         "Zentral- und Landesbibliothek Berlin", 
                                                                                         "Pflichtexemplarstelle", 
                                                                                         "Breite Straﬂe 30 - 36", 
@@ -253,14 +253,14 @@ public class _DlgAusgabeFormat extends javax.swing.JDialog {
                                                         2, "");
                             }
                         } catch (Exception ex) {
-                            Modulhelferlein.Fehlermeldung("Exception: " + ex.getMessage());
+                            ModulHelferlein.Fehlermeldung("Exception: " + ex.getMessage());
                         }
                         break;
                     case "DNB":
                         try {
                             if (jRadioButtonPDF.isSelected()) {
                                 briefPflichtexemplar.briefDNBPDF(argumente[2], argumente[3], argumente[4], argumente[5]);
-                                briefRechnungMahnung.briefPDF(Modulhelferlein.makeBestellung("", 
+                                briefRechnungMahnung.briefPDF(ModulHelferlein.makeBestellung("", 
                                                                                         "Deutsche Nationalbibliothek", 
                                                                                         "Referat L 1.3", 
                                                                                         "Deutscher Platz 1", 
@@ -274,7 +274,7 @@ public class _DlgAusgabeFormat extends javax.swing.JDialog {
                                                             0);
                             } else {
                                 briefPflichtexemplar.briefDNBDOC(argumente[2], argumente[3], argumente[4], argumente[5]);
-                                briefRechnungMahnung.briefDOC(Modulhelferlein.makeBestellung("", 
+                                briefRechnungMahnung.briefDOC(ModulHelferlein.makeBestellung("", 
                                                                                         "Deutsche Nationalbibliothek", 
                                                                                         "Referat L 1.3", 
                                                                                         "Deutscher Platz 1", 
@@ -287,7 +287,7 @@ public class _DlgAusgabeFormat extends javax.swing.JDialog {
                                                             "");
                             }
                         } catch (Exception ex) {
-                            Modulhelferlein.Fehlermeldung("Exception: " + ex.getMessage());
+                            ModulHelferlein.Fehlermeldung("Exception: " + ex.getMessage());
                         }
                         break;
                 }

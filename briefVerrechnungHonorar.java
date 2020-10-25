@@ -45,10 +45,9 @@ import java.sql.Statement;
 import javax.imageio.ImageIO;
 import javax.xml.transform.TransformerException;
 
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.AusgabeDB;
-import static milesVerlagMain.Modulhelferlein.AusgabeRB;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.AusgabeDB;
+import static milesVerlagMain.ModulHelferlein.AusgabeRB;
+import static milesVerlagMain.ModulHelferlein.Linie;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDMetadata;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
@@ -60,6 +59,8 @@ import org.apache.xmpbox.schema.DublinCoreSchema;
 import org.apache.xmpbox.schema.PDFAIdentificationSchema;
 import org.apache.xmpbox.type.BadFieldValueException;
 import org.apache.xmpbox.xml.XmpSerializer;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  *
@@ -108,16 +109,16 @@ public class briefVerrechnungHonorar {
     public static void briefPDF(String HONORAR_AUTOR) { // 16
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Brief Rechnung", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Rechnung", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank ?ber die JDBC-Br?cke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Brief Honorarverrechnung", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Brief Honorarverrechnung", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank ?ber die JDBC-Br?cke
 
@@ -179,18 +180,18 @@ public class briefVerrechnungHonorar {
                 //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
 
                 // Fu?zeile
-                Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
-                Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
-                Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+                AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+                AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+                AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 
 // Faltmarke, Lochmarke, Faltmarke
                 Linie(cos, 1, 0, 595, 15, 595);
@@ -199,19 +200,19 @@ public class briefVerrechnungHonorar {
 
                 // Absenderzeile
                 Linie(cos, 1, 50, 749, 297, 749);
-                Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751,
-                        Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
+                AusgabeLB(cos, fontPlain, 8, Color.BLACK, 50, 751,
+                        ModulHelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
 
                 // Datum
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655,
-                        "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 354, 655,
+                        "Datum: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
 
                 // Adresse
                 String[] AdressZeile = {"", "", "", "", "", "", ""};
                 String[] adresse = {"", "", "", "", "", "", ""};
                 System.out.println("      .. erzeuge Adresse aus Kundendatenbank");
                 adresse[0] = resultAdresse.getString("ADRESSEN_ZUSATZ_1");
-                adresse[1] = Modulhelferlein.makeAnrede(resultAdresse.getString("ADRESSEN_NAMENSZUSATZ"),
+                adresse[1] = ModulHelferlein.makeAnrede(resultAdresse.getString("ADRESSEN_NAMENSZUSATZ"),
                         resultAdresse.getString("ADRESSEN_VORNAME"),
                         resultAdresse.getString("ADRESSEN_NAME"));
                 adresse[2] = resultAdresse.getString("ADRESSEN_ZUSATZ_2");
@@ -225,33 +226,33 @@ public class briefVerrechnungHonorar {
                         ZeilenNr = ZeilenNr + 1;
                     }
                 }
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 730, AdressZeile[1]);
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 715, AdressZeile[2]);
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 700, AdressZeile[3]);
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 730, AdressZeile[1]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 715, AdressZeile[2]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 700, AdressZeile[3]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
 
                 // Betreff
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, "Honorarabrechnung des Carola Hartmann Miles-Verlag");
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 560, "hier: Verrechnung Buchkäufe und Honorar");
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 575, "Honorarabrechnung des Carola Hartmann Miles-Verlag");
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 560, "hier: Verrechnung Buchkäufe und Honorar");
 
                 // Anrede
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 515, resultAdresse.getString("ADRESSEN_ANREDE")
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 515, resultAdresse.getString("ADRESSEN_ANREDE")
                         + " "
-                        + Modulhelferlein.makeAnrede(resultAdresse.getString("ADRESSEN_NAMENSZUSATZ"),
+                        + ModulHelferlein.makeAnrede(resultAdresse.getString("ADRESSEN_NAMENSZUSATZ"),
                                 "",
                                 resultAdresse.getString("ADRESSEN_NAME"))
                         + ",");
 
                 // Text
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "Sie baten um eine Verrechnung mit den von Ihnen getätigten Buchkäufe. ");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "Sie baten um eine Verrechnung mit den von Ihnen getätigten Buchkäufe. ");
                 Float Betrag = 0F;
                 while (resultVerrechnung.next()) {
                     Betrag = Betrag + resultVerrechnung.getFloat("VERRECHNUNG_BETRAG");
                 }
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 455, "Im vergangenen Jahr haben Sie Bücher im Gesamtwert von " + Float.toString(Betrag) + " Euro erworben.");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 440, "Die detaillierte Übersicht der Rechnungen entnehmen Sie bitte der Anlage.");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 455, "Im vergangenen Jahr haben Sie Bücher im Gesamtwert von " + Float.toString(Betrag) + " Euro erworben.");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 440, "Die detaillierte Übersicht der Rechnungen entnehmen Sie bitte der Anlage.");
 
                 GesamtHonorar = 0D;
                 SQLHonorar = conn.createStatement();
@@ -260,29 +261,29 @@ public class briefVerrechnungHonorar {
                     GesamtHonorar = GesamtHonorar + resultHonorar.getFloat("HONORAR_HONORAR") * 1D;
                     HONORAR_ZAHLEN = resultHonorar.getInt("HONORAR_ZAHLEN");
                 }
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 410, "Dem gegenüber stehen Honoraransprüche in toto in Höhe von " + Modulhelferlein.str2dec(GesamtHonorar) + " Euro.");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 395, "Die detaillierte Übersicht der Abrechnungen entnehmen Sie bitte der Anlage.");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 410, "Dem gegenüber stehen Honoraransprüche in toto in Höhe von " + ModulHelferlein.str2dec(GesamtHonorar) + " Euro.");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 395, "Die detaillierte Übersicht der Abrechnungen entnehmen Sie bitte der Anlage.");
                 
                 // Abrechnung
                if (GesamtHonorar - Betrag < 0) {
                     GesamtBetrag = -1D * (GesamtHonorar - Betrag);  // Gesamtbetrag negativ = einzahlen
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350, "Den Differenzbetrag in Höhe von");
-                    Ausgabe(cos, fontBold, 12, Color.RED, 235, 350, Modulhelferlein.str2dec(GesamtBetrag) + " Euro ");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 310, 350, "bitten wir auf unser Konto zu überweisen");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350 - 15, "bei der     Volksbank Berlin,    IBAN: DE61 1009 0000 2233 8320 17,    BIC: BEVODEBB");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350 - 30, "innerhalb der nächsten 14 Tage.");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 350, "Den Differenzbetrag in Höhe von");
+                    AusgabeLB(cos, fontBold, 12, Color.RED, 235, 350, ModulHelferlein.str2dec(GesamtBetrag) + " Euro ");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 310, 350, "bitten wir auf unser Konto zu überweisen");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 350 - 15, "bei der     Volksbank Berlin,    IBAN: DE61 1009 0000 2233 8320 17,    BIC: BEVODEBB");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 350 - 30, "innerhalb der nächsten 14 Tage.");
                 } else {
                     GesamtBetrag = 1D * (GesamtHonorar - Betrag);  // Gesamtbetrag positiv = auszahlen  
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350, "Den Differenzbetrag in Höhe von");
-                    Ausgabe(cos, fontBold, 12, Color.GREEN, 235, 350, Modulhelferlein.str2dec(GesamtBetrag) + " Euro ");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 310, 350, "überweisen wir auf Ihr Konto bei der");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 350 - 20, resultAdresse.getString("ADRESSEN_BANK") + " IBAN: " + resultAdresse.getString("ADRESSEN_IBAN"));
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 350, "Den Differenzbetrag in Höhe von");
+                    AusgabeLB(cos, fontBold, 12, Color.GREEN, 235, 350, ModulHelferlein.str2dec(GesamtBetrag) + " Euro ");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 310, 350, "überweisen wir auf Ihr Konto bei der");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 350 - 20, resultAdresse.getString("ADRESSEN_BANK") + " IBAN: " + resultAdresse.getString("ADRESSEN_IBAN"));
                 }
 
                 // Schlussformel
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 150, Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 85, "Carola Hartmann");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 70, "Diplom Kauffrau");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 150, ModulHelferlein.CheckStr("Mit freundlichen Grüßen"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 85, "Carola Hartmann");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 70, "Diplom Kauffrau");
 
                 // Neue Seite mit der detaillierten Aufstellung
                 cos.close();
@@ -292,16 +293,16 @@ public class briefVerrechnungHonorar {
                 document.addPage(page);
                 cos = new PDPageContentStream(document, page);
 
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 785, "Anlage");
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 750, "Detaillierte Aufstellung der Rechnungen");
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 785, "Anlage");
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 750, "Detaillierte Aufstellung der Rechnungen");
 
                 ZeilenNr = 1;
                 resultVerrechnung = SQLVerrechnung.executeQuery("SELECT * FROM TBL_VERRECHNUNG");
                 while (resultVerrechnung.next()) {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 740 - 15 * ZeilenNr, "Rechnung Nr. " + resultVerrechnung.getString("VERRECHNUNG_ISBN"));
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 337, 740 - 15 * ZeilenNr, "Betrag:");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 740 - 15 * ZeilenNr, "Rechnung Nr. " + resultVerrechnung.getString("VERRECHNUNG_ISBN"));
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 337, 740 - 15 * ZeilenNr, "Betrag:");
                     AusgabeDB(cos, fontPlain, 12, Color.BLACK, 397, 740 - 15 * ZeilenNr, resultVerrechnung.getString("VERRECHNUNG_BETRAG"));
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 425, 740 - 15 * ZeilenNr, "€");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 425, 740 - 15 * ZeilenNr, "€");
                     Betrag = Betrag + resultVerrechnung.getFloat("VERRECHNUNG_BETRAG");
                     ZeilenNr = ZeilenNr + 1;
                 }
@@ -310,10 +311,10 @@ public class briefVerrechnungHonorar {
                 cos.close();
                 System.out.println("   -> Inhalt geschrieben");
 
-                String outputFileName = Modulhelferlein.pathBerichte + "\\Honorare\\"
+                String outputFileName = ModulHelferlein.pathBerichte + "\\Honorare\\"
                         + "Verrechnung-Honorar"
                         + "-"
-                        + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                        + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                         + "-"
                         + HONORAR_ZAHLEN.toString()
                         + "-"
@@ -364,21 +365,21 @@ public class briefVerrechnungHonorar {
                 resultAdresse.close();
                 System.out.println("   -> gespeichert: ");
                 System.out.println("");
-//                Modulhelferlein.Infomeldung("Honorarabrechnung " + args[1], "ist als PDF gespeichert unter ", outputFileName);
+//                ModulHelferlein.Infomeldung("Honorarabrechnung " + args[1], "ist als PDF gespeichert unter ", outputFileName);
 //                try {
 //                    Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
 //                } catch (IOException exept) {
-//                    Modulhelferlein.Fehlermeldung("Honorarabrechnung", "Ausgabe Brief: IO-Exception: ", exept.getMessage());
+//                    ModulHelferlein.Fehlermeldung("Honorarabrechnung", "AusgabeLB Brief: IO-Exception: ", exept.getMessage());
 //                } // try Brief ausgeben
             } catch (IOException ex) {
-                Modulhelferlein.Fehlermeldung("Honorarverrechnung: Brief erstellen", "IO-Exception: ", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Honorarverrechnung: Brief erstellen", "IO-Exception: ", ex.getMessage());
             } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("Honorarverrechnung: Brief erstellen", "SQL-Exception: ", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Honorarverrechnung: Brief erstellen", "SQL-Exception: ", ex.getMessage());
             } catch (BadFieldValueException e) {
                 // won't happen here, as the provided value is valid
                 throw new IllegalArgumentException(e);
             } catch (TransformerException ex) {
-                Modulhelferlein.Fehlermeldung("PDF/A-Erstellung Honorverrechnung", "TransformerException-Exception: " + ex.getMessage());
+                ModulHelferlein.Fehlermeldung("PDF/A-Erstellung Honorverrechnung", "TransformerException-Exception: " + ex.getMessage());
             }
         } // if conn!= null
     }

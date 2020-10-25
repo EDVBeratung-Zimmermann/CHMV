@@ -175,7 +175,7 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
         newPolicy = new ModulMyOwnFocusTraversalPolicy(order);
         setFocusTraversalPolicy(newPolicy);
 
-        for (String AusgabenTypListe : Modulhelferlein.AusgabenTypListe) {
+        for (String AusgabenTypListe : ModulHelferlein.AusgabenTypListe) {
             field_Typ.addItem(AusgabenTypListe);
         }
 
@@ -183,18 +183,18 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben",
+            ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben",
                     "ClassNotFoundException: Treiber nicht gefunden: ",
                      exept.getMessage());
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben",
+            ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben",
                     "SQL-Excetion: Verbindung nicht moeglich: ",
                      exept.getMessage());
         }
@@ -253,10 +253,10 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
                         resultIsEmpty = false;
                         field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
                         field_RechnNr.setText(result.getString("Ausgaben_RECHNNR"));
-                        field_RechnDat.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
+                        field_RechnDat.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
                         field_Beschreibung.setText(result.getString("Ausgaben_BESCHREIBUNG"));
                         field_Betrag.setText(Float.toString(result.getFloat("Ausgaben_KOSTEN")));
-                        field_Bezahlt.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
+                        field_Bezahlt.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
                         field_Ustr.setText(Integer.toString(result.getInt("Ausgaben_Ustr")));
                         field_Typ.setSelectedIndex(result.getInt("Ausgaben_TYP"));
                         field_Lieferant.setSelectedItem(result.getString("Ausgaben_LIEFERANT"));
@@ -289,12 +289,12 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
                     }
 
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: "
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: "
                             + exept.getMessage());
                 } // try catch
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: "
+                ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich: "
                         + exept.getMessage());
             } //try catch Adressen
 
@@ -711,7 +711,7 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
             try {
                 field_Link.setText(chooser.getSelectedFile().getCanonicalPath());
             } catch (IOException e) {
-                Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben - Dateiauswahl", "IO-Exception: ", e.getMessage());
+                ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben - Dateiauswahl", "IO-Exception: ", e.getMessage());
             }
         } // if
     }//GEN-LAST:event_BDateiActionPerformed
@@ -738,16 +738,16 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
 
             field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
             field_RechnNr.setText(result.getString("Ausgaben_RECHNNR"));
-            field_RechnDat.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
+            field_RechnDat.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
             field_Beschreibung.setText(result.getString("Ausgaben_BESCHREIBUNG"));
             field_Betrag.setText(Float.toString(result.getFloat("Ausgaben_KOSTEN")));
-            field_Bezahlt.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
+            field_Bezahlt.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
             field_Ustr.setText(Integer.toString(result.getInt("Ausgaben_Ustr")));
             field_Typ.setSelectedIndex(result.getInt("Ausgaben_TYP"));
             field_Lieferant.setSelectedItem(result.getString("Ausgaben_LIEFERANT"));
             field_Link.setText(result.getString("AUSGABEN_LINK"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_AnfangActionPerformed
 
@@ -779,16 +779,16 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
             }
             field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
             field_RechnNr.setText(result.getString("Ausgaben_RECHNNR"));
-            field_RechnDat.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
+            field_RechnDat.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
             field_Beschreibung.setText(result.getString("Ausgaben_BESCHREIBUNG"));
             field_Betrag.setText(Float.toString(result.getFloat("Ausgaben_KOSTEN")));
-            field_Bezahlt.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
+            field_Bezahlt.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
             field_Ustr.setText(Integer.toString(result.getInt("Ausgaben_Ustr")));
             field_Typ.setSelectedIndex(result.getInt("Ausgaben_TYP"));
             field_Lieferant.setSelectedItem(result.getString("Ausgaben_LIEFERANT"));
             field_Link.setText(result.getString("AUSGABEN_LINK"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_ZurueckActionPerformed
 
@@ -832,16 +832,16 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
             }
             field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
             field_RechnNr.setText(result.getString("Ausgaben_RECHNNR"));
-            field_RechnDat.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
+            field_RechnDat.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
             field_Beschreibung.setText(result.getString("Ausgaben_BESCHREIBUNG"));
             field_Betrag.setText(Float.toString(result.getFloat("Ausgaben_KOSTEN")));
-            field_Bezahlt.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
+            field_Bezahlt.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
             field_Ustr.setText(Integer.toString(result.getInt("Ausgaben_Ustr")));
             field_Typ.setSelectedIndex(result.getInt("Ausgaben_TYP"));
             field_Lieferant.setSelectedItem(result.getString("Ausgaben_LIEFERANT"));
             field_Link.setText(result.getString("AUSGABEN_LINK"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_VorActionPerformed
 
@@ -867,33 +867,33 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
 
             field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
             field_RechnNr.setText(result.getString("Ausgaben_RECHNNR"));
-            field_RechnDat.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
+            field_RechnDat.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
             field_Beschreibung.setText(result.getString("Ausgaben_BESCHREIBUNG"));
             field_Betrag.setText(Float.toString(result.getFloat("Ausgaben_KOSTEN")));
-            field_Bezahlt.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
+            field_Bezahlt.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
             field_Ustr.setText(Integer.toString(result.getInt("Ausgaben_Ustr")));
             field_Typ.setSelectedIndex(result.getInt("Ausgaben_TYP"));
             field_Lieferant.setSelectedItem(result.getString("Ausgaben_LIEFERANT"));
             field_Link.setText(result.getString("AUSGABEN_LINK"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_EndeActionPerformed
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
         try {
-            if (Modulhelferlein.checkNumberFormatInt(field_Ustr.getText()) < 0) {
-                Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+            if (ModulHelferlein.checkNumberFormatInt(field_Ustr.getText()) < 0) {
+                ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
             } else {
-                if (Modulhelferlein.checkNumberFormatFloat(field_Betrag.getText()) < 0) {
-                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
+                if (ModulHelferlein.checkNumberFormatFloat(field_Betrag.getText()) < 0) {
+                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
                 } else {
                     result.updateString("Ausgaben_RECHNNR", field_RechnNr.getText());
-                    result.updateDate("Ausgaben_RECHDATUM", Modulhelferlein.Date2SQLDate(field_RechnDat.getDate()));
+                    result.updateDate("Ausgaben_RECHDATUM", ModulHelferlein.Date2SQLDate(field_RechnDat.getDate()));
                     result.updateString("Ausgaben_BESCHREIBUNG", field_Beschreibung.getText());
                     result.updateFloat("Ausgaben_KOSTEN", Float.parseFloat(field_Betrag.getText()));
-                    result.updateDate("Ausgaben_BEZAHLT", Modulhelferlein.Date2SQLDate(field_Bezahlt.getDate()));
+                    result.updateDate("Ausgaben_BEZAHLT", ModulHelferlein.Date2SQLDate(field_Bezahlt.getDate()));
                     result.updateInt("Ausgaben_Ustr", Integer.parseInt(field_Ustr.getText()));
                     result.updateInt("Ausgaben_TYP", field_Typ.getSelectedIndex());
                     result.updateString("Ausgaben_LIEFERANT", (String) field_Lieferant.getSelectedItem());
@@ -903,7 +903,7 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
                 }
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -917,10 +917,10 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
             result.moveToInsertRow();
             result.updateInt("Ausgaben_ID", MaxID);
             result.updateString("Ausgaben_RECHNNR", "");
-            result.updateDate("Ausgaben_RECHDATUM", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
+            result.updateDate("Ausgaben_RECHDATUM", ModulHelferlein.Date2SQLDate(ModulHelferlein.CurDate));
             result.updateString("Ausgaben_BESCHREIBUNG", "");
             result.updateFloat("Ausgaben_KOSTEN", 0);
-            result.updateDate("Ausgaben_BEZAHLT", Modulhelferlein.Date2SQLDate(new Date(0)));
+            result.updateDate("Ausgaben_BEZAHLT", ModulHelferlein.Date2SQLDate(new Date(0)));
             result.updateInt("Ausgaben_Ustr", 19);
             result.updateInt("Ausgaben_TYP", 0);
             result.updateString("Ausgaben_LIEFERANT", "");
@@ -948,16 +948,16 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
             result.last();
             field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
             field_RechnNr.setText(result.getString("Ausgaben_RECHNNR"));
-            field_RechnDat.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
+            field_RechnDat.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
             field_Beschreibung.setText(result.getString("Ausgaben_BESCHREIBUNG"));
             field_Betrag.setText(Float.toString(result.getFloat("Ausgaben_KOSTEN")));
-            field_Bezahlt.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
+            field_Bezahlt.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
             field_Ustr.setText(Integer.toString(result.getInt("Ausgaben_Ustr")));
             field_Typ.setSelectedIndex(result.getInt("Ausgaben_TYP"));
             field_Lieferant.setSelectedItem(result.getString("Ausgaben_LIEFERANT"));
             field_Link.setText(result.getString("AUSGABEN_LINK"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_EinfuegenActionPerformed
 
@@ -975,10 +975,10 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
                 if (countMax > 0) {
                     field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
                     field_RechnNr.setText(result.getString("Ausgaben_RECHNNR"));
-                    field_RechnDat.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
+                    field_RechnDat.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
                     field_Beschreibung.setText(result.getString("Ausgaben_BESCHREIBUNG"));
                     field_Betrag.setText(Float.toString(result.getFloat("Ausgaben_KOSTEN")));
-                    field_Bezahlt.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
+                    field_Bezahlt.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
                     field_Ustr.setText(Integer.toString(result.getInt("Ausgaben_Ustr")));
                     field_Typ.setSelectedIndex(result.getInt("Ausgaben_TYP"));
                     field_Lieferant.setSelectedItem(result.getString("Ausgaben_LIEFERANT"));
@@ -1022,7 +1022,7 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
                     Schliessen.setEnabled(true);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
             }
         }
     }//GEN-LAST:event_LoeschenActionPerformed
@@ -1078,21 +1078,21 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
 
                     field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
                     field_RechnNr.setText(result.getString("Ausgaben_RECHNNR"));
-                    field_RechnDat.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
+                    field_RechnDat.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
                     field_Beschreibung.setText(result.getString("Ausgaben_BESCHREIBUNG"));
                     field_Betrag.setText(Float.toString(result.getFloat("Ausgaben_KOSTEN")));
-                    field_Bezahlt.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
+                    field_Bezahlt.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
                     field_Ustr.setText(Integer.toString(result.getInt("Ausgaben_Ustr")));
                     field_Typ.setSelectedIndex(result.getInt("Ausgaben_TYP"));
                     field_Lieferant.setSelectedItem(result.getString("Ausgaben_LIEFERANT"));
                     field_Link.setText(result.getString("AUSGABEN_LINK"));
 
                 } else {
-                    Modulhelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
+                    ModulHelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
                     AnfangActionPerformed(evt);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
 
             }
         }
@@ -1141,21 +1141,21 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
 
                 field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
                 field_RechnNr.setText(result.getString("Ausgaben_RECHNNR"));
-                field_RechnDat.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
+                field_RechnDat.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
                 field_Beschreibung.setText(result.getString("Ausgaben_BESCHREIBUNG"));
                 field_Betrag.setText(Float.toString(result.getFloat("Ausgaben_KOSTEN")));
-                field_Bezahlt.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
+                field_Bezahlt.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
                 field_Ustr.setText(Integer.toString(result.getInt("Ausgaben_Ustr")));
                 field_Typ.setSelectedIndex(result.getInt("Ausgaben_TYP"));
                 field_Lieferant.setSelectedItem(result.getString("Ausgaben_LIEFERANT"));
                 field_Link.setText(result.getString("AUSGABEN_LINK"));
 
             } else {
-                Modulhelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
+                ModulHelferlein.Infomeldung(Kriterium + " wurde nicht gefunden!");
                 AnfangActionPerformed(evt);
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_WSuchenActionPerformed
 
@@ -1171,7 +1171,7 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verwalten der Ausgaben", "SQL-Exception: ", exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed
@@ -1217,17 +1217,17 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
                 Schliessen.setEnabled(true);
                 field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
                 field_RechnNr.setText(result.getString("Ausgaben_RECHNNR"));
-                field_RechnDat.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
+                field_RechnDat.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_RECHDATUM")));
                 field_Beschreibung.setText(result.getString("Ausgaben_BESCHREIBUNG"));
                 field_Betrag.setText(Float.toString(result.getFloat("Ausgaben_KOSTEN")));
-                field_Bezahlt.setDate(Modulhelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
+                field_Bezahlt.setDate(ModulHelferlein.Date2SQLDate(result.getDate("Ausgaben_BEZAHLT")));
                 field_Ustr.setText(Integer.toString(result.getInt("Ausgaben_Ustr")));
                 field_Typ.setSelectedIndex(result.getInt("Ausgaben_TYP"));
                 field_Lieferant.setSelectedItem(result.getString("Ausgaben_LIEFERANT"));
                 field_Link.setText(result.getString("AUSGABEN_LINK"));
             }
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Ausgaben verwalten", "direkt zur Rechnung gehen: SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Ausgaben verwalten", "direkt zur Rechnung gehen: SQL-Exception", ex.getMessage());
         }
     }//GEN-LAST:event_jList1MouseClicked
 
@@ -1248,7 +1248,7 @@ public class VerwaltenDatenbankAusgaben extends javax.swing.JDialog {
                 listModel.addElement(eintragRechnung);
             } // while
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Ausgaben verwalten", "ARechnungen auflisten: SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Ausgaben verwalten", "ARechnungen auflisten: SQL-Exception", ex.getMessage());
         }
     }
 

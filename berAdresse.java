@@ -60,8 +60,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Linie;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
@@ -70,6 +69,8 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  * Klasse zur Erzeugung einer Übersicht der Adressen
@@ -99,11 +100,11 @@ public class berAdresse {
     public void berichtXLSX(String Parameter) {
         String outputFileName;
 
-        outputFileName = Modulhelferlein.pathBerichte + "\\Adressen\\"
+        outputFileName = ModulHelferlein.pathBerichte + "\\Adressen\\"
                 + "Adressen-"
                 + Parameter
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".xls";
 
         try {    // Erstelle Workbook
@@ -185,17 +186,17 @@ public class berAdresse {
                 Connection conn = null;
 
                 try {    // Datenbank-Treiber laden
-                    Class.forName(Modulhelferlein.dbDriver);
+                    Class.forName(ModulHelferlein.dbDriver);
                 } catch (ClassNotFoundException exept) {
-                    Modulhelferlein.Fehlermeldung(
+                    ModulHelferlein.Fehlermeldung(
                             "Bericht Adressen: Datenbankanbindung: ClassNotFoundException: Treiber nicht gefunden: "
                             + exept.getMessage());
                 }        // try Datenbank-Treiber laden
 
                 try {    // Verbindung zur Datenbank über die JDBC-Brücke
-                    conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                    conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung(
+                    ModulHelferlein.Fehlermeldung(
                             "Bericht Adressen: Datenbankanbindung: SQL-Exception: Verbindung nicht moeglich: "
                             + exept.getMessage());
                 }    // try Verbindung zur Datenbank über die JDBC-Brücke
@@ -282,39 +283,39 @@ public class berAdresse {
                         try {                      // workbook write
                             workbook.write();
                         } catch (IOException e) {
-                            Modulhelferlein.Fehlermeldung("XLS-Bericht Einnahmen: IO-Exception: " + e.getMessage());
+                            ModulHelferlein.Fehlermeldung("XLS-Bericht Einnahmen: IO-Exception: " + e.getMessage());
                         }                          // workbook write
 
                         try {                      // try workbook close
                             workbook.close();
                         } catch (IOException e) {
-                            Modulhelferlein.Fehlermeldung("XLS-Bericht: IO-Exception: " + e.getMessage());
+                            ModulHelferlein.Fehlermeldung("XLS-Bericht: IO-Exception: " + e.getMessage());
                         }                          // try workbook close
 
                         try {                      // try XLS anzeigen
                             Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                         } catch (IOException exept) {
-                            Modulhelferlein.Fehlermeldung("Bericht Einnahmen: Anzeige XLS-Export: Exception: "
+                            ModulHelferlein.Fehlermeldung("Bericht Einnahmen: Anzeige XLS-Export: Exception: "
                                     + exept.getMessage());
                         }    // try XLS anzeigen
                     } catch (SQLException exept) {
-                        Modulhelferlein.Fehlermeldung(
+                        ModulHelferlein.Fehlermeldung(
                                 "Bericht Adressen: Datenbankanbindung: SQL-Exception: SQL-Anfrage nicht moeglich: "
                                 + exept.getMessage());
                     } catch (WriteException e) {
-                        Modulhelferlein.Fehlermeldung("Bericht Adressen: Datenbankanbindung: Exception: " + e.getMessage());
+                        ModulHelferlein.Fehlermeldung("Bericht Adressen: Datenbankanbindung: Exception: " + e.getMessage());
                     }    // try Anfrage
                 } else {
-                    Modulhelferlein.Fehlermeldung("XLS-Bericht Adressen: Datenbankanbindung besteht nicht");
+                    ModulHelferlein.Fehlermeldung("XLS-Bericht Adressen: Datenbankanbindung besteht nicht");
                 }        // keine Datenbankverbindung
             } catch (WriteException e) {
-                Modulhelferlein.Fehlermeldung("XLS-Bericht Adressen: Write-Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("XLS-Bericht Adressen: Write-Exception: " + e.getMessage());
             }            // try Tabellenblätter schreiben
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("XLS-Bericht Adressen: IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("XLS-Bericht Adressen: IO-Exception: " + e.getMessage());
         }                // try Workbook create
 
-        Modulhelferlein.Infomeldung("Adressübersicht ist als XLS gespeichert!");
+        ModulHelferlein.Infomeldung("Adressübersicht ist als XLS gespeichert!");
     }    // public void berichtXLSX
 
     /**
@@ -324,11 +325,11 @@ public class berAdresse {
      */
     public void berichtDOCX(String Parameter) {
         String outputFileName;
-        outputFileName = Modulhelferlein.pathBerichte + "\\Adressen\\"
+        outputFileName = ModulHelferlein.pathBerichte + "\\Adressen\\"
                 + "Adressen-"
                 + Parameter
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".docx";
         Dialog.setSize(600, 500);
         Dialog.setLocationRelativeTo(null);
@@ -373,17 +374,17 @@ public class berAdresse {
             Connection conn = null;
 
             try {    // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "Bericht Adressen: Datenbankanbindung: ClassNotFoundException: Treiber nicht gefunden: "
                         + exept.getMessage());
             }        // try Datenbank-Treiber laden
 
             try {    // Verbindung zur Datenbank über die JDBC-Brücke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "Bericht Adressen: Datenbankanbindung: SQL-Exception: Verbindung nicht moeglich: "
                         + exept.getMessage());
             }    // try Verbindung zur Datenbank über die JDBC-Brücke
@@ -415,7 +416,7 @@ public class berAdresse {
                     XWPFRun runAdresse = paragraphAnrede.createRun();
                     runAdresse.setText("Carola Hartmann Miles Verlag - Verlagsverwaltung - Adressen");
                     runAdresse.addBreak();
-                    runAdresse.setText("Übersicht der Adressen, Stand: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    runAdresse.setText("Übersicht der Adressen, Stand: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
                     runAdresse.addBreak();
                     paragraphAnrede = document.createParagraph();
                     paragraphAnrede.setAlignment(ParagraphAlignment.LEFT);
@@ -514,24 +515,24 @@ public class berAdresse {
                         Logger.getLogger(berAdresse.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    Modulhelferlein.Infomeldung(outputFileName + " ist als DOC gespeichert!");
+                    ModulHelferlein.Infomeldung(outputFileName + " ist als DOC gespeichert!");
                     Dialog.setVisible(false);
                     try {
                         Runtime.getRuntime().exec("cmd.exe /c " + outputFileName);
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung(
+                        ModulHelferlein.Fehlermeldung(
                                 "Exception: " + exept.getMessage());
                     }// try Brief ausgeben
 
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung(
+                    ModulHelferlein.Fehlermeldung(
                             "Bericht Adressen: Datenbankanbindung: SQL-Exception: SQL-Anfrage nicht moeglich: "
                             + exept.getMessage());
                 }
                 // try Anfrage
                 // try Anfrage
             } else {
-                Modulhelferlein.Fehlermeldung("XLS-Bericht Adressen: Datenbankanbindung besteht nicht");
+                ModulHelferlein.Fehlermeldung("XLS-Bericht Adressen: Datenbankanbindung besteht nicht");
             }        // keine Datenbankverbindung
         } catch (IOException ex) {
             Logger.getLogger(berAdresse.class.getName()).log(Level.SEVERE, null, ex);
@@ -557,11 +558,11 @@ public class berAdresse {
 
             String outputFileName;
 
-            outputFileName = Modulhelferlein.pathBerichte + "\\Adressen\\"
+            outputFileName = ModulHelferlein.pathBerichte + "\\Adressen\\"
                     + "Adressen-"
                     + Parameter
                     + "-"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                     + ".pdf";
 
             PDDocumentInformation docInfo = document.getDocumentInformation();
@@ -578,16 +579,16 @@ public class berAdresse {
 
             // Datenbank-Treiber laden
             try {
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
             }
 
             // Verbindung zur Datenbank über die JDBC-Brücke
             try {
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung nicht moeglich: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung nicht moeglich: " + exept.getMessage());
             }
 
             final Connection conn2 = conn;
@@ -614,87 +615,87 @@ public class berAdresse {
                     Integer zeile = 1;
                     Integer seite = 1;
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Adressen");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755,
-                            "Übersicht der Adressen, Stand: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Adressen");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755,
+                            "Übersicht der Adressen, Stand: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 720, "Adresstyp");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 200, 720, "Zeitschrift");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 720, "Ansprechpartner");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 720, "Adresstyp");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 200, 720, "Zeitschrift");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 720, "Ansprechpartner");
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 705, "Zusatz 1");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 705, "Anrede");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 705, "Zusatz 1");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 705, "Anrede");
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 690, "Namenszusatz");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 690, "Vorname");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 690, "Firmenname/Name");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 690, "Namenszusatz");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 690, "Vorname");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 690, "Firmenname/Name");
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 675, "Zusatz 2");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 675, "Zusatz 2");
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 660, "Straße und Hausnummer");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 660, "PLZ");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 430, 660, "Ort");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 660, "Straße und Hausnummer");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 660, "PLZ");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 430, 660, "Ort");
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 645, "Telefon");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 645, "Telefax");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 645, "Mobilfunk");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 645, "Telefon");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 645, "Telefax");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 645, "Mobilfunk");
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 630, "e-Mail");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 630, "Internet");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 630, "e-Mail");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 630, "Internet");
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 615, "UStr-ID");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 615, "IBAN");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 430, 615, "BIC");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 615, "UStr-ID");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 615, "IBAN");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 430, 615, "BIC");
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 600, "Kundennummer");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 600, "Benutzerkennung");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 430, 600, "Kennwort");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 600, "Kundennummer");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 600, "Benutzerkennung");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 430, 600, "Kennwort");
 
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 585, "Sonderkondition");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 585, "Rabatt");
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 585, "Ustr on Top");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 585, "Sonderkondition");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 585, "Rabatt");
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 585, "Ustr on Top");
 
                     Linie(cos,2,56, 580, 539, 580);
                     
                     while (result.next()) {    // geht durch alle zeilen
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 715 - zeile * 175, result.getString("ADRESSEN_ID"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 715 - zeile * 175, result.getString("ADRESSEN_TYP"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 200, 715 - zeile * 175, result.getString("ADRESSEN_ZEITSCHRIFT"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 715 - zeile * 175, result.getString("ADRESSEN_POC"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 715 - zeile * 175, result.getString("ADRESSEN_ID"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 715 - zeile * 175, result.getString("ADRESSEN_TYP"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 200, 715 - zeile * 175, result.getString("ADRESSEN_ZEITSCHRIFT"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 715 - zeile * 175, result.getString("ADRESSEN_POC"));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 700 - zeile * 175, result.getString("ADRESSEN_ZUSATZ_1"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 200, 700 - zeile * 175, result.getString("ADRESSEN_ANREDE"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 700 - zeile * 175, result.getString("ADRESSEN_ZUSATZ_1"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 200, 700 - zeile * 175, result.getString("ADRESSEN_ANREDE"));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 685 - zeile * 175, result.getString("ADRESSEN_NAMENSZUSATZ"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 685 - zeile * 175, result.getString("ADRESSEN_VORNAME"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 685 - zeile * 175, result.getString("ADRESSEN_NAME"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 685 - zeile * 175, result.getString("ADRESSEN_NAMENSZUSATZ"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 685 - zeile * 175, result.getString("ADRESSEN_VORNAME"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 685 - zeile * 175, result.getString("ADRESSEN_NAME"));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 660 - zeile * 175, result.getString("ADRESSEN_ZUSATZ_2"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 660 - zeile * 175, result.getString("ADRESSEN_ZUSATZ_2"));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 645 - zeile * 175, result.getString("ADRESSEN_STRASSE"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 645 - zeile * 175, result.getString("ADRESSEN_PLZ"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 430, 645 - zeile * 175, result.getString("ADRESSEN_ORT"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 645 - zeile * 175, result.getString("ADRESSEN_STRASSE"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 645 - zeile * 175, result.getString("ADRESSEN_PLZ"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 430, 645 - zeile * 175, result.getString("ADRESSEN_ORT"));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 630 - zeile * 175, result.getString("ADRESSEN_TELEFON"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 630 - zeile * 175, result.getString("ADRESSEN_TELEFAX"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 630 - zeile * 175, result.getString("ADRESSEN_MOBIL"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 630 - zeile * 175, result.getString("ADRESSEN_TELEFON"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 630 - zeile * 175, result.getString("ADRESSEN_TELEFAX"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 630 - zeile * 175, result.getString("ADRESSEN_MOBIL"));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 615 - zeile * 175, result.getString("ADRESSEN_EMAIL"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 615 - zeile * 175, result.getString("ADRESSEN_WEB"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 615 - zeile * 175, result.getString("ADRESSEN_EMAIL"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 615 - zeile * 175, result.getString("ADRESSEN_WEB"));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 600 - zeile * 175, result.getString("ADRESSEN_USTR_ID"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 600 - zeile * 175, result.getString("ADRESSEN_IBAN"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 430, 600 - zeile * 175, result.getString("ADRESSEN_BIC"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 600 - zeile * 175, result.getString("ADRESSEN_USTR_ID"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 600 - zeile * 175, result.getString("ADRESSEN_IBAN"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 430, 600 - zeile * 175, result.getString("ADRESSEN_BIC"));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 585 - zeile * 175, result.getString("ADRESSEN_Kundennummer"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 585 - zeile * 175, result.getString("ADRESSEN_ANMELDUNG"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 430, 585 - zeile * 175, result.getString("ADRESSEN_KENNWORT"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 585 - zeile * 175, result.getString("ADRESSEN_Kundennummer"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 585 - zeile * 175, result.getString("ADRESSEN_ANMELDUNG"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 430, 585 - zeile * 175, result.getString("ADRESSEN_KENNWORT"));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 560 - zeile * 175, result.getString("ADRESSEN_Sonderkondition"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 560 - zeile * 175, result.getString("ADRESSEN_Rabatt"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 560 - zeile * 175, result.getString("ADRESSEN_Ustr"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 560 - zeile * 175, result.getString("ADRESSEN_Sonderkondition"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 560 - zeile * 175, result.getString("ADRESSEN_Rabatt"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 560 - zeile * 175, result.getString("ADRESSEN_Ustr"));
 
                         Linie(cos,1,56, 555 - zeile * 175, 539, 555 - zeile * 175);
                         zeile = zeile + 1;
@@ -708,47 +709,47 @@ public class berAdresse {
 
                             document.addPage(page);
                             cos = new PDPageContentStream(document, page);
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Adressen");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755,
-                                    "Übersicht der Adressen, Stand: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Adressen");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755,
+                                    "Übersicht der Adressen, Stand: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 720, "Adresstyp");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 200, 720, "Zeitschrift");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 720, "Ansprechpartner");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 720, "Adresstyp");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 200, 720, "Zeitschrift");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 720, "Ansprechpartner");
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 705, "Zusatz 1");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 705, "Anrede");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 705, "Zusatz 1");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 705, "Anrede");
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 690, "Namenszusatz");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 690, "Vorname");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 690, "Firmenname/Name");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 690, "Namenszusatz");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 690, "Vorname");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 690, "Firmenname/Name");
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 675, "Zusatz 2");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 675, "Zusatz 2");
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 660, "Straße und Hausnummer");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 660, "PLZ");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 430, 660, "Ort");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 660, "Straße und Hausnummer");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 660, "PLZ");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 430, 660, "Ort");
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 645, "Telefon");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 645, "Telefax");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 645, "Mobilfunk");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 645, "Telefon");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 645, "Telefax");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 645, "Mobilfunk");
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 630, "e-Mail");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 630, "Internet");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 630, "e-Mail");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 630, "Internet");
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 615, "UStr-ID");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 615, "IBAN");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 430, 615, "BIC");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 615, "UStr-ID");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 615, "IBAN");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 430, 615, "BIC");
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 600, "Kundennummer");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 600, "Benutzerkennung");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 430, 600, "Kennwort");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 600, "Kundennummer");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 600, "Benutzerkennung");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 430, 600, "Kennwort");
 
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 585, "Sonderkondition");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 250, 585, "Rabatt");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 390, 585, "Ustr on Top");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 585, "Sonderkondition");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 250, 585, "Rabatt");
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 390, 585, "Ustr on Top");
 
                             Linie(cos,2,56, 580, 539, 580);
                         }    // if
@@ -760,24 +761,24 @@ public class berAdresse {
                     // Save the results and ensure that the document is properly closed:
                     document.save(outputFileName);
                     document.close();
-                    Modulhelferlein.Infomeldung("Liste der Adressen ist als PDF gespeichert!");
+                    ModulHelferlein.Infomeldung("Liste der Adressen ist als PDF gespeichert!");
 
                     try {
                         Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung("PDF-Bericht Adressen: Exception: " + exept.getMessage());
+                        ModulHelferlein.Fehlermeldung("PDF-Bericht Adressen: Exception: " + exept.getMessage());
                     }
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("PDF-Bericht Adressen: SQL-Exception: SQL-Anfrage nicht moeglich: "
+                    ModulHelferlein.Fehlermeldung("PDF-Bericht Adressen: SQL-Exception: SQL-Anfrage nicht moeglich: "
                             + exept.getMessage());
                 } catch (IOException e) {
-                    Modulhelferlein.Fehlermeldung("PDF-Bericht Adressen: Exception: " + e.getMessage());
+                    ModulHelferlein.Fehlermeldung("PDF-Bericht Adressen: Exception: " + e.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {
-            Modulhelferlein.Fehlermeldung("PDF-Bericht Adressen: FileNotFoundException: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("PDF-Bericht Adressen: FileNotFoundException: " + e.getMessage());
         } catch (IOException e1) {
-            Modulhelferlein.Fehlermeldung("PDF-Bericht Adressen: IO-Exception: " + e1.getMessage());
+            ModulHelferlein.Fehlermeldung("PDF-Bericht Adressen: IO-Exception: " + e1.getMessage());
         }
     }    // void
 }    // class

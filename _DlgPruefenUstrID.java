@@ -28,13 +28,14 @@ import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
 import net.miginfocom.swing.*;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  *
@@ -548,9 +549,9 @@ public class _DlgPruefenUstrID extends javax.swing.JDialog {
              */
             
         } catch (MalformedURLException ex) {
-            Modulhelferlein.Fehlermeldung("UStrID prüfen", "MalformedURL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("UStrID prüfen", "MalformedURL-Exception", ex.getMessage());
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("UStrID prüfen", "http IO-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("UStrID prüfen", "http IO-Exception", ex.getMessage());
         }
     
     
@@ -561,7 +562,7 @@ public class _DlgPruefenUstrID extends javax.swing.JDialog {
         // erzeugt eine PDF-Datei mit dem Druckergebnis
         try {                                               
             // TODO add your handling code here:
-            String outputFileName = Modulhelferlein.pathBerichte + "\\" + field_UStrIDFremd.getText() + ".pdf";
+            String outputFileName = ModulHelferlein.pathBerichte + "\\" + field_UStrIDFremd.getText() + ".pdf";
             
             // Create a document and add a page to it
             PDDocument document = new PDDocument();
@@ -578,45 +579,45 @@ public class _DlgPruefenUstrID extends javax.swing.JDialog {
             // Start a new content stream which will "hold" the to be created content
             PDPageContentStream cos = new PDPageContentStream(document, page);
 
-            Ausgabe(cos, fontBold, 14, Color.BLACK,  55, 750, "Abfrage Umsatzsteuer-ID");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 400, 750, field_UStrIDFremd.getText());
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,  55, 750, "Abfrage Umsatzsteuer-ID");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 400, 750, field_UStrIDFremd.getText());
             
-            Ausgabe(cos, fontBold, 14, Color.BLACK,  55, 715, "Datum");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 715, ErgebnisFeld[13]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,  55, 715, "Datum");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 715, ErgebnisFeld[13]);
             
-            Ausgabe(cos, fontBold, 14, Color.BLACK,  55, 700, "Uhrzeit");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 700, ErgebnisFeld[19]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,  55, 700, "Uhrzeit");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 700, ErgebnisFeld[19]);
             
-            Ausgabe(cos, fontBold, 14, Color.BLACK,  55, 680, "Ergebnis");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 680, Einfach);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,  55, 680, "Ergebnis");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 680, Einfach);
             
-            Ausgabe(cos, fontBold, 14, Color.BLACK,  55, 650, "Firmenname");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 650, field_Firma.getText());
-            Ausgabe(cos, fontBold, 14, Color.BLACK,  55, 635, "Rechtsform");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 635, Rechtsform[0]);
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 615, "Ergebnis " + ErgebnisFeld[21]);
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 250, 615, "=> " + jLabelErgebnisFirma.getText());
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,  55, 650, "Firmenname");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 650, field_Firma.getText());
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,  55, 635, "Rechtsform");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 635, Rechtsform[0]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 615, "Ergebnis " + ErgebnisFeld[21]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 250, 615, "=> " + jLabelErgebnisFirma.getText());
 
-            Ausgabe(cos, fontBold, 14, Color.BLACK,  55, 590, "Strasse");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 590, field_Strasse.getText());
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 575, "Ergebnis " + ErgebnisFeld[31]);
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 250, 575, "=> " + jLabelErgebnisStrasse.getText());
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,  55, 590, "Strasse");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 590, field_Strasse.getText());
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 575, "Ergebnis " + ErgebnisFeld[31]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 250, 575, "=> " + jLabelErgebnisStrasse.getText());
 
-            Ausgabe(cos, fontBold, 14, Color.BLACK,  55, 555, "Ort");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 555, field_Ort.getText());
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 540, "Ergebnis " + ErgebnisFeld[17]);
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 250, 540, "=> " + jLabelErgebnisOrt.getText());
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,  55, 555, "Ort");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 555, field_Ort.getText());
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 540, "Ergebnis " + ErgebnisFeld[17]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 250, 540, "=> " + jLabelErgebnisOrt.getText());
 
-            Ausgabe(cos, fontBold, 14, Color.BLACK,  55, 520, "Postleitzahl");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 520, field_PLZ.getText());
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 505, "Ergebnis " + ErgebnisFeld[9]);
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 250, 505, "=> " + jLabelErgebnisPLZ.getText());
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,  55, 520, "Postleitzahl");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 520, field_PLZ.getText());
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 505, "Ergebnis " + ErgebnisFeld[9]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 250, 505, "=> " + jLabelErgebnisPLZ.getText());
 
-            Ausgabe(cos, fontBold, 14, Color.BLACK,  55, 470, "Ergebnis");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 155, 470, Qualifiziert);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,  55, 470, "Ergebnis");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 155, 470, Qualifiziert);
 
-            Ausgabe(cos, fontBold, 14, Color.BLACK,  55, 400, "Bestätigung angefordert");
-            Ausgabe(cos, fontBold, 14, Color.BLACK, 255, 400, ErgebnisFeld[7]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK,  55, 400, "Bestätigung angefordert");
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, 255, 400, ErgebnisFeld[7]);
             
             // Make sure that the content stream is closed:
             cos.close();
@@ -628,10 +629,10 @@ public class _DlgPruefenUstrID extends javax.swing.JDialog {
             try {
                 Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
             } catch (IOException exept) {
-                Modulhelferlein.Fehlermeldung("Ausgabe Abfrage UStrID: Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Ausgabe Abfrage UStrID: Exception: " + exept.getMessage());
             }// try Brief ausgeben
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("Ausgabe Abfrage UStrID: IO-Exception: " + ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Ausgabe Abfrage UStrID: IO-Exception: " + ex.getMessage());
             //Logger.getLogger(_DlgAdresseDrucken.class.getName()).log(Level.SEVERE, null, ex);
         }// try Brief ausgeben
     }//GEN-LAST:event_jButtonDruckenActionPerformed

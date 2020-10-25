@@ -22,13 +22,14 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.border.*;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 /**
  *
  * @author thoma
@@ -342,7 +343,7 @@ public class _DlgAdresseDrucken extends javax.swing.JDialog {
             
         try {                                               
             // TODO add your handling code here:
-            String outputFileName = Modulhelferlein.pathRechnungen + "\\Etikett.pdf";
+            String outputFileName = ModulHelferlein.pathRechnungen + "\\Etikett.pdf";
             
             // Create a document and add a page to it
             PDDocument document = new PDDocument();
@@ -364,12 +365,12 @@ public class _DlgAdresseDrucken extends javax.swing.JDialog {
                 
             }
 
-            Ausgabe(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 18, Zeile[1]);
-            Ausgabe(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 36, Zeile[2]);
-            Ausgabe(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 54, Zeile[3]);
-            Ausgabe(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 72, Zeile[4]);
-            Ausgabe(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 90, Zeile[5]);
-            Ausgabe(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 108, Zeile[6]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 18, Zeile[1]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 36, Zeile[2]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 54, Zeile[3]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 72, Zeile[4]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 90, Zeile[5]);
+            AusgabeLB(cos, fontBold, 14, Color.BLACK, Sp[iSpalte] + 9, Ze[iZeile] - 108, Zeile[6]);
             
             // Make sure that the content stream is closed:
             cos.close();
@@ -381,10 +382,10 @@ public class _DlgAdresseDrucken extends javax.swing.JDialog {
             try {
                 Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
             } catch (IOException exept) {
-                Modulhelferlein.Fehlermeldung("Ausgabe Etikett: Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Ausgabe Etikett: Exception: " + exept.getMessage());
             }// try Brief ausgeben
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("Ausgabe Etikett: IO-Exception: " + ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Ausgabe Etikett: IO-Exception: " + ex.getMessage());
             //Logger.getLogger(_DlgAdresseDrucken.class.getName()).log(Level.SEVERE, null, ex);
         }// try Brief ausgeben
         this.dispose();

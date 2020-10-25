@@ -52,18 +52,18 @@ public class _DlgDatenbankErstellen extends javax.swing.JDialog {
         initComponents();
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung(
+            ModulHelferlein.Fehlermeldung(
                     "ClassNotFoundException: Treiber nicht gefunden: "
                     + exept.getMessage());
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung(
+            ModulHelferlein.Fehlermeldung(
                     "SQL-Excetion: Verbindung nicht moeglich: "
                     + exept.getMessage());
         }
@@ -166,11 +166,11 @@ public class _DlgDatenbankErstellen extends javax.swing.JDialog {
                 SQL = "CREATE DATABASE IF NOT EXISTS milesverlag";
                 if (jCheckBoxDatenbank.isSelected()) {
                     SQLAnfrage.executeUpdate(SQL);
-                    Modulhelferlein.Infomeldung("Datenbank milesverlag wurde erstellt");
+                    ModulHelferlein.Infomeldung("Datenbank milesverlag wurde erstellt");
                 } else {
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Fehler beim Erstellen der Datenbank:" + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Fehler beim Erstellen der Datenbank:" + exept.getMessage());
             }
         }
         this.dispose();

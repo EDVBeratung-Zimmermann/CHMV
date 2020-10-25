@@ -30,8 +30,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Linie;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
@@ -41,6 +40,8 @@ import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  * Klasse zur Erzeugung einer Rezensionsübersicht
@@ -70,15 +71,15 @@ public class berRezensionen {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
         }
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich: "
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich: "
                     + exept.getMessage());
         }
 
@@ -145,19 +146,19 @@ public class berRezensionen {
                                 Integer seite = 1;
                                 Integer Datensatz =1;
 
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Bewegungsdaten");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Übersicht der Rezensionen, Stand: "
-                                        + Modulhelferlein.printSimpleDateFormat(
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Bewegungsdaten");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Übersicht der Rezensionen, Stand: "
+                                        + ModulHelferlein.printSimpleDateFormat(
                                                 "dd.MM.yyyy"));
 
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 735, "Buch: " + BuchTitel);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 720, "Autor: " + Autorennamen);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 705, "ISBN: " + BuchISBN);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 705, "Seite: " + Integer.toString(seite));
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 735, "Buch: " + BuchTitel);
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 720, "Autor: " + Autorennamen);
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 705, "ISBN: " + BuchISBN);
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 705, "Seite: " + Integer.toString(seite));
 
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 685, "Datum");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 120, 685, "Rezensent/Zeitschrift");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 300, 685, "Adresse");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 685, "Datum");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 120, 685, "Rezensent/Zeitschrift");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 300, 685, "Adresse");
                                 Linie(cos, 2, 56, 678, 539, 678);
                                 System.out.println("... Kopfzeile ist geschrieben");
 
@@ -171,7 +172,7 @@ public class berRezensionen {
 
                                     resultAdresse = SQLBuch.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Rezensent + "'");
                                     resultAdresse.next();
-                                    Rezensent = Modulhelferlein.makeAnrede(resultAdresse.getString("ADRESSEN_NAMENSZUSATZ"), resultAdresse.getString("ADRESSEN_VORNAME"), resultAdresse.getString("ADRESSEN_NAME"));
+                                    Rezensent = ModulHelferlein.makeAnrede(resultAdresse.getString("ADRESSEN_NAMENSZUSATZ"), resultAdresse.getString("ADRESSEN_VORNAME"), resultAdresse.getString("ADRESSEN_NAME"));
                                     
                                     String Zeile1 = resultAdresse.getString("ADRESSEN_ZUSATZ_1");
                                     String Zeile3 = resultAdresse.getString("ADRESSEN_ZUSATZ_2"); 
@@ -181,21 +182,21 @@ public class berRezensionen {
                                     resultAdresse.next();
                                     ZielZeitschrift = resultAdresse.getString("ADRESSEN_ZEITSCHRIFT");
 
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 665 - zeile * 15, Datum);
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 120, 665 - zeile * 15, Rezensent);
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 300, 665 - zeile * 15, Zeile1);
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 665 - zeile * 15, Datum);
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 120, 665 - zeile * 15, Rezensent);
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 300, 665 - zeile * 15, Zeile1);
                                     zeile = zeile + 1;
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 120, 665 - zeile * 15, Zeitschrift);
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 120, 665 - zeile * 15, Zeitschrift);
 
                                     if (Zeile3.equals(ZielZeitschrift)) {
                                     } else {
-                                        Ausgabe(cos, fontBold, 12, Color.BLACK, 300, 665 - zeile * 15, Zeile3);
-                                        Ausgabe(cos, fontBold, 12, Color.BLACK, 120, 665 - zeile * 15, Zeitschrift);
+                                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 300, 665 - zeile * 15, Zeile3);
+                                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 120, 665 - zeile * 15, Zeitschrift);
                                         if (ZielZeitschrift.equals("----------") || ZielZeitschrift.equals("") || ZielZeitschrift.equals(" ")) {
                                     
                                         } else {
                                             zeile = zeile + 1;
-                                            Ausgabe(cos, fontBold, 12, Color.BLACK, 120, 665 - zeile * 15, "gebeten für eine Rezension in " + ZielZeitschrift);
+                                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 120, 665 - zeile * 15, "gebeten für eine Rezension in " + ZielZeitschrift);
                                         }
                                     }
                                     System.out.println("Zeile " + Integer.toString(zeile) + ": " + Datum + ", " + Rezensent + ", " + Zeile1 +  ", " + Zeile3 +  ", " + Zeitschrift +  ", " + ZielZeitschrift);
@@ -212,63 +213,63 @@ public class berRezensionen {
                                         document.addPage(page);
                                         cos = new PDPageContentStream(document, page);
 
-                                        Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Bewegungsdaten");
-                                        Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Übersicht der Rezensionen, Stand: "
-                                                + Modulhelferlein.printSimpleDateFormat(
+                                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Bewegungsdaten");
+                                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Übersicht der Rezensionen, Stand: "
+                                                + ModulHelferlein.printSimpleDateFormat(
                                                         "dd.MM.yyyy"));
 
-                                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 735, "Buch: " + BuchTitel);
-                                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 720, "Autor: " + Autorennamen);
-                                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 705, "ISBN: " + BuchISBN);
-                                        Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 705, "Seite: " + Integer.toString(seite));
+                                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 735, "Buch: " + BuchTitel);
+                                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 720, "Autor: " + Autorennamen);
+                                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 705, "ISBN: " + BuchISBN);
+                                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 705, "Seite: " + Integer.toString(seite));
 
-                                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 685, "Datum");
-                                        Ausgabe(cos, fontBold, 12, Color.BLACK, 120, 685, "Rezensent/Zeitschrift");
-                                        Ausgabe(cos, fontBold, 12, Color.BLACK, 300, 685, "Adresse");
+                                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 685, "Datum");
+                                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 120, 685, "Rezensent/Zeitschrift");
+                                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 300, 685, "Adresse");
                                         Linie(cos, 2, 56, 678, 539, 678);
                                     } // if neue Seite
                                 } // while
                                 cos.close();
 
                                 // Save the results and ensure that the document is properly closed:
-                                String outputFileName = Modulhelferlein.pathBerichte + "\\Rezensionen\\"
+                                String outputFileName = ModulHelferlein.pathBerichte + "\\Rezensionen\\"
                                         + "Rezension-"
                                         + BuchISBN + "-"
-                                        + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + "." + Format;
+                                        + ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + "." + Format;
 
                                 document.save(outputFileName);
                                 document.close();
 
-                                Modulhelferlein.Infomeldung("Rezensionsbericht als PDF gespeichert!");
+                                ModulHelferlein.Infomeldung("Rezensionsbericht als PDF gespeichert!");
                                 try {
                                     Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                                 } catch (IOException exept) {
-                                    Modulhelferlein.Fehlermeldung("Exception: " + exept.getMessage());
+                                    ModulHelferlein.Fehlermeldung("Exception: " + exept.getMessage());
                                 }
 
                                 break;
                             case "XLS":
-                                Modulhelferlein.Infomeldung("Noch nicht implementiert");
+                                ModulHelferlein.Infomeldung("Noch nicht implementiert");
                                 break;
                             case "DOC":
-                                Modulhelferlein.Infomeldung("Noch nicht implementiert");
+                                ModulHelferlein.Infomeldung("Noch nicht implementiert");
                                 break;
                         }
                         break;
                     case "Zeitschrift":
                         result = SQLAnfrage.executeQuery("SELECT * FROM TBL_REZENSIONEN_AUS SORT BY EZENSION_ZEITSCHRIFT");
-                        Modulhelferlein.Infomeldung("Noch nicht implementiert");
+                        ModulHelferlein.Infomeldung("Noch nicht implementiert");
                         break;
                     case "Rezensent":
                         result = SQLAnfrage.executeQuery("SELECT * FROM TBL_REZENSIONEN_AUS SORT BY REZENSION_REZENSENT");
-                        Modulhelferlein.Infomeldung("Noch nicht implementiert");
+                        ModulHelferlein.Infomeldung("Noch nicht implementiert");
                         break;
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception", "Verbindung zur Datenbank nicht moeglich: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception", "Verbindung zur Datenbank nicht moeglich: ", exept.getMessage());
             } catch (IOException ex) {
-                Modulhelferlein.Fehlermeldung("IO-Exception", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("IO-Exception", ex.getMessage());
             }
         }
         //------------------------------------------------------------------------------        

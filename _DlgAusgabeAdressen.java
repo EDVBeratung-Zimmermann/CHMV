@@ -46,7 +46,7 @@ public class _DlgAusgabeAdressen extends javax.swing.JDialog {
         buttonGroupAusgabeFormat.add(jRadioButtonDOC);
         buttonGroupAusgabeFormat.add(jRadioButtonPDF);
         buttonGroupAusgabeFormat.add(jRadioButtonXLS);
-        for (String AdressTypListe : Modulhelferlein.AdressTypListe) {
+        for (String AdressTypListe : ModulHelferlein.AdressTypListe) {
             jComboBoxAdressArt.addItem(AdressTypListe);
         }
     }

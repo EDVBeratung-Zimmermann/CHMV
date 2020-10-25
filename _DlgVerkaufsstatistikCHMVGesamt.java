@@ -258,10 +258,10 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
         String strVon = "1970-01-01";
         String strBis = "1970-01-01";
         if (vonDate != null) {
-            strVon = Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate);
+            strVon = ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate);
         }
         if (bisDate != null) {
-            strBis = Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate);
+            strBis = ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate);
         }
 
         if (rbMiles.isSelected()) {
@@ -298,7 +298,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             } // if sortierung
         } else if (rbBOD.isSelected()) {
             if (sFilePathAndName.length() == 0) {
-                Modulhelferlein.Fehlermeldung("Sie haben keine Datei ausgewählt!");
+                ModulHelferlein.Fehlermeldung("Sie haben keine Datei ausgewählt!");
             } else {
                 if (rbAutor.isSelected()) {
                     if (PDF.isSelected()) {           // Format PDF
@@ -328,7 +328,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             }
         } else if (rbGesamt.isSelected()) {   // berVerkaufGesamt
             if (sFilePathAndName.length() == 0) {
-                Modulhelferlein.Fehlermeldung("Sie haben keine Datei ausgewählt!");
+                ModulHelferlein.Fehlermeldung("Sie haben keine Datei ausgewählt!");
             } else {
                 if (rbAutor.isSelected()) {
                     if (PDF.isSelected()) {           // Format PDF
@@ -377,7 +377,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
                 sFilePathAndName = chooser.getSelectedFile().getCanonicalPath();
                 lblSalesCSV.setText(sFilePathAndName);
             } catch (IOException e) {
-                Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
             }    // try
         }        // if
     }//GEN-LAST:event_btnSalesBODActionPerformed

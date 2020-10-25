@@ -64,12 +64,12 @@ public class berVerkaufEinzel {
     static ResultSet resultVerkauf2 = null;
 
     private static void berichtPDF(String buchISBN, String strVon, String strBis) {
-        Modulhelferlein.Infomeldung("PDF noch nicht implementiert");
+        ModulHelferlein.Infomeldung("PDF noch nicht implementiert");
     }
 
     private static void berichtXLS(String buchISBN, String strVon, String strBis) {
         try {
-            String outputFileName = Modulhelferlein.pathBerichte + "/Verkäufe/"
+            String outputFileName = ModulHelferlein.pathBerichte + "/Verkäufe/"
                     + "Verkaufsstatistik-CHMV"
                     + "-"
                     + buchISBN
@@ -78,7 +78,7 @@ public class berVerkaufEinzel {
                     + "-"
                     + strBis
                     + "-"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                     + ".xls";
             WritableWorkbook workbook = Workbook.createWorkbook(new File(outputFileName));
             WritableSheet sheet_Verkauf = workbook.createSheet("Verkaufsstatistik", 0);
@@ -107,15 +107,15 @@ public class berVerkaufEinzel {
             Connection conn = null;
 
             try { // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Verkaufsstatisitik", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht Verkaufsstatisitik", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
             } // try Datenbank-Treiber laden
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Verkaufsstatisitik", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht Verkaufsstatisitik", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
             } // try Verbindung zur Datenbank über die JDBC-Brücke
 
             final Connection conn2 = conn;
@@ -248,32 +248,32 @@ System.out.println("WHILE BUCH -> " + ISBN);
                 try {// workbook write
                     workbook.write();
                 } catch (IOException e) {
-                    Modulhelferlein.Fehlermeldung("XLS-Bericht Verkaufsstatistik", "IO-Exception: ", e.getMessage());
+                    ModulHelferlein.Fehlermeldung("XLS-Bericht Verkaufsstatistik", "IO-Exception: ", e.getMessage());
                 } // workbook write
 
                 try { // try workbook close
                     workbook.close();
                 } catch (IOException e) {
-                    Modulhelferlein.Fehlermeldung("XLS-Bericht Verkaufsstatistik", "IO-Exception: ", e.getMessage());
+                    ModulHelferlein.Fehlermeldung("XLS-Bericht Verkaufsstatistik", "IO-Exception: ", e.getMessage());
                 } // try workbook close
 
                 try { // try XLS anzeigen
                     Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                 } catch (IOException exept) {
-                    Modulhelferlein.Fehlermeldung("Bericht Verkaufsstatistik", "Anzeige XLS-Export: Exception: ", exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("Bericht Verkaufsstatistik", "Anzeige XLS-Export: Exception: ", exept.getMessage());
                 } // try XLS anzeigen
             }
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("Verkaufsstatistik Excel", "IO-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Verkaufsstatistik Excel", "IO-Exception", ex.getMessage());
         } catch (WriteException ex) {
-            Modulhelferlein.Fehlermeldung("Verkaufsstatistik Excel", "Write-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Verkaufsstatistik Excel", "Write-Exception", ex.getMessage());
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Verkaufsstatistik Excel", "SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Verkaufsstatistik Excel", "SQL-Exception", ex.getMessage());
         }
     }
 
     private static void berichtDOC(String buchISBN, String strVon, String strBis) {
-        Modulhelferlein.Infomeldung("DOC noch nicht implementiert");
+        ModulHelferlein.Infomeldung("DOC noch nicht implementiert");
     }
 
     /**

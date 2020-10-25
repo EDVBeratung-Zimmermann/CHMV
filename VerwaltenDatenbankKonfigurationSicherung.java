@@ -55,16 +55,16 @@ public class VerwaltenDatenbankKonfigurationSicherung extends javax.swing.JDialo
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
+            ModulHelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
         }
 
         // final Connection conn2=conn;
@@ -100,7 +100,7 @@ public class VerwaltenDatenbankKonfigurationSicherung extends javax.swing.JDialo
                 } // if notempty
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "SQL-Exception: SQL-Anfrage nicht moeglich. "
                         + exept.getMessage());
                 System.exit(1);
@@ -401,8 +401,8 @@ public class VerwaltenDatenbankKonfigurationSicherung extends javax.swing.JDialo
                 result.updateRow();
             }
 
-            Modulhelferlein.pathQuelle = field_Stammdaten.getText();
-            Modulhelferlein.pathZiel = field_Einnahmen.getText();
+            ModulHelferlein.pathQuelle = field_Stammdaten.getText();
+            ModulHelferlein.pathZiel = field_Einnahmen.getText();
             /**
             helferlein.pathAusgaben = field_Ausgaben.getText();
             helferlein.pathUmsaetze = field_Umsaetze.getText();
@@ -414,7 +414,7 @@ public class VerwaltenDatenbankKonfigurationSicherung extends javax.swing.JDialo
             helferlein.pathSteuer = field_Steuer.getText();
             */
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
 
         // Dialog schließen
@@ -428,7 +428,7 @@ public class VerwaltenDatenbankKonfigurationSicherung extends javax.swing.JDialo
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_jButtonSchliessenActionPerformed

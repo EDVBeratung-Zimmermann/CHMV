@@ -208,7 +208,7 @@ public class _DlgMahnungNr extends javax.swing.JDialog {
                 briefRechnungMahnung.briefDOC(RechNr, 99, jTextFieldMahnung.getText());
             }
         } catch (Exception e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
         // Schlieﬂen des Dialoges
         this.dispose();
@@ -221,8 +221,8 @@ public class _DlgMahnungNr extends javax.swing.JDialog {
 
     private void jTextFieldMahnungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMahnungActionPerformed
         // TODO add your handling code here:
-        if (Modulhelferlein.checkNumberFormatInt(jTextFieldMahnung.getText()) < 0) {
-            Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+        if (ModulHelferlein.checkNumberFormatInt(jTextFieldMahnung.getText()) < 0) {
+            ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
         }
     }//GEN-LAST:event_jTextFieldMahnungActionPerformed
 

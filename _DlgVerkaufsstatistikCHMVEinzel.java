@@ -55,16 +55,16 @@ public class _DlgVerkaufsstatistikCHMVEinzel extends javax.swing.JDialog {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("DB-Bestellung", "Treiber nicht gefunden: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("DB-Bestellung", "Treiber nicht gefunden: ", exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("DB-Bestellung", "Verbindung nicht moeglich: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("DB-Bestellung", "Verbindung nicht moeglich: ", exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank über die JDBC-Brücke
 
@@ -118,7 +118,7 @@ public class _DlgVerkaufsstatistikCHMVEinzel extends javax.swing.JDialog {
                     jComboBoxBuch.addItem(eintrag);
                 } // while
             } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("Details Verkaufsstatistik", "SQL-Exception", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Details Verkaufsstatistik", "SQL-Exception", ex.getMessage());
             }
         }
     }
@@ -269,10 +269,10 @@ public class _DlgVerkaufsstatistikCHMVEinzel extends javax.swing.JDialog {
         String strVon = "1970-01-01";
         String strBis = "1970-01-01";
         if (vonDate != null) {
-            strVon = Modulhelferlein.printDateFormat("yyyy-MM-dd", vonDate);
+            strVon = ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate);
         }
         if (bisDate != null) {
-            strBis = Modulhelferlein.printDateFormat("yyyy-MM-dd", bisDate);
+            strBis = ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate);
         }
 
         String buch[] = jComboBoxBuch.getItemAt(jComboBoxBuch.getSelectedIndex()).split(", ");
@@ -281,9 +281,9 @@ public class _DlgVerkaufsstatistikCHMVEinzel extends javax.swing.JDialog {
         System.out.println("Bericht für " + buchISBN + " von " + strVon + " bis " + strBis);
 
         if (PDF.isSelected()) {
-            Modulhelferlein.Infomeldung("PDF-Ausgabe ist noch nicht implementiert");
+            ModulHelferlein.Infomeldung("PDF-Ausgabe ist noch nicht implementiert");
         } else if (DOC.isSelected()) {
-            Modulhelferlein.Infomeldung("DOC-Ausgabe ist noch nicht implementiert");
+            ModulHelferlein.Infomeldung("DOC-Ausgabe ist noch nicht implementiert");
         } else {
             berVerkaufEinzel.bericht(buchISBN, "XLS", strVon, strBis);
         }

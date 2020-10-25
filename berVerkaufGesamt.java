@@ -44,10 +44,9 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import static milesVerlagMain.briefHonorar.conn;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.AusgabeDB;
-import static milesVerlagMain.Modulhelferlein.AusgabeRB;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.AusgabeDB;
+import static milesVerlagMain.ModulHelferlein.AusgabeRB;
+import static milesVerlagMain.ModulHelferlein.Linie;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -55,6 +54,8 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  * Klasse zur Erzeugung einer Liste von offenen Einnahmen
@@ -111,13 +112,13 @@ public class berVerkaufGesamt {
         try { // Start a new content stream which will "hold" the to be created content
             Connection conn = null;
 
-            Class.forName(Modulhelferlein.dbDriver);
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            Class.forName(ModulHelferlein.dbDriver);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
 
             if (conn != null) {
                 cos = new PDPageContentStream(document, page1);
 
-                String outputFileName = Modulhelferlein.pathBerichte + "/Verkäufe/"
+                String outputFileName = ModulHelferlein.pathBerichte + "/Verkäufe/"
                         + "Verkaufsstatistik-BOD"
                         + "-"
                         + Sortierung
@@ -126,7 +127,7 @@ public class berVerkaufGesamt {
                         + "-"
                         + strBis
                         + "-"
-                        + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                        + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                         + ".pdf";
                 PDDocumentInformation docInfo = document.getDocumentInformation();
 
@@ -140,28 +141,28 @@ public class berVerkaufGesamt {
                 switch (Sortierung) {
                     case "Autor":
                         resultVerkauf = SQLVerkauf.executeQuery("SELECT DISTINCT VERKAUF_AUTOR FROM TBL_VERKAUF ORDER BY VERKAUF_AUTOR");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 495, "Autor");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 100, 495, "Titel");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 465, 495, "ISBN");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 495, "Autor");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 100, 495, "Titel");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 465, 495, "ISBN");
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                         Linie(cos,1,55, 490, 800, 490);
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
-                        AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(Modulhelferlein.round2dec(Umsatz)));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
+                        AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(ModulHelferlein.round2dec(Umsatz)));
 
                         Linie(cos,2,55, 470, 800, 470);
                         
                         zeile = 1;
                         while (resultVerkauf.next()) {
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 55, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Autor"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Autor"));
                             resultVerkauf2 = SQLVerkauf2.executeQuery("SELECT * FROM TBL_VERKAUF "
                                     + " WHERE VERKAUF_AUTOR = '" + resultVerkauf.getString("VERKAUF_AUTOR") + "'"
                                     + " ORDER BY VERKAUF_TITEL");
@@ -177,33 +178,33 @@ public class berVerkaufGesamt {
                                     PDPage page = new PDPage(new PDRectangle(297 * POINTS_PER_MM, 210 * POINTS_PER_MM));
                                     document.addPage(page);
                                     cos = new PDPageContentStream(document, page);
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
 
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 495, "Autor");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 100, 495, "Titel");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 465, 495, "ISBN");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 495, "Autor");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 100, 495, "Titel");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 465, 495, "ISBN");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                                     Linie(cos,1,55, 490, 800, 490);
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
-                                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(Modulhelferlein.round2dec(Umsatz)));
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
+                                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(ModulHelferlein.round2dec(Umsatz)));
 
                                     Linie(cos,2,55, 470, 800, 470);
                                     
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Autor"));
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Autor"));
                                     zeile = zeile + 1;
                                 } // if
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 100, basis - zeile * 15, Modulhelferlein.CheckStr(resultVerkauf2.getString("VERKAUF_TITEL")), 360);
+                                Ausgabe(cos, fontBold, 12, Color.BLACK, 100, basis - zeile * 15, ModulHelferlein.CheckStr(resultVerkauf2.getString("VERKAUF_TITEL")), 360);
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 465, basis - zeile * 15, resultVerkauf2.getString("VERKAUF_ISBN"), 100);
                                 AusgabeRB(cos, fontBold, 12, Color.BLACK, 600, basis - zeile * 15, resultVerkauf2.getString("VERKAUF_Anzahl_GESAMT"));
                                 AusgabeRB(cos, fontBold, 12, Color.BLACK, 650, basis - zeile * 15, resultVerkauf2.getString("VERKAUF_Anzahl_Autor"));
                                 AusgabeRB(cos, fontBold, 12, Color.BLACK, 700, basis - zeile * 15, resultVerkauf2.getString("VERKAUF_Anzahl_Geschenk"));
-                                AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, basis - zeile * 15, String.valueOf(Modulhelferlein.round2dec(resultVerkauf2.getFloat("VERKAUF_Umsatz"))));
+                                AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, basis - zeile * 15, String.valueOf(ModulHelferlein.round2dec(resultVerkauf2.getFloat("VERKAUF_Umsatz"))));
 
                                 Umsatz = Umsatz + resultVerkauf2.getFloat("VERKAUF_Umsatz");
                                 zeile = zeile + 1;
@@ -217,25 +218,25 @@ public class berVerkaufGesamt {
                                     PDPage page = new PDPage(new PDRectangle(297 * POINTS_PER_MM, 210 * POINTS_PER_MM));
                                     document.addPage(page);
                                     cos = new PDPageContentStream(document, page);
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
 
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 495, "Autor");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 100, 495, "Titel");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 465, 495, "ISBN");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 495, "Autor");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 100, 495, "Titel");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 465, 495, "ISBN");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                                     Linie(cos,1,55, 490, 800, 490);
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
-                                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(Modulhelferlein.round2dec(Umsatz)));
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
+                                    AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(ModulHelferlein.round2dec(Umsatz)));
 
                                     Linie(cos,2,55, 470, 800, 470);
                                     
-                                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Autor"));
+                                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Autor"));
                                     zeile = zeile + 1;
                                 } // if
                             } // while bücher des autor
@@ -245,34 +246,34 @@ public class berVerkaufGesamt {
                         resultVerkauf = SQLVerkauf.executeQuery("SELECT * FROM TBL_VERKAUF "
                                 + " ORDER BY VERKAUF_ISBN");
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 495, "ISBN");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 100, 495, "Titel");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 230, 495, "Autor");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 495, "ISBN");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 100, 495, "Titel");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 230, 495, "Autor");
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                         Linie(cos,1,55, 490, 800, 490);
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
-                        AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(Modulhelferlein.round2dec(Umsatz)));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
+                        AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(ModulHelferlein.round2dec(Umsatz)));
 
                         Linie(cos,2,55, 470, 800, 470);
                         
                         zeile = 1;
                         while (resultVerkauf.next()) {
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 55, basis - zeile * 15, resultVerkauf.getString("VERKAUF_ISBN"), 100);
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 160, basis - zeile * 15, Modulhelferlein.CheckStr(resultVerkauf.getString("VERKAUF_Titel")), 200);
+                            Ausgabe(cos, fontBold, 12, Color.BLACK, 160, basis - zeile * 15, ModulHelferlein.CheckStr(resultVerkauf.getString("VERKAUF_Titel")), 200);
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 265, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Autor"), 200);
                             AusgabeRB(cos, fontBold, 12, Color.BLACK, 600, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Anzahl_GESAMT"));
                             AusgabeRB(cos, fontBold, 12, Color.BLACK, 650, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Anzahl_Autor"));
                             AusgabeRB(cos, fontBold, 12, Color.BLACK, 700, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Anzahl_Geschenk"));
-                            AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, basis - zeile * 15, String.valueOf(Modulhelferlein.round2dec(resultVerkauf.getFloat("VERKAUF_Umsatz"))));
+                            AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, basis - zeile * 15, String.valueOf(ModulHelferlein.round2dec(resultVerkauf.getFloat("VERKAUF_Umsatz"))));
 
                             Umsatz = Umsatz + resultVerkauf.getFloat("VERKAUF_Umsatz");
                             zeile = zeile + 1;
@@ -286,21 +287,21 @@ public class berVerkaufGesamt {
                                 PDPage page = new PDPage(new PDRectangle(297 * POINTS_PER_MM, 210 * POINTS_PER_MM));
                                 document.addPage(page);
                                 cos = new PDPageContentStream(document, page);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
 
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 495, "ISBN", 100);
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 160, 495, "Titel", 200);
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 265, 495, "Autor", 200);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                                 Linie(cos,1,55, 490, 800, 490);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
-                                AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(Modulhelferlein.round2dec(Umsatz)));
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
+                                AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(ModulHelferlein.round2dec(Umsatz)));
 
                                 Linie(cos,2,55, 470, 800, 470);
                                 
@@ -310,34 +311,34 @@ public class berVerkaufGesamt {
                     case "Titel":
                         resultVerkauf = SQLVerkauf.executeQuery("SELECT * FROM TBL_VERKAUF "
                                 + " ORDER BY VERKAUF_TITEL");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
 
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 495, "Titel", 200);
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 260, 495, "ISBN", 100);
                         Ausgabe(cos, fontBold, 12, Color.BLACK, 365, 495, "Autor", 200);
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                         Linie(cos,1,55, 490, 800, 490);
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
-                        AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(Modulhelferlein.round2dec(Umsatz)));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
+                        AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(ModulHelferlein.round2dec(Umsatz)));
 
                         Linie(cos,2,55, 470, 800, 470);
                         
                         zeile = 1;
                         while (resultVerkauf.next()) {
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 55, basis - zeile * 15, Modulhelferlein.CheckStr(resultVerkauf.getString("VERKAUF_Titel")), 200);
+                            Ausgabe(cos, fontBold, 12, Color.BLACK, 55, basis - zeile * 15, ModulHelferlein.CheckStr(resultVerkauf.getString("VERKAUF_Titel")), 200);
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 260, basis - zeile * 15, resultVerkauf.getString("VERKAUF_ISBN"), 100);
                             Ausgabe(cos, fontBold, 12, Color.BLACK, 365, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Autor"), 200);
                             AusgabeRB(cos, fontBold, 12, Color.BLACK, 600, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Anzahl_GESAMT"));
                             AusgabeRB(cos, fontBold, 12, Color.BLACK, 650, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Anzahl_Autor"));
                             AusgabeRB(cos, fontBold, 12, Color.BLACK, 700, basis - zeile * 15, resultVerkauf.getString("VERKAUF_Anzahl_Geschenk"));
-                            AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, basis - zeile * 15, String.valueOf(Modulhelferlein.round2dec(resultVerkauf.getFloat("VERKAUF_Umsatz"))));
+                            AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, basis - zeile * 15, String.valueOf(ModulHelferlein.round2dec(resultVerkauf.getFloat("VERKAUF_Umsatz"))));
 
                             Umsatz = Umsatz + resultVerkauf.getFloat("VERKAUF_Umsatz");
                             zeile = zeile + 1;
@@ -351,21 +352,21 @@ public class berVerkaufGesamt {
                                 PDPage page = new PDPage(new PDRectangle(297 * POINTS_PER_MM, 210 * POINTS_PER_MM));
                                 document.addPage(page);
                                 cos = new PDPageContentStream(document, page);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 550, "Übersicht der BOD-Verkäufe im Zeitraum " + strVon + " - " + strBis);
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 525, "Stand " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 525, "Seite " + Integer.toString(seite));
 
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 495, "Titel", 200);
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 260, 495, "ISBN", 100);
                                 Ausgabe(cos, fontBold, 12, Color.BLACK, 365, 495, "Autor", 200);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 570, 495, "Anzahl");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 620, 495, "- Autor");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 670, 495, "- Werbung");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 750, 495, "Umsatz");
 
                                 Linie(cos,1,55, 490, 800, 490);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
-                                AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(Modulhelferlein.round2dec(Umsatz)));
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 475, "Übertrag");
+                                AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, 475, String.valueOf(ModulHelferlein.round2dec(Umsatz)));
 
                                 Linie(cos,2,55, 470, 800, 470);
                                 
@@ -378,8 +379,8 @@ public class berVerkaufGesamt {
                 Linie(cos,2,55, basis - zeile * 15, 800, basis - zeile * 15);
                 cos.closeAndStroke();
                 zeile = zeile + 1;
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, basis - zeile * 15, "Gesamtumsatz Miles-Verlag");
-                AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, basis - zeile * 15, String.valueOf(Modulhelferlein.round2dec(Umsatz)));
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, basis - zeile * 15, "Gesamtumsatz Miles-Verlag");
+                AusgabeDB(cos, fontBold, 12, Color.BLACK, 790, basis - zeile * 15, String.valueOf(ModulHelferlein.round2dec(Umsatz)));
 
                 // close the content stream for page 
                 cos.close();
@@ -388,7 +389,7 @@ public class berVerkaufGesamt {
                 document.save(outputFileName);
                 document.close();
 
-                Modulhelferlein.Infomeldung("Liste der BOD-Verkäufe ist als PDF gespeichert!");
+                ModulHelferlein.Infomeldung("Liste der BOD-Verkäufe ist als PDF gespeichert!");
                 Runtime.getRuntime().exec("cmd.exe /c " + outputFileName);
                 resultVerkauf.close();
                 SQLVerkauf.close();
@@ -398,18 +399,18 @@ public class berVerkaufGesamt {
             } //if (conn != null)
 
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + e.getMessage());
         } catch (ClassNotFoundException ex) {
-            Modulhelferlein.Fehlermeldung("ClassNotFound-Exception: " + ex.getMessage());
+            ModulHelferlein.Fehlermeldung("ClassNotFound-Exception: " + ex.getMessage());
         } // try contentstream
 
     }
 
     private static void berichtXLS(String Sortierung, String strVon, String strBis) {
         try {
-            String outputFileName = Modulhelferlein.pathBerichte + "/Verkäufe/"
+            String outputFileName = ModulHelferlein.pathBerichte + "/Verkäufe/"
                     + "Verkaufsstatistik-Gesamt"
                     + "-"
                     + Sortierung
@@ -418,7 +419,7 @@ public class berVerkaufGesamt {
                     + "-"
                     + strBis
                     + "-"
-                    + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                    + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                     + ".xls";
             WritableWorkbook workbook = Workbook.createWorkbook(new File(outputFileName));
             WritableSheet sheet_Gesamt = workbook.createSheet("Gesamt-Verkaufsstatistik", 0);
@@ -446,15 +447,15 @@ public class berVerkaufGesamt {
             Connection conn = null;
 
             try { // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Umsatz", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht Umsatz", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
             } // try Datenbank-Treiber laden
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht Umsatz", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht Umsatz", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
             } // try Verbindung zur Datenbank über die JDBC-Brücke
 
             final Connection conn2 = conn;
@@ -736,32 +737,32 @@ public class berVerkaufGesamt {
                 try {// workbook write
                     workbook.write();
                 } catch (IOException e) {
-                    Modulhelferlein.Fehlermeldung("XLS-Bericht Verkaufsstatistik", "IO-Exception: ", e.getMessage());
+                    ModulHelferlein.Fehlermeldung("XLS-Bericht Verkaufsstatistik", "IO-Exception: ", e.getMessage());
                 } // workbook write
 
                 try { // try workbook close
                     workbook.close();
                 } catch (IOException e) {
-                    Modulhelferlein.Fehlermeldung("XLS-Bericht Verkaufsstatistik", "IO-Exception: ", e.getMessage());
+                    ModulHelferlein.Fehlermeldung("XLS-Bericht Verkaufsstatistik", "IO-Exception: ", e.getMessage());
                 } // try workbook close
 
                 try { // try XLS anzeigen
                     Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                 } catch (IOException exept) {
-                    Modulhelferlein.Fehlermeldung("Bericht Verkaufsstatistik", "Anzeige XLS-Export: Exception: ", exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("Bericht Verkaufsstatistik", "Anzeige XLS-Export: Exception: ", exept.getMessage());
                 } // try XLS anzeigen
             }
         } catch (IOException ex) {
-            Modulhelferlein.Fehlermeldung("Verkaufsstatistik Excel", "IO-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Verkaufsstatistik Excel", "IO-Exception", ex.getMessage());
         } catch (WriteException ex) {
-            Modulhelferlein.Fehlermeldung("Verkaufsstatistik Excel", "Write-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Verkaufsstatistik Excel", "Write-Exception", ex.getMessage());
         } catch (SQLException ex) {
-            Modulhelferlein.Fehlermeldung("Verkaufsstatistik Excel", "SQL-Exception", ex.getMessage());
+            ModulHelferlein.Fehlermeldung("Verkaufsstatistik Excel", "SQL-Exception", ex.getMessage());
         }
     }
 
     private static void berichtDOC(String Sortierung, String strVon, String strBis) {
-        Modulhelferlein.Infomeldung("DOC noch nicht implementiert");
+        ModulHelferlein.Infomeldung("DOC noch nicht implementiert");
     }
 
     /**
@@ -779,15 +780,15 @@ public class berVerkaufGesamt {
         Integer AnzahlGeschenk = 0;
 
         try {                   // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Bericht Verkaufsstatistik", "ClassNotFoundException: Treiber nicht gefunden: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bericht Verkaufsstatistik", "ClassNotFoundException: Treiber nicht gefunden: ", exept.getMessage());
         } // try Datenbank-Treiber laden
 
         try {                   // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Bericht Verkaufsstatistik", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Bericht Verkaufsstatistik", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
         }                       // try Verbindung zur Datenbank über die JDBC-Brücke
 
         // Datenbankverbindung steht
@@ -922,25 +923,25 @@ public class berVerkaufGesamt {
                     Float Umsatz = Float.parseFloat(sUmsatz);
                     switch (CSVZeile[6]) {
                         case "USD":
-                            Umsatz = Umsatz * Modulhelferlein.USD;
+                            Umsatz = Umsatz * ModulHelferlein.USD;
                             break;
                         case "GBP":
-                            Umsatz = Umsatz * Modulhelferlein.GBP;
+                            Umsatz = Umsatz * ModulHelferlein.GBP;
                             break;
                         case "CHF":
-                            Umsatz = Umsatz * Modulhelferlein.CHF;
+                            Umsatz = Umsatz * ModulHelferlein.CHF;
                             break;
                         case "NOK":
-                            Umsatz = Umsatz * Modulhelferlein.NOK;
+                            Umsatz = Umsatz * ModulHelferlein.NOK;
                             break;
                         case "ILS":
-                            Umsatz = Umsatz * Modulhelferlein.ILS;
+                            Umsatz = Umsatz * ModulHelferlein.ILS;
                             break;
                         case "DKK":
-                            Umsatz = Umsatz * Modulhelferlein.DKK;
+                            Umsatz = Umsatz * ModulHelferlein.DKK;
                             break;
                         case "CAD":
-                            Umsatz = Umsatz * Modulhelferlein.CAD;
+                            Umsatz = Umsatz * ModulHelferlein.CAD;
                             break;
                         default:
                             break;
@@ -987,11 +988,11 @@ public class berVerkaufGesamt {
                         break;
                 }
             } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("Verkaufsbericht", "SQL-Exception", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Verkaufsbericht", "SQL-Exception", ex.getMessage());
             } catch (FileNotFoundException ex) {
-                Modulhelferlein.Fehlermeldung("Verkaufsbericht", "FileNotFound-Exception", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Verkaufsbericht", "FileNotFound-Exception", ex.getMessage());
             } catch (IOException ex) {
-                Modulhelferlein.Fehlermeldung("Verkaufsbericht", "IO-Exception", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Verkaufsbericht", "IO-Exception", ex.getMessage());
             }
         }
     } // void

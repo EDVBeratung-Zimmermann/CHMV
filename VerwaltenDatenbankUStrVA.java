@@ -737,7 +737,7 @@ public class VerwaltenDatenbankUStrVA extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed
@@ -770,7 +770,7 @@ public class VerwaltenDatenbankUStrVA extends javax.swing.JDialog {
             }
             field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_ZurueckActionPerformed
 
@@ -796,7 +796,7 @@ public class VerwaltenDatenbankUStrVA extends javax.swing.JDialog {
 
             field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_AnfangActionPerformed
 
@@ -840,7 +840,7 @@ public class VerwaltenDatenbankUStrVA extends javax.swing.JDialog {
             }
             field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_VorActionPerformed
 
@@ -866,24 +866,24 @@ public class VerwaltenDatenbankUStrVA extends javax.swing.JDialog {
 
             field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EndeActionPerformed
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
         try {
-//            if (Modulhelferlein.checkNumberFormatInt(field_Ustr.getText()) < 0) {
-//                Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
+//            if (ModulHelferlein.checkNumberFormatInt(field_Ustr.getText()) < 0) {
+//                ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Ganzzahl");
 //            } else {
-//                if (Modulhelferlein.checkNumberFormatFloat(field_Betrag.getText()) < 0) {
-//                    Modulhelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
+//                if (ModulHelferlein.checkNumberFormatFloat(field_Betrag.getText()) < 0) {
+//                    ModulHelferlein.Infomeldung("fehlerhafte Eingabe - die ist keine korrekte Zahl");
 //                } else {
                     result.updateRow();
 //                }
 //            }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -902,10 +902,10 @@ public class VerwaltenDatenbankUStrVA extends javax.swing.JDialog {
             result.moveToInsertRow();
             result.updateInt("Ausgaben_ID", ID);
             result.updateString("Ausgaben_RECHNNR", "");
-            result.updateDate("Ausgaben_RECHDATUM", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
+            result.updateDate("Ausgaben_RECHDATUM", ModulHelferlein.Date2SQLDate(ModulHelferlein.CurDate));
             result.updateString("Ausgaben_BESCHREIBUNG", "");
             result.updateFloat("Ausgaben_KOSTEN", 0);
-            result.updateDate("Ausgaben_BEZAHLT", Modulhelferlein.Date2SQLDate(new Date(0)));
+            result.updateDate("Ausgaben_BEZAHLT", ModulHelferlein.Date2SQLDate(new Date(0)));
             result.updateInt("Ausgaben_Ustr", 19);
             result.updateInt("Ausgaben_TYP", 0);
             result.updateString("Ausgaben_LIEFERANT", "");
@@ -933,7 +933,7 @@ public class VerwaltenDatenbankUStrVA extends javax.swing.JDialog {
             result.last();
             field_ID.setText(Integer.toString(result.getInt("Ausgaben_ID")));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EinfuegenActionPerformed
 
@@ -981,7 +981,7 @@ public class VerwaltenDatenbankUStrVA extends javax.swing.JDialog {
                     Schliessen.setEnabled(true);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             }
         }
     }//GEN-LAST:event_LoeschenActionPerformed
@@ -1330,7 +1330,7 @@ public class VerwaltenDatenbankUStrVA extends javax.swing.JDialog {
                             result.updateBoolean("USTVA_GESENDET", true);
                             result.insertRow();
                         } catch (SQLException e1) {
-                            Modulhelferlein.Fehlermeldung("SQL-Exception: " + e1.getMessage());
+                            ModulHelferlein.Fehlermeldung("SQL-Exception: " + e1.getMessage());
                             //e1.printStackTrace();
                         }
                         // Serverantwort speichern	outputFileName + -return.xml
@@ -1348,7 +1348,7 @@ public class VerwaltenDatenbankUStrVA extends javax.swing.JDialog {
                             writer.flush();
                             writer.close();
                         } catch (IOException e) {
-                            Modulhelferlein.Infomeldung("IO-Exception: " + e.getMessage());
+                            ModulHelferlein.Infomeldung("IO-Exception: " + e.getMessage());
                             //e.printStackTrace();
                         } // try
                     } // if
@@ -1358,9 +1358,9 @@ public class VerwaltenDatenbankUStrVA extends javax.swing.JDialog {
                 Logger.getLogger(ModulAbrechnungUSteuerVorA.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (UnsupportedEncodingException e) {
-            Modulhelferlein.Fehlermeldung("Unerwartete Java-Ausnahme: " + e);
+            ModulHelferlein.Fehlermeldung("Unerwartete Java-Ausnahme: " + e);
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("Konnte Eingabedatensatz nicht einlesen: " + e);
+            ModulHelferlein.Fehlermeldung("Konnte Eingabedatensatz nicht einlesen: " + e);
         } // try
 
     } // void

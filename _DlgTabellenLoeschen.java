@@ -47,18 +47,18 @@ public class _DlgTabellenLoeschen extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Tabelle löschen",
+            ModulHelferlein.Fehlermeldung("Tabelle löschen",
                     "ClassNotFoundException: Treiber nicht gefunden: "
                     , exept.getMessage());
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Tabelle löschen",
+            ModulHelferlein.Fehlermeldung("Tabelle löschen",
                     "SQL-Excetion: Verbindung nicht moeglich: "
                     , exept.getMessage());
         }
@@ -301,7 +301,7 @@ public class _DlgTabellenLoeschen extends javax.swing.JDialog {
             try {
                 SQLAnfrage = conn.createStatement();
             } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception", "Löschen von Tabellen", ex.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception", "Löschen von Tabellen", ex.getMessage());
             }
             if (JOptionPane.showConfirmDialog(null,
                     "Sollen die Tabellen wirklich gelöscht werden?",
@@ -311,112 +311,112 @@ public class _DlgTabellenLoeschen extends javax.swing.JDialog {
                     if (checkBoxBrief.isSelected()) {
                         SQL = "DROP TABLE TBL_BRIEFE";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BRIEFE wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle BRIEFE wurde gelöscht");
                     }
                     if (jCheckBox19.isSelected()) {
                         SQL = "DROP TABLE TBL_VERKAUF";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle VERKAUF wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle VERKAUF wurde gelöscht");
                     }
                     if (jCheckBox9.isSelected()) {
                         SQL = "DROP TABLE TBL_BESTELLUNG_DETAIL";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BESTELLUNG_DETAIL wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle BESTELLUNG_DETAIL wurde gelöscht");
                     }
                     if (jCheckBox5.isSelected()) {
                         SQL = "DROP TABLE TBL_AUSGABEN";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle AUSGABEN wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle AUSGABEN wurde gelöscht");
                     }
                     if (jCheckBox7.isSelected()) {
                         SQL = "DROP TABLE TBL_BESTELLUNG";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BESTELLUNG wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle BESTELLUNG wurde gelöscht");
                     }
                     if (jCheckBox6.isSelected()) {
                         SQL = "DROP TABLE TBL_EINNAHMEN";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle EINNAHMEN wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle EINNAHMEN wurde gelöscht");
                     }
                     if (jCheckBox13.isSelected()) {
                         SQL = "DROP TABLE TBL_USTVA";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle USTVA wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle USTVA wurde gelöscht");
                     }
                     if (jCheckBox1.isSelected()) {
                         SQL = "DROP TABLE TBL_ADRESSE";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle ADRESSE wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle ADRESSE wurde gelöscht");
                     }
                     if (jCheckBox2.isSelected()) {
                         SQL = "DROP TABLE TBL_BUCH";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BUCH wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle BUCH wurde gelöscht");
                     }
                     if (jCheckBox8.isSelected()) {
                         SQL = "DROP TABLE TBL_REZENSION";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle REZENSION wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle REZENSION wurde gelöscht");
                     }
                     if (jCheckBox10.isSelected()) {
                         SQL = "DROP TABLE TBL_KONFIGURATION";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle KONFIGURATION wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle KONFIGURATION wurde gelöscht");
                     }
                     if (jCheckBox20.isSelected()) {
                         SQL = "DROP TABLE TBL_BENUTZER";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BENUTZER wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle BENUTZER wurde gelöscht");
                     }
                     if (jCheckBox11.isSelected()) {
                         SQL = "DROP TABLE TBL_TERMINE";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle TERMINE wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle TERMINE wurde gelöscht");
                     }
                     if (jCheckBox12.isSelected()) {
                         SQL = "DROP TABLE TBL_BESTELLNR";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BESTELLNR wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle BESTELLNR wurde gelöscht");
                     }
                     if (jCheckBox3.isSelected()) {
                         SQL = "DROP TABLE TBL_MAILVERTEILER";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle MAILVERTEILER wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle MAILVERTEILER wurde gelöscht");
                     }
                     if (jCheckBox4.isSelected()) {
                         SQL = "DROP TABLE TBL_MAILADRESSE";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle MAILADRESSE wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle MAILADRESSE wurde gelöscht");
                     }
                     if (jCheckBox14.isSelected()) {
                         SQL = "DROP TABLE TBL_REZENSIONEN_AUS";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle REZENSIONEN AUSGEHEND wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle REZENSIONEN AUSGEHEND wurde gelöscht");
                     }
                     if (jCheckBox15.isSelected()) {
                         SQL = "DROP TABLE TBL_REZENSIONEN_AUS_DETAIL";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle REZENSIONEN DETAILS AUSGEHEND wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle REZENSIONEN DETAILS AUSGEHEND wurde gelöscht");
                     }
                     if (jCheckBox16.isSelected()) {
                         SQL = "DROP TABLE HILFE_BUCH";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle Hilfs Buch wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle Hilfs Buch wurde gelöscht");
                     }
                     if (jCheckBox17.isSelected()) {
                         SQL = "DROP TABLE TBL_HONORAR";
                         SQLAnfrage.executeUpdate(SQL);
                         SQL = "DROP TABLE TBL_VERRECHNUNG";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle Honorar, Verrechnung wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle Honorar, Verrechnung wurde gelöscht");
                     }
                     if (jCheckBox18.isSelected()) {
                         SQL = "DROP TABLE TBL_AUFGABEN";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle AUFGABEN wurde gelöscht");
+                        ModulHelferlein.Infomeldung("Tabelle AUFGABEN wurde gelöscht");
                     }
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("Tabelle löschen",
+                    ModulHelferlein.Fehlermeldung("Tabelle löschen",
                             "Löschen der Tabellen nicht möglich:" , exept.getMessage());
                 }
             }

@@ -219,7 +219,6 @@ public class _DlgUebersichtEinnahmen extends javax.swing.JDialog {
         // TODO add your handling code here:
         java.util.Date vonDate = jDateChooserVon.getDate();
         java.util.Date bisDate = jDateChooserBis.getDate();
-
         if (jRadioButtonPDF.isSelected()) { // Format PDF
             berEinnahmen.berichtPDF(rbAlle.isSelected(), ModulHelferlein.printDateFormat("yyyy-MM-dd", vonDate), ModulHelferlein.printDateFormat("yyyy-MM-dd", bisDate));
         } else if (jRadioButtonXLS.isSelected()) { try {

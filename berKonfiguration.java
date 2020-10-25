@@ -30,8 +30,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Linie;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
@@ -40,6 +39,8 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  * Klasse zur Erzeugung einer Konfigurationsübersicht
@@ -63,9 +64,9 @@ public class berKonfiguration {
         // Start a new content stream which will "hold" the to be created content
         PDPageContentStream cos = new PDPageContentStream(document, page1);
 
-        String outputFileName = Modulhelferlein.pathKonfiguration
+        String outputFileName = ModulHelferlein.pathKonfiguration
                 + "\\Konfiguration-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".pdf";
 
         PDDocumentInformation docInfo = document.getDocumentInformation();
@@ -82,15 +83,15 @@ public class berKonfiguration {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("ClassNotFoundException: Treiber nicht gefunden: " + exept.getMessage());
         }
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung zur Datenbank nicht moeglich: " + exept.getMessage());
         }
 
         if (conn != null) {
@@ -103,40 +104,40 @@ public class berKonfiguration {
                 PDFont fontPlain = PDType1Font.HELVETICA;
                 PDFont fontBold = PDType1Font.HELVETICA_BOLD;
 
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Ablagepfade, Stand: "
-                        + Modulhelferlein.printSimpleDateFormat(
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Ablagepfade, Stand: "
+                        + ModulHelferlein.printSimpleDateFormat(
                                 "dd.MM.yyyy"));
 
                 Linie(cos,1,56, 725, 539, 725);
                 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
 
                 Linie(cos,1,56, 700, 539, 700);
                 
                 result.next();
 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 685, "... Stammdaten :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 670, "... ");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 655, "... ");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 640, "... ");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 625, "... Rechnungen :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 610, "... Sicherung :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 595, "... ");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 580, "... Konfiguration :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 565, "... Buchprojekte :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 550, "... Steuer :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 685, "... Stammdaten :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 670, "... ");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 655, "... ");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 640, "... ");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 625, "... Rechnungen :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 610, "... Sicherung :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 595, "... ");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 580, "... Konfiguration :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 565, "... Buchprojekte :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 550, "... Steuer :");
 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_RECHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_SICHERUNG"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_MAHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_RECHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_SICHERUNG"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_MAHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
 
                 result.next();
                 // Steuer 1    
@@ -145,38 +146,38 @@ public class berKonfiguration {
                 PDPage page = new PDPage(A4);
                 document.addPage(page);
                 cos = new PDPageContentStream(document, page);
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Steuerdaten, Stand: "
-                        + Modulhelferlein.printSimpleDateFormat(
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Steuerdaten, Stand: "
+                        + ModulHelferlein.printSimpleDateFormat(
                                 "dd.MM.yyyy"));
 
                 Linie(cos,1,56, 725, 539, 725);
                 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
 
                 Linie(cos,1,56, 700, 539, 700);
                 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 685, "... Steuernummer :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 670, "... Finanzamtbez. :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 655, "... Person :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 640, "... Straße :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 625, "... Postleitzahl :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 610, "... Ortsangabe :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 595, "... Telefonnummer :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 580, "... e-Mail-Adresse :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 565, "... Zertifikat-PIN :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 550, "... Zertifikat :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 685, "... Steuernummer :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 670, "... Finanzamtbez. :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 655, "... Person :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 640, "... Straße :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 625, "... Postleitzahl :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 610, "... Ortsangabe :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 595, "... Telefonnummer :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 580, "... e-Mail-Adresse :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 565, "... Zertifikat-PIN :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 550, "... Zertifikat :");
 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_SICHERUNG"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_MAHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_RECHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_SICHERUNG"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_MAHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_RECHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
 
                 result.next();
                 // Steuer 2    
@@ -185,38 +186,38 @@ public class berKonfiguration {
                 PDPage page3 = new PDPage(A4);
                 document.addPage(page3);
                 cos = new PDPageContentStream(document, page3);
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Steuerdaten, Stand: "
-                        + Modulhelferlein.printSimpleDateFormat(
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Steuerdaten, Stand: "
+                        + ModulHelferlein.printSimpleDateFormat(
                                 "dd.MM.yyyy"));
 
                 Linie(cos,1,56, 725, 539, 725);
                 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
 
                 Linie(cos,1,56, 700, 539, 700);
                 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 685, "... FA-Nummer :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 670, "... Finanzamtbez. :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 655, "... Ergänzung :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 640, "... Straße :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 625, "... PLZ Ort :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 610, "... Telefonnummer :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 595, "... e-Mail-Adresse :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 580, "... Bank :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 565, "... IBAN :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 550, "... BIC :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 685, "... FA-Nummer :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 670, "... Finanzamtbez. :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 655, "... Ergänzung :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 640, "... Straße :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 625, "... PLZ Ort :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 610, "... Telefonnummer :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 595, "... e-Mail-Adresse :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 580, "... Bank :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 565, "... IBAN :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 550, "... BIC :");
 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_SICHERUNG"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_MAHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_RECHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_SICHERUNG"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_MAHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_RECHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
 
                 result.next();
                 // Währungen    
@@ -225,38 +226,38 @@ public class berKonfiguration {
                 PDPage page4 = new PDPage(A4);
                 document.addPage(page4);
                 cos = new PDPageContentStream(document, page4);
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Währungsumrechnungen, Stand: "
-                        + Modulhelferlein.printSimpleDateFormat(
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Währungsumrechnungen, Stand: "
+                        + ModulHelferlein.printSimpleDateFormat(
                                 "dd.MM.yyyy"));
 
                 Linie(cos,1,56, 725, 539, 725);
                 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
 
                 Linie(cos,1,56, 700, 539, 700);
                 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 685, "... USD :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 670, "... GBP :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 655, "... CHF :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 640, "... NOK :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 625, "... ILS :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 610, "... DKK :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 595, "... CAD :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 580, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 565, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 550, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 685, "... USD :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 670, "... GBP :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 655, "... CHF :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 640, "... NOK :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 625, "... ILS :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 610, "... DKK :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 595, "... CAD :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 580, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 565, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 550, "... --- :");
 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_SICHERUNG"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_MAHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_RECHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_SICHERUNG"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_MAHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_RECHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
 
                 result.next();
                 // Sicherung-Konfiguration
@@ -265,38 +266,38 @@ public class berKonfiguration {
                 PDPage page5 = new PDPage(A4);
                 document.addPage(page5);
                 cos = new PDPageContentStream(document, page5);
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Sicherungspfade, Stand: "
-                        + Modulhelferlein.printSimpleDateFormat(
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Sicherungspfade, Stand: "
+                        + ModulHelferlein.printSimpleDateFormat(
                                 "dd.MM.yyyy"));
 
                 Linie(cos,1,56, 725, 539, 725);
                 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
 
                 Linie(cos,1,56, 700, 539, 700);
                 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 685, "... Quelle :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 670, "... Ziel :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 655, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 640, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 625, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 610, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 595, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 580, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 565, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 550, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 685, "... Quelle :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 670, "... Ziel :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 655, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 640, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 625, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 610, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 595, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 580, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 565, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 550, "... --- :");
 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_SICHERUNG"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_MAHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_RECHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_SICHERUNG"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_MAHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_RECHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
 
                 result.next();
                 // Mail-Konfiguration
@@ -305,39 +306,39 @@ public class berKonfiguration {
                 PDPage page6 = new PDPage(A4);
                 document.addPage(page6);
                 cos = new PDPageContentStream(document, page6);
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Mailkonfiguration, Stand: "
-                        + Modulhelferlein.printSimpleDateFormat(
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Konfiguration");
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Verzeichnis der Mailkonfiguration, Stand: "
+                        + ModulHelferlein.printSimpleDateFormat(
                                 "dd.MM.yyyy"));
 
                 Linie(cos,1,56, 725, 539, 725);
                 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 710, "Verzeichnis der ...");
 
                 Linie(cos,1,56, 700, 539, 700);
                 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 685, "... Host :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 670, "... Port :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 655, "... User :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 640, "... Pass :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 625, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 610, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 595, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 580, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 565, "... --- :");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 56, 550, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 685, "... Host :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 670, "... Port :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 655, "... User :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 640, "... Pass :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 625, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 610, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 595, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 580, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 565, "... --- :");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 56, 550, "... --- :");
 
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 685, result.getString("KONFIGURATION_STAMMDATEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 670, result.getString("KONFIGURATION_EINNAHMEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 655, result.getString("KONFIGURATION_AUSGABEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 640, result.getString("KONFIGURATION_UMSAETZE"));
                 /*
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_SICHERUNG"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_MAHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_RECHNUNGEN"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 625, result.getString("KONFIGURATION_SICHERUNG"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 610, result.getString("KONFIGURATION_MAHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 595, result.getString("KONFIGURATION_RECHNUNGEN"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 580, result.getString("KONFIGURATION_TERMINE"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 565, result.getString("KONFIGURATION_SCHRIFTVERKEHR"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 170, 550, result.getString("KONFIGURATION_STEUER"));
                  */
                 // close the content stream for page 1
                 cos.close();
@@ -346,20 +347,20 @@ public class berKonfiguration {
                 document.save(outputFileName);
                 document.close();
 
-                Modulhelferlein.Infomeldung("Konfiguration als PDF gespeichert!");
+                ModulHelferlein.Infomeldung("Konfiguration als PDF gespeichert!");
                 try {
                     Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                 } catch (IOException exept) {
-                    Modulhelferlein.Fehlermeldung(
+                    ModulHelferlein.Fehlermeldung(
                             "Exception: " + exept.getMessage());
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "SQL-Exception: SQL-Anfrage nicht moeglich: "
                         + exept.getMessage());
                 System.exit(1);
             } catch (IOException  e) {
-                Modulhelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
+                ModulHelferlein.Fehlermeldung("IO-Exception: " + e.getMessage());
             }
         }
 

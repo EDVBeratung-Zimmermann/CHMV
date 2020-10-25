@@ -140,16 +140,16 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung(
+            ModulHelferlein.Fehlermeldung(
                     "ClassNotFoundException: Treiber nicht gefunden. "
                     + exept.getMessage());
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             // final Connection conn2=conn;
 
             if (conn != null) {
@@ -229,11 +229,11 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
                         Schliessen.setEnabled(true);
                     }
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("SQL-Exception: SQL-Anfrage nicht moeglich. " + exept.getMessage());
                 }
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: Verbindung nicht moeglich. " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: Verbindung nicht moeglich. " + exept.getMessage());
         }
 
     }
@@ -601,7 +601,7 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
                     Schliessen.setEnabled(true);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             }
         }
     }//GEN-LAST:event_LoeschenActionPerformed
@@ -638,11 +638,11 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
                 field_ID.setText(Integer.toString(result.getInt("MAILVERTEILER_ID")));
                 field_Beschreibung.setText(result.getString("MAILVERTEILER_NAME"));
             } else {
-                Modulhelferlein.Infomeldung("Datensatz wurde nicht gefunden!");
+                ModulHelferlein.Infomeldung("Datensatz wurde nicht gefunden!");
                 AnfangActionPerformed(evt);
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             Logger.getLogger(VerwaltenDatenbankEinnahmen.class.getName()).log(Level.SEVERE, null, exept);
         }
 
@@ -678,11 +678,11 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
                 field_ID.setText(Integer.toString(result.getInt("MAILVERTEILER_ID")));
                 field_Beschreibung.setText(result.getString("MAILVERTEILER_NAME"));
             } else {
-                Modulhelferlein.Infomeldung("Datensatz wurde nicht gefunden!");
+                ModulHelferlein.Infomeldung("Datensatz wurde nicht gefunden!");
                 AnfangActionPerformed(evt);
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             Logger.getLogger(VerwaltenDatenbankEinnahmen.class.getName()).log(Level.SEVERE, null, exept);
         }
     }//GEN-LAST:event_WSuchenActionPerformed
@@ -699,7 +699,7 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed
@@ -734,7 +734,7 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
             field_Verteiler.setSelectedIndex(result.getInt("MAILADRESSE_VERTEILER"));
             field_Beschreibung.setText(result.getString("MAILADRESSE_ADRESSE"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_ZurueckActionPerformed
 
@@ -762,7 +762,7 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
             field_Verteiler.setSelectedIndex(result.getInt("MAILADRESSE_VERTEILER"));
             field_Beschreibung.setText(result.getString("MAILADRESSE_ADRESSE"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_AnfangActionPerformed
 
@@ -808,7 +808,7 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
             field_Verteiler.setSelectedIndex(result.getInt("MAILADRESSE_VERTEILER"));
             field_Beschreibung.setText(result.getString("MAILADRESSE_ADRESSE"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_VorActionPerformed
 
@@ -836,7 +836,7 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
             field_Verteiler.setSelectedIndex(result.getInt("MAILADRESSE_VERTEILER"));
             field_Beschreibung.setText(result.getString("MAILADRESSE_ADRESSE"));
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EndeActionPerformed
 
@@ -844,14 +844,14 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             if (resultIsEmpty) {
-                Modulhelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
+                ModulHelferlein.Fehlermeldung("Die Datenbank ist leer - bitte Datensatz einfügen!");
             } else {
                 result.updateInt("MAILADRESSE_VERTEILER", field_Verteiler.getSelectedIndex());
                 result.updateString("MAILADRESSE_ADRESSE", field_Beschreibung.getText());
                 result.updateRow();
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -890,7 +890,7 @@ public class VerwaltenDatenbankMailadressen extends javax.swing.JDialog {
             field_Beschreibung.setText(result.getString("MAILADRESSE_ADRESSE"));
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
     }//GEN-LAST:event_EinfuegenActionPerformed
 

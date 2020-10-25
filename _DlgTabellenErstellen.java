@@ -47,18 +47,18 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Tabellen erstellen",
+            ModulHelferlein.Fehlermeldung("Tabellen erstellen",
                     "ClassNotFoundException: Treiber nicht gefunden: "
                     , exept.getMessage());
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Tabellen erstellen",
+            ModulHelferlein.Fehlermeldung("Tabellen erstellen",
                     "SQL-Excetion: Verbindung nicht moeglich: "
                     , exept.getMessage());
         }
@@ -302,7 +302,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
             try {
                 SQLAnfrage = conn.createStatement();
             } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("Tabellen erstellen","SQL-Exception",ex.getMessage());
+                ModulHelferlein.Fehlermeldung("Tabellen erstellen","SQL-Exception",ex.getMessage());
             }
             if (JOptionPane.showConfirmDialog(null,
                     "Sollen die Tabellen wirklich erstellt werden?",
@@ -366,7 +366,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "USTVA_KZ98 FLOAT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle USTVA wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle USTVA wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (checkBoxBrief.isSelected()) {
@@ -380,7 +380,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "BRIEFE_TEXT TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BRIEFE wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle BRIEFE wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox5.isSelected()) {
@@ -397,7 +397,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "AUSGABEN_LINK TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle AUSGABEN wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle AUSGABEN wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox6.isSelected()) {
@@ -414,7 +414,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "EINNAHMEN_LINK TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle EINNAHMEN wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle EINNAHMEN wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox7.isSelected()) {
@@ -448,7 +448,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "BESTELLUNG_EMAIL TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BESTELLUNG wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle BESTELLUNG wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox9.isSelected()) {
@@ -464,7 +464,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "BESTELLUNG_DETAIL_SONST_PREIS FLOAT ";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BESTELLUNG_DETAIL wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle BESTELLUNG_DETAIL wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox1.isSelected()) {
@@ -499,7 +499,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "ADRESSEN_USTR BOOLEAN";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle ADRESSEN wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle ADRESSEN wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox2.isSelected()) {
@@ -540,7 +540,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "BUCH_BOD_VERTRAG TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BUCH wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle BUCH wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox8.isSelected()) {
@@ -553,7 +553,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "REZENSION_ANMERKUNG TEXT,";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle REZENSION wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle REZENSION wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox10.isSelected()) {
@@ -584,7 +584,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                                 + "KONFIGURATION_MAHNUNGEN,"
                                 + "KONFIGURATION_SCHRIFTVERKEHR,"
                                 + "KONFIGURATION_STEUER,"
-                                + "KONFIGURATION_TERMINE) VALUES (1, '', '', '', '', '', '', '', '', '', '" + Modulhelferlein.CHMVBenutzer + "', '')");
+                                + "KONFIGURATION_TERMINE) VALUES (1, '', '', '', '', '', '', '', '', '', '" + ModulHelferlein.CHMVBenutzer + "', '')");
                         // 2. Datensatz - Finanzamtsdaten   
                         SQLAnfrage.executeUpdate("INSERT INTO TBL_KONFIGURATION (KONFIGURATION_ID, "
                                 + "KONFIGURATION_STAMMDATEN,"
@@ -645,7 +645,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                                 + "KONFIGURATION_SCHRIFTVERKEHR,"
                                 + "KONFIGURATION_STEUER,"
                                 + "KONFIGURATION_TERMINE) VALUES (6, '', '', '', '', '', '', '', '', '', 'Mailkonfiguration', '')");
-                        Modulhelferlein.Infomeldung("Tabelle KONFIGURATION wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle KONFIGURATION wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox11.isSelected()) {
@@ -656,7 +656,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "TERMIN_ERLEDIGT TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle TERMIN wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle TERMIN wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox18.isSelected()) {
@@ -667,7 +667,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "AUFGABE_ERLEDIGT TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle TERMIN wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle TERMIN wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox12.isSelected()) {
@@ -677,7 +677,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
                         SQLAnfrage.executeUpdate("INSERT INTO TBL_BESTELLNR (BESTELLNR_ID, BESTELLNR_NUMMER) VALUES (1, 1)");
-                        Modulhelferlein.Infomeldung("Tabelle BESTELLNR wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle BESTELLNR wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox20.isSelected()) {
@@ -689,7 +689,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "BENUTZER_KENNWORT TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BENUTZER wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle BENUTZER wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox3.isSelected()) {
@@ -698,7 +698,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "MAILVERTEILER_NAME TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle MAILVERTEILER wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle MAILVERTEILER wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox4.isSelected()) {
@@ -708,7 +708,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "MAILADRESSE_ADRESSE TEXT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle MAILADRESSE wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle MAILADRESSE wurde erstellt");
                     }
                     if (jCheckBox14.isSelected()) {
                         SQL = SQL + "TBL_REZENSIONEN_AUS ( ";
@@ -722,7 +722,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "REZENSIONEN_AUS_REZENSENT ID";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle MAILADRESSE wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle MAILADRESSE wurde erstellt");
                     }
                     if (jCheckBox15.isSelected()) {
                         SQL = SQL + "TBL_REZENSIONEN_AUS_DETAIL ( ";
@@ -731,7 +731,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "REZENSIONEN_AUS_DETAIL_BUCH INT, ";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle BESTELLUNG_DETAIL wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle BESTELLUNG_DETAIL wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox16.isSelected()) {
@@ -750,7 +750,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "BUCH_ID INT PRIMARY KEY";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle HILFE_BUCH wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle HILFE_BUCH wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox17.isSelected()) {
@@ -800,7 +800,7 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "VERRECHNUNG_RECHNUNG BOOLEAN";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle HONORAR sowie VERRECHNUNG wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle HONORAR sowie VERRECHNUNG wurde erstellt");
                     }
                     SQL = "CREATE TABLE ";
                     if (jCheckBox19.isSelected()) {
@@ -818,10 +818,10 @@ public class _DlgTabellenErstellen extends javax.swing.JDialog {
                         SQL = SQL + "VERKAUF_UMSATZ_BOD FLOAT";
                         SQL = SQL + ")";
                         SQLAnfrage.executeUpdate(SQL);
-                        Modulhelferlein.Infomeldung("Tabelle VERKAUF wurde erstellt");
+                        ModulHelferlein.Infomeldung("Tabelle VERKAUF wurde erstellt");
                     }
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("Tabelle erstellen","SQL-Exception: Fehler beim Erstellen der Tabelle(n):" , exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("Tabelle erstellen","SQL-Exception: Fehler beim Erstellen der Tabelle(n):" , exept.getMessage());
                 }
             }
             this.dispose();

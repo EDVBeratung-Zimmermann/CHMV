@@ -104,17 +104,17 @@ public class _DlgMail extends javax.swing.JDialog {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser,
-                                               Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser,
+                                               ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
+            ModulHelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
         }
 
         // final Connection conn2=conn;
@@ -130,7 +130,7 @@ public class _DlgMail extends javax.swing.JDialog {
                     field_Verteiler.addItem(resultVerteiler.getString("MAILVERTEILER_NAME"));
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQLException: SQL-Anfrage nicht moeglich. " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQLException: SQL-Anfrage nicht moeglich. " + exept.getMessage());
             }    // try
         }        // if
     }
@@ -274,10 +274,10 @@ public class _DlgMail extends javax.swing.JDialog {
 
         // TODO add your handling code here:
         String Verteiler = "";
-        String host      = Modulhelferlein.MailHost;
-        String port      = Modulhelferlein.MailPort;
-        String user      = Modulhelferlein.MailUser;
-        String pass      = Modulhelferlein.MailPass;
+        String host      = ModulHelferlein.MailHost;
+        String port      = ModulHelferlein.MailPort;
+        String user      = ModulHelferlein.MailUser;
+        String pass      = ModulHelferlein.MailPass;
 
         // Get system properties
         Properties properties = System.getProperties();
@@ -356,7 +356,7 @@ public class _DlgMail extends javax.swing.JDialog {
             // Send the complete message parts
             message.setContent(multipart);
             transport.sendMessage(message, addresses);
-            Modulhelferlein.Infomeldung("Mail wurde gesendet");
+            ModulHelferlein.Infomeldung("Mail wurde gesendet");
             transport.close();
         } catch (MessagingException mex) {}
         catch (SQLException ex) {
@@ -369,7 +369,7 @@ public class _DlgMail extends javax.swing.JDialog {
     private void AnhangActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_AnhangActionPerformed
 
         // TODO add your handling code here:
-        JFileChooser chooser = new JFileChooser(Modulhelferlein.pathBerichte);
+        JFileChooser chooser = new JFileChooser(ModulHelferlein.pathBerichte);
 
         chooser.setMultiSelectionEnabled(false);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);

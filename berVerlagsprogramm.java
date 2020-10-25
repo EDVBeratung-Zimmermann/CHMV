@@ -30,7 +30,6 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
 
 //~--- JDK imports ------------------------------------------------------------
 import java.awt.Color;
@@ -49,10 +48,12 @@ import java.sql.Statement;
 import java.util.Calendar;
 
 import javax.imageio.ImageIO;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Linie;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  * Klasse zur Erzeugung einer ?bersicht der B?cher des miles Verlages
@@ -81,7 +82,7 @@ public class berVerlagsprogramm {
         // Start a new content stream which will "hold" the to be created content
         try {    // Dokument erstellen
             PDPageContentStream cos = new PDPageContentStream(document, page1);
-            String outputFileName = Modulhelferlein.pathBerichte
+            String outputFileName = ModulHelferlein.pathBerichte
                     + "\\Buchprojekte"
                     + "\\Verlagsprogramm";
             switch (Sortierung) {
@@ -100,7 +101,7 @@ public class berVerlagsprogramm {
             } else {
                 outputFileName = outputFileName + "-Alles-";
             }
-            outputFileName = outputFileName + Modulhelferlein.printSimpleDateFormat("yyyyMMdd");
+            outputFileName = outputFileName + ModulHelferlein.printSimpleDateFormat("yyyyMMdd");
             outputFileName = outputFileName + ".pdf";
             PDDocumentInformation docInfo = document.getDocumentInformation();
 
@@ -120,15 +121,15 @@ public class berVerlagsprogramm {
             Connection conn = null;
 
             try {                                      // Datenbank-Treiber laden
-                Class.forName(Modulhelferlein.dbDriver);
+                Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","ClassNotFoundException: Treiber nicht gefunden. " , exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","ClassNotFoundException: Treiber nicht gefunden. " , exept.getMessage());
             }                                          // Datenbank-Treiber laden
 
             try {                                      // Verbindung zur Datenbank ?ber die JDBC-Br?cke
-                conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","SQL-Exception: Verbindung nicht moeglich: " , exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","SQL-Exception: Verbindung nicht moeglich: " , exept.getMessage());
             }    // Verbindung zur Datenbank ?ber die JDBC-Br?cke
 
             final Connection conn2 = conn;
@@ -209,13 +210,13 @@ public class berVerlagsprogramm {
                             break; // sortierung nach Autor
                     }
                     if (Aktiv) {
-                        Ausgabe(cos, fontBold, 16, Color.BLACK, 55, 770, "Carola Hartmann Miles Verlag - Verlagsprogramm - aktive Verträge");
+                        AusgabeLB(cos, fontBold, 16, Color.BLACK, 55, 770, "Carola Hartmann Miles Verlag - Verlagsprogramm - aktive Verträge");
                     } else {
-                        Ausgabe(cos, fontBold, 16, Color.BLACK, 55, 770, "Carola Hartmann Miles Verlag - Verlagsprogramm - alle Bücher");
+                        AusgabeLB(cos, fontBold, 16, Color.BLACK, 55, 770, "Carola Hartmann Miles Verlag - Verlagsprogramm - alle Bücher");
                     }
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 750,
-                            "Stand: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                    Ausgabe(cos, fontBold, 12, Color.BLACK, 490, 750, "Seite: " + Integer.toString(seite));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 750,
+                            "Stand: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontBold, 12, Color.BLACK, 490, 750, "Seite: " + Integer.toString(seite));
 
                     Linie(cos, 2, 56, 740, 539, 740);
                     zeile = 730;
@@ -227,12 +228,12 @@ public class berVerlagsprogramm {
                             PDImageXObject pdImage = PDImageXObject.createFromFile(result.getString("BUCH_COVER"), document);
                             cos.drawImage(pdImage, 55, zeile - 80, 60, 80);
                         } catch (FileNotFoundException fnfex) {
-                            Modulhelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","kein Bild gefunden" , fnfex.getMessage());
+                            ModulHelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","kein Bild gefunden" , fnfex.getMessage());
                         }
 
                         switch (Sortierung) {
                             case 0: // ISBN
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 150, zeile - 15, "ISBN " + result.getString("BUCH_ISBN"));
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 150, zeile - 15, "ISBN " + result.getString("BUCH_ISBN"));
                                 String[] col_Autorliste = result.getString("BUCH_AUTOR").split(",");
                                 String AutorEintrag = "";
                                 for (String strAutor : col_Autorliste) {
@@ -247,14 +248,13 @@ public class berVerlagsprogramm {
                                 if (result.getBoolean("BUCH_HERAUSGEBER")) {
                                     AutorEintrag = AutorEintrag + " (Hrsg.)";
                                 }
-                                ;
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 165, zeile - 30, AutorEintrag);
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 165, zeile - 30, AutorEintrag);
                                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 165, zeile - 45, result.getString("BUCH_TITEL"), 390);
                                 break;
                             case 1: // Autor
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 150, zeile - 15, result.getString("BUCH_AUTOR"));
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 150, zeile - 15, result.getString("BUCH_AUTOR"));
                                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 165, zeile - 30, result.getString("BUCH_TITEL"), 390);
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 165, zeile - 45, "ISBN " + result.getString("BUCH_ISBN"));
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 165, zeile - 45, "ISBN " + result.getString("BUCH_ISBN"));
                                 break;
                             case 2: // Titel
                                 Ausgabe(cos, fontPlain, 12, Color.BLACK, 150, zeile - 15, result.getString("BUCH_TITEL"), 390);
@@ -272,28 +272,27 @@ public class berVerlagsprogramm {
                                 if (result.getBoolean("BUCH_HERAUSGEBER")) {
                                     AutorEintrag = AutorEintrag + " (Hrsg.)";
                                 }
-                                ;
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 150, zeile - 30, AutorEintrag);
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 165, zeile - 45, "ISBN " + result.getString("BUCH_ISBN"));
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 150, zeile - 30, AutorEintrag);
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 165, zeile - 45, "ISBN " + result.getString("BUCH_ISBN"));
                                 break;
                         }
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 165, zeile - 60,
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 165, zeile - 60,
                                 result.getString("BUCH_SEITEN") + " S., ");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 265, zeile - 60,
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 265, zeile - 60,
                                 Float.toString(result.getFloat("BUCH_PREIS")) + " Euro");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 165, zeile - 75,
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 165, zeile - 75,
                                 result.getString("BUCH_AUFLAGE") + ". Auflage, ");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 265, zeile - 75,
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 265, zeile - 75,
                                 "Berlin, " + result.getString("BUCH_JAHR"));
                         switch (result.getInt("BUCH_HC")) {
                             case 1:
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 365, zeile - 75, "Hardcover");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 365, zeile - 75, "Hardcover");
                                 break;
                             case 0:
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 365, zeile - 75, "Paperback");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 365, zeile - 75, "Paperback");
                                 break;
                             case 2:
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 365, zeile - 75, "E-Book");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 365, zeile - 75, "E-Book");
                                 break;
                         }
 
@@ -310,11 +309,11 @@ public class berVerlagsprogramm {
                             zeile = 730;
                             seite = seite + 1;
                             cos = new PDPageContentStream(document, page);
-                            Ausgabe(cos, fontBold, 16, Color.BLACK, 55, 770,
+                            AusgabeLB(cos, fontBold, 16, Color.BLACK, 55, 770,
                                     "Carola Hartmann Miles Verlag - Verlagsprogramm");
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 750,
-                                    "Stand: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 490, 750, "Seite: " + Integer.toString(seite));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 750,
+                                    "Stand: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 490, 750, "Seite: " + Integer.toString(seite));
                             Linie(cos,2,56, 740, 539, 740);
                             
                         }
@@ -326,22 +325,22 @@ public class berVerlagsprogramm {
                     // Save the results and ensure that the document is properly closed:
                     document.save(outputFileName);
                     document.close();
-                    Modulhelferlein.Infomeldung("Verlagsprogramm ist als PDF gespeichert!"
+                    ModulHelferlein.Infomeldung("Verlagsprogramm ist als PDF gespeichert!"
                             , outputFileName);
 
-                    try {    // Ausgabe der Liste
+                    try {    // AusgabeLB der Liste
                         Runtime.getRuntime().exec("cmd /c " + "\"" + outputFileName + "\"");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","IO-Exception: ", exept.getMessage());
-                    }    // try Ausgabe der Liste
+                        ModulHelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","IO-Exception: ", exept.getMessage());
+                    }    // try AusgabeLB der Liste
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","SQL-Exception: SQL-Anfrage nicht möglich: " , exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","SQL-Exception: SQL-Anfrage nicht möglich: " , exept.getMessage());
                 } catch (IOException e) {
-                    Modulhelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","IO-Exception: " ,e.getMessage());
+                    ModulHelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","IO-Exception: " ,e.getMessage());
                 }        // SQL-Anfrage
             }            // if verbindung steht
         } catch (IOException e) {
-            Modulhelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","IO-Exception: " ,e.getMessage());
+            ModulHelferlein.Fehlermeldung("Bericht: Verlagsprogramm:","IO-Exception: " ,e.getMessage());
         }                // try Dokument erstellen
     }    // void PDF
 
@@ -351,7 +350,7 @@ public class berVerlagsprogramm {
      * @param Aktiv
      */
     public static void DOC(Integer Sortierung, boolean Aktiv) {
-        Modulhelferlein.Infomeldung("noch nicht implementiert");
+        ModulHelferlein.Infomeldung("noch nicht implementiert");
     }
 
     /**
@@ -360,7 +359,7 @@ public class berVerlagsprogramm {
      * @param Aktiv
      */
     public static void XLS(Integer Sortierung, boolean Aktiv) {
-        Modulhelferlein.Infomeldung("noch nicht implementiert");
+        ModulHelferlein.Infomeldung("noch nicht implementiert");
     }
 }    // class
 

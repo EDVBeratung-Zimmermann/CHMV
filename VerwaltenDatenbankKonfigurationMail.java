@@ -55,16 +55,16 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
+            ModulHelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
         }
 
         // final Connection conn2=conn;
@@ -101,7 +101,7 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
                 } // if notempty
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "SQL-Exception: SQL-Anfrage nicht moeglich. "
                         + exept.getMessage());
                 System.exit(1);
@@ -411,15 +411,15 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
                 result.updateRow();
             }
 
-            Modulhelferlein.MailHost = field_Stammdaten.getText();
-            Modulhelferlein.MailPort = field_Einnahmen.getText();
-            Modulhelferlein.MailIMAPHost = field_Sicherung.getText();
-            Modulhelferlein.MailIMAPPort = field_Mahnungen.getText();
-            Modulhelferlein.MailIMAPGesendet = field_Rechnungen.getText();
-            Modulhelferlein.MailUser = field_Ausgaben.getText();
-            Modulhelferlein.MailPass = field_Umsaetze.getText();
+            ModulHelferlein.MailHost = field_Stammdaten.getText();
+            ModulHelferlein.MailPort = field_Einnahmen.getText();
+            ModulHelferlein.MailIMAPHost = field_Sicherung.getText();
+            ModulHelferlein.MailIMAPPort = field_Mahnungen.getText();
+            ModulHelferlein.MailIMAPGesendet = field_Rechnungen.getText();
+            ModulHelferlein.MailUser = field_Ausgaben.getText();
+            ModulHelferlein.MailPass = field_Umsaetze.getText();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
 
         // Dialog schließen
@@ -433,7 +433,7 @@ public class VerwaltenDatenbankKonfigurationMail extends javax.swing.JDialog {
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_jButtonSchliessenActionPerformed

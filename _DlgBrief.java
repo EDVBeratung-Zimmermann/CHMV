@@ -30,8 +30,7 @@ import java.sql.Statement;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.GroupLayout;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Linie;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -39,6 +38,8 @@ import static org.apache.pdfbox.pdmodel.common.PDRectangle.A4;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  *
@@ -59,16 +60,16 @@ public class _DlgBrief extends javax.swing.JDialog {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("DB-Bestellung", "Treiber nicht gefunden: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("DB-Bestellung", "Treiber nicht gefunden: ", exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("DB-Bestellung", "Verbindung nicht moeglich: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("DB-Bestellung", "Verbindung nicht moeglich: ", exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank über die JDBC-Brücke
 
@@ -92,7 +93,7 @@ public class _DlgBrief extends javax.swing.JDialog {
                 } // while
                 System.out.println("Adressen eingelesen");
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("DB-Bestellung", "Verbindung nicht moeglich: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("DB-Bestellung", "Verbindung nicht moeglich: ", exept.getMessage());
             } // try Verbindung zur Datenbank über die JDBC-Brücke
         }
 
@@ -276,7 +277,7 @@ public class _DlgBrief extends javax.swing.JDialog {
         String Adresse[] = jComboBoxAdresse.getItemAt(jComboBoxAdresse.getSelectedIndex()).split(",");
 
         if (Adresse[0].equals("0")) {
-            Modulhelferlein.Infomeldung("Sie haben keine Adresse gewählt!");
+            ModulHelferlein.Infomeldung("Sie haben keine Adresse gewählt!");
         } else {
             try {
                 System.out.println("Adresse: " + Adresse[0]);
@@ -306,25 +307,25 @@ public class _DlgBrief extends javax.swing.JDialog {
                     cos.drawImage(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                     //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                 } catch (FileNotFoundException fnfex) {
-                    Modulhelferlein.Fehlermeldung("Brief Rezension", "File not found-Exception", "Keine Bild-Datei gefunden " + fnfex.getMessage());
+                    ModulHelferlein.Fehlermeldung("Brief Rezension", "File not found-Exception", "Keine Bild-Datei gefunden " + fnfex.getMessage());
                     System.out.println("No image for you");
                 }
 
 // Fu?zeile
-                Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+                AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-                Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.de");
+                AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.de");
 
-                Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEV0DEBB");
+                AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEV0DEBB");
                 System.out.println("Fußzeile geschrieben");
 
 // Faltmarke, Lochmarke, Faltmarke
@@ -335,18 +336,18 @@ public class _DlgBrief extends javax.swing.JDialog {
 
 // Absenderzeile
                 Linie(cos, 1, 50, 749, 297, 749);
-                Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
+                AusgabeLB(cos, fontPlain, 8, Color.BLACK, 50, 751, ModulHelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
                 System.out.println("Absender geschrieben");
                 
 // Datum
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
                 System.out.println("Datum geschrieben");
 
 // Adresse
                 String[] AdressZeile = {"", "", "", "", "", "", ""};
                 String[] args = {"", "", "", "", "", "", ""};
                 args[0] = resultK.getString("ADRESSEN_ZUSATZ_1");
-                args[1] = Modulhelferlein.makeAnrede(resultK.getString("ADRESSEN_NAMENSZUSATZ"),
+                args[1] = ModulHelferlein.makeAnrede(resultK.getString("ADRESSEN_NAMENSZUSATZ"),
                         resultK.getString("ADRESSEN_VORNAME"),
                         resultK.getString("ADRESSEN_NAME"));
                 args[2] = resultK.getString("ADRESSEN_ZUSATZ_2");
@@ -361,17 +362,17 @@ public class _DlgBrief extends javax.swing.JDialog {
                         ZeilenNr = ZeilenNr + 1;
                     }
                 }
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 730, AdressZeile[1]);
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 715, AdressZeile[2]);
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 700, AdressZeile[3]);
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 730, AdressZeile[1]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 715, AdressZeile[2]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 700, AdressZeile[3]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
                 System.out.println("Adresse geschrieben");
 
 // Dateiname
-                String outputFileName = Modulhelferlein.pathBerichte + "/"
-                        + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                String outputFileName = ModulHelferlein.pathBerichte + "/"
+                        + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                         + "-"
                         + "Brief"
                         + "-"
@@ -379,16 +380,16 @@ public class _DlgBrief extends javax.swing.JDialog {
                         + ".pdf";
 
 // Betreff
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, jTextFieldBetreff.getText());
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 575, jTextFieldBetreff.getText());
                 System.out.println("Betreff geschrieben");
                 
 // Bezug
-                Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 555, jTextFieldBezug.getText());
+                AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 555, jTextFieldBezug.getText());
                 System.out.println("Bezug geschrieben");
 
 // Anrede
                 if (jCheckBoxAnrede.isSelected()) {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 515, Modulhelferlein.makeAnrede(resultK.getString("ADRESSEN_ANREDE"), resultK.getString("ADRESSEN_NAMENSZUSATZ"), resultK.getString("ADRESSEN_NAME")) + ",");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 515, ModulHelferlein.makeAnrede(resultK.getString("ADRESSEN_ANREDE"), resultK.getString("ADRESSEN_NAMENSZUSATZ"), resultK.getString("ADRESSEN_NAME")) + ",");
                     System.out.println("Anrede geschrieben");
                 }
 
@@ -410,7 +411,7 @@ public class _DlgBrief extends javax.swing.JDialog {
                         laenge = 500;
                     } else {
                         zeile = splitBeschreibung[i];
-                        laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
+                        laenge = ModulHelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
                     }
 
                     while ((laenge < 490) && (zeile.length() < 90) && (i < woerter - 1)) {
@@ -420,11 +421,11 @@ public class _DlgBrief extends javax.swing.JDialog {
                         } else {
                             zeile = zeile + " " + splitBeschreibung[i + 1];
                             i = i + 1;
-                            laenge = Modulhelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
+                            laenge = ModulHelferlein.float2Int(fontPlain.getStringWidth(zeile + " " + splitBeschreibung[i + 1]) / 1000 * 12);
                         }
                     }
                     //helferlein.Infomeldung(Float.toString(laenge) + " => " + zeile);                                
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr - 1), zeile);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr - 1), zeile);
                     i = i + 1;
                     ZeilenNr = ZeilenNr + 1;
                 }
@@ -432,9 +433,9 @@ public class _DlgBrief extends javax.swing.JDialog {
 
 // Schlussformel
                 if (jCheckBoxSchlussformel.isSelected()) {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 5), Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 5), ModulHelferlein.CheckStr("Mit freundlichen Grüßen"));
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
                     System.out.println("Schlussformel geschrieben");
                 }
                 
@@ -450,9 +451,9 @@ public class _DlgBrief extends javax.swing.JDialog {
                 _DlgAdresseDrucken.main(argumente);
 
             } catch (IOException ex) {
-                Modulhelferlein.Fehlermeldung("IO-Exception: " + ex.getMessage());
+                ModulHelferlein.Fehlermeldung("IO-Exception: " + ex.getMessage());
             } catch (SQLException ex) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: " + ex.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: " + ex.getMessage());
             }
             // Adressetikett drucken
         }//GEN-LAST:event_jButtonDruckenActionPerformed

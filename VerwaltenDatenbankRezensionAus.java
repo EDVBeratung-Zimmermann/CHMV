@@ -74,7 +74,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
 
             if (size == 0) { // bisher keine Bestellung angelegt
                 // Rezensionen bearbeiten
-                Modulhelferlein.Infomeldung("Erzeuge fiktive Rechnung");
+                ModulHelferlein.Infomeldung("Erzeuge fiktive Rechnung");
                 iresultB = iSQLAnfrageB.executeQuery("SELECT * FROM TBL_BESTELLUNG ORDER BY BESTELLUNG_ID DESC");
                 if (iresultB.next()) {
                     imaxID = iresultB.getInt("BESTELLUNG_ID");
@@ -101,9 +101,9 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                 } else {
                     iresultB.updateInt("BESTELLUNG_TYP", 1);
                 }
-                iresultB.updateDate("BESTELLUNG_BEZAHLT", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
+                iresultB.updateDate("BESTELLUNG_BEZAHLT", ModulHelferlein.Date2SQLDate(ModulHelferlein.CurDate));
                 iresultB.updateDate("BESTELLUNG_DATUM", Datum);
-                iresultB.updateDate("BESTELLUNG_RECHDAT", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
+                iresultB.updateDate("BESTELLUNG_RECHDAT", ModulHelferlein.Date2SQLDate(ModulHelferlein.CurDate));
                 iresultB.updateInt("BESTELLUNG_KUNDE", Kunde);
                 iresultB.updateString("BESTELLUNG_RECHNR", BestNrString);
                 iresultB.updateInt("BESTELLUNG_ZAHLUNGSZIEL", 14);
@@ -142,7 +142,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     iresultBD.updateString("BESTELLUNG_DETAIL_SONST_TEXT", "");
                     iresultBD.updateFloat("BESTELLUNG_DETAIL_SONST_PREIS", 0F);
                     iresultBD.updateInt("BESTELLUNG_DETAIL_BUCH", iresultRD.getInt("REZENSIONEN_AUS_DETAIL_BUCH"));
-                    iresultBD.updateDate("BESTELLUNG_DETAIL_DATUM", Modulhelferlein.Date2SQLDate(CurDate));
+                    iresultBD.updateDate("BESTELLUNG_DETAIL_DATUM", ModulHelferlein.Date2SQLDate(CurDate));
                     iresultBD.updateString("BESTELLUNG_DETAIL_RECHNR", BestNrString);
                     iresultBD.updateInt("BESTELLUNG_DETAIL_ANZAHL", 1);
 
@@ -162,7 +162,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
 //helferlein.Infomeldung("fiktive rechnung ist erstellt");                
             } else {
                 // rechnung aktualisieren
-                Modulhelferlein.Infomeldung("Aktualisiere fiktive Rechnung " + BestNrString);
+                ModulHelferlein.Infomeldung("Aktualisiere fiktive Rechnung " + BestNrString);
                 iresultB = iSQLAnfrageB.executeQuery("SELECT * FROM TBL_BESTELLUNG WHERE BESTELLUNG_RECHNR = '" + BestNrString + "'");
                 iresultB.next();
 
@@ -173,8 +173,8 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                 iresultR = iSQLAnfrageR.executeQuery("SELECT * FROM TBL_REZENSIONEN_AUS WHERE REZENSIONEN_AUS_NUMMER='" + BestNrString + "'");
                 iresultR.next();
 
-                iresultB.updateDate("BESTELLUNG_BEZAHLT", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
-                iresultB.updateDate("BESTELLUNG_RECHDAT", Modulhelferlein.Date2SQLDate(Modulhelferlein.CurDate));
+                iresultB.updateDate("BESTELLUNG_BEZAHLT", ModulHelferlein.Date2SQLDate(ModulHelferlein.CurDate));
+                iresultB.updateDate("BESTELLUNG_RECHDAT", ModulHelferlein.Date2SQLDate(ModulHelferlein.CurDate));
                 iresultB.updateInt("BESTELLUNG_KUNDE", Kunde);
                 if (iresultR.getInt("REZENSIONEN_AUS_TYP") == 4) {
                     iresultB.updateInt("BESTELLUNG_TYP", 4);
@@ -182,7 +182,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     iresultB.updateInt("BESTELLUNG_TYP", 1);
                 }
                 iresultB.updateRow();
-                Modulhelferlein.Infomeldung("Bestellung aktualisiert");
+                ModulHelferlein.Infomeldung("Bestellung aktualisiert");
 
                 iresultBD = iSQLAnfrageBD.executeQuery("SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + BestNrString + "'");
                 iresultRD = iSQLAnfrageRD.executeQuery("SELECT * FROM TBL_REZENSIONEN_AUS_DETAIL WHERE REZENSIONEN_AUS_DETAIL_NUMMER='" + BestNrString + "'");
@@ -200,7 +200,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                         imaxBID = imaxBID + 1;
                         iresultBD.updateInt("BESTELLUNG_DETAIL_RABATT", 100);
                         iresultBD.updateInt("BESTELLUNG_DETAIL_BUCH", iresultRD.getInt("REZENSIONEN_AUS_DETAIL_BUCH"));
-                        iresultBD.updateDate("BESTELLUNG_DETAIL_DATUM", Modulhelferlein.Date2SQLDate(CurDate));
+                        iresultBD.updateDate("BESTELLUNG_DETAIL_DATUM", ModulHelferlein.Date2SQLDate(CurDate));
                         iresultBD.updateString("BESTELLUNG_DETAIL_RECHNR", BestNrString);
                         iresultBD.updateInt("BESTELLUNG_DETAIL_ANZAHL", 1);
                         iresultBD.updateBoolean("BESTELLUNG_DETAIL_SONST", false);
@@ -217,7 +217,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                 iSQLAnfrageBD.close();
             }
         } catch (SQLException exc) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Make Pseudebestellung: ", exc.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Make Pseudebestellung: ", exc.getMessage());
         }
         return BestNrString;
     }
@@ -323,16 +323,16 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
         conn = null;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Treiber nicht gefunden: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Treiber nicht gefunden: ", exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Verbindung nicht moeglich: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Verbindung nicht moeglich: ", exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank über die JDBC-Brücke
 
@@ -458,7 +458,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     } else {
                         cbZeitschrift.setSelectedItem("0, ---------------------");
                     }
-                    field_NachfrageDatum.setDate(Modulhelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
+                    field_NachfrageDatum.setDate(ModulHelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
                     field_Nummer.setText(resultR.getString("REZENSIONEN_AUS_NUMMER"));
 
 // Rezensionsdetails lesen  
@@ -560,7 +560,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     cbBuch.setEditable(false);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("DB-Bestellung: SQL-Exception: SQL-Anfrage nicht moeglich: "
+                ModulHelferlein.Fehlermeldung("DB-Bestellung: SQL-Exception: SQL-Anfrage nicht moeglich: "
                         + exept.getMessage());
                 // System.exit(1);
             } // try SQL-Anfragen an die Datenbank
@@ -981,7 +981,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
             do {
             } while ((!gefunden) && resultR.next());
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("rezensionen versenden", "SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("rezensionen versenden", "SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_WSuchenActionPerformed
 
@@ -1010,7 +1010,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
 
             field_Nummer.setText(resultR.getString("REZENSIONEN_AUS_NUMMER"));
 
-            field_NachfrageDatum.setDate(Modulhelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
+            field_NachfrageDatum.setDate(ModulHelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
             if (resultR.getInt("REZENSIONEN_AUS_REZENSENT") > 0) {
                 resultA = SQLAnfrageA.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultR.getInt("REZENSIONEN_AUS_REZENSENT")) + "'");
                 resultA.next();
@@ -1089,7 +1089,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                 BLoeschen.setEnabled(true);
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Bestellung: zum Anfang: SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Bestellung: zum Anfang: SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_AnfangActionPerformed
 
@@ -1113,14 +1113,14 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
             resultR.updateInt("REZENSIONEN_AUS_REZENSENT", 0);
             resultR.updateInt("REZENSIONEN_AUS_ZEITSCHRIFT", 0);
             resultR.updateString("REZENSIONEN_AUS_DRITTE", "");
-            resultR.updateDate("REZENSIONEN_AUS_DATUM", Modulhelferlein.Date2SQLDate(CurDate));
+            resultR.updateDate("REZENSIONEN_AUS_DATUM", ModulHelferlein.Date2SQLDate(CurDate));
 
             int BestNr = resultBNr.getInt("BESTELLNR_NUMMER");
             String BestNrString = Integer.toString(BestNr);
             while (BestNrString.length() < 3) {
                 BestNrString = "0" + BestNrString;
             }
-            resultR.updateString("REZENSIONEN_AUS_NUMMER", Modulhelferlein.printSimpleDateFormat("yyyyMMdd") + "-" + BestNrString);
+            resultR.updateString("REZENSIONEN_AUS_NUMMER", ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + "-" + BestNrString);
             resultR.insertRow();
 
             resultBNr.updateInt("BESTELLNR_NUMMER", BestNr + 1);
@@ -1162,7 +1162,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     rbFreiexemplar.setSelected(true);
                     break;
             }
-            field_NachfrageDatum.setDate(Modulhelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
+            field_NachfrageDatum.setDate(ModulHelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
             field_Nummer.setText(resultR.getString("REZENSIONEN_AUS_NUMMER"));
             cbRezensent.setSelectedIndex(0);
             if (resultR.getInt("REZENSIONEN_AUS_ZEITSCHRIFT") > 0) {
@@ -1190,7 +1190,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
             cbBuch.setEditable(false);
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Bestellung: Einfügen: SQL-Exception: Einfügen: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Bestellung: Einfügen: SQL-Exception: Einfügen: ", exept.getMessage());
         }
     }//GEN-LAST:event_EinfuegenActionPerformed
 
@@ -1202,7 +1202,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
         try {
-            resultR.updateDate("REZENSIONEN_AUS_DATUM", Modulhelferlein.Date2SQLDate(field_NachfrageDatum.getDate()));
+            resultR.updateDate("REZENSIONEN_AUS_DATUM", ModulHelferlein.Date2SQLDate(field_NachfrageDatum.getDate()));
             if (rbNachfrage.isSelected()) {
                 resultR.updateInt("REZENSIONEN_AUS_TYP", 0);
             } else if (rbAutor.isSelected()) {
@@ -1223,7 +1223,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
 
             resultR.updateRow();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Bestellung: Update: SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Bestellung: Update: SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
@@ -1261,7 +1261,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                         break;
                 }
                 field_Dritte.setText(resultR.getString("REZENSIONEN_AUS_DRITTE"));
-                field_NachfrageDatum.setDate(Modulhelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
+                field_NachfrageDatum.setDate(ModulHelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
                 field_Nummer.setText(resultR.getString("REZENSIONEN_AUS_NUMMER"));
                 if (resultR.getInt("REZENSIONEN_AUS_REZENSENT") > 0) {
                     resultA = SQLAnfrageA.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultR.getInt("REZENSIONEN_AUS_REZENSENT")) + "'");
@@ -1358,7 +1358,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     BLoeschen.setEnabled(true);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Löschen: SQL-Exception: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Löschen: SQL-Exception: ", exept.getMessage());
             }
         }
     }//GEN-LAST:event_LoeschenActionPerformed
@@ -1370,77 +1370,77 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                 resultR.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
         }
         try {
             if (resultRD != null) {
                 resultRD.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
         }
         try {
             if (resultA != null) {
                 resultA.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
         }
         try {
             if (resultBNr != null) {
                 resultBNr.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
         }
         try {
             if (resultBuch != null) {
                 resultBuch.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
         }
         try {
             if (SQLAnfrageR != null) {
                 SQLAnfrageR.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
         }
         try {
             if (SQLAnfrageRD != null) {
                 SQLAnfrageRD.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
         }
         try {
             if (SQLAnfrageA != null) {
                 SQLAnfrageA.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
         }
         try {
             if (SQLAnfrageBNr != null) {
                 SQLAnfrageBNr.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
         }
         try {
             if (SQLAnfrageBuch != null) {
                 SQLAnfrageBuch.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
         }
         try {
             if (conn != null) {
                 conn.close();
             }
         } catch (SQLException e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Dialog schließen: SQL-Exception: ", e.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_SchliessenActionPerformed
@@ -1488,7 +1488,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     break;
             }
             field_Dritte.setText(resultR.getString("REZENSIONEN_AUS_DRITTE"));
-            field_NachfrageDatum.setDate(Modulhelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
+            field_NachfrageDatum.setDate(ModulHelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
             if (resultR.getInt("REZENSIONEN_AUS_REZENSENT") > 0) {
                 resultA = SQLAnfrageA.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultR.getInt("REZENSIONEN_AUS_REZENSENT")) + "'");
                 resultA.next();
@@ -1554,7 +1554,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                 BLoeschen.setEnabled(true);
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "zum vorherigen: SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "zum vorherigen: SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_ZurueckActionPerformed
 
@@ -1601,7 +1601,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     break;
             }
             field_Dritte.setText(resultR.getString("REZENSIONEN_AUS_DRITTE"));
-            field_NachfrageDatum.setDate(Modulhelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
+            field_NachfrageDatum.setDate(ModulHelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
 
             if (resultR.getInt("REZENSIONEN_AUS_REZENSENT") > 0) {
                 resultA = SQLAnfrageA.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultR.getInt("REZENSIONEN_AUS_REZENSENT")) + "'");
@@ -1668,7 +1668,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                 BLoeschen.setEnabled(true);
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "zum nächsten: SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "zum nächsten: SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_VorActionPerformed
 
@@ -1693,7 +1693,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     break;
             }
             field_Dritte.setText(resultR.getString("REZENSIONEN_AUS_DRITTE"));
-            field_NachfrageDatum.setDate(Modulhelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
+            field_NachfrageDatum.setDate(ModulHelferlein.Date2SQLDate(resultR.getDate("REZENSIONEN_AUS_DATUM")));
             if (resultR.getInt("REZENSIONEN_AUS_REZENSENT") > 0) {
                 resultA = SQLAnfrageA.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultR.getInt("REZENSIONEN_AUS_REZENSENT")) + "'");
                 resultA.next();
@@ -1772,7 +1772,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                 BLoeschen.setEnabled(true);
             }
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "zum Ende: SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "zum Ende: SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_EndeActionPerformed
 
@@ -1781,7 +1781,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
         BUpdateActionPerformed(evt);
         UpdateActionPerformed(evt);
 
-// Modulhelferlein.Infomeldung("Aufruf Brief Rechnung für RechNr " + field_RechNr.getText());
+// ModulHelferlein.Infomeldung("Aufruf Brief Rechnung für RechNr " + field_RechNr.getText());
         Integer Typ = 0;
 
         String Kunde[] = cbRezensent.getSelectedItem().toString().split(",");
@@ -1833,7 +1833,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                 }
             }
         } catch (Exception e) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Bestellung drucken: Exception: ", e.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Bestellung drucken: Exception: ", e.getMessage());
         }
     }//GEN-LAST:event_DruckenActionPerformed
 
@@ -1889,7 +1889,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     BLoeschen.setEnabled(false);
                 }
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Löschen: SQL-Exception: ", exept.getMessage());
+                ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Löschen: SQL-Exception: ", exept.getMessage());
             }
         }
     }//GEN-LAST:event_BLoeschenActionPerformed
@@ -1945,7 +1945,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
 
             // Felder füllen
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Details Einfügen: SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Details Einfügen: SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BEinfuegenActionPerformed
 
@@ -1957,7 +1957,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
             resultRD.updateRow();
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Details Update: SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Details Update: SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BUpdateActionPerformed
 
@@ -1993,7 +1993,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
             BLoeschen.setEnabled(true);
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Details zum Ende: SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Details zum Ende: SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BEndeActionPerformed
 
@@ -2037,7 +2037,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     + resultBuch.getString("BUCH_TITEL");
             cbBuch.setSelectedItem(eintrag);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Details zum nächsten: SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Details zum nächsten: SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BVorActionPerformed
 
@@ -2088,7 +2088,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
                     + resultBuch.getString("BUCH_TITEL");
             cbBuch.setSelectedItem(eintrag);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Details zum vorherigen SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Details zum vorherigen SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BZurueckActionPerformed
 
@@ -2125,7 +2125,7 @@ public class VerwaltenDatenbankRezensionAus extends javax.swing.JDialog {
             BLoeschen.setEnabled(true);
 
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Rezensionen versenden", "Details zum Anfang: SQL-Exception: ", exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Rezensionen versenden", "Details zum Anfang: SQL-Exception: ", exept.getMessage());
         }
     }//GEN-LAST:event_BAnfangActionPerformed
 

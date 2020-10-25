@@ -30,8 +30,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.awt.Color;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Linie;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
@@ -40,6 +39,8 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
  * Klasse zur Erzeugung einer Übersicht der Kundentypen
@@ -65,9 +66,9 @@ public class berAufgaben {
                 cos = new PDPageContentStream(document, page1);
 
                 String outputFileName;
-                outputFileName = Modulhelferlein.pathBerichte + "\\Aufgaben\\"
+                outputFileName = ModulHelferlein.pathBerichte + "\\Aufgaben\\"
                         + "Liste-Aufgaben-"
-                        + Modulhelferlein.printSimpleDateFormat("yyyyMMdd") 
+                        + ModulHelferlein.printSimpleDateFormat("yyyyMMdd") 
                         + ".pdf";
 
                 PDDocumentInformation docInfo = document.getDocumentInformation();
@@ -83,18 +84,18 @@ public class berAufgaben {
 
                 // Datenbank-Treiber laden
                 try {
-                    Class.forName(Modulhelferlein.dbDriver);
+                    Class.forName(ModulHelferlein.dbDriver);
                 } catch (ClassNotFoundException exept) {
-                    Modulhelferlein.Fehlermeldung(
+                    ModulHelferlein.Fehlermeldung(
                             "ClassNotFoundException: Treiber nicht gefunden: "
                             + exept.getMessage());
                 }
 
                 // Verbindung zur Datenbank über die JDBC-Brücke
                 try {
-                    conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+                    conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
                 } catch (SQLException exept) {
-                    Modulhelferlein.Fehlermeldung(
+                    ModulHelferlein.Fehlermeldung(
                             "SQL-Exception: Verbindung nicht moeglich: "
                             + exept.getMessage());
                 }
@@ -115,16 +116,16 @@ public class berAufgaben {
                         Integer zeile = 1;
                         Integer seite = 1;
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Aufgaben");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Übersicht der Aufgaben, Stand: "
-                                + Modulhelferlein.printSimpleDateFormat(
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Aufgaben");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Übersicht der Aufgaben, Stand: "
+                                + ModulHelferlein.printSimpleDateFormat(
                                         "dd.MM.yyyy"));
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
 
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 720, "Datum");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 150, 720, "Beschreibung");
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 720, "Erledigt");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 720, "Datum");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 150, 720, "Beschreibung");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 720, "Erledigt");
 
                         Linie(cos, 1, 56, 715, 539, 715);
                         Linie(cos, 1, 75, 730, 75, 0);
@@ -132,10 +133,10 @@ public class berAufgaben {
                         Linie(cos, 1, 450, 730, 450, 0);
 
                         while (result.next()) { // geht durch alle zeilen
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 715 - zeile * 15, result.getString("AUFGABE_ID"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 715 - zeile * 15, result.getString("AUFGABE_DATUM"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 150, 715 - zeile * 15, result.getString("AUFGABE_Beschreibung"));
-                            Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 715 - zeile * 15, result.getString("AUFGABE_ERLEDIGT"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 715 - zeile * 15, result.getString("AUFGABE_ID"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 715 - zeile * 15, result.getString("AUFGABE_DATUM"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 150, 715 - zeile * 15, result.getString("AUFGABE_Beschreibung"));
+                            AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 715 - zeile * 15, result.getString("AUFGABE_ERLEDIGT"));
 
                             zeile = zeile + 1;
 
@@ -146,16 +147,16 @@ public class berAufgaben {
                                 PDPage page = new PDPage(PDRectangle.A4);
                                 document.addPage(page);
                                 cos = new PDPageContentStream(document, page);
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Termine");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 755, "Übersicht der Termine, Stand: "
-                                        + Modulhelferlein.printSimpleDateFormat(
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 770, "miles-Verlag Verlagsverwaltung - Termine");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 755, "Übersicht der Termine, Stand: "
+                                        + ModulHelferlein.printSimpleDateFormat(
                                                 "dd.MM.yyyy"));
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 770, "Seite: " + Integer.toString(seite));
 
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 80, 720, "Datum");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 150, 720, "Beschreibung");
-                                Ausgabe(cos, fontBold, 12, Color.BLACK, 455, 720, "Erledigt");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 56, 720, "ID");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 80, 720, "Datum");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 150, 720, "Beschreibung");
+                                AusgabeLB(cos, fontBold, 12, Color.BLACK, 455, 720, "Erledigt");
 
                                 Linie(cos, 1, 56, 715, 539, 715);
                                 Linie(cos, 1, 75, 730, 75, 0);
@@ -172,28 +173,28 @@ public class berAufgaben {
                         document.save(outputFileName);
                         document.close();
 
-                        Modulhelferlein.Infomeldung(
+                        ModulHelferlein.Infomeldung(
                                 "Liste der Aufgaben ist als PDF gespeichert!");
                         try {
                             Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                         } catch (IOException exept) {
-                            Modulhelferlein.Fehlermeldung("Exception: " + exept.getMessage());
+                            ModulHelferlein.Fehlermeldung("Exception: " + exept.getMessage());
                         }
                     } catch (SQLException exept) {
-                        Modulhelferlein.Fehlermeldung(
+                        ModulHelferlein.Fehlermeldung(
                                 "SQL-Exception: SQL-Anfrage nicht moeglich: "
                                 + exept.getMessage());
                         System.exit(1);
                     } catch (IOException e) {
-                        Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+                        ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
                     }
                 }
 
             } catch (IOException e1) {
-                Modulhelferlein.Fehlermeldung("IO-Exception: " + e1.getMessage());
+                ModulHelferlein.Fehlermeldung("IO-Exception: " + e1.getMessage());
             }
         } catch (Exception e) {
-            Modulhelferlein.Fehlermeldung("Exception: " + e.getMessage());
+            ModulHelferlein.Fehlermeldung("Exception: " + e.getMessage());
         }
     } //void
 } //class

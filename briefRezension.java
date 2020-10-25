@@ -47,9 +47,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import static milesVerlagMain.Modulhelferlein.Ausgabe;
-import static milesVerlagMain.Modulhelferlein.Linie;
-import static milesVerlagMain.Modulhelferlein.Trenner;
+import static milesVerlagMain.ModulHelferlein.Linie;
+import static milesVerlagMain.ModulHelferlein.Trenner;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -79,6 +78,8 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblWidth;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblLayoutType;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblLayoutType;
+import static milesVerlagMain.ModulHelferlein.AusgabeLB;
+import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 public class briefRezension {
 
@@ -143,16 +144,16 @@ public class briefRezension {
         Integer twipsPerInch = 1440;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden: " + exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verbindung nicht moeglich: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verbindung nicht moeglich: " + exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank über die JDBC-Brücke
 
@@ -299,7 +300,7 @@ public class briefRezension {
                     run.setText(" ");
                     run.setText(" ");
                     run.addBreak();
-                    run.setText(Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    run.setText(ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
                     run.addBreak();
                     run.addBreak();
                     run.setText(" ");
@@ -436,20 +437,20 @@ public class briefRezension {
                     Bildschirmausgabe("... Fertig! Dokument ist erzeugt");
                     Bildschirmausgabe("... Dokument wird gespeichert");
                     if (Multi > 1) {
-                        outputFileName = Modulhelferlein.pathRezensionen
+                        outputFileName = ModulHelferlein.pathRezensionen
                                 + "\\"
                                 + "Rezension-Multi-"
                                 + resultAR.getString("ADRESSEN_NAME")
                                 + "-"
-                                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                                 + ".docx";
                     } else {
-                        outputFileName = Modulhelferlein.pathRezensionen
+                        outputFileName = ModulHelferlein.pathRezensionen
                                 + "\\"
                                 + "Rezension-" + ISBN + "-"
                                 + resultAR.getString("ADRESSEN_NAME")
                                 + "-"
-                                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                                 + ".docx";
                     }
 
@@ -458,12 +459,12 @@ public class briefRezension {
                         document.write(out);
                     }
 
-                    Modulhelferlein.Infomeldung("Brief an " + resultAR.getString("ADRESSEN_NAME") + " ist als DOC gespeichert!");
+                    ModulHelferlein.Infomeldung("Brief an " + resultAR.getString("ADRESSEN_NAME") + " ist als DOC gespeichert!");
                     Dialog.setVisible(false);
                     try {
                         Runtime.getRuntime().exec("cmd.exe /c start " + "'" + outputFileName + "'");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung("Exception: " + exept.getMessage());
+                        ModulHelferlein.Fehlermeldung("Exception: " + exept.getMessage());
                     }// try Brief ausgeben
 
                     // Adressetikett drucken
@@ -482,14 +483,14 @@ public class briefRezension {
                     _DlgAdresseDrucken.main(args);
 
                 } catch (IOException exept) {
-                    Modulhelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
                 } catch (InvalidFormatException ex) {
-                    Modulhelferlein.Fehlermeldung("InvalidFormat-Exception: " + ex.getMessage());
+                    ModulHelferlein.Fehlermeldung("InvalidFormat-Exception: " + ex.getMessage());
                     //Logger.getLogger(briefRezension.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+                ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
             }
         } //if conn != null
     }
@@ -520,16 +521,16 @@ public class briefRezension {
         Integer ZeilenNr = 0;
 
         try { // Datenbank-Treiber laden
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden: " + exept.getMessage());
             System.exit(1);
         } // Datenbank-Treiber laden
 
         try { // Verbindung zur Datenbank über die JDBC-Brücke
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verbindung nicht moeglich: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("Verbindung nicht moeglich: " + exept.getMessage());
             System.exit(1);
         } // try Verbindung zur Datenbank über die JDBC-Brücke
 
@@ -620,25 +621,25 @@ public class briefRezension {
                         cos.drawImage(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                         //cos.drawXObject(pdImage, 55, 770, pdImage.getWidth() * scalex, pdImage.getHeight() * scaley);
                     } catch (FileNotFoundException fnfex) {
-                        Modulhelferlein.Fehlermeldung("Brief Rezension", "File not found-Exception", "Keine Bild-Datei gefunden " + fnfex.getMessage());
+                        ModulHelferlein.Fehlermeldung("Brief Rezension", "File not found-Exception", "Keine Bild-Datei gefunden " + fnfex.getMessage());
                         System.out.println("No image for you");
                     }
 //helferlein.Infomeldung("schreibe fußzeile");
                     // Fu?zeile
-                    Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-                    Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
 
-                    Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 
 // Faltmarke, Lochmarke, Faltmarke
                     Linie(cos, 1, 0, 595, 15, 595);
@@ -647,10 +648,10 @@ public class briefRezension {
 
                     // Absenderzeile
                     Linie(cos, 1, 50, 749, 297, 749);
-                    Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
+                    AusgabeLB(cos, fontPlain, 8, Color.BLACK, 50, 751, ModulHelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
 
                     // Datum
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
 //helferlein.Infomeldung("schreibe adresse");
 
 // Adresse
@@ -658,7 +659,7 @@ public class briefRezension {
                     String[] args = {"", "", "", "", "", "", ""};
 
                     args[0] = resultAR.getString("ADRESSEN_ZUSATZ_1");
-                    args[1] = Modulhelferlein.makeAnrede(resultAR.getString("ADRESSEN_NAMENSZUSATZ"),
+                    args[1] = ModulHelferlein.makeAnrede(resultAR.getString("ADRESSEN_NAMENSZUSATZ"),
                             resultAR.getString("ADRESSEN_VORNAME"),
                             resultAR.getString("ADRESSEN_NAME"));
                     args[2] = resultAR.getString("ADRESSEN_ZUSATZ_2");
@@ -673,35 +674,35 @@ public class briefRezension {
                             AdressZeilenNr = AdressZeilenNr + 1;
                         }
                     }
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 730, AdressZeile[1]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 715, AdressZeile[2]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 700, AdressZeile[3]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 730, AdressZeile[1]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 715, AdressZeile[2]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 700, AdressZeile[3]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 685, AdressZeile[4]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 670, AdressZeile[5]);
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 655, AdressZeile[6]);
                     System.out.println("... Adresse geschrieben");
 
                     // Betreff
                     if (resultR.getInt("REZENSIONEN_AUS_TYP") == 4) {
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, "Freiexemplar(e) des Carola Hartmann Miles-Verlag");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 575, "Freiexemplar(e) des Carola Hartmann Miles-Verlag");
                     } else {
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, "Rezensionsexemplar(e) des Carola Hartmann Miles-Verlag");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 575, "Rezensionsexemplar(e) des Carola Hartmann Miles-Verlag");
                     }
                     System.out.println("... Betreffzeile geschrieben");
 
                     // Anrede
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 530, Modulhelferlein.makeAnrede(resultAR.getString("ADRESSEN_ANREDE"), resultAR.getString("ADRESSEN_NAMENSZUSATZ"), resultAR.getString("ADRESSEN_NAME")) + ",");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 530, ModulHelferlein.makeAnrede(resultAR.getString("ADRESSEN_ANREDE"), resultAR.getString("ADRESSEN_NAMENSZUSATZ"), resultAR.getString("ADRESSEN_NAME")) + ",");
                     System.out.println("... Anrede geschrieben");
 
                     // Einleitung
                     switch (resultR.getInt("REZENSIONEN_AUS_TYP")) {
                         case 0: // Anfrage
                             System.out.println("... Typ 0 - Anfrage");
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 500, "herzlichen Dank für Ihre Anfrage vom " + Modulhelferlein.printDateFormat("dd.MM.yyyy", Modulhelferlein.SQLDateString2Date(resultR.getString("REZENSIONEN_AUS_DATUM"))) + ".");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 500, "herzlichen Dank für Ihre Anfrage vom " + ModulHelferlein.printDateFormat("dd.MM.yyyy", ModulHelferlein.SQLDateString2Date(resultR.getString("REZENSIONEN_AUS_DATUM"))) + ".");
                             if (Anzahl == 1) {
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "Beiliegend übersende ich Ihnen das gewünschte Exemplar unserer (Neu)erscheinung.");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "Beiliegend übersende ich Ihnen das gewünschte Exemplar unserer (Neu)erscheinung.");
                             } else {
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "Beiliegend übersende ich Ihnen die gewünschten Exemplare unserer (Neu)erscheinungen.");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "Beiliegend übersende ich Ihnen die gewünschten Exemplare unserer (Neu)erscheinungen.");
                             }
                             Startzeile = 460;
                             break;
@@ -709,34 +710,34 @@ public class briefRezension {
                             System.out.println("... Typ 1 - Wunsch Herausgeber/Autoren");
                             if (Herausgeber) {
                                 if (Autoren) {
-                                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 500, "unsere Herausgeber " + AutorEintrag + " baten mich,");
-                                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "Ihnen ihr neuestes Werk mit der Bitte um eine Rezension zuzusenden.");
-                                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
+                                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 500, "unsere Herausgeber " + AutorEintrag + " baten mich,");
+                                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "Ihnen ihr neuestes Werk mit der Bitte um eine Rezension zuzusenden.");
+                                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
                                 } else {
                                     if (resultAA.getString("ADRESSEN_ANREDE").contains("Herr")) {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 500, "unser Herausgeber Herr " + resultAA.getString("ADRESSEN_VORNAME") + " " + resultAA.getString("ADRESSEN_NAME") + " bat mich, Ihnen sein neuestes Werk mit der");
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "Bitte um eine Rezension zuzusenden.");
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 500, "unser Herausgeber Herr " + resultAA.getString("ADRESSEN_VORNAME") + " " + resultAA.getString("ADRESSEN_NAME") + " bat mich, Ihnen sein neuestes Werk mit der");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "Bitte um eine Rezension zuzusenden.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
                                     } else {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 500, "unsere Herausgeberein Frau " + resultAA.getString("ADRESSEN_VORNAME") + " " + resultAA.getString("ADRESSEN_NAME") + " bat mich, Ihnen ihr neuestes Werk mit der");
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "Bitte um eine Rezension zuzusenden.");
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 500, "unsere Herausgeberein Frau " + resultAA.getString("ADRESSEN_VORNAME") + " " + resultAA.getString("ADRESSEN_NAME") + " bat mich, Ihnen ihr neuestes Werk mit der");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "Bitte um eine Rezension zuzusenden.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
                                     }
                                 }
                             } else {
                                 if (Autoren) {
-                                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 500, "unsere Autoren " + AutorEintrag + " baten mich, Ihnen ihr neuestes Werk mit der");
-                                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "Bitte um eine Rezension zuzusenden.");
-                                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
+                                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 500, "unsere Autoren " + AutorEintrag + " baten mich, Ihnen ihr neuestes Werk mit der");
+                                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "Bitte um eine Rezension zuzusenden.");
+                                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
                                 } else {
                                     if (resultAA.getString("ADRESSEN_ANREDE").contains("Herr")) {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 500, "unser Autor Herr " + resultAA.getString("ADRESSEN_VORNAME") + " " + resultAA.getString("ADRESSEN_NAME") + " bat mich, Ihnen sein neuestes Werk mit der");
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "Bitte um eine Rezension zuzusenden.");
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 500, "unser Autor Herr " + resultAA.getString("ADRESSEN_VORNAME") + " " + resultAA.getString("ADRESSEN_NAME") + " bat mich, Ihnen sein neuestes Werk mit der");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "Bitte um eine Rezension zuzusenden.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
                                     } else {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 500, "unsere Autorin Frau " + resultAA.getString("ADRESSEN_VORNAME") + " " + resultAA.getString("ADRESSEN_NAME") + " bat mich, Ihnen ihr neuestes Werk mit der");
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "Bitte um eine Rezension zuzusenden. Gerne komme ich diesem Wunsch nach.");
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 500, "unsere Autorin Frau " + resultAA.getString("ADRESSEN_VORNAME") + " " + resultAA.getString("ADRESSEN_NAME") + " bat mich, Ihnen ihr neuestes Werk mit der");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "Bitte um eine Rezension zuzusenden. Gerne komme ich diesem Wunsch nach.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 470, "Gerne komme ich diesem Wunsch nach.");
                                     }
                                 }
                             }
@@ -745,18 +746,18 @@ public class briefRezension {
                         case 3: // Initiative Verlag
                             System.out.println("... Typ 3 - Initiative Verlag");
                             if (Anzahl == 1) {
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 500, "beiliegend übersende ich Ihnen ein Exemplar unserer (Neu)erscheinung.");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 500, "beiliegend übersende ich Ihnen ein Exemplar unserer (Neu)erscheinung.");
                             } else {
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 500, "beiliegend übersende ich Ihnen je ein Exemplar unserer (Neu)erscheinungen.");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 500, "beiliegend übersende ich Ihnen je ein Exemplar unserer (Neu)erscheinungen.");
                             }
                             Startzeile = 475;
                             break;
                         case 4: // Freiexemplar
                             System.out.println("... Typ 4 - Freiexemplar");
                             if (Anzahl == 1) {
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 500, "beiliegend übersende ich Ihnen ein Freiexxemplar unserer (Neu)erscheinung.");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 500, "beiliegend übersende ich Ihnen ein Freiexxemplar unserer (Neu)erscheinung.");
                             } else {
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 500, "beiliegend übersende ich Ihnen je ein Freiexemplar unserer (Neu)erscheinungen.");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 500, "beiliegend übersende ich Ihnen je ein Freiexemplar unserer (Neu)erscheinungen.");
                             }
                             Startzeile = 475;
                             break;
@@ -776,14 +777,14 @@ public class briefRezension {
                             Startzeile = 500;
                             ZeilenNr = 1;
 
-                            Anfrage = spell.formatText(Anfrage, 483, cos, fontUniPlain, 12);
+                            Anfrage = ModulSilbentrennung.formatText(Anfrage, 483, cos, fontUniPlain, 12);
                             String[] splitAnfrage = Anfrage.split("~#!#~");
                             for (int i = 0; i < splitAnfrage.length; i++) {
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitAnfrage[i]);
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitAnfrage[i]);
                                 ZeilenNr = ZeilenNr + 1;
                             }
 
-                            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * ZeilenNr, "Gerne komme ich diesem Wunsch nach. Es handelt sich um ");
+                            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * ZeilenNr, "Gerne komme ich diesem Wunsch nach. Es handelt sich um ");
                             Startzeile = Startzeile - 15 * (ZeilenNr + 2);
                             break;
                     } // switch Typ
@@ -802,7 +803,7 @@ public class briefRezension {
 
                             //resultAA = SQLStatementAA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultB.getString("BUCH_AUTOR") + "'");
                             //resultAA.next();
-                            Ausgabe(cos, fontItalic, 12, Color.BLACK, 60, (Startzeile - ZeilenNr * 15), "-");
+                            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 60, (Startzeile - ZeilenNr * 15), "-");
 
                             // Autor holen
                             col_Autorliste = resultB.getString("BUCH_AUTOR").split(",");
@@ -836,8 +837,8 @@ public class briefRezension {
                             }
                             ZeilenNr = ZeilenNr + 1;
 
-                            Ausgabe(cos, fontItalic, 12, Color.BLACK, 75, (Startzeile - ZeilenNr * 15),
-                                    "ISBN " + Modulhelferlein.makeISBN13(resultB.getString("BUCH_ISBN")) + ", "
+                            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 75, (Startzeile - ZeilenNr * 15),
+                                    "ISBN " + ModulHelferlein.makeISBN13(resultB.getString("BUCH_ISBN")) + ", "
                                     + resultB.getString("BUCH_AUFLAGE") + ". Auflage, "
                                     + resultB.getString("BUCH_JAHR") + ", "
                                     + resultB.getString("BUCH_SEITEN") + " Seiten, "
@@ -859,11 +860,11 @@ public class briefRezension {
                             Beschreibung = Beschreibung.replace("\n\r", Trenner);
                             Beschreibung = Beschreibung.replace("\n", Trenner);
                             Beschreibung = Beschreibung.replace("\r", Trenner);
-                            Beschreibung = spell.formatText(Beschreibung, 483, cos, fontUniPlain, 12);
+                            Beschreibung = ModulSilbentrennung.formatText(Beschreibung, 483, cos, fontUniPlain, 12);
 
                             String[] splitBeschreibung = Beschreibung.split(Trenner);
                             for (int i = 0; i < splitBeschreibung.length; i++) {
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitBeschreibung[i]);
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 57, Startzeile - 15 * (ZeilenNr - 1), splitBeschreibung[i]);
                                 ZeilenNr = ZeilenNr + 1;
                                 if (Startzeile - 15 * (ZeilenNr - 1) <= 130) { //neue Seite
                                     cos.close();
@@ -872,20 +873,20 @@ public class briefRezension {
                                     cos = new PDPageContentStream(document, page);
 
                                     // Fu?zeile
-                                    Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+                                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-                                    Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+                                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
+                                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
 
-                                    Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                                    Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+                                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                                    AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 
 // Faltmarke, Lochmarke, Faltmarke
                                     Linie(cos, 1, 0, 595, 15, 595);
@@ -900,8 +901,8 @@ public class briefRezension {
 
                         switch (resultR.getInt("REZENSIONEN_AUS_TYP")) {
                             case 4: // wenn Freiexemplar dann
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie Interesse an unserer (Neu)erscheinung finden würden und");
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 1), "diese Ihren Kolleginnen und Kollegen zur Lektüre weiterempfehlen könnten.");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie Interesse an unserer (Neu)erscheinung finden würden und");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 1), "diese Ihren Kolleginnen und Kollegen zur Lektüre weiterempfehlen könnten.");
                                 break;
                             case 0: // 
                             case 1: // 
@@ -909,28 +910,28 @@ public class briefRezension {
                             case 3: //
                                 if (resultR.getString("REZENSIONEN_AUS_ZEITSCHRIFT").equals("0")) {
                                     if (Anzahl == 1) {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinung besprechen würden.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinung besprechen würden.");
                                     } else {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinungen besprechen würden.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinungen besprechen würden.");
                                     }
-                                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 1), "");
+                                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 1), "");
                                 } else {
                                     if (Anzahl == 1) {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinung in der Zeitschrift");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinung in der Zeitschrift");
                                     } else {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinungen in der Zeitschrift");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinungen in der Zeitschrift");
                                     }
-                                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 1), "'" + resultAZ.getString("ADRESSEN_ZEITSCHRIFT") + "' besprechen würden.");
+                                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 1), "'" + resultAZ.getString("ADRESSEN_ZEITSCHRIFT") + "' besprechen würden.");
                                 }
                             case 5:
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 2), "Für Fragen stehe ich gerne zur Verfügung, ebenso sende ich Ihnen bei Bedarf eine ");
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 3), "Bild-Datei des Buchcovers zu.");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 2), "Für Fragen stehe ich gerne zur Verfügung, ebenso sende ich Ihnen bei Bedarf eine ");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 3), "Bild-Datei des Buchcovers zu.");
                                 break;
                         }
                         // Schlussformel
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 5), Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 5), ModulHelferlein.CheckStr("Mit freundlichen Grüßen"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
                     } else {
                         ZeilenNr = ZeilenNr + 1;
                         switch (resultR.getInt("REZENSIONEN_AUS_TYP")) {
@@ -940,51 +941,51 @@ public class briefRezension {
                             case 3: //
                                 if (resultR.getString("REZENSIONEN_AUS_ZEITSCHRIFT").equals("0")) {
                                     if (Anzahl == 1) {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinung besprechen würden.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinung besprechen würden.");
                                     } else {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinungen besprechen würden.");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinungen besprechen würden.");
                                     }
-                                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 1), "");
+                                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 1), "");
                                 } else {
                                     if (Anzahl == 1) {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinung in der Zeitschrift");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinung in der Zeitschrift");
                                     } else {
-                                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinungen in der Zeitschrift");
+                                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere (Neu)erscheinungen in der Zeitschrift");
                                     }
-                                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 1), "'" + resultAZ.getString("ADRESSEN_ZEITSCHRIFT") + "' besprechen würden.");
+                                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 1), "'" + resultAZ.getString("ADRESSEN_ZEITSCHRIFT") + "' besprechen würden.");
                                 }
                             case 5:
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 2), "Für Fragen stehe ich gerne zur Verfügung, ebenso sende ich Ihnen bei Bedarf eine ");
-                                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 3), "Bild-Datei des Buchcovers zu.");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 2), "Für Fragen stehe ich gerne zur Verfügung, ebenso sende ich Ihnen bei Bedarf eine ");
+                                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 3), "Bild-Datei des Buchcovers zu.");
                                 break;
                         }
                         // Schlussformel
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 5), Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
-                        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 5), ModulHelferlein.CheckStr("Mit freundlichen Grüßen"));
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 9), "Carola Hartmann");
+                        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (ZeilenNr + 10), "Diplom Kauffrau");
 
                         // Neue Seite für die Anlage mit den Büchern
                         cos.close();
                         page = new PDPage(A4);
                         document.addPage(page);
                         cos = new PDPageContentStream(document, page);
-                        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 750, "Anlage");
+                        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 750, "Anlage");
 
                         // Fu?zeile
-                        Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+                        AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-                        Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+                        AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
 
-                        Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-                        Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+                        AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+                        AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 
 // Faltmarke, Lochmarke, Faltmarke
                         Linie(cos, 1, 0, 595, 15, 595);
@@ -1004,11 +1005,11 @@ public class briefRezension {
                             resultAA = SQLStatementAA.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultB.getString("BUCH_AUTOR") + "'");
                             resultAA.next();
 
-                            Ausgabe(cos, fontItalic, 12, Color.BLACK, 60, (Startzeile - ZeilenNr * 15), "-");
-                            Ausgabe(cos, fontItalic, 12, Color.BLACK, 75, (Startzeile - ZeilenNr * 15), resultAA.getString("ADRESSEN_VORNAME") + ", " + resultAA.getString("ADRESSEN_NAME") + ": " + resultB.getString("BUCH_TITEL"));
+                            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 60, (Startzeile - ZeilenNr * 15), "-");
+                            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 75, (Startzeile - ZeilenNr * 15), resultAA.getString("ADRESSEN_VORNAME") + ", " + resultAA.getString("ADRESSEN_NAME") + ": " + resultB.getString("BUCH_TITEL"));
                             ZeilenNr = ZeilenNr + 1;
 
-                            Ausgabe(cos, fontItalic, 12, Color.BLACK, 75, (Startzeile - ZeilenNr * 15), "ISBN " + Modulhelferlein.makeISBN13(resultB.getString("BUCH_ISBN")) + ", Seiten: " + resultB.getString("BUCH_SEITEN") + ", Preis: " + resultB.getString("BUCH_PREIS") + " Euro.");
+                            AusgabeLB(cos, fontItalic, 12, Color.BLACK, 75, (Startzeile - ZeilenNr * 15), "ISBN " + ModulHelferlein.makeISBN13(resultB.getString("BUCH_ISBN")) + ", Seiten: " + resultB.getString("BUCH_SEITEN") + ", Preis: " + resultB.getString("BUCH_PREIS") + " Euro.");
                             ZeilenNr = ZeilenNr + 1;
 
                         } while (resultRD.next());
@@ -1016,20 +1017,20 @@ public class briefRezension {
 
                     // Save the results and ensure that the document is properly closed:
                     if (Multi > 1) {
-                        outputFileName = Modulhelferlein.pathRezensionen
+                        outputFileName = ModulHelferlein.pathRezensionen
                                 + "\\"
                                 + "Rezension-Multi-"
                                 + resultAR.getString("ADRESSEN_NAME")
                                 + "-"
-                                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                                 + ".pdf";
                     } else {
-                        outputFileName = Modulhelferlein.pathRezensionen
+                        outputFileName = ModulHelferlein.pathRezensionen
                                 + "\\"
                                 + "Rezension-" + ISBN + "-"
                                 + resultAR.getString("ADRESSEN_NAME")
                                 + "-"
-                                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                                 + ".pdf";
                     }
                     // Make sure that the content stream is closed:
@@ -1038,17 +1039,17 @@ public class briefRezension {
                     document.save(outputFileName);
                     document.close();
 
-                    Modulhelferlein.Infomeldung("Brief an " + resultAR.getString("ADRESSEN_NAME") + " ist als PDF gespeichert!");
+                    ModulHelferlein.Infomeldung("Brief an " + resultAR.getString("ADRESSEN_NAME") + " ist als PDF gespeichert!");
                     try {
                         Runtime.getRuntime().exec("cmd.exe /c " + "\"" + outputFileName + "\"");
                     } catch (IOException exept) {
-                        Modulhelferlein.Fehlermeldung(
+                        ModulHelferlein.Fehlermeldung(
                                 "Exception: " + exept.getMessage());
                     }// try Brief ausgeben
 
                     // Adressetikett drucken
                     String Zeile1 = resultAR.getString("ADRESSEN_ZUSATZ_1");
-                    String Zeile2 = Modulhelferlein.makeAnrede(resultAR.getString("ADRESSEN_NAMENSZUSATZ"), resultAR.getString("ADRESSEN_VORNAME"), resultAR.getString("ADRESSEN_NAME"));
+                    String Zeile2 = ModulHelferlein.makeAnrede(resultAR.getString("ADRESSEN_NAMENSZUSATZ"), resultAR.getString("ADRESSEN_VORNAME"), resultAR.getString("ADRESSEN_NAME"));
                     String Zeile3 = resultAR.getString("ADRESSEN_ZUSATZ_2");
                     String Zeile4 = resultAR.getString("ADRESSEN_STRASSE");
                     String Zeile5 = resultAR.getString("ADRESSEN_PLZ") + " " + resultAR.getString("ADRESSEN_ORT");
@@ -1057,11 +1058,11 @@ public class briefRezension {
                     _DlgAdresseDrucken.main(argumente);
 
                 } catch (IOException exept) {
-                    Modulhelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
+                    ModulHelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
                 }
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "Exception: " + exept.getMessage());
             }
         } //if conn != null
@@ -1128,12 +1129,12 @@ public class briefRezension {
         String[] splitAutor = Autor.split(",");
         String zeile = "";
 
-        String outputFileName = Modulhelferlein.pathBuchprojekte + "/" + ISBN + "/Rezensionen/Rezension-"
+        String outputFileName = ModulHelferlein.pathBuchprojekte + "/" + ISBN + "/Rezensionen/Rezension-"
                 + ISBN
                 + "-"
                 + Rezensent
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".pdf";
 
         // Create a document and add a page to it
@@ -1165,20 +1166,20 @@ public class briefRezension {
         }
 
         // Fu?zeile
-        Ausgabe(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
-        Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
-        Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
-        Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
+        AusgabeLB(cos, fontBold, 10, Color.GRAY, 55, 35, "Carola Hartmann Miles - Verlag");
+        AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
+        AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
+        AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-        Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, Modulhelferlein.CheckStr("Alt Kladow 16d"));
-        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
-        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
-        Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
+        AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
+        AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
+        AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
+        AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
 
-        Ausgabe(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
-        Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
-        Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
-        Ausgabe(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
+        AusgabeLB(cos, fontBold, 10, Color.GRAY, 400, 35, "14089 Berlin");
+        AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 25, "Volksbank Berlin");
+        AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 15, "IBAN: DE61 1009 0000 2233 8320 17");
+        AusgabeLB(cos, fontBold, 9, Color.GRAY, 400, 5, "BIC: BEVODEBB");
 
 // Faltmarke, Lochmarke, Faltmarke
         Linie(cos, 1, 0, 595, 15, 595);
@@ -1187,30 +1188,30 @@ public class briefRezension {
 
         // Absenderzeile
         Linie(cos, 1, 50, 749, 297, 749);
-        Ausgabe(cos, fontPlain, 8, Color.BLACK, 50, 751, Modulhelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
+        AusgabeLB(cos, fontPlain, 8, Color.BLACK, 50, 751, ModulHelferlein.CheckStr("C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin"));
 
         // Datum
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 354, 655, "Datum: " + ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
 
         // Adresse
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 730, adrAnrede_1);
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 715, adrTitel + " " + adrVorname + " " + adrName);
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 700, adrAnrede_2);
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 685, adrStrasse);
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 670, "");
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 655, adrOrt);
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 730, adrAnrede_1);
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 715, adrTitel + " " + adrVorname + " " + adrName);
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 700, adrAnrede_2);
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 685, adrStrasse);
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 670, "");
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 655, adrOrt);
 
         // Betreff
         if (Titel.length() > 50) {
             Titel = Titel.substring(0, 49) + "...";
         }
 
-        Ausgabe(cos, fontBold, 12, Color.BLACK, 55, 575, "Rezension unserer (Neu)erscheinung des Carola Hartmann Miles-Verlag");
-        Ausgabe(cos, fontItalic, 12, Color.BLACK, 55, 560, splitAutor[1] + ", " + splitAutor[2] + ": " + Titel);
-        Ausgabe(cos, fontItalic, 12, Color.BLACK, 55, 545, " ISBN " + Modulhelferlein.makeISBN13(ISBN) + ", Seiten: " + Seiten + ", Preis: " + Preis + " Euro.");
+        AusgabeLB(cos, fontBold, 12, Color.BLACK, 55, 575, "Rezension unserer (Neu)erscheinung des Carola Hartmann Miles-Verlag");
+        AusgabeLB(cos, fontItalic, 12, Color.BLACK, 55, 560, splitAutor[1] + ", " + splitAutor[2] + ": " + Titel);
+        AusgabeLB(cos, fontItalic, 12, Color.BLACK, 55, 545, " ISBN " + ModulHelferlein.makeISBN13(ISBN) + ", Seiten: " + Seiten + ", Preis: " + Preis + " Euro.");
 
         // Anrede
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 515, briefAnrede + " " + adrTitel + " " + adrName + ",");
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 515, briefAnrede + " " + adrTitel + " " + adrName + ",");
 
         // Text
         Integer zeilenNr = 1;
@@ -1218,22 +1219,22 @@ public class briefRezension {
 
         switch (Auswahl) {
             case 0: // Anfrage
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "herzlichen Dank für Ihre Anfrage vom " + AnfrageDatum + ".");
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Beiliegend übersende ich Ihnen ein Exemplar unserer Neuerscheinung.");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "herzlichen Dank für Ihre Anfrage vom " + AnfrageDatum + ".");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 470, "Beiliegend übersende ich Ihnen ein Exemplar unserer Neuerscheinung.");
                 Startzeile = 445;
                 break;
             case 1: // Wunsch des Autore
                 if (Anrede.contains("Herr")) {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "unser Autor Herr " + splitAutor[2] + " " + splitAutor[1] + " bat mich, Ihnen sein neuestes Werk mit der");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Bitte um eine Rezension zuzusenden. Gerne komme ich diesem Wunsch nach.");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "unser Autor Herr " + splitAutor[2] + " " + splitAutor[1] + " bat mich, Ihnen sein neuestes Werk mit der");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 470, "Bitte um eine Rezension zuzusenden. Gerne komme ich diesem Wunsch nach.");
                 } else {
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "unsere Autorin Frau " + splitAutor[2] + " " + splitAutor[1] + " bat mich, Ihnen ihr neuestes Werk mit der");
-                    Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 470, "Bitte um eine Rezension zuzusenden. Gerne komme ich diesem Wunsch nach.");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "unsere Autorin Frau " + splitAutor[2] + " " + splitAutor[1] + " bat mich, Ihnen ihr neuestes Werk mit der");
+                    AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 470, "Bitte um eine Rezension zuzusenden. Gerne komme ich diesem Wunsch nach.");
                 }
                 Startzeile = 445;
                 break;
             case 2: // Initiative Verlag
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, 485, "beiliegend übersende ich Ihnen ein Exemplar unserer (Neu)erscheinung.");
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 485, "beiliegend übersende ich Ihnen ein Exemplar unserer (Neu)erscheinung.");
                 Startzeile = 460;
                 break;
         }
@@ -1245,14 +1246,14 @@ public class briefRezension {
                 zeile = zeile + " " + splitBeschreibung[i];
                 i = i + 1;
             }
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr - 1), zeile);
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr - 1), zeile);
             zeilenNr = zeilenNr + 1;
         }
         if (Zeitschrift.equals("")) {
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere Neuerscheinung besprechen würden.");
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 1), "");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere Neuerscheinung besprechen würden.");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 1), "");
         } else {
-            Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere Neuerscheinung in der Zeitschrift");
+            AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 0), "Ich würde mich freuen, wenn Sie unsere Neuerscheinung in der Zeitschrift");
 
             zeilenNr = zeilenNr + 1;
 
@@ -1266,19 +1267,19 @@ public class briefRezension {
                     zeile = zeile + " " + splitBeschreibung[i];
                     i = i + 1;
                 }
-                Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr), zeile);
+                AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr), zeile);
                 zeilenNr = zeilenNr + 1;
             }
 
-            // Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 1), ZeileZeitschrift );
+            // AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 1), ZeileZeitschrift );
         }
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 0), "Für Fragen stehe ich gerne zur Verfügung, ebenso sende ich Ihnen bei Bedarf");
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 1), "eine Bild-Datei des Buchcovers zu.");
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 0), "Für Fragen stehe ich gerne zur Verfügung, ebenso sende ich Ihnen bei Bedarf");
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 1), "eine Bild-Datei des Buchcovers zu.");
 
         // Schlussformel
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 5), Modulhelferlein.CheckStr("Mit freundlichen Grüßen"));
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 8), "Carola Hartmann");
-        Ausgabe(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 9), "Diplom Kauffrau");
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 5), ModulHelferlein.CheckStr("Mit freundlichen Grüßen"));
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 8), "Carola Hartmann");
+        AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, Startzeile - 15 * (zeilenNr + 9), "Diplom Kauffrau");
 
         // Make sure that the content stream is closed:
         cos.close();
@@ -1287,16 +1288,16 @@ public class briefRezension {
         document.save(outputFileName);
         document.close();
 
-        Modulhelferlein.Infomeldung("Brief an " + adrName + " ist als PDF gespeichert!");
+        ModulHelferlein.Infomeldung("Brief an " + adrName + " ist als PDF gespeichert!");
         try {
             Runtime.getRuntime().exec("cmd.exe /c " + outputFileName);
         } catch (IOException exept) {
-            Modulhelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("IO-Exception: " + exept.getMessage());
         }// try Brief ausgeben
 
         // Adressetikett drucken
         String Zeile1 = adrAnrede_1;
-        String Zeile2 = Modulhelferlein.makeAnrede(adrTitel, adrVorname, adrName);
+        String Zeile2 = ModulHelferlein.makeAnrede(adrTitel, adrVorname, adrName);
         String Zeile3 = adrAnrede_2;
         String Zeile4 = adrStrasse;
         String Zeile5 = "";
@@ -1351,12 +1352,12 @@ public class briefRezension {
 
         String[] splitAutor = Autor.split(",");
 
-        String outputFileName = Modulhelferlein.pathBuchprojekte + "/" + ISBN + "/Rezensionen/Rezension-"
+        String outputFileName = ModulHelferlein.pathBuchprojekte + "/" + ISBN + "/Rezensionen/Rezension-"
                 + ISBN
                 + "-"
                 + Rezensent
                 + "-"
-                + Modulhelferlein.printSimpleDateFormat("yyyyMMdd")
+                + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                 + ".doc";
 
         Dialog.setSize(600, 500);
@@ -1494,7 +1495,7 @@ public class briefRezension {
             run.setText(" ");
             run.setText(" ");
             run.addBreak();
-            run.setText(Modulhelferlein.printSimpleDateFormat("dd.MM.yyyy"));
+            run.setText(ModulHelferlein.printSimpleDateFormat("dd.MM.yyyy"));
             run.addBreak();
             run.addBreak();
             run.setText(" ");
@@ -1632,12 +1633,12 @@ public class briefRezension {
                 document.write(out);
             }
 
-            Modulhelferlein.Infomeldung(outputFileName + " ist als DOC gespeichert!");
+            ModulHelferlein.Infomeldung(outputFileName + " ist als DOC gespeichert!");
             Dialog.setVisible(false);
             try {
                 Runtime.getRuntime().exec("cmd.exe /c " + outputFileName);
             } catch (IOException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "Exception: " + exept.getMessage());
             }// try Brief ausgeben
 

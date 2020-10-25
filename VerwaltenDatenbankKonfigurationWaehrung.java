@@ -56,16 +56,16 @@ public class VerwaltenDatenbankKonfigurationWaehrung extends javax.swing.JDialog
 
         // Datenbank-Treiber laden
         try {
-            Class.forName(Modulhelferlein.dbDriver);
+            Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
-            Modulhelferlein.Fehlermeldung("Treiber nicht gefunden.");
+            ModulHelferlein.Fehlermeldung("Treiber nicht gefunden.");
         }
 
         // Verbindung zur Datenbank über die JDBC-Brücke
         try {
-            conn = DriverManager.getConnection(Modulhelferlein.dbUrl, Modulhelferlein.dbUser, Modulhelferlein.dbPassword);
+            conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
+            ModulHelferlein.Fehlermeldung("Verbindung zur Datenbank nicht moeglich.");
         }
 
         // final Connection conn2=conn;
@@ -100,7 +100,7 @@ public class VerwaltenDatenbankKonfigurationWaehrung extends javax.swing.JDialog
                 } // if notempty
 
             } catch (SQLException exept) {
-                Modulhelferlein.Fehlermeldung(
+                ModulHelferlein.Fehlermeldung(
                         "SQL-Exception: SQL-Anfrage nicht moeglich. "
                         + exept.getMessage());
                 System.exit(1);
@@ -537,20 +537,20 @@ public class VerwaltenDatenbankKonfigurationWaehrung extends javax.swing.JDialog
             } else {
                 result.updateRow();
             }
-            Modulhelferlein.USD = Float.parseFloat(field_Stammdaten.getText());
-            Modulhelferlein.GBP = Float.parseFloat(field_Einnahmen.getText());
-            Modulhelferlein.CHF = Float.parseFloat(field_Ausgaben.getText());
-            Modulhelferlein.NOK = Float.parseFloat(field_Umsaetze.getText());
-            Modulhelferlein.ILS = Float.parseFloat(field_Rechnungen.getText());
-            Modulhelferlein.DKK = Float.parseFloat(field_Sicherung.getText());
-            Modulhelferlein.CAD = Float.parseFloat(field_Mahnungen.getText());
+            ModulHelferlein.USD = Float.parseFloat(field_Stammdaten.getText());
+            ModulHelferlein.GBP = Float.parseFloat(field_Einnahmen.getText());
+            ModulHelferlein.CHF = Float.parseFloat(field_Ausgaben.getText());
+            ModulHelferlein.NOK = Float.parseFloat(field_Umsaetze.getText());
+            ModulHelferlein.ILS = Float.parseFloat(field_Rechnungen.getText());
+            ModulHelferlein.DKK = Float.parseFloat(field_Sicherung.getText());
+            ModulHelferlein.CAD = Float.parseFloat(field_Mahnungen.getText());
             /*
-            Modulhelferlein.pathKonfiguration = field_Termine.getText();
-            Modulhelferlein.pathBuchprojekte = field_Schriftverkehr.getText();
-            Modulhelferlein.pathSteuer = field_Steuer.getText();
+            ModulHelferlein.pathKonfiguration = field_Termine.getText();
+            ModulHelferlein.pathBuchprojekte = field_Schriftverkehr.getText();
+            ModulHelferlein.pathSteuer = field_Steuer.getText();
             */
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
 
         // Dialog schließen
@@ -564,7 +564,7 @@ public class VerwaltenDatenbankKonfigurationWaehrung extends javax.swing.JDialog
             SQLAnfrage.close();
             conn.close();
         } catch (SQLException exept) {
-            Modulhelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
+            ModulHelferlein.Fehlermeldung("SQL-Exception: " + exept.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_jButtonSchliessenActionPerformed
