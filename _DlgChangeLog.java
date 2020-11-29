@@ -92,7 +92,7 @@ public class _DlgChangeLog extends javax.swing.JDialog {
                 jTextArea1.setColumns(20);
                 jTextArea1.setLineWrap(true);
                 jTextArea1.setRows(5);
-                jTextArea1.setText("Feature\n * Umsatzsteueranpassung auf Grund Corona einpflegen\n     - Rechnung/Mahnung\n     - Umsatz\u00fcbersicht Ausgaben\n\nFeature\n * Flyer erstellen\n\nBug-Fix\n * Honorarabrechnung\n\nFeature\n * Mail aus dem Bestelldialog heraus versenden\n\nFeature \n * Benutzerverwaltung  \n\nFeature\n * PDF-Ausgabe/E-Rechnung/Hybrid-PDF  \n\nFeature\n * Sichern und Bereinigen der Datenbank zum Jahresabschluss/-wechsel  \n\nFeature\n * Bericht zu den verkauften B\u00fcchern als Excel-Datei  \n\nFeature\n * Pr\u00fcfen Umsatzsteuer-ID und Ausgabe des Ergebnisses  \n\nFeature\n * Freiexemplar als Option bei Rezensionen  \n\nFeature\n * Buchrechnung um Freitext-Zeilen erg\u00e4nzen  \n\nFeature\n * Adressetikettendruck aus dem Adressen-Dialog  \n\nFeature\n * Rechnungsbetrag Fett  \n\nFeature\n * Dialog Adresse erg\u00e4nzt um Auswahl-Liste  \n\nBug-Fix\n * Ausgabe der Beschreibung bei Rezensionen \n * Richtiger Autorentitel bei mehreren Rezensionen  \n\nBug-Fix\n * Adressaufkleber Adresse 7,8 neu gesetzt\n * Adressaufkleber Adresse 9, 10 neu gesetzt  \n\nFeature\n * Einf\u00fcgen eines Feldes \"BESTELLUNG_STORNIERT\" \n   - Anpassen der Rechnung f\u00fcr den Fall \"STORNIERT\"\n   - Anpassen der Bestellung f\u00fcr den Fall \"STORNIERT\"\n   - Anpassen Berichte Einnahmen, Ums\u00e4tze    \n\nFeature\n * Etikettendruck f\u00fcr Avery Zweckform   \n\nBug-Fix\n * Brief Rezension\n    - Zeilenl\u00e4nge 1. Satz; \n    - Zeilenumbruch 2. Satz, Leerzeichen  \n\nBug-Fix\n * Umbenennen DOC zu DOCX\n * Brief Rezension: Herausgeber/mehrere Autoren ber\u00fccksichtigen  \n\nBug-Fix\n * Bericht Einnahmen: Abfrage der Tabelle bzgl. Einnahmearten\n * Bericht Ums\u00e4tze: Abfrage der Tabelle bzgl. Einnahmearten  \n\nFeature\n * Brief Rezensions-, Pflicht- und Belegexemplar um Text-Feld erg\u00e4nzen    \n\nFeature\n * Info- und Fehlermeldung ein-, zwei- und dreizeilig erm\u00f6glichen  \n\nFeature\n * Belegexemplar als Bestell-Typ  \n\nBug-Fix\n * Liste der B\u00fccher mit f\u00fchrenden Nullen bei ID, Courier New wg. Lesbarkeit");
+                jTextArea1.setText("Bug-Fix\n * Bericht Einnahmen - UStr bei ausl. Einnahmen\n\nFeature\n * Anpassen Adresse - Aktuelaisieren der Stra\u00dfe\n\nFeature\n * Umsatzsteueranpassung auf Grund Corona einpflegen\n      - Rechnung/Mahnung\n      - Umsatz\u00fcbersicht Ausgaben  \n\nFeature\n  * Flyer erstellen  \n\nBug-Fix\n  * Honorarabrechnung  \n\nFeature\n  * Mail aus dem Bestelldialog heraus versenden  \n\nFeature\n   * Benutzerverwaltung   \n\nFeature\n  * PDF-Ausgabe/E-Rechnung/Hybrid-PDF    \n\nFeature\n  * Sichern und Bereinigen der Datenbank zum Jahresabschluss/-wechsel    \n\nFeature\n  * Bericht zu den verkauften B\u00fcchern als Excel-Datei    \n\nFeature\n  * Pr\u00fcfen Umsatzsteuer-ID und Ausgabe des Ergebnisses    \n\nFeature\n  * Freiexemplar als Option bei Rezensionen    \n\nFeature\n  * Buchrechnung um Freitext-Zeilen erg\u00e4nzen    \n\nFeature\n  * Adressetikettendruck aus dem Adressen-Dialog    \n\nFeature\n  * Rechnungsbetrag Fett    \n\nFeature\n  * Dialog Adresse erg\u00e4nzt um Auswahl-Liste    \n\nBug-Fix\n  * Ausgabe der Beschreibung bei Rezensionen\n  * Richtiger Autorentitel bei mehreren Rezensionen    \n\nBug-Fix\n  * Adressaufkleber Adresse 7,8 neu gesetzt\n  * Adressaufkleber Adresse 9, 10 neu gesetzt    \n\nFeature\n  * Einf\u00fcgen eines Feldes \"BESTELLUNG_STORNIERT\"\n    - Anpassen der Rechnung f\u00fcr den Fall \"STORNIERT\"\n    - Anpassen der Bestellung f\u00fcr den Fall \"STORNIERT\"\n    - Anpassen Berichte Einnahmen, Ums\u00e4tze      \n\nFeature\n  * Etikettendruck f\u00fcr Avery Zweckform     \n\nBug-Fix\n  * Brief Rezension\n     - Zeilenl\u00e4nge 1. Satz;\n     - Zeilenumbruch 2. Satz, Leerzeichen\n\nBug-Fix\n  * Umbenennen DOC zu DOCX\n  * Brief Rezension: Herausgeber/mehrere Autoren ber\u00fccksichtigen    \n\nBug-Fix\n  * Bericht Einnahmen: Abfrage der Tabelle bzgl. Einnahmearten\n  * Bericht Ums\u00e4tze: Abfrage der Tabelle bzgl. Einnahmearten    \n\nFeature\n  * Brief Rezensions-, Pflicht- und Belegexemplar um Text-Feld erg\u00e4nzen      \n\nFeature\n  * Info- und Fehlermeldung ein-, zwei- und dreizeilig erm\u00f6glichen    \n\nFeature\n  * Belegexemplar als Bestell-Typ    \n\nBug-Fix\n  * Liste der B\u00fccher mit f\u00fchrenden Nullen bei ID, Courier New wg. Lesbarkeit");
                 jTextArea1.setWrapStyleWord(true);
                 jTextArea1.setFocusable(false);
                 jScrollPane1.setViewportView(jTextArea1);
@@ -106,10 +106,10 @@ public class _DlgChangeLog extends javax.swing.JDialog {
                         .addContainerGap()
                         .addGroup(panel1Layout.createParallelGroup()
                             .addComponent(jLabel1)
-                            .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 684, GroupLayout.PREFERRED_SIZE)
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addGap(322, 322, 322)
-                                .addComponent(jButtonSchliessen)))
+                                .addComponent(jButtonSchliessen))
+                            .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 684, GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(16, Short.MAX_VALUE))
             );
             panel1Layout.setVerticalGroup(
@@ -119,7 +119,7 @@ public class _DlgChangeLog extends javax.swing.JDialog {
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonSchliessen)
                         .addContainerGap(12, Short.MAX_VALUE))
             );

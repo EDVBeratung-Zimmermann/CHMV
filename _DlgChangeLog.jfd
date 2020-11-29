@@ -58,11 +58,11 @@
          <class>org.jdesktop.layout.GroupLayout</class>
          <void method="setProperty">
           <string>$horizontalGroup</string>
-          <string>par l {seq l {space :::p, par l {comp jLabel1:::p::p, comp jScrollPane1:::p:684:p, seq l {space :322:322:p, comp jButtonSchliessen:::p::p}}, space ::16:x}}</string>
+          <string>par l {seq {space :::p, par l {comp jLabel1:::p::p, seq l {space :322:322:p, comp jButtonSchliessen:::p::p}, comp jScrollPane1::l:p:684:p}, space ::16:x}}</string>
          </void>
          <void method="setProperty">
           <string>$verticalGroup</string>
-          <string>par l {seq l {space :::p, comp jLabel1:::p::p, space :18:18:p, comp jScrollPane1:::p:203:p, space :11:11:p, comp jButtonSchliessen:::p::p, space ::12:x}}</string>
+          <string>par l {seq l {space :::p, comp jLabel1:::p::p, space :p:18:p, comp jScrollPane1:::p:203:p, space u:::p, comp jButtonSchliessen:::p::p, space ::12:x}}</string>
          </void>
         </object>
         <void property="name">
@@ -138,91 +138,97 @@
             </void>
             <void method="setProperty">
              <string>text</string>
-             <string>Feature
+             <string>Bug-Fix
+ * Bericht Einnahmen - UStr bei ausl. Einnahmen
+
+Feature
+ * Anpassen Adresse - Aktuelaisieren der Straße
+
+Feature
  * Umsatzsteueranpassung auf Grund Corona einpflegen
-     - Rechnung/Mahnung
-     - Umsatzübersicht Ausgaben
+      - Rechnung/Mahnung
+      - Umsatzübersicht Ausgaben  
 
 Feature
- * Flyer erstellen
+  * Flyer erstellen  
 
 Bug-Fix
- * Honorarabrechnung
+  * Honorarabrechnung  
 
 Feature
- * Mail aus dem Bestelldialog heraus versenden
-
-Feature 
- * Benutzerverwaltung  
+  * Mail aus dem Bestelldialog heraus versenden  
 
 Feature
- * PDF-Ausgabe/E-Rechnung/Hybrid-PDF  
+   * Benutzerverwaltung   
 
 Feature
- * Sichern und Bereinigen der Datenbank zum Jahresabschluss/-wechsel  
+  * PDF-Ausgabe/E-Rechnung/Hybrid-PDF    
 
 Feature
- * Bericht zu den verkauften Büchern als Excel-Datei  
+  * Sichern und Bereinigen der Datenbank zum Jahresabschluss/-wechsel    
 
 Feature
- * Prüfen Umsatzsteuer-ID und Ausgabe des Ergebnisses  
+  * Bericht zu den verkauften Büchern als Excel-Datei    
 
 Feature
- * Freiexemplar als Option bei Rezensionen  
+  * Prüfen Umsatzsteuer-ID und Ausgabe des Ergebnisses    
 
 Feature
- * Buchrechnung um Freitext-Zeilen ergänzen  
+  * Freiexemplar als Option bei Rezensionen    
 
 Feature
- * Adressetikettendruck aus dem Adressen-Dialog  
+  * Buchrechnung um Freitext-Zeilen ergänzen    
 
 Feature
- * Rechnungsbetrag Fett  
+  * Adressetikettendruck aus dem Adressen-Dialog    
 
 Feature
- * Dialog Adresse ergänzt um Auswahl-Liste  
+  * Rechnungsbetrag Fett    
+
+Feature
+  * Dialog Adresse ergänzt um Auswahl-Liste    
 
 Bug-Fix
- * Ausgabe der Beschreibung bei Rezensionen 
- * Richtiger Autorentitel bei mehreren Rezensionen  
+  * Ausgabe der Beschreibung bei Rezensionen
+  * Richtiger Autorentitel bei mehreren Rezensionen    
 
 Bug-Fix
- * Adressaufkleber Adresse 7,8 neu gesetzt
- * Adressaufkleber Adresse 9, 10 neu gesetzt  
+  * Adressaufkleber Adresse 7,8 neu gesetzt
+  * Adressaufkleber Adresse 9, 10 neu gesetzt    
 
 Feature
- * Einfügen eines Feldes &quot;BESTELLUNG_STORNIERT&quot; 
-   - Anpassen der Rechnung für den Fall &quot;STORNIERT&quot;
-   - Anpassen der Bestellung für den Fall &quot;STORNIERT&quot;
-   - Anpassen Berichte Einnahmen, Umsätze    
+  * Einfügen eines Feldes &quot;BESTELLUNG_STORNIERT&quot;
+    - Anpassen der Rechnung für den Fall &quot;STORNIERT&quot;
+    - Anpassen der Bestellung für den Fall &quot;STORNIERT&quot;
+    - Anpassen Berichte Einnahmen, Umsätze      
 
 Feature
- * Etikettendruck für Avery Zweckform   
+  * Etikettendruck für Avery Zweckform     
 
 Bug-Fix
- * Brief Rezension
-    - Zeilenlänge 1. Satz; 
-    - Zeilenumbruch 2. Satz, Leerzeichen  
+  * Brief Rezension
+     - Zeilenlänge 1. Satz;
+     - Zeilenumbruch 2. Satz, Leerzeichen
 
 Bug-Fix
- * Umbenennen DOC zu DOCX
- * Brief Rezension: Herausgeber/mehrere Autoren berücksichtigen  
+  * Umbenennen DOC zu DOCX
+  * Brief Rezension: Herausgeber/mehrere Autoren berücksichtigen    
 
 Bug-Fix
- * Bericht Einnahmen: Abfrage der Tabelle bzgl. Einnahmearten
- * Bericht Umsätze: Abfrage der Tabelle bzgl. Einnahmearten  
+  * Bericht Einnahmen: Abfrage der Tabelle bzgl. Einnahmearten
+  * Bericht Umsätze: Abfrage der Tabelle bzgl. Einnahmearten    
 
 Feature
- * Brief Rezensions-, Pflicht- und Belegexemplar um Text-Feld ergänzen    
+  * Brief Rezensions-, Pflicht- und Belegexemplar um Text-Feld ergänzen      
 
 Feature
- * Info- und Fehlermeldung ein-, zwei- und dreizeilig ermöglichen  
+  * Info- und Fehlermeldung ein-, zwei- und dreizeilig ermöglichen    
 
 Feature
- * Belegexemplar als Bestell-Typ  
+  * Belegexemplar als Bestell-Typ    
 
 Bug-Fix
- * Liste der Bücher mit führenden Nullen bei ID, Courier New wg. Lesbarkeit</string>
+  * Liste der Bücher mit führenden Nullen bei ID, Courier New wg. Lesbarkeit</string>
             </void>
             <void method="setProperty">
              <string>wrapStyleWord</string>
