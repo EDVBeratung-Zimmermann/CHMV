@@ -314,20 +314,20 @@ System.out.println("Corona-Zeitraum ist geprüft");
                             } // while bestellung details
 
                             // Abzug der Umsatzsteuer bei Drittland etc.
-//                            switch (resultBestellung.getInt("BESTELLUNG_LAND")) {
-//                                case 20 : Gesamtzeile = Gesamtzeile / 107 * 100;
-//                                    break;
-//                                case 21 : Gesamtzeile = Gesamtzeile / 107 * 100;
-//                                    break;
-//                                case 10 : if (!resultBestellung.getBoolean("BESTELLUNG_PRIVAT")) {
-//                                                Gesamtzeile = Gesamtzeile / 107 * 100;
-//                                          }
-//                                    break;
-//                                case 11 : if (!resultBestellung.getBoolean("BESTELLUNG_PRIVAT")) {
-//                                                Gesamtzeile = Gesamtzeile / 107 * 100;
-//                                          }
-//                                    break;
-//                            }
+                            switch (resultBestellung.getInt("BESTELLUNG_LAND")) {
+                                case 20 : Gesamtzeile = Gesamtzeile / 107 * 100;
+                                    break;
+                                case 21 : Gesamtzeile = Gesamtzeile / 107 * 100;
+                                    break;
+                                case 10 : if (!resultBestellung.getBoolean("BESTELLUNG_PRIVAT")) {
+                                                Gesamtzeile = Gesamtzeile / 107 * 100;
+                                          }
+                                    break;
+                                case 11 : if (!resultBestellung.getBoolean("BESTELLUNG_PRIVAT")) {
+                                                Gesamtzeile = Gesamtzeile / 107 * 100;
+                                          }
+                                    break;
+                            }
                             // Versandkosten addieren
                             Gesamtzeile = Gesamtzeile + resultBestellung.getFloat("BESTELLUNG_VERSAND") * 1D;
 
