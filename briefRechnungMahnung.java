@@ -1160,7 +1160,7 @@ public class briefRechnungMahnung {
                     XmlCursor cursor = paragraphFooter.getCTP().newCursor();
                     XWPFTable tableFooter = footer.insertNewTbl(cursor);
 
-                    String[] strFooter1 = {"Carola Hartmann Miles Verlag", "Alt Kladow 16d", "14089 Berlin"};
+                    String[] strFooter1 = {"Carola Hartmann Miles Verlag", "George-Caylay-Straﬂe 38", "14089 Berlin"};
                     String[] strFooter2 = {"Dipl.Kff. Carola Hartmann", "Telefon +49 (0)30 36 28 86 77", "Volksbank Berlin"};
                     String[] strFooter3 = {"StrNr 19 332 6006 5", "E-Mail miles-verlag@t-online.de", "IBAN DE61 1009 0000 2233 8320 17"};
                     String[] strFooter4 = {"UStrID DE 269 369 5", "www.miles-verlag.jimdo.com", "BIC BEVODEBB"};
@@ -1372,7 +1372,7 @@ public class briefRechnungMahnung {
                     AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
                     AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
                     AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
-                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, "Alt Kladow 16d");
+                    AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, "George-Caylay-Straﬂe 38");
                     AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
                     AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
                     AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
@@ -1388,7 +1388,7 @@ public class briefRechnungMahnung {
 
                     System.out.println("- Faltmarke erzeugt");
 // Absenderzeile
-                    AusgabeLB(cos, fontPlain, 8, Color.BLACK, 50, 751, "C. Hartmann Miles-Verlag - Alt Kladow 16d - 14089 Berlin");
+                    AusgabeLB(cos, fontPlain, 8, Color.BLACK, 50, 751, "C. Hartmann Miles-Verlag - George-Caylay-Straﬂe 38 - 14089 Berlin");
                     Linie(cos, 1, 50, 749, 297, 749);
 
                     System.out.println("- Absenderzeile erzeugt");
@@ -2084,7 +2084,7 @@ public class briefRechnungMahnung {
                         AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 25, "Dipl.Kff. Carola Hartmann");
                         AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
                         AusgabeLB(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
-                        AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, "Alt Kladow 16d");
+                        AusgabeLB(cos, fontBold, 10, Color.GRAY, 230, 35, "George-Caylay-Straﬂe 38");
                         AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
                         AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
                         AusgabeLB(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");

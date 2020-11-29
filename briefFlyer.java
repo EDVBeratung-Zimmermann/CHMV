@@ -126,7 +126,7 @@ public class briefFlyer {
                 //Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 15, "Steuernr.: 19 332 6006 5");
                 //Ausgabe(cos, fontBold, 9, Color.GRAY, 55, 5, "USt-IDNr: DE 269 369 280");
 
-                //Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("Alt Kladow 16d"));
+                //Ausgabe(cos, fontBold, 10, Color.GRAY, 230, 35, ModulHelferlein.CheckStr("George-Caylay-Straﬂe 38"));
                 //Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 25, "Telefon: +49 (0)30 36 28 86 77");
                 //Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 15, "e-Mail: miles-verlag@t-online.de");
                 //Ausgabe(cos, fontBold, 9, Color.GRAY, 230, 5, "Internet: www.miles-verlag.jimdo.com");
@@ -220,7 +220,7 @@ public class briefFlyer {
 
                     AusgabeLB(cos, fontBold, 11, Color.BLACK, 315, 350, "Bitte senden Sie Ihre Bestellung an");
                     AusgabeLB(cos, fontPlain, 11, Color.BLACK, 315, 330, "Carola Hartmann Miles Verlag");
-                    AusgabeLB(cos, fontPlain, 11, Color.BLACK, 315, 315, "Alt-Kladow 16D");
+                    AusgabeLB(cos, fontPlain, 11, Color.BLACK, 315, 315, "George-Caylay-Straﬂe 38");
                     AusgabeLB(cos, fontPlain, 11, Color.BLACK, 315, 300, "14089 Berlin");
                     AusgabeLB(cos, fontBold, 11, Color.BLACK, 315, 280, "oder per E-Mail an");
                     AusgabeLB(cos, fontPlain, 11, Color.BLACK, 315, 260, "miles-verlag@t-online.de");
