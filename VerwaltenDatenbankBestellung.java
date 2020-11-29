@@ -669,7 +669,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         jLabel26 = new JLabel();
         jPanel2 = new JPanel();
         jScrollPane1 = new JScrollPane();
-        jList1 = new JList<>();
+        jListRechnungen = new JList<>();
         jLabel5 = new JLabel();
         jLabel29 = new JLabel();
         KDB = new JRadioButton();
@@ -855,15 +855,15 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 //======== jScrollPane1 ========
                 {
 
-                    //---- jList1 ----
-                    jList1.setModel(listModel);
-                    jList1.addMouseListener(new MouseAdapter() {
+                    //---- jListRechnungen ----
+                    jListRechnungen.setModel(listModel);
+                    jListRechnungen.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             jList1MouseClicked(e);
                         }
                     });
-                    jScrollPane1.setViewportView(jList1);
+                    jScrollPane1.setViewportView(jListRechnungen);
                 }
 
                 GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
@@ -1407,7 +1407,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             panel1.add(rbRemittende);
             rbRemittende.setBounds(455, 288, 235, rbRemittende.getPreferredSize().height);
 
-            { // compute preferred size
+            {
+                // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
                     Rectangle bounds = panel1.getComponent(i).getBounds();
@@ -1478,6 +1479,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         try {
             resultB.first();
             count = 1;
+            jListRechnungen.setSelectedIndex(count-1);
+            jListRechnungen.ensureIndexIsVisible(count-1);
             field_count.setText(Integer.toString(count));
 
             field_EMail.setText(resultB.getString("BESTELLUNG_EMAIL"));
@@ -2322,6 +2325,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         try {
             if (resultB.previous()) {
                 count = count - 1;
+                jListRechnungen.setSelectedIndex(count-1);
+                jListRechnungen.ensureIndexIsVisible(count-1);
                 field_count.setText(Integer.toString(count));
 
                 // Schalterzustand anpassen
@@ -2569,6 +2574,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         try {
             if (resultB.next()) {
                 count = count + 1;
+                jListRechnungen.setSelectedIndex(count-1);
+                jListRechnungen.ensureIndexIsVisible(count-1);
                 field_count.setText(Integer.toString(count));
 
                 // Schalterzustand anpassen
@@ -2816,6 +2823,8 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         try {
             resultB.last();
             count = countMax;
+            jListRechnungen.setSelectedIndex(count-1);
+            jListRechnungen.ensureIndexIsVisible(count-1);
             field_count.setText(Integer.toString(count));
             switch (resultB.getInt("BESTELLUNG_TYP")) {
                 case 0:
@@ -3677,7 +3686,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             // get selected item
-            List<String> ListeAdressen = jList1.getSelectedValuesList();
+            List<String> ListeAdressen = jListRechnungen.getSelectedValuesList();
             // get Adresssen_ID
             String[] Listeneintrag = ListeAdressen.get(0).split(", ");
 //helferlein.Infomeldung(ListeAdressen.get(0)+" "+Integer.toString(Listeneintrag.length)+" "+Listeneintrag[Listeneintrag.length-1]);            
@@ -4016,7 +4025,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
     private JLabel jLabel26;
     private JPanel jPanel2;
     private JScrollPane jScrollPane1;
-    private JList<String> jList1;
+    private JList<String> jListRechnungen;
     private JLabel jLabel5;
     private JLabel jLabel29;
     private JRadioButton KDB;
