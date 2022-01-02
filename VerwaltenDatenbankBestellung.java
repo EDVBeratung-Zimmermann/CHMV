@@ -268,7 +268,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
         } // try Verbindung zur Datenbank über die JDBC-Brücke
 
         if (conn != null) {
-
+System.out.println("Verbindung zur Datenbank steht");
             SQLAnfrageB = null; // Anfrage erzeugen für result => Bestellungen
             SQLAnfrageBD = null; // Anfrage erzeugen für resultB => Bestellungen Details
             SQLAnfrageK = null; // Anfrage erzeugen für resultK => Aufbau Kundenliste
@@ -286,6 +286,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 cbKunde.addItem(eintrag);
 
                 // Auswahlliste für Kunden und Autoren erstellen   
+System.out.println("Auswahlliste für Kunden und Autoren erstellen");                
                 resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE "
                         + "WHERE ((ADRESSEN_Typ = 'Kunde') "
                         + "OR (ADRESSEN_Typ = 'Autor') "
@@ -307,6 +308,7 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 }
 
                 // Auswahlliste für Bücher erstellen   
+System.out.println("Auswahlliste für Kunden und Autoren erstellen");                  
                 cbBuch.addItem("000, -------------, --------------------------------");
                 resultBuch = SQLAnfrageBuch.executeQuery("SELECT * FROM TBL_BUCH ORDER BY BUCH_ISBN");
                 while (resultBuch.next()) {
@@ -455,9 +457,17 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                     } else {
                         manuell.setSelected(false);
                         KDB.setSelected(true);
-                        resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
-                        resultK.next();
-                        cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME"));
+                        try {
+                            resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                            resultK.next();
+                            cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME") + ", " + resultK.getString("ADRESSEN_ORT"));
+                        } catch (Exception except) {
+                            ModulHelferlein.Fehlermeldung("Bestellungen bearbeiten - Fehler bei Hole Kundendaten", "Kunde-ID: " + resultB.getString("BESTELLUNG_KUNDE"), except.getMessage());
+System.out.println("Fehler bei Kundendaten für Kunde " + resultB.getString("BESTELLUNG_KUNDE"));                            
+                            manuell.setSelected(false);
+                            KDB.setSelected(true);
+                            cbKunde.setSelectedItem("0, ----------, -----------");
+                        }
                     }
 
                     // Bestellungdetails lesen - ermittle größe ID
@@ -1559,11 +1569,19 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
             field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
             if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
-                resultK = SQLAnfrageK.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'");
-                resultK.next();
-                cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME"));
-                manuell.setSelected(false);
-                KDB.setSelected(true);
+                try {
+                    resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                    resultK.next();
+                    cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME") + ", " + resultK.getString("ADRESSEN_ORT"));
+                    manuell.setSelected(false);
+                    KDB.setSelected(true);
+                } catch (Exception except) {
+                    ModulHelferlein.Fehlermeldung("Bestellungen bearbeiten - Fehler bei Hole Kundendaten", "Kunde-ID: " + resultB.getString("BESTELLUNG_KUNDE"), except.getMessage());
+System.out.println("Fehler bei Kundendaten für Kunde " + resultB.getString("BESTELLUNG_KUNDE"));                            
+                    manuell.setSelected(false);
+                    KDB.setSelected(true);
+                    cbKunde.setSelectedItem("0, ----------, -----------");
+                }
             } else {
                 cbKunde.setSelectedItem("0, ----------, -----------");
                 manuell.setSelected(true);
@@ -2086,11 +2104,19 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
                 field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
                 if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
-                    resultK = SQLAnfrageK.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'");
-                    resultK.next();
-                    cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME"));
-                    manuell.setSelected(false);
-                    KDB.setSelected(true);
+                    try {
+                        resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                        resultK.next();
+                        cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME") + ", " + resultK.getString("ADRESSEN_ORT"));
+                        manuell.setSelected(false);
+                        KDB.setSelected(true);
+                    } catch (Exception except) {
+                        ModulHelferlein.Fehlermeldung("Bestellungen bearbeiten - Fehler bei Hole Kundendaten", "Kunde-ID: " + resultB.getString("BESTELLUNG_KUNDE"), except.getMessage());
+System.out.println("Fehler bei Kundendaten für Kunde " + resultB.getString("BESTELLUNG_KUNDE"));                            
+                        manuell.setSelected(false);
+                        KDB.setSelected(true);
+                        cbKunde.setSelectedItem("0, ----------, -----------");
+                    }
                 } else {
                     cbKunde.setSelectedItem("0, ----------, -----------");
                     manuell.setSelected(true);
@@ -2426,11 +2452,19 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
             field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
             if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
-                resultK = SQLAnfrageK.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'");
-                resultK.next();
-                cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME"));
-                manuell.setSelected(false);
-                KDB.setSelected(true);
+                try {
+                    resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                    resultK.next();
+                    cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME") + ", " + resultK.getString("ADRESSEN_ORT"));
+                    manuell.setSelected(false);
+                    KDB.setSelected(true);
+                } catch (Exception except) {
+                    ModulHelferlein.Fehlermeldung("Bestellungen bearbeiten - Fehler bei Hole Kundendaten", "Kunde-ID: " + resultB.getString("BESTELLUNG_KUNDE"), except.getMessage());
+System.out.println("Fehler bei Kundendaten für Kunde " + resultB.getString("BESTELLUNG_KUNDE"));                            
+                    manuell.setSelected(false);
+                    KDB.setSelected(true);
+                    cbKunde.setSelectedItem("0, ----------, -----------");
+                }
             } else {
                 cbKunde.setSelectedItem("0, ----------, -----------");
                 manuell.setSelected(true);
@@ -2675,11 +2709,19 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
             field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
             if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
-                resultK = SQLAnfrageK.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'");
-                resultK.next();
-                cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME"));
-                manuell.setSelected(false);
-                KDB.setSelected(true);
+                try {
+                    resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                    resultK.next();
+                    cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME") + ", " + resultK.getString("ADRESSEN_ORT"));
+                    manuell.setSelected(false);
+                    KDB.setSelected(true);
+                } catch (Exception except) {
+                    ModulHelferlein.Fehlermeldung("Bestellungen bearbeiten - Fehler bei Hole Kundendaten", "Kunde-ID: " + resultB.getString("BESTELLUNG_KUNDE"), except.getMessage());
+System.out.println("Fehler bei Kundendaten für Kunde " + resultB.getString("BESTELLUNG_KUNDE"));                            
+                    manuell.setSelected(false);
+                    KDB.setSelected(true);
+                    cbKunde.setSelectedItem("0, ----------, -----------");
+                }
             } else {
                 cbKunde.setSelectedItem("0, ----------, -----------");
                 manuell.setSelected(true);
@@ -2902,12 +2944,20 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
             field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
             field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
             if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
-                resultK = SQLAnfrageK.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'");
-                resultK.next();
-                cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME"));
-                manuell.setSelected(false);
-                KDB.setSelected(true);
-            } else {
+                try {
+                    resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                    resultK.next();
+                    cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME") + ", " + resultK.getString("ADRESSEN_ORT"));
+                    manuell.setSelected(false);
+                    KDB.setSelected(true);
+                } catch (Exception except) {
+                    ModulHelferlein.Fehlermeldung("Bestellungen bearbeiten - Fehler bei Hole Kundendaten", "Kunde-ID: " + resultB.getString("BESTELLUNG_KUNDE"), except.getMessage());
+System.out.println("Fehler bei Kundendaten für Kunde " + resultB.getString("BESTELLUNG_KUNDE"));                            
+                    manuell.setSelected(false);
+                    KDB.setSelected(true);
+                    cbKunde.setSelectedItem("0, ----------, -----------");
+            }
+                } else {
                 cbKunde.setSelectedItem("0, ----------, -----------");
                 manuell.setSelected(true);
                 KDB.setSelected(false);
@@ -3792,11 +3842,19 @@ public class VerwaltenDatenbankBestellung extends javax.swing.JDialog {
                 field_Privat.setSelected(resultB.getBoolean("BESTELLUNG_PRIVAT"));
                 field_storniert.setSelected(resultB.getBoolean("BESTELLUNG_STORNIERT"));
                 if (resultB.getInt("BESTELLUNG_KUNDE") > 0) {
-                    resultK = SQLAnfrageK.executeQuery("SELECT * FROM tbl_adresse WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'");
-                    resultK.next();
-                    cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME") + ", " + resultK.getString("ADRESSEN_ORT"));
-                    manuell.setSelected(false);
-                    KDB.setSelected(true);
+                    try {
+                        resultK = SQLAnfrageK.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + "'"); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert 
+                        resultK.next();
+                        cbKunde.setSelectedItem(Integer.toString(resultB.getInt("BESTELLUNG_KUNDE")) + ", " + resultK.getString("ADRESSEN_NAME") + ", " + resultK.getString("ADRESSEN_VORNAME") + ", " + resultK.getString("ADRESSEN_ORT"));
+                        manuell.setSelected(false);
+                        KDB.setSelected(true);
+                    } catch (Exception except) {
+                        ModulHelferlein.Fehlermeldung("Bestellungen bearbeiten - Fehler bei Hole Kundendaten", "Kunde-ID: " + resultB.getString("BESTELLUNG_KUNDE"), except.getMessage());
+System.out.println("Fehler bei Kundendaten für Kunde " + resultB.getString("BESTELLUNG_KUNDE"));                            
+                        manuell.setSelected(false);
+                        KDB.setSelected(true);
+                        cbKunde.setSelectedItem("0, ----------, -----------");
+                    }
                 } else {
                     cbKunde.setSelectedItem("0, ----------, -----------");
                     manuell.setSelected(true);

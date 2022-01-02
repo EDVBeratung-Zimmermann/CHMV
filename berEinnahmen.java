@@ -223,7 +223,9 @@ System.out.println("Verbindung zur Datenbank steht");
                             Sql = Sql + " WHERE (BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "')";
                         }
                         Sql = Sql + " ORDER BY BESTELLUNG_RECHNR";
-System.out.println("Abfrage mit " + Sql);                        
+System.out.println("Beginne mit der Berichtserstellung ...");                         
+System.out.println("- Einnahmen aus Buchbestellungen");                         
+System.out.println("  Abfrage mit " + Sql);                        
                         resultBestellung = SQLBestellung.executeQuery(Sql);
 
                         // gibt es Corona-Ermäßigung: BESTELLUNG_RECHDAT im Zeitraum 2020-07-01 und 2020-12-31
@@ -232,24 +234,35 @@ System.out.println("Abfrage mit " + Sql);
                         Date date2 = sdf.parse("2021-01-01");
                         java.lang.Boolean Corona;
                         while (resultBestellung.next()) { // geht durch alle zeilen
+System.out.println("  - prüfe Bestellung "+resultBestellung.getString("BESTELLUNG_RECHNR") + " vom " + resultBestellung.getDate("BESTELLUNG_RECHDAT"));                            
                             if ((resultBestellung.getDate("BESTELLUNG_RECHDAT").compareTo(date1) > 0) && (resultBestellung.getDate("BESTELLUNG_RECHDAT").compareTo(date2) < 0)) {
                                 Corona = true;
                             } else {
                                 Corona = false;
                             }
-System.out.println("Corona-Zeitraum ist geprüft");   
+System.out.println("    - Corona-Zeitraum ist geprüft");   
+System.out.println("    - hole Kundendaten für Kunde " + resultBestellung.getString("BESTELLUNG_KUNDE"));
                             // Kundendaten holen
                             if (resultBestellung.getInt("BESTELLUNG_KUNDE") > 0) {
-                                resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
-                                resultKunde.next();
-                                strKunde = resultKunde.getString("ADRESSEN_NAME");
-                                strLand = resultKunde.getString("ADRESSEN_ZUSATZ_3");
+                                try {
+                                    resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
+                                    resultKunde.next();
+                                    strKunde = resultKunde.getString("ADRESSEN_NAME");
+                                    strLand = resultKunde.getString("ADRESSEN_ZUSATZ_3");
+                                } catch (Exception exept) {
+                                    ModulHelferlein.Fehlermeldung("Bericht Einnahmen - Hole Kundendaten", "Kunde-ID: " + resultBestellung.getString("BESTELLUNG_KUNDE"), exept.getMessage());
+                                    strKunde = "UNKNOWN";
+                                    strLand = "UNKONWN";
+System.out.println("    - Fehler bei Kundendaten für Kunde " + resultBestellung.getString("BESTELLUNG_KUNDE"));
+                                } // try Datenbankabfrage für Kundendaten
                             } else {
                                 strKunde = resultBestellung.getString("BESTELLUNG_ZEILE_2");
                                 strLand = resultBestellung.getString("BESTELLUNG_ZEILE_6");
                             }
+System.out.println("      => " + strKunde + ", " + strLand);
 
                             // Bemerkungsfeld bestimmen
+System.out.println("    - bestimme Bemerkungsfeld");                            
                             switch (resultBestellung.getInt("BESTELLUNG_TYP")) {
                                 case 5:
                                     Bemerkung = "Ersatzexemplar/Remittende";
@@ -288,6 +301,9 @@ System.out.println("Corona-Zeitraum ist geprüft");
                                 Bemerkung = "storniert";
                             }
                             // Buchdaten holen aus BESTELLUNG_DETAILS
+System.out.println("    - hole Details");                            
+System.out.println("      SELECT * FROM TBL_BESTELLUNG_DETAIL ");
+System.out.println("             WHERE BESTELLUNG_DETAIL_RECHNR = " + resultBestellung.getString("BESTELLUNG_RECHNR"));
                             resultBestellungDetails = SQLBestellungDetails.executeQuery("SELECT * FROM TBL_BESTELLUNG_DETAIL WHERE BESTELLUNG_DETAIL_RECHNR = '" + resultBestellung.getString("BESTELLUNG_RECHNR") + "'");
 
                             Gesamtzeile = 0D;
@@ -359,6 +375,7 @@ System.out.println("Corona-Zeitraum ist geprüft");
 
                             zeile = zeile + 1;
                         } // while bestellungen geht durch alle zeilen
+System.out.println("    Durchgang beendet ...");  
                         zeile = zeile + 1;
                         label = new Label(0, zeile, "Gesamtsumme:", arial10formatBold);
                         sheet_Buecher.addCell(label);
@@ -397,6 +414,8 @@ System.out.println("Corona-Zeitraum ist geprüft");
                                     + "       AND EINNAHMEN_TYP = '2'"
                                     + " ORDER BY EINNAHMEN_RECHDATUM";
                         }
+System.out.println("- Einnahmen aus Druckkostenzuschüssen");    
+System.out.println("  Abfrage mit " + Sql);                           
                         resultBestellung = SQLBestellung.executeQuery(Sql);
 
                         Gesamtzeile = 0D;
@@ -425,6 +444,7 @@ System.out.println("Corona-Zeitraum ist geprüft");
 
                             Gesamtsumme = Gesamtsumme + Gesamtzeile;
                         } // geht durch alle zeilen
+System.out.println("  ... zweiter Durchgang beendet ...");                         
                         zeile = zeile + 1;
                         label = new Label(0, zeile, "Gesamtsumme:", arial10formatBold);
                         sheet_Druckkosten.addCell(label);
@@ -465,7 +485,9 @@ System.out.println("Corona-Zeitraum ist geprüft");
                                     + " ORDER BY EINNAHMEN_RECHDATUM";
                         }
                         resultBestellung = SQLBestellung.executeQuery(Sql); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert
-
+System.out.println("  ... dritter Durchgang beendet ..."); 
+System.out.println("- Einnahmen aus Abrechnungen VG-Wort");    
+System.out.println("  Abfrage mit " + Sql); 
                         while (resultBestellung.next()) { // geht durch alle zeilen
                             Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
 
@@ -532,7 +554,9 @@ System.out.println("Corona-Zeitraum ist geprüft");
                                     + " ORDER BY EINNAHMEN_RECHDATUM";
                         }
                         resultBestellung = SQLBestellung.executeQuery(Sql); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert
-
+System.out.println("  ... vierter Durchgang beendet ..."); 
+System.out.println("- Einnahmen aus Margenabrechnungen BOD");    
+System.out.println("  Abfrage mit " + Sql); 
                         while (resultBestellung.next()) { // geht durch alle zeilen
                             Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
 
@@ -588,7 +612,9 @@ System.out.println("Corona-Zeitraum ist geprüft");
                                     + " ORDER BY EINNAHMEN_RECHDATUM";
                         }
                         resultBestellung = SQLBestellung.executeQuery(Sql); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert
-
+System.out.println("  ... fünfter Durchgang beendet ..."); 
+System.out.println("- Einnahmen aus Sonstigem");    
+System.out.println("  Abfrage mit " + Sql); 
                         while (resultBestellung.next()) { // geht durch alle zeilen
                             Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
 
@@ -647,7 +673,9 @@ System.out.println("Corona-Zeitraum ist geprüft");
                                     + " ORDER BY EINNAHMEN_RECHDATUM";
                         }
                         resultBestellung = SQLBestellung.executeQuery(Sql); // schickt SQL an DB und erzeugt ergebnis -> wird in result gespeichert
-
+System.out.println("  ... sechster Durchgang beendet ..."); 
+System.out.println("- Einnahmen aus Kundenbestellungen");    
+System.out.println("  Abfrage mit " + Sql); 
                         while (resultBestellung.next()) { // geht durch alle zeilen
                             Gesamtzeile = resultBestellung.getFloat("EINNAHMEN_KOSTEN") * 1.0;
                             einKunde = einKunde + Gesamtzeile;
@@ -927,10 +955,17 @@ System.out.println("Corona-Zeitraum ist geprüft");
                         String strLand = "";
 
                         if (resultBestellung.getInt("BESTELLUNG_KUNDE") > 0) {
-                            resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
-                            resultKunde.next();
-                            strKunde = resultKunde.getString("ADRESSEN_NAME");
-                            strLand = resultKunde.getString("ADRESSEN_ZUSATZ_3");
+                            try {
+                                resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
+                                resultKunde.next();
+                                strKunde = resultKunde.getString("ADRESSEN_NAME");
+                                strLand = resultKunde.getString("ADRESSEN_ZUSATZ_3");
+                            } catch (Exception exept) {
+                                ModulHelferlein.Fehlermeldung("Bericht Einnahmen - Hole Kundendaten", "Kunde-ID: " + resultBestellung.getString("BESTELLUNG_KUNDE"), exept.getMessage());
+                                strKunde = "UNKNOWN";
+                                strLand = "UNKONWN";
+System.out.println("    - Fehler bei Kundendaten für Kunde " + resultBestellung.getString("BESTELLUNG_KUNDE"));
+                            } // try Datenbankabfrage für Kundendaten
                         } else {
                             strKunde = resultBestellung.getString("BESTELLUNG_ZEILE_2");
                             strLand = resultBestellung.getString("BESTELLUNG_ZEILE_6");

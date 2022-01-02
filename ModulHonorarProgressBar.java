@@ -66,7 +66,7 @@ public class ModulHonorarProgressBar extends JPanel
     private static ResultSet resultBestellungDetails = null;
     private static ResultSet resultVerrechnung = null;
 
-    private static Integer ID = 0;
+    private static Integer HONORAR_ID = 0;
     private static Integer zeile = 0;
     private static String Filename = "";
     private static String strVon = "";
@@ -117,6 +117,7 @@ public class ModulHonorarProgressBar extends JPanel
             }                       // try Verbindung zur Datenbank über die JDBC-Brücke
 
             if (conn != null) {    // Datenbankverbindung steht
+                Log("Verbindung zur Datenbank steht");                
                 try {
                     SQLBestellungDetails = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     SQLBestellung = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -129,15 +130,18 @@ public class ModulHonorarProgressBar extends JPanel
                     SQLHonorar = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     SQLHonorar.executeUpdate("DELETE FROM TBL_HONORAR");
                     Log("   -> Tabelle Honorar ist geleert");
+                    SQLHonorar.executeUpdate("ALTER TABLE TBL_HONORAR MODIFY HONORAR_TITEL TEXT CHARACTER SET utf8");
+                    Log("   -> Spalte Honorar-Titel ist auf UTF umgestellt");
                     Log("");
 
 // 2. Tabelle Honorar erstellen 
                     progress = 10; 
                     SQLBuch = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID > '0' AND BUCH_HONORAR = '1'");
-                    ID = 1;      
+                    HONORAR_ID = 1;      
                     Log("2. Tabelle Honorar erstellen ...");
                     while (resultBuch.next()) {
+                        Log("  Prüfe Buch mit ID " + resultBuch.getString("BUCH_ID"));
                         String Titel = resultBuch.getString("BUCH_TITEL");
                         Titel = Titel.replace(",", " ");
                         Titel = Titel.replace("+", " ");
@@ -178,7 +182,20 @@ public class ModulHonorarProgressBar extends JPanel
                         Titel = Titel.replace(Character.toString((char) c), " "); // ,
                         c = 0x00B4;
                         Titel = Titel.replace(Character.toString((char) c), " "); // ,
+                        c = 0x00C4;
+                        Titel = Titel.replace(Character.toString((char) c), "Ä"); // Ä
+                        c = 0x00D6;
+                        Titel = Titel.replace(Character.toString((char) c), "Ö"); // Ö
+                        c = 0x00DC;
+                        Titel = Titel.replace(Character.toString((char) c), "Ü"); // Ü
+                        c = 0x00E4;
+                        Titel = Titel.replace(Character.toString((char) c), "ä"); // ä
+                        c = 0x00F6;
+                        Titel = Titel.replace(Character.toString((char) c), "ö"); // ö
+                        c = 0x00FC;
+                        Titel = Titel.replace(Character.toString((char) c), "ü"); // ü
                         // Titel = Normalisiere(Titel);
+                        //Log("  Normalisiere " + resultBuch.getString("BUCH_TITEL") + " => " + Titel);
                         resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR"
                                 + " WHERE HONORAR_TITEL = '" + Titel + "'");
                         if (resultHonorar.next()) { // der Titel existiert bereits in der Honorardatenbank
@@ -188,21 +205,21 @@ public class ModulHonorarProgressBar extends JPanel
                                     resultHonorar.updateFloat("HONORAR_PREIS_HC", resultBuch.getFloat("BUCH_PREIS"));
                                     resultHonorar.updateFloat("HONORAR_MARGE_HC", resultBuch.getFloat("BUCH_MARGE"));
                                     resultHonorar.updateInt("HONORAR_FIX_HC", resultBuch.getInt("BUCH_BODFIX"));
-                                    Log("   .. Ergänze Ausgabe HC " + Titel);
+                                    Log("   ... Ergänze Ausgabe HC " + Titel);
                                     break;
                                 case 0: // PB
                                     resultHonorar.updateString("HONORAR_ISBN_PB", resultBuch.getString("BUCH_ISBN"));
                                     resultHonorar.updateFloat("HONORAR_PREIS_PB", resultBuch.getFloat("BUCH_PREIS"));
                                     resultHonorar.updateFloat("HONORAR_MARGE_PB", resultBuch.getFloat("BUCH_MARGE"));
                                     resultHonorar.updateInt("HONORAR_FIX_PB", resultBuch.getInt("BUCH_BODFIX"));
-                                    Log("   .. Ergänze Ausgabe PB " + Titel);
+                                    Log("   ... Ergänze Ausgabe PB " + Titel);
                                     break;
                                 case 2: // EB
                                     resultHonorar.updateString("HONORAR_ISBN_EB", resultBuch.getString("BUCH_ISBN"));
                                     resultHonorar.updateFloat("HONORAR_PREIS_EB", resultBuch.getFloat("BUCH_PREIS"));
                                     resultHonorar.updateFloat("HONORAR_MARGE_EB", resultBuch.getFloat("BUCH_MARGE"));
                                     resultHonorar.updateInt("HONORAR_FIX_EB", resultBuch.getInt("BUCH_BODFIX"));
-                                    Log("   .. Ergänze Ausgabe EB " + Titel);
+                                    Log("   ... Ergänze Ausgabe EB " + Titel);
                                     break;
                             }
                             resultHonorar.updateRow();
@@ -212,7 +229,7 @@ public class ModulHonorarProgressBar extends JPanel
                             String Autoren = resultBuch.getString("BUCH_AUTOR") + ",0";
                             String[] Autor = Autoren.split(",");
                             resultHonorar.moveToInsertRow();
-                            resultHonorar.updateInt("HONORAR_ID", ID);
+                            resultHonorar.updateInt("HONORAR_ID", HONORAR_ID);
                             resultHonorar.updateInt("HONORAR_ZAHLEN", 0);
                             resultHonorar.updateString("HONORAR_TITEL", Titel);
                             resultHonorar.updateBoolean("HONORAR_VEREINBART", resultBuch.getBoolean("BUCH_HONORAR"));
@@ -270,7 +287,7 @@ public class ModulHonorarProgressBar extends JPanel
                             resultHonorar.updateInt("HONORAR_AUTOR_1", Integer.parseInt(Autor[0]));
                             resultHonorar.updateInt("HONORAR_AUTOR_2", Integer.parseInt(Autor[1]));
                             resultHonorar.insertRow();
-                            ID = ID + 1;
+                            HONORAR_ID = HONORAR_ID + 1;
                         } // Datensatz vorhanden
                         progress = progress + 1;  if (progress<100) {setProgress(progress);}
                     } // while Buch
@@ -288,7 +305,7 @@ public class ModulHonorarProgressBar extends JPanel
                         progress = progress + 1;  if (progress<100) {setProgress(progress);}
                         // Zeile lesen
                         String CSVZeile[] = CSVzeileIn.split(";");
-                        Log("   lese Zeile: "+CSVzeileIn);
+                        //Log("   lese Zeile: " + zeile.toString() + " => " +CSVzeileIn);
                         switch (zeile) {
                             case 1: // Kopf mit Zeitraum
                                 String Zeitraum = CSVZeile[0].substring(10, CSVZeile[0].length());
@@ -305,7 +322,7 @@ public class ModulHonorarProgressBar extends JPanel
 
                                 ISBN = ISBN.replace("-", "");
                                 String sAnzahlGesamt = CSVZeile[4];
-                                Log("   .. " + ISBN + " " + sAnzahlGesamt);
+                                Log("   Zeile " + zeile.toString() + " ISBN: " + ISBN + ", Anzahl: " + sAnzahlGesamt);
                                 if (sAnzahlGesamt.contains(".")) {
                                     sAnzahlGesamt = sAnzahlGesamt.replace(".", "");
                                 }
@@ -320,6 +337,7 @@ public class ModulHonorarProgressBar extends JPanel
                                         + "(HONORAR_ISBN_HC = '" + ISBN + "') OR "
                                         + "(HONORAR_ISBN_EB = '" + ISBN + "')"
                                         + ")";
+                                //Log("  Suche in Honorar-Datenbank nach " + ISBN);
                                 resultHonorar = SQLHonorar.executeQuery(SQL);
                                 if (resultHonorar.next()) {
                                     if (resultHonorar.getString("HONORAR_ISBN_PB").equals(ISBN)) {
@@ -331,79 +349,85 @@ public class ModulHonorarProgressBar extends JPanel
                                     }
                                     resultHonorar.updateRow();
                                 } else { // warum auch immer existiert das Buch bisher nicht
-                                    resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ISBN = '" + ISBN + "'");
-                                    resultBuch.next();
-                                    resultHonorar.moveToInsertRow();
-                                    Log("   -> ergänze Datensatz mit ID " + Integer.toString(ID) + " ISBN " + ISBN);
-                                    resultHonorar.updateInt("HONORAR_ID", ID);
-                                    resultHonorar.updateInt("HONORAR_ZAHLEN", 0);
-                                    resultHonorar.updateString("HONORAR_TITEL", resultBuch.getString("BUCH_TITEL"));
-                                    resultHonorar.updateBoolean("HONORAR_VEREINBART", resultBuch.getBoolean("BUCH_HONORAR"));
-                                    resultHonorar.updateInt("HONORAR_ANZAHL_1", resultBuch.getInt("BUCH_HONORAR_ANZAHL"));
-                                    resultHonorar.updateInt("HONORAR_PROZENT_1", resultBuch.getInt("BUCH_HONORAR_PROZENT"));
-                                    resultHonorar.updateInt("HONORAR_ANZAHL_2", resultBuch.getInt("BUCH_HONORAR_2_ANZAHL"));
-                                    resultHonorar.updateInt("HONORAR_PROZENT_2", resultBuch.getInt("BUCH_HONORAR_2_PROZENT"));
-                                    resultHonorar.updateFloat("HONORAR_BODPROZENT", resultBuch.getInt("BUCH_BODPROZENT"));
-                                    resultHonorar.updateInt("HONORAR_BODFIX", resultBuch.getInt("BUCH_BODFIX"));
-                                    resultHonorar.updateFloat("HONORAR_MARGE_EB", 0F);
-                                    resultHonorar.updateFloat("HONORAR_MARGE_PB", 0F);
-                                    resultHonorar.updateFloat("HONORAR_MARGE_HC", 0F);
-                                    resultHonorar.updateBoolean("HONORAR_GESAMTBETRACHTUNG", resultBuch.getBoolean("BUCH_GESAMTBETRACHTUNG"));
-                                    resultHonorar.updateString("HONORAR_ISBN_PB", "");
-                                    resultHonorar.updateInt("HONORAR_ANZAHL_PB", 0);
-                                    resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", 0);
-                                    resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
-                                    resultHonorar.updateString("HONORAR_ISBN_HC", "");
-                                    resultHonorar.updateInt("HONORAR_ANZAHL_HC", 0);
-                                    resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", 0);
-                                    resultHonorar.updateFloat("HONORAR_PREIS_HC", 0F);
-                                    resultHonorar.updateFloat("HONORAR_HONORAR", 0F);
-                                    resultHonorar.updateString("HONORAR_ISBN_EB", "");
-                                    resultHonorar.updateInt("HONORAR_ANZAHL_EB", 0);
-                                    resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
-                                    resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", 0);
-                                    resultHonorar.updateInt("HONORAR_FIX_EB", 0);
-                                    resultHonorar.updateInt("HONORAR_FIX_PB", 0);
-                                    resultHonorar.updateInt("HONORAR_FIX_HC", 0);
-                                    switch (resultBuch.getInt("BUCH_HC")) {
-                                        case 0: // PB
-                                            resultHonorar.updateString("HONORAR_ISBN_PB", resultBuch.getString("BUCH_ISBN"));
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", AnzahlGesamt);
-                                            resultHonorar.updateFloat("HONORAR_PREIS_PB", resultBuch.getFloat("BUCH_PREIS"));
-                                            resultHonorar.updateFloat("HONORAR_MARGE_PB", resultBuch.getFloat("BUCH_MARGE"));
-                                            resultHonorar.updateInt("HONORAR_FIX_PB", resultBuch.getInt("BUCH_BODFIX"));
-                                            break;
-                                        case 1: // HC
-                                            resultHonorar.updateString("HONORAR_ISBN_HC", resultBuch.getString("BUCH_ISBN"));
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", AnzahlGesamt);
-                                            resultHonorar.updateFloat("HONORAR_PREIS_HC", resultBuch.getFloat("BUCH_PREIS"));
-                                            resultHonorar.updateFloat("HONORAR_MARGE_HC", resultBuch.getFloat("BUCH_MARGE"));
-                                            resultHonorar.updateInt("HONORAR_FIX_HC", resultBuch.getInt("BUCH_BODFIX"));
-                                            break;
-                                        case 2: // EB
-                                            resultHonorar.updateString("HONORAR_ISBN_EB", resultBuch.getString("BUCH_ISBN"));
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", AnzahlGesamt);
-                                            resultHonorar.updateFloat("HONORAR_PREIS_EB", resultBuch.getFloat("BUCH_PREIS"));
-                                            resultHonorar.updateFloat("HONORAR_MARGE_EB", resultBuch.getFloat("BUCH_MARGE"));
-                                            resultHonorar.updateInt("HONORAR_FIX_EB", resultBuch.getInt("BUCH_BODFIX"));
-                                            break;
+                                    Log("   -> Buch mit ISBN " + ISBN + " ist nicht in Honorar DB");
+                                    try {
+                                        resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ISBN = '" + ISBN + "'");
+                                        resultBuch.next();
+                                        resultHonorar.moveToInsertRow();
+                                        resultHonorar.updateInt("HONORAR_ID", HONORAR_ID);
+                                        resultHonorar.updateInt("HONORAR_ZAHLEN", 0);
+                                        resultHonorar.updateString("HONORAR_TITEL", resultBuch.getString("BUCH_TITEL"));
+                                        resultHonorar.updateBoolean("HONORAR_VEREINBART", resultBuch.getBoolean("BUCH_HONORAR"));
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_1", resultBuch.getInt("BUCH_HONORAR_ANZAHL"));
+                                        resultHonorar.updateInt("HONORAR_PROZENT_1", resultBuch.getInt("BUCH_HONORAR_PROZENT"));
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_2", resultBuch.getInt("BUCH_HONORAR_2_ANZAHL"));
+                                        resultHonorar.updateInt("HONORAR_PROZENT_2", resultBuch.getInt("BUCH_HONORAR_2_PROZENT"));
+                                        resultHonorar.updateFloat("HONORAR_BODPROZENT", resultBuch.getInt("BUCH_BODPROZENT"));
+                                        resultHonorar.updateInt("HONORAR_BODFIX", resultBuch.getInt("BUCH_BODFIX"));
+                                        resultHonorar.updateFloat("HONORAR_MARGE_EB", 0F);
+                                        resultHonorar.updateFloat("HONORAR_MARGE_PB", 0F);
+                                        resultHonorar.updateFloat("HONORAR_MARGE_HC", 0F);
+                                        resultHonorar.updateBoolean("HONORAR_GESAMTBETRACHTUNG", resultBuch.getBoolean("BUCH_GESAMTBETRACHTUNG"));
+                                        resultHonorar.updateString("HONORAR_ISBN_PB", "");
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_PB", 0);
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", 0);
+                                        resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
+                                        resultHonorar.updateString("HONORAR_ISBN_HC", "");
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_HC", 0);
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", 0);
+                                        resultHonorar.updateFloat("HONORAR_PREIS_HC", 0F);
+                                        resultHonorar.updateFloat("HONORAR_HONORAR", 0F);
+                                        resultHonorar.updateString("HONORAR_ISBN_EB", "");
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_EB", 0);
+                                        resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", 0);
+                                        resultHonorar.updateInt("HONORAR_FIX_EB", 0);
+                                        resultHonorar.updateInt("HONORAR_FIX_PB", 0);
+                                        resultHonorar.updateInt("HONORAR_FIX_HC", 0);
+                                        switch (resultBuch.getInt("BUCH_HC")) {
+                                            case 0: // PB
+                                                resultHonorar.updateString("HONORAR_ISBN_PB", resultBuch.getString("BUCH_ISBN"));
+                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", AnzahlGesamt);
+                                                resultHonorar.updateFloat("HONORAR_PREIS_PB", resultBuch.getFloat("BUCH_PREIS"));
+                                                resultHonorar.updateFloat("HONORAR_MARGE_PB", resultBuch.getFloat("BUCH_MARGE"));
+                                                resultHonorar.updateInt("HONORAR_FIX_PB", resultBuch.getInt("BUCH_BODFIX"));
+                                                break;
+                                            case 1: // HC
+                                                resultHonorar.updateString("HONORAR_ISBN_HC", resultBuch.getString("BUCH_ISBN"));
+                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", AnzahlGesamt);
+                                                resultHonorar.updateFloat("HONORAR_PREIS_HC", resultBuch.getFloat("BUCH_PREIS"));
+                                                resultHonorar.updateFloat("HONORAR_MARGE_HC", resultBuch.getFloat("BUCH_MARGE"));
+                                                resultHonorar.updateInt("HONORAR_FIX_HC", resultBuch.getInt("BUCH_BODFIX"));
+                                                break;
+                                            case 2: // EB
+                                                resultHonorar.updateString("HONORAR_ISBN_EB", resultBuch.getString("BUCH_ISBN"));
+                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", AnzahlGesamt);
+                                                resultHonorar.updateFloat("HONORAR_PREIS_EB", resultBuch.getFloat("BUCH_PREIS"));
+                                                resultHonorar.updateFloat("HONORAR_MARGE_EB", resultBuch.getFloat("BUCH_MARGE"));
+                                                resultHonorar.updateInt("HONORAR_FIX_EB", resultBuch.getInt("BUCH_BODFIX"));
+                                                break;
+                                        }
+                                        String Autoren = resultBuch.getString("BUCH_AUTOR") + ",0";
+                                        String[] Autor = Autoren.split(",");
+                                        if (Autor[1].equals("0")) {
+                                            resultHonorar.updateBoolean("HONORAR_VERTEILEN", false);
+                                        } else {
+                                            resultHonorar.updateBoolean("HONORAR_VERTEILEN", true);
+                                        }
+                                        resultHonorar.updateInt("HONORAR_AUTOR_1", Integer.parseInt(Autor[0]));
+                                        resultHonorar.updateInt("HONORAR_AUTOR_2", Integer.parseInt(Autor[1]));
+                                        resultHonorar.insertRow();
+                                        Log("   -> ergänze Honorar-DB mit ID " + Integer.toString(HONORAR_ID) + " ISBN " + ISBN);
+                                        HONORAR_ID = HONORAR_ID + 1;
+                                    } catch(Exception except) {
+                                        Log("Fehler bei der Suche nach ISBN " + ISBN);
+                                        ModulHelferlein.Fehlermeldung("Ergänzen Honorar-DB mit Buch " + ISBN, "SQL-Exception", except.getMessage());
                                     }
-                                    String Autoren = resultBuch.getString("BUCH_AUTOR") + ",0";
-                                    String[] Autor = Autoren.split(",");
-                                    if (Autor[1].equals("0")) {
-                                        resultHonorar.updateBoolean("HONORAR_VERTEILEN", false);
-                                    } else {
-                                        resultHonorar.updateBoolean("HONORAR_VERTEILEN", true);
-                                    }
-                                    resultHonorar.updateInt("HONORAR_AUTOR_1", Integer.parseInt(Autor[0]));
-                                    resultHonorar.updateInt("HONORAR_AUTOR_2", Integer.parseInt(Autor[1]));
-                                    resultHonorar.insertRow();
-                                    ID = ID + 1;
                                 }
                         }
                         zeile = zeile + 1;
                     }    // while CSV-einlesen
-                    Log("   -> BoD-Sales eingelesen");
+                    //Log("   -> BoD-Sales eingelesen");
                     Log("");
 
 // Bestellungen ergänzen im Zeitraum strVon strBis
@@ -418,15 +442,16 @@ public class ModulHonorarProgressBar extends JPanel
                     SQLBuch = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                     resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ID > '0' AND BUCH_HONORAR = '1'");
 
-                    while (resultBuch.next()) {
+                    while (resultBuch.next()) {                        
+                        Log("   " + resultBuch.getString("BUCH_ISBN") + " " + resultBuch.getString("BUCH_TITEL"));
                         progress = progress + 1;  if (progress<100) {setProgress(progress);}
                         AnzahlGesamt = 0;
                         AnzahlAutor = 0;
                         AnzahlGeschenk = 0;
+                        String ISBN = resultBuch.getString("BUCH_ISBN");
 
                         // hole die Autorendaten
-                        String ISBN = resultBuch.getString("BUCH_ISBN");
-                        Log("   .. für " + ISBN + " " + resultBuch.getString("BUCH_TITEL"));
+                        //Log("   .. hole Autoren");
                         String[] AutorenIDs = resultBuch.getString("BUCH_AUTOR").split(",");
                         String Autor = "";
                         for (int i = 0; i < AutorenIDs.length; i++) {
@@ -438,14 +463,16 @@ public class ModulHonorarProgressBar extends JPanel
                                     + resultAutor.getString("ADRESSEN_VORNAME") + "; ";
                         }
                         Autor = Autor.substring(0, Autor.length() - 2);
+                        //Log("      => " + Autor);
 
                         // hole alle Bestelldetails für BuchID
+                        Log("   .. hole Bestelldetails");
                         String SQL = "SELECT * FROM TBL_BESTELLUNG_DETAIL"
                                 + " WHERE ((BESTELLUNG_DETAIL_BUCH = '"
                                 + resultBuch.getString("BUCH_ID") + "') "
                                 + "AND (('" + strVon + "' <= BESTELLUNG_DETAIL_DATUM) "
                                 + "AND (BESTELLUNG_DETAIL_DATUM <= '" + strBis + "')))";
-                        //System.out.println("   -> " + SQL);
+                        //Log("      " + SQL);
                         resultBestellungDetails = SQLBestellungDetails.executeQuery(SQL);
 
                         while (resultBestellungDetails.next()) { // Schleife gehe durch alle Bestelldetails
@@ -457,6 +484,7 @@ public class ModulHonorarProgressBar extends JPanel
                             //System.out.println("      -> " + SQL);
                             resultBestellung = SQLBestellung.executeQuery(SQL);
                             resultBestellung.first();
+                            Log("      Kunde: " + resultBestellung.getString("BESTELLUNG_KUNDE"));
                             // if Bestelltyp != Bestellung => AnzahlGeschenk = ANzahlGescehnk + 1
                             if (resultBestellung.getInt("BESTELLUNG_TYP") != 0) {
                                 AnzahlGeschenk = AnzahlGeschenk + resultBestellungDetails.getInt("BESTELLUNG_DETAIL_ANZAHL");
@@ -464,17 +492,24 @@ public class ModulHonorarProgressBar extends JPanel
 
                             // if Kunde = Teil vom Autor => ANzahlAutor = AnzahlAutor +1
                             if (resultBestellung.getInt("BESTELLUNG_KUNDE") > 0) {
-                                resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE "
-                                        + "WHERE ADRESSEN_ID = '"
-                                        + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
-                                resultKunde.next();
-                                if (Autor.contains(resultKunde.getString("ADRESSEN_NAME"))) {
-                                    AnzahlAutor = AnzahlAutor + resultBestellungDetails.getInt("BESTELLUNG_DETAIL_ANZAHL");
+                                try {
+                                    resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE "
+                                            + "WHERE ADRESSEN_ID = '"
+                                            + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
+                                    resultKunde.next();
+                                    if (Autor.contains(resultKunde.getString("ADRESSEN_NAME"))) {
+                                        AnzahlAutor = AnzahlAutor + resultBestellungDetails.getInt("BESTELLUNG_DETAIL_ANZAHL");
+                                    }
+                                } catch (Exception except) {
+                                    ModulHelferlein.Fehlermeldung("Verkäufe Miles-Verlag - Kunde nicht gefunden", "SQL-Exception", except.getMessage());
+                                    Log("      Kunde: " + resultBestellung.getString("BESTELLUNG_KUNDE") + " nicht in Adress-DB gefunden");
                                 }
                             }
                         } // while resultBestellungDetails.next()
 
                         // update Honorardatenbank für Buch ISBN mit ISBN, Titel, Autoren, AnzahlGesamt, AnzahlAutor, AnzahlGeschenk, Preis * (AnzahlGesamt-AnzahlAutor)
+                        Log("   .. update Honorardatenbank für ISBN " + ISBN);
+
                         resultHonorar = SQLHonorar.executeQuery("SELECT * FROM TBL_HONORAR "
                                 + "WHERE ("
                                 + "(HONORAR_ISBN_PB = '" + ISBN + "') OR "

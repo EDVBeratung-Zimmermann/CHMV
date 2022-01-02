@@ -144,7 +144,7 @@ public class berUmsatz {
                 final Connection conn2 = conn;
 
                 if (conn2 != null) { // Datenbankverbindung steht
-
+System.out.println("Verbindung zur Datenbank steht");
                     try { // Datenbankabfrage
 //helferlein.Infomeldung("Datenbankabfrage");
                         // Aufbau des Tabellenblattes sheet_Einnahmen aus Buchbestellungen
@@ -191,7 +191,9 @@ public class berUmsatz {
                             Sql = Sql + " WHERE (BESTELLUNG_BEZAHLT BETWEEN '" + strVon + "'  AND '" + strBis + "')"
                                     + " ORDER BY BESTELLUNG_RECHNR, BESTELLUNG_DATUM";
                         }
-System.out.println(Sql);                        
+System.out.println("Erzeuge Übersicht der Einnahmen");
+System.out.println("- Buchbestellungen");
+System.out.println("- Abfrage mit " + Sql);                        
                         resultBestellung = SQLBestellung.executeQuery(Sql);
                         Gesamtsumme = 0D;
                         
@@ -208,25 +210,34 @@ System.out.println(Sql);
                         java.lang.Boolean Corona;
                         
                         while (resultBestellung.next()) { // geht durch alle zeilen
+System.out.println(" - Prüfe " + resultBestellung.getString("BESTELLUNG_RECHNR"));
                             if ((resultBestellung.getDate("BESTELLUNG_RECHDAT").compareTo(date1) > 0) && (resultBestellung.getDate("BESTELLUNG_RECHDAT").compareTo(date2) < 0)) {
                                 Corona = true;
                             } else {
                                 Corona = false;
                             }
-System.out.println("Corona-Zeitraum ist geprüft");   
+System.out.println("  - Corona-Zeitraum ist geprüft");   
                             
 System.out.println(resultBestellung.getString("BESTELLUNG_RECHNR"));
                             // Kundendaten holen
+System.out.println(" - hole Kundendaten " + resultBestellung.getString("BESTELLUNG_KUNDE"));
                             if (resultBestellung.getInt("BESTELLUNG_KUNDE") > 0) {
+                                try {
                                 resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
                                 resultKunde.next();
                                 strKunde = resultKunde.getString("ADRESSEN_NAME");
-                                strLand = resultKunde.getString("ADRESSEN_ZUSATZ_3");
+                                strLand = resultKunde.getString("ADRESSEN_ZUSATZ_3");                                
+                                } catch (Exception exept) {
+                                    ModulHelferlein.Fehlermeldung("Bericht Umsätze - Hole Kundendaten", "Kunde-ID: " + resultBestellung.getString("BESTELLUNG_KUNDE"), exept.getMessage());
+                                    strKunde = "UNKNOWN";
+                                    strLand = "UNKONWN";
+System.out.println("    - Fehler bei Kundendaten für Kunde " + resultBestellung.getString("BESTELLUNG_KUNDE"));
+                                }
                             } else {
                                 strKunde = resultBestellung.getString("BESTELLUNG_ZEILE_2");
                                 strLand = resultBestellung.getString("BESTELLUNG_ZEILE_6");
                             }
-System.out.println("   - Kundendaten geholt");
+System.out.println("  - Kundendaten geholt");
                             // Bemerkungsfeld bestimmen
                             switch (resultBestellung.getInt("BESTELLUNG_TYP")) {
                                 case 5:
@@ -859,6 +870,7 @@ System.out.println("Einnahmen sind errechnet");
         } // try Workbook create
 
         ModulHelferlein.Infomeldung("Bericht Umsätze: ", "Liste der Umsätze ist als XLS gespeichert!");
+System.out.println("Bericht Umsätze ist als XLS gespeichert");
     } // XLS-Bericht erzeugen
 
     /**
@@ -1037,10 +1049,17 @@ System.out.println("Einnahmen sind errechnet");
                         // Kundendaten holen
                         String strKunde = "";
                         if (resultBestellung.getInt("BESTELLUNG_KUNDE") > 0) {
-                            resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
-                            resultKunde.next();
-                            strKunde = resultKunde.getString("ADRESSEN_NAME");
-                            strLand = resultKunde.getString("ADRESSEN_ZUSATZ_3");
+                            try {
+                                resultKunde = SQLKunde.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID = '" + resultBestellung.getString("BESTELLUNG_KUNDE") + "'");
+                                resultKunde.next();
+                                strKunde = resultKunde.getString("ADRESSEN_NAME");
+                                strLand = resultKunde.getString("ADRESSEN_ZUSATZ_3");                                
+                            } catch (Exception exept) {
+                                    ModulHelferlein.Fehlermeldung("Bericht Umsätze - Hole Kundendaten", "Kunde-ID: " + resultBestellung.getString("BESTELLUNG_KUNDE"), exept.getMessage());
+                                    strKunde = "UNKNOWN";
+                                    strLand = "UNKONWN";
+System.out.println("    - Fehler bei Kundendaten für Kunde " + resultBestellung.getString("BESTELLUNG_KUNDE"));
+                            }
                         } else {
                             strKunde = resultBestellung.getString("BESTELLUNG_ZEILE_2");
                             strLand = resultBestellung.getString("BESTELLUNG_ZEILE_6");
