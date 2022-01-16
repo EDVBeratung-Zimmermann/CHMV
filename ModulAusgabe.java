@@ -331,7 +331,7 @@ public class ModulAusgabe extends JFrame {
                     scrollPane1.setViewportView(AusgabeTextArea);
                 }
                 contentPanel.add(scrollPane1);
-                scrollPane1.setBounds(0, 0, 590, 250);
+                scrollPane1.setBounds(0, 0, 790, 250);
 
                 {
                     // compute preferred size

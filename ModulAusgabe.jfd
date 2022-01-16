@@ -150,7 +150,7 @@
             <class>com.jformdesigner.runtime.NullConstraints</class>
             <void method="setProperty">
              <string>width</string>
-             <int>590</int>
+             <int>790</int>
             </void>
             <void method="setProperty">
              <string>height</string>
@@ -315,7 +315,7 @@
       <void method="setProperty">
        <string>size</string>
        <object class="java.awt.Dimension">
-        <int>615</int>
+        <int>815</int>
         <int>365</int>
        </object>
       </void>
