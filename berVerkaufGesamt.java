@@ -410,6 +410,7 @@ public class berVerkaufGesamt {
 
     private static void berichtXLS(String Sortierung, String strVon, String strBis) {
         try {
+            Log("  - Erstelle Excel-Datei");
             String outputFileName = ModulHelferlein.pathBerichte + "/Verkäufe/"
                     + "Verkaufsstatistik-Gesamt"
                     + "-"
@@ -447,12 +448,14 @@ public class berVerkaufGesamt {
             Connection conn = null;
 
             try { // Datenbank-Treiber laden
+                Log("    - lade Datenbanktreiber");
                 Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
                 ModulHelferlein.Fehlermeldung("Bericht Umsatz", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
             } // try Datenbank-Treiber laden
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
+                Log("    - verbinde zur Datenbank");
                 conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
                 ModulHelferlein.Fehlermeldung("Bericht Umsatz", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
@@ -461,6 +464,7 @@ public class berVerkaufGesamt {
             final Connection conn2 = conn;
 
             if (conn2 != null) { // Datenbankverbindung steht
+                Log("    - beginne Ausgabe");
                 Label label = new Label(0, 0, "Carola Hartmann Miles-Verlag", arial14formatBold);
                 sheet_Gesamt.addCell(label);
                 label = new Label(0, 0, "Carola Hartmann Miles-Verlag", arial14formatBold);
@@ -765,8 +769,14 @@ public class berVerkaufGesamt {
         ModulHelferlein.Infomeldung("DOC noch nicht implementiert");
     }
 
+    
+    public static void Log(String txt){
+        System.out.println(txt);
+    }
+    
+    
     /**
-     * Erzeugt eine Übersicht der BoD-Verkäufe
+     * Erzeugt eine Übersicht der Gesamt-Verkäufe = Miles-Verkäufe + BoD-Verkäufe
      *
      * @param CSVName
      * @param Sortierung
@@ -779,13 +789,16 @@ public class berVerkaufGesamt {
         Integer AnzahlAutor = 0;
         Integer AnzahlGeschenk = 0;
 
+        Log("Erstelle Bericht der Gesamtverkäufe");
         try {                   // Datenbank-Treiber laden
+            Log("- lade Datenbanktreiber");
             Class.forName(ModulHelferlein.dbDriver);
         } catch (ClassNotFoundException exept) {
             ModulHelferlein.Fehlermeldung("Bericht Verkaufsstatistik", "ClassNotFoundException: Treiber nicht gefunden: ", exept.getMessage());
         } // try Datenbank-Treiber laden
 
         try {                   // Verbindung zur Datenbank über die JDBC-Brücke
+            Log("- verbinde zur Datenbank");
             conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
         } catch (SQLException exept) {
             ModulHelferlein.Fehlermeldung("Bericht Verkaufsstatistik", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
@@ -796,11 +809,15 @@ public class berVerkaufGesamt {
             try {
 
 // Hilfsdatenbank initialisieren
+                Log("- initialisiere Hilfsdatenbank");
                 SQLVerkauf = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 SQLVerkauf2 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 SQLVerkauf.executeUpdate("DELETE FROM TBL_VERKAUF");
+                SQLVerkauf.executeUpdate("ALTER TABLE TBL_VERKAUF MODIFY VERKAUF_TITEL TEXT CHARACTER SET utf8");
+                SQLVerkauf.executeUpdate("ALTER TABLE TBL_VERKAUF MODIFY VERKAUF_AUTOR TEXT CHARACTER SET utf8");
 
 // Hilfsdatenbank aufbauen
+                Log("- erstelle Hilfsdatenbank");
                 resultVerkauf = SQLVerkauf.executeQuery("SELECT * FROM TBL_VERKAUF");
                 Integer ID = 1;
 
@@ -812,10 +829,15 @@ public class berVerkaufGesamt {
 
                 resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH");
 
+                Log("  - fülle sie mit der Buch-Datenbank");
                 while (resultBuch.next()) { // schleife gehe durch alle Bücher
                     String ISBN = resultBuch.getString("BUCH_ISBN");
                     String BOD = resultBuch.getString("BUCH_DRUCKEREINUMMER");
                     String Titel = resultBuch.getString("BUCH_TITEL");
+                    if (Titel.length() > 65)
+                        Log("    - schreibe Buch " +  ISBN + " " + Titel.substring(0, 65));
+                    else
+                        Log("    - schreibe Buch " +  ISBN + " " + Titel);
                     String[] AutorenIDs = resultBuch.getString("BUCH_AUTOR").split(",");
                     String Autor = "";
                     for (int i = 0; i < AutorenIDs.length; i++) {
@@ -884,6 +906,7 @@ public class berVerkaufGesamt {
                 } // while resultBuch.next()
 
 // jetzt die Sales-Daten ergänzen
+                Log("  - fülle sie mit den BOD-Verkäufen");
                 BufferedReader in = new BufferedReader(new FileReader(CSVName));
                 String CSVzeileIn = null;
                 String Zeitraum = null;
@@ -898,6 +921,10 @@ public class berVerkaufGesamt {
                 String[] CSVZeile = CSVzeileIn.split(";");
                 while ((CSVzeileIn = in.readLine()) != null) {
                     // Zeile lesen
+                    if (CSVzeileIn.length() > 80)
+                        Log("    - lese " + CSVzeileIn.substring(0, 80));
+                    else
+                        Log("    - lese " + CSVzeileIn);
                     CSVZeile = CSVzeileIn.split(";");
 
                     String BOD = CSVZeile[0];
@@ -954,8 +981,8 @@ public class berVerkaufGesamt {
                             + ISBN
                             + "'");
                     if (resultVerkauf.first()) { // der Datensatz existiert
-                        resultVerkauf.updateFloat("VERKAUF_UMSATZ_BOD", Umsatz);
-                        resultVerkauf.updateInt("VERKAUF_ANZAHL_BOD", AnzahlGesamt);
+                        resultVerkauf.updateFloat("VERKAUF_UMSATZ_BOD", Umsatz + resultVerkauf.getFloat("VERKAUF_UMSATZ_BOD"));
+                        resultVerkauf.updateInt("VERKAUF_ANZAHL_BOD", AnzahlGesamt + resultVerkauf.getInt("VERKAUF_ANZAHL_BOD"));
                         resultVerkauf.updateRow();
                     } else { // der Datensatz existiert nicht
                         resultVerkauf.moveToInsertRow();
@@ -976,7 +1003,8 @@ public class berVerkaufGesamt {
                 } // while
 
 // Hilfsdatenbank ausgaben
-                switch (Format) {
+                 Log("  - Ausgabe der Hilfsdatenbank");
+               switch (Format) {
                     case "PDF":
                         berichtPDF(Sortierung, strVon, strBis);
                         break;

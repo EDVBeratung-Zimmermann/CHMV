@@ -58,7 +58,7 @@ import static milesVerlagMain.ModulHelferlein.AusgabeLB;
 import static milesVerlagMain.ModulHelferlein.Ausgabe;
 
 /**
- * Klasse zur Erzeugung einer Liste von offenen Einnahmen
+ * Klasse zur Erzeugung einer Übersicht von Verkäufen durch BoD
  *
  * @author Thomas Zimmermann
  *
@@ -438,13 +438,16 @@ public class berVerkaufBOD {
 
             Connection conn = null;
 
+            Log("- Erstelle Verkaufsbericht BOD in Excel");
             try { // Datenbank-Treiber laden
+                Log("- lade Datenbanktreiber");
                 Class.forName(ModulHelferlein.dbDriver);
             } catch (ClassNotFoundException exept) {
                 ModulHelferlein.Fehlermeldung("Bericht Umsatz", "ClassNotFound-Exception: Treiber nicht gefunden: ", exept.getMessage());
             } // try Datenbank-Treiber laden
 
             try { // Verbindung zur Datenbank über die JDBC-Brücke
+                Log("- stelle Verbindung zur Datenbank her");
                 conn = DriverManager.getConnection(ModulHelferlein.dbUrl, ModulHelferlein.dbUser, ModulHelferlein.dbPassword);
             } catch (SQLException exept) {
                 ModulHelferlein.Fehlermeldung("Bericht Umsatz", "SQL-Exception: Verbindung nicht moeglich: ", exept.getMessage());
@@ -453,6 +456,7 @@ public class berVerkaufBOD {
             final Connection conn2 = conn;
 
             if (conn2 != null) { // Datenbankverbindung steht
+                Log("- Datenbankverbindung steht");
                 Label label = new Label(0, 0, "Carola Hartmann Miles-Verlag", arial14formatBold);
                 sheet_Verkauf.addCell(label);
                 label = new Label(0, 1, "Verkaufsstatistik BOD-Verkäufe von " + strVon + " - " + strBis, arial14formatBold);
@@ -517,6 +521,7 @@ public class berVerkaufBOD {
                         break;
                 }
 
+                Log("- lese Tabelle VERKAUF und werte sie aus");
                 while (resultVerkauf.next()) {
                     label = new Label(0, zeile, resultVerkauf.getString("VERKAUF_BOD"), arial10formatL);
                     sheet_Verkauf.addCell(label);
@@ -549,14 +554,19 @@ public class berVerkaufBOD {
                     }
                     jxl.write.Number number = new jxl.write.Number(4, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_GESAMT") - resultVerkauf.getInt("VERKAUF_ANZAHL_AUTOR") - resultVerkauf.getInt("VERKAUF_ANZAHL_Geschenk"), arial10formatR);
                     sheet_Verkauf.addCell(number);
+                    
                     label = new Label(5, zeile, Float.toString(resultVerkauf.getFloat("VERKAUF_Umsatz")), arial10formatR);
                     sheet_Verkauf.addCell(label);
+                    
                     label = new Label(6, zeile, "EUR", arial10formatR);
                     sheet_Verkauf.addCell(label);
+                    
                     number = new jxl.write.Number(7, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_AUTOR"), arial10formatR);
                     sheet_Verkauf.addCell(number);
+                    
                     number = new jxl.write.Number(8, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_Geschenk"), arial10formatR);
                     sheet_Verkauf.addCell(number);
+                    
                     number = new jxl.write.Number(9, zeile, resultVerkauf.getInt("VERKAUF_ANZAHL_GESAMT"), arial10formatL);
                     sheet_Verkauf.addCell(number);
 
@@ -591,12 +601,16 @@ public class berVerkaufBOD {
         }
     }
 
+    public static void Log(String txt){
+        System.out.println(txt);
+    }
+    
     private static void berichtDOC(String Sortierung, String strVon, String strBis) {
         ModulHelferlein.Infomeldung("DOC noch nicht implementiert");
     }
 
     /**
-     * Erzeugt eine Übersicht der BoD-Verkäufe
+     * Erzeugt eine Übersicht der BoD-Verkäufe basieren auf der ausgewählten sales.csv
      *
      * @param CSVName
      * @param Sortierung
@@ -622,13 +636,17 @@ public class berVerkaufBOD {
         // Datenbankverbindung steht
         if (conn != null) {
             try {
-
+                Log("Verkaufsbericht BoD erstellen");
 // Hilfsdatenbank initialisieren
+                Log("- Hilfsdatenbank initialisieren");
                 SQLVerkauf = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 SQLVerkauf2 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 SQLVerkauf.executeUpdate("DELETE FROM TBL_VERKAUF");
+                SQLVerkauf.executeUpdate("ALTER TABLE TBL_VERKAUF MODIFY VERKAUF_TITEL TEXT CHARACTER SET utf8");
+                SQLVerkauf.executeUpdate("ALTER TABLE TBL_VERKAUF MODIFY VERKAUF_AUTOR TEXT CHARACTER SET utf8");
 
 // Hilfsdatenbank aufbauen
+                Log("- Hilfsdatenbank aufbauen");
                 resultVerkauf = SQLVerkauf.executeQuery("SELECT * FROM TBL_VERKAUF");
                 Integer ID = 1;
                 BufferedReader in = new BufferedReader(new FileReader(CSVName));
@@ -636,6 +654,7 @@ public class berVerkaufBOD {
                 String Zeitraum = null;
 
 // 1. Zeile lesen : Zeitraum: 01-01-2017 - 31-12-2017
+                Log("- Werte BOD-Sales aus");
                 CSVzeileIn = in.readLine();
                 String[] CSVZeile = CSVzeileIn.split(";");
                 Zeitraum = CSVZeile[0];
@@ -649,6 +668,10 @@ public class berVerkaufBOD {
 
 // Rest lesen                
                 while ((CSVzeileIn = in.readLine()) != null) {
+                    if (CSVzeileIn.length() > 80)
+                        Log("  - lese " + CSVzeileIn.substring(0, 80));
+                    else
+                        Log("  - lese " + CSVzeileIn);
                     // Zeile lesen
                     CSVZeile = CSVzeileIn.split(";");
 
@@ -700,23 +723,40 @@ public class berVerkaufBOD {
                     } // switch
 
                     // update Hilfsdatenbank mit ISBN, Titel, Autoren, AnzahlGesamt, AnzahlAutor, AnzahlGeschenk, Preis * (AnzahlGesamt-AnzahlAutor)
-                    resultVerkauf.moveToInsertRow();
-                    resultVerkauf.updateInt("VERKAUF_ID", ID);
-                    resultVerkauf.updateString("VERKAUF_ISBN", ISBN);
-                    resultVerkauf.updateString("VERKAUF_AUTOR", Autor);
-                    resultVerkauf.updateString("VERKAUF_BOD", BOD);
-                    resultVerkauf.updateString("VERKAUF_TITEL", Titel);
-                    resultVerkauf.updateInt("VERKAUF_ANZAHL_BOD", AnzahlGesamt);
-                    resultVerkauf.updateInt("VERKAUF_ANZAHL_GESAMT", 0);
-                    resultVerkauf.updateInt("VERKAUF_ANZAHL_AUTOR", 0);
-                    resultVerkauf.updateInt("VERKAUF_ANZAHL_GESCHENK", 0);
-                    resultVerkauf.updateFloat("VERKAUF_UMSATZ", 0F);
-                    resultVerkauf.updateFloat("VERKAUF_UMSATZ_BOD", Umsatz);
-                    ID = ID + 1;
-                    resultVerkauf.insertRow();
+                    // prüfe, ob Buch bereits enthalten => aktualisieren
+                    //                                  => hinzufügen 
+                    Log("  - prüfe, ob ISBN " + ISBN + " bereits vorhanden ist");
+                    resultVerkauf = SQLVerkauf2.executeQuery("SELECT * FROM TBL_VERKAUF "
+                                    + " WHERE VERKAUF_ISBN = '" + ISBN + "'");
+                    if (resultVerkauf.next()) { // Buch existiert => update
+                        Log("    - ISBN existiert => update");
+                        resultVerkauf.updateInt("VERKAUF_ANZAHL_BOD", AnzahlGesamt + resultVerkauf.getInt("VERKAUF_ANZAHL_BOD"));
+                        resultVerkauf.updateInt("VERKAUF_ANZAHL_GESAMT", AnzahlGesamt + resultVerkauf.getInt("VERKAUF_ANZAHL_GESAMT"));
+                        resultVerkauf.updateFloat("VERKAUF_UMSATZ_BOD", Umsatz + resultVerkauf.getFloat("VERKAUF_UMSATZ_BOD"));
+                        resultVerkauf.updateFloat("VERKAUF_UMSATZ", Umsatz + resultVerkauf.getFloat("VERKAUF_UMSATZ"));
+                        resultVerkauf.updateRow();
+                    } else { // Buch exisitiert nicht => hinzufügen
+                        Log("    - ISBN existiert nicht => aufnehmen");
+                        resultVerkauf.moveToInsertRow();
+                        resultVerkauf.updateInt("VERKAUF_ID", ID);
+                        resultVerkauf.updateString("VERKAUF_ISBN", ISBN);
+                        resultVerkauf.updateString("VERKAUF_AUTOR", Autor);
+                        resultVerkauf.updateString("VERKAUF_BOD", BOD);
+                        resultVerkauf.updateString("VERKAUF_TITEL", Titel);
+                        resultVerkauf.updateInt("VERKAUF_ANZAHL_BOD", AnzahlGesamt);
+                        resultVerkauf.updateInt("VERKAUF_ANZAHL_GESAMT", AnzahlGesamt);
+                        resultVerkauf.updateInt("VERKAUF_ANZAHL_AUTOR", 0);
+                        resultVerkauf.updateInt("VERKAUF_ANZAHL_GESCHENK", 0);
+                        resultVerkauf.updateFloat("VERKAUF_UMSATZ", Umsatz);
+                        resultVerkauf.updateFloat("VERKAUF_UMSATZ_BOD", Umsatz);
+                        ID = ID + 1;
+                        resultVerkauf.insertRow();
+                    }
+                    
                 } // while
 
-// Hilfsdatenbank ausgaben
+// Hilfsdatenbank ausgeben
+                Log("- Hilfsdatenbank ausgeben");
                 switch (Format) {
                     case "PDF":
                         berichtPDF(Sortierung, AstrVon, AstrBis);

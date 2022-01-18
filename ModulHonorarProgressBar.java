@@ -35,8 +35,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
+
  
 public class ModulHonorarProgressBar extends JPanel
                              implements ActionListener, 
@@ -141,7 +140,7 @@ public class ModulHonorarProgressBar extends JPanel
                     Log("");
 
 // 2. Tabelle Honorar erstellen 
-// gehe durch die Buch Tabelle und baue zeilenweise die Honoratballe auf. Jede Zeile in der Honrartabelle enthält alle ISBN
+// gehe durch die Buch Tabelle und baue zeilenweise die Honoratabelle auf. Jede Zeile in der Honorartabelle enthält alle ISBN
                     progress = 10; 
                     Log("2. Tabelle Honorar erstellen ...");
                     SQLBuch = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -291,7 +290,16 @@ public class ModulHonorarProgressBar extends JPanel
                     Log("   -> Honorardatenbank erstellt");
                     Log("");
 
-// 3. Honorardatenbank mit BoD-Sales füllen                    
+// 3. Honorardatenbank mit BoD-Sales füllen   
+//          Zeile[0] = BoD-Nummer
+//          Zeile[1] = ISBN
+//          Zeile[2] = Autor
+//          Zeile[3] = Buchtitel
+//          Zeile[4] = Anzahl
+//          Zeile[5] = Umsatz
+//          Zeile[6] = Währung
+//          Zeile[7] = Datum
+//          Zeile[8] = abgerechnet
                     Log("3. Füllen der Honorardatenbank mit BoD-Sales");
                     progress = 20;
                     Integer AnzahlGesamt = 0;
@@ -340,11 +348,11 @@ public class ModulHonorarProgressBar extends JPanel
                                         try{
                                             Log("       -> Buch mit ISBN " + ISBN + " ist vorhanden in Honorar DB => Update");
                                             if (resultHonorar.getString("HONORAR_ISBN_PB").equals(ISBN)) {
-                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", AnzahlGesamt);
+                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", AnzahlGesamt + resultHonorar.getInt("HONORAR_ANZAHL_BOD_PB"));
                                             } else if (resultHonorar.getString("HONORAR_ISBN_HC").equals(ISBN)) {
-                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", AnzahlGesamt);
+                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", AnzahlGesamt + resultHonorar.getInt("HONORAR_ANZAHL_BOD_HC"));
                                             } else {
-                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", AnzahlGesamt);
+                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", AnzahlGesamt + resultHonorar.getInt("HONORAR_ANZAHL_BOD_EB"));
                                             }
                                             resultHonorar.updateRow();
                                         } catch(Exception except) {

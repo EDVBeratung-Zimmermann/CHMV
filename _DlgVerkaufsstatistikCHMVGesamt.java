@@ -38,6 +38,10 @@ import net.miginfocom.swing.*;
  */
 public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
 
+    public static void Log(String txt){
+        System.out.println(txt);
+    }
+    
     /**
      * Creates new form _DlgVerkaufsstatistikCHMV
      *
@@ -189,14 +193,14 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             btnSalesBOD.setText("...");
             btnSalesBOD.addActionListener(e -> btnSalesBODActionPerformed(e));
             panel1.add(btnSalesBOD);
-            btnSalesBOD.setBounds(new Rectangle(new Point(23, 204), btnSalesBOD.getPreferredSize()));
+            btnSalesBOD.setBounds(23, 204, 30, 23);
 
             //---- lblSalesCSV ----
             lblSalesCSV.setText("SALES.CSV");
             lblSalesCSV.setEnabled(false);
             lblSalesCSV.setFocusable(false);
             panel1.add(lblSalesCSV);
-            lblSalesCSV.setBounds(73, 204, 357, 23);
+            lblSalesCSV.setBounds(90, 204, 340, 23);
 
             //---- rbGesamt ----
             rbGesamt.setText("Gesamtverk\u00e4ufe");
@@ -215,7 +219,8 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             panel1.add(Schliessen);
             Schliessen.setBounds(new Rectangle(new Point(350, 285), Schliessen.getPreferredSize()));
 
-            { // compute preferred size
+            {
+                // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
                     Rectangle bounds = panel1.getComponent(i).getBounds();
@@ -232,7 +237,8 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
         contentPane.add(panel1);
         panel1.setBounds(new Rectangle(new Point(10, 11), panel1.getPreferredSize()));
 
-        { // compute preferred size
+        {
+            // compute preferred size
             Dimension preferredSize = new Dimension();
             for(int i = 0; i < contentPane.getComponentCount(); i++) {
                 Rectangle bounds = contentPane.getComponent(i).getBounds();
@@ -265,6 +271,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
         }
 
         if (rbMiles.isSelected()) {
+            Log("Erstelle Übersicht der Miles-Verkäufe ...");
             if (rbAutor.isSelected()) {
                 if (PDF.isSelected()) {               // Format PDF
                     berVerkaufMiles.bericht("Autor", "PDF", strVon, strBis);
@@ -300,6 +307,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             if (sFilePathAndName.length() == 0) {
                 ModulHelferlein.Fehlermeldung("Sie haben keine Datei ausgewählt!");
             } else {
+            Log("Erstelle Übersicht der BoD-Verkäufe ...");
                 if (rbAutor.isSelected()) {
                     if (PDF.isSelected()) {           // Format PDF
                         berVerkaufBOD.bericht(sFilePathAndName, "Autor", "PDF", strVon, strBis);
@@ -330,6 +338,7 @@ public class _DlgVerkaufsstatistikCHMVGesamt extends javax.swing.JDialog {
             if (sFilePathAndName.length() == 0) {
                 ModulHelferlein.Fehlermeldung("Sie haben keine Datei ausgewählt!");
             } else {
+            Log("Erstelle Übersicht der Gesamtverkäufe ...");
                 if (rbAutor.isSelected()) {
                     if (PDF.isSelected()) {           // Format PDF
                         berVerkaufGesamt.bericht(sFilePathAndName, "Autor", "PDF", strVon, strBis);
