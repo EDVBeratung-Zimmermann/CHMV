@@ -731,8 +731,7 @@ public class briefHonorar {
                 cos.close();
                 System.out.println("         -> Inhalt geschrieben");
 
-                String outputFileName = ModulHelferlein.pathBerichte + "\\Honorare\\"
-                        + "Honorar"
+                String outputFileName = "Honorar"
                         + "-"
                         + ModulHelferlein.printSimpleDateFormat("yyyyMMdd")
                         + "-"
@@ -742,6 +741,8 @@ public class briefHonorar {
                         + "-"
                         + Titel
                         + ".pdf";
+                outputFileName = outputFileName.replaceAll(":", "");
+                outputFileName = ModulHelferlein.pathBerichte + "\\Honorare\\" + outputFileName;
                 //System.out.println(".. " + outputFileName);
 
 // add XMP metadata
@@ -779,10 +780,11 @@ public class briefHonorar {
 // Save the results and ensure that the document is properly closed:
                 document.save(outputFileName);
                 document.close();
-
+                System.out.println("      .. "+outputFileName);
+                
                 SQLAdresse.close();
                 resultAdresse.close();
-                System.out.println("    -> gespeichert ");
+                System.out.println("         -> gespeichert ");
                 System.out.println("");
 //                ModulHelferlein.Infomeldung("Honorarabrechnung " + args[1], "ist als PDF gespeichert unter ", outputFileName);
 //                try {

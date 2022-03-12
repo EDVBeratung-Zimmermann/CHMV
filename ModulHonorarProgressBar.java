@@ -642,6 +642,7 @@ public class ModulHonorarProgressBar extends JPanel
                     while (resultHonorar.next()) {
                         progress = progress + 1;  if (progress<100) {setProgress(progress);}
                         if (resultHonorar.getBoolean("HONORAR_VERTEILEN")) {
+                            Log("   drucke H-Rechnung - verteilt auf "+resultHonorar.getString("HONORAR_AUTOR_1")+", "+resultHonorar.getString("HONORAR_AUTOR_2"));
                             briefHonorar.briefPDF(
                                     resultHonorar.getInt("HONORAR_ID"), //  0
                                     resultHonorar.getInt("HONORAR_ZAHLEN"), //  0
@@ -707,6 +708,7 @@ public class ModulHonorarProgressBar extends JPanel
                                     true // 28
                             );
                         } else {
+                            Log("   drucke H-Rechnung - Einzelautor  "+resultHonorar.getString("HONORAR_AUTOR_1")+", "+resultHonorar.getString("HONORAR_AUTOR_2"));
                             briefHonorar.briefPDF(
                                     resultHonorar.getInt("HONORAR_ID"), //  0
                                     resultHonorar.getInt("HONORAR_ZAHLEN"), //  0
