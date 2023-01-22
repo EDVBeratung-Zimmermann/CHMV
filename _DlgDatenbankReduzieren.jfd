@@ -13,7 +13,7 @@
        <class>org.jdesktop.layout.GroupLayout</class>
        <void method="setProperty">
         <string>$horizontalGroup</string>
-        <string>par l {seq l {space :::p, comp panel1:::p::p, space ::38:x}}</string>
+        <string>par l {seq l {space :::p, comp panel1:::p::p, space ::33:x}}</string>
        </void>
        <void method="setProperty">
         <string>$verticalGroup</string>
@@ -33,10 +33,6 @@
        <boolean>false</boolean>
       </void>
       <void method="setProperty">
-       <string>$sizePolicy</string>
-       <int>1</int>
-      </void>
-      <void method="setProperty">
        <string>font</string>
        <object class="java.awt.Font">
         <string>Dialog</string>
@@ -47,8 +43,22 @@
       <void method="setProperty">
        <string>minimumSize</string>
        <object class="java.awt.Dimension">
-        <int>560</int>
-        <int>400</int>
+        <int>470</int>
+        <int>195</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>preferredSize</string>
+       <object class="java.awt.Dimension">
+        <int>470</int>
+        <int>195</int>
+       </object>
+      </void>
+      <void method="setProperty">
+       <string>maximumSize</string>
+       <object class="java.awt.Dimension">
+        <int>470</int>
+        <int>195</int>
        </object>
       </void>
       <void method="add">
@@ -260,7 +270,7 @@
       <void method="setProperty">
        <string>size</string>
        <object class="java.awt.Dimension">
-        <int>475</int>
+        <int>470</int>
         <int>195</int>
        </object>
       </void>

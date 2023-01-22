@@ -88,7 +88,9 @@ public class _DlgDatenbankReduzieren extends javax.swing.JDialog {
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
         setFont(new Font(Font.DIALOG, Font.BOLD, 12));
-        setMinimumSize(new Dimension(560, 400));
+        setMinimumSize(new Dimension(470, 195));
+        setPreferredSize(new Dimension(470, 195));
+        setMaximumSize(new Dimension(470, 195));
         var contentPane = getContentPane();
 
         //======== panel1 ========
@@ -150,7 +152,7 @@ public class _DlgDatenbankReduzieren extends javax.swing.JDialog {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(38, Short.MAX_VALUE))
+                    .addContainerGap(33, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -159,7 +161,7 @@ public class _DlgDatenbankReduzieren extends javax.swing.JDialog {
                     .addComponent(panel1, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(14, Short.MAX_VALUE))
         );
-        setSize(475, 195);
+        pack();
         setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
