@@ -51,7 +51,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
-    private void backupDatenbank() {
+    static public void backupDatenbank(String title) {
         String cmdline = null;
         if (ModulHelferlein.dbLive) {
             cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P"+ModulHelferlein.dbPort+
@@ -62,7 +62,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                     + ModulHelferlein.pathSicherung
                     + "\""
                     + "\\"
-                    + "miles-verlag.backup-"
+                    + title
                     + ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + ".sql";
         } else {
             cmdline = "C:\\xampp\\mysql\\bin\\mysqldump.exe -P"+ModulHelferlein.dbPort+
@@ -73,7 +73,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                     + ModulHelferlein.pathSicherung
                     + "\""
                     + "\\"
-                    + "miles-verlag.backup-"
+                    + title
                     + ModulHelferlein.printSimpleDateFormat("yyyyMMdd") + ".sql";
         }
 
@@ -94,6 +94,12 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
     private void menuItemVerlagsfuerhrungFlyerActionPerformed(ActionEvent e) {
         // TODO add your code here
         _DlgFlyer.main(null);
+    }
+
+    private void menuItemDatenbankverwaltungDatenbankReduzieren(ActionEvent e) {
+        // TODO add your code here
+        System.out.println("Dialog Datenbank reduzieren");
+        _DlgDatenbankReduzieren.main(null);
     }
 
     /**
@@ -370,6 +376,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
         jMenuItemTabellenLeeren = new JMenuItem();
         jMenuItemSoftwareTabellenLoeschen = new JMenuItem();
         jMenuItemSoftwareTabellenErstellen = new JMenuItem();
+        menuItem1 = new JMenuItem();
         jMenuItemServerKonfiguration = new JMenuItem();
         menuItemSoftwareverwaltungBenutzer = new JMenuItem();
         jMenuItemServerBestellnummer = new JMenuItem();
@@ -501,13 +508,13 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
                     //---- jMenuItemSoftwareDBSichern ----
                     jMenuItemSoftwareDBSichern.setText("Sichern der milesverlag-Datenbank ...");
-                    jMenuItemSoftwareDBSichern.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_MASK|KeyEvent.ALT_MASK));
+                    jMenuItemSoftwareDBSichern.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK|KeyEvent.ALT_DOWN_MASK));
                     jMenuItemSoftwareDBSichern.addActionListener(e -> jMenuItemSoftwareDBSichernActionPerformed(e));
                     jMenuSoftwareServer.add(jMenuItemSoftwareDBSichern);
 
                     //---- jMenuItemSoftwareDBWiederherstellen ----
                     jMenuItemSoftwareDBWiederherstellen.setText("Wiederherstellen der milesverlag-Datenbank ...");
-                    jMenuItemSoftwareDBWiederherstellen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_MASK|KeyEvent.ALT_MASK));
+                    jMenuItemSoftwareDBWiederherstellen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK|KeyEvent.ALT_DOWN_MASK));
                     jMenuItemSoftwareDBWiederherstellen.addActionListener(e -> jMenuItemSoftwareDBWiederherstellenActionPerformed(e));
                     jMenuSoftwareServer.add(jMenuItemSoftwareDBWiederherstellen);
                     jMenuSoftwareServer.addSeparator();
@@ -526,6 +533,12 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                     jMenuItemSoftwareTabellenErstellen.setText("Tabellen erstellen ...");
                     jMenuItemSoftwareTabellenErstellen.addActionListener(e -> jMenuItemSoftwareTabellenErstellenActionPerformed(e));
                     jMenuSoftwareServer.add(jMenuItemSoftwareTabellenErstellen);
+                    jMenuSoftwareServer.addSeparator();
+
+                    //---- menuItem1 ----
+                    menuItem1.setText("Datenbank reduzieren ...");
+                    menuItem1.addActionListener(e -> menuItemDatenbankverwaltungDatenbankReduzieren(e));
+                    jMenuSoftwareServer.add(menuItem1);
                 }
                 jMenuSoftware.add(jMenuSoftwareServer);
 
@@ -547,7 +560,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
                 //---- jMenuItemEnde ----
                 jMenuSoftware.addSeparator();
-                jMenuItemEnde.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_MASK));
+                jMenuItemEnde.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
                 jMenuItemEnde.setText("Ende");
                 jMenuItemEnde.addActionListener(e -> jMenuItemEndeActionPerformed(e));
                 jMenuSoftware.add(jMenuItemEnde);
@@ -581,7 +594,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                 jMenuVerlagsfuehrung.add(jMenuItemVerlagsfuehrungAufgaben);
 
                 //---- jMenuItemVerlagsfuehrungTermine ----
-                jMenuItemVerlagsfuehrungTermine.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_MASK));
+                jMenuItemVerlagsfuehrungTermine.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_DOWN_MASK));
                 jMenuItemVerlagsfuehrungTermine.setText("Termine ...");
                 jMenuItemVerlagsfuehrungTermine.addActionListener(e -> jMenuItemVerlagsfuehrungTermineActionPerformed(e));
                 jMenuVerlagsfuehrung.add(jMenuItemVerlagsfuehrungTermine);
@@ -629,7 +642,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
                     //---- jMenuItemVerlagsführungDatensicherungDatensicherung ----
                     jMenuVerlagsfuehrungDatensicherung.addSeparator();
-                    jMenuItemVerlagsführungDatensicherungDatensicherung.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_MASK));
+                    jMenuItemVerlagsführungDatensicherungDatensicherung.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
                     jMenuItemVerlagsführungDatensicherungDatensicherung.setText("Datensicherung");
                     jMenuItemVerlagsführungDatensicherungDatensicherung.addActionListener(e -> jMenuItemVerlagsführungDatensicherungDatensicherungActionPerformed(e));
                     jMenuVerlagsfuehrungDatensicherung.add(jMenuItemVerlagsführungDatensicherungDatensicherung);
@@ -719,13 +732,13 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                 jMenuStammdaten.setText("Stammdaten");
 
                 //---- jMenuItemStammdatenBuchprojekte ----
-                jMenuItemStammdatenBuchprojekte.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_MASK));
+                jMenuItemStammdatenBuchprojekte.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));
                 jMenuItemStammdatenBuchprojekte.setText("Buchprojekte ...");
                 jMenuItemStammdatenBuchprojekte.addActionListener(e -> jMenuItemStammdatenBuchprojekteActionPerformed(e));
                 jMenuStammdaten.add(jMenuItemStammdatenBuchprojekte);
 
                 //---- jMenuItemStammdatenAdressen ----
-                jMenuItemStammdatenAdressen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_MASK));
+                jMenuItemStammdatenAdressen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
                 jMenuItemStammdatenAdressen.setText("Adressen ...");
                 jMenuItemStammdatenAdressen.addActionListener(e -> jMenuItemStammdatenAdressenActionPerformed(e));
                 jMenuStammdaten.add(jMenuItemStammdatenAdressen);
@@ -752,13 +765,13 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                     jMenuBewegungsdatenEinanhmen.setText("Einnahmen");
 
                     //---- jMenuItemBewegungsdatenBuchbestellungen ----
-                    jMenuItemBewegungsdatenBuchbestellungen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_MASK|KeyEvent.SHIFT_MASK));
+                    jMenuItemBewegungsdatenBuchbestellungen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK|KeyEvent.SHIFT_DOWN_MASK));
                     jMenuItemBewegungsdatenBuchbestellungen.setText("Buchbestellungen ...");
                     jMenuItemBewegungsdatenBuchbestellungen.addActionListener(e -> jMenuItemBewegungsdatenBuchbestellungenActionPerformed(e));
                     jMenuBewegungsdatenEinanhmen.add(jMenuItemBewegungsdatenBuchbestellungen);
 
                     //---- jMenuItem4 ----
-                    jMenuItem4.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_MASK|KeyEvent.SHIFT_MASK));
+                    jMenuItem4.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK|KeyEvent.SHIFT_DOWN_MASK));
                     jMenuItem4.setText("sonstige Einnahmen ...");
                     jMenuItem4.addActionListener(e -> jMenuItem4ActionPerformed(e));
                     jMenuBewegungsdatenEinanhmen.add(jMenuItem4);
@@ -766,7 +779,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                 jMenuBewegungsdaten.add(jMenuBewegungsdatenEinanhmen);
 
                 //---- jMenuItemBewegungsdatenAusgaben ----
-                jMenuItemBewegungsdatenAusgaben.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_MASK|KeyEvent.SHIFT_MASK));
+                jMenuItemBewegungsdatenAusgaben.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK|KeyEvent.SHIFT_DOWN_MASK));
                 jMenuItemBewegungsdatenAusgaben.setText("Ausgaben ...");
                 jMenuItemBewegungsdatenAusgaben.addActionListener(e -> jMenuItemBewegungsdatenAusgabenActionPerformed(e));
                 jMenuBewegungsdaten.add(jMenuItemBewegungsdatenAusgaben);
@@ -777,12 +790,12 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
 
                     //---- jMenuItemBewegungsdatenRezensionenVersenden ----
                     jMenuItemBewegungsdatenRezensionenVersenden.setText("versenden ...");
-                    jMenuItemBewegungsdatenRezensionenVersenden.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_MASK|KeyEvent.SHIFT_MASK));
+                    jMenuItemBewegungsdatenRezensionenVersenden.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK|KeyEvent.SHIFT_DOWN_MASK));
                     jMenuItemBewegungsdatenRezensionenVersenden.addActionListener(e -> jMenuItemBewegungsdatenRezensionenVersendenActionPerformed(e));
                     jMenuBewegungsdatenRezensionen.add(jMenuItemBewegungsdatenRezensionenVersenden);
 
                     //---- jMenuItemBewegungsdatenRezensionenErfassen ----
-                    jMenuItemBewegungsdatenRezensionenErfassen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.ALT_MASK));
+                    jMenuItemBewegungsdatenRezensionenErfassen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.ALT_DOWN_MASK));
                     jMenuItemBewegungsdatenRezensionenErfassen.setText("erfassen ...");
                     jMenuItemBewegungsdatenRezensionenErfassen.addActionListener(e -> jMenuItemBewegungsdatenRezensionenErfassenActionPerformed(e));
                     jMenuBewegungsdatenRezensionen.add(jMenuItemBewegungsdatenRezensionenErfassen);
@@ -910,13 +923,13 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
                 jMenuHilfe.setHorizontalTextPosition(SwingConstants.RIGHT);
 
                 //---- jMenuItemHilfeHilfe ----
-                jMenuItemHilfeHilfe.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, KeyEvent.CTRL_MASK));
+                jMenuItemHilfeHilfe.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, KeyEvent.CTRL_DOWN_MASK));
                 jMenuItemHilfeHilfe.setText("Hilfe");
                 jMenuItemHilfeHilfe.addActionListener(e -> jMenuItemHilfeHilfeActionPerformed(e));
                 jMenuHilfe.add(jMenuItemHilfeHilfe);
 
                 //---- jMenuItemHilfeUeber ----
-                jMenuItemHilfeUeber.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, KeyEvent.SHIFT_MASK));
+                jMenuItemHilfeUeber.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, KeyEvent.SHIFT_DOWN_MASK));
                 jMenuItemHilfeUeber.setText("\u00dcber ...");
                 jMenuItemHilfeUeber.addActionListener(e -> jMenuItemHilfeUeberActionPerformed(e));
                 jMenuHilfe.add(jMenuItemHilfeUeber);
@@ -1179,7 +1192,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
     private void jMenuItemSoftwareDBSichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSoftwareDBSichernActionPerformed
         // TODO add your handling code here:
         System.out.println("Dialog Datenbank sichern");
-        backupDatenbank();
+        backupDatenbank("miles-verlag.backup-");
     }//GEN-LAST:event_jMenuItemSoftwareDBSichernActionPerformed
 
     private void jMenuItemSoftwareDBWiederherstellenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSoftwareDBWiederherstellenActionPerformed
@@ -1355,7 +1368,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
             file.delete();
         }
         System.out.println("Semaphore gelöscht");
-        backupDatenbank();
+        backupDatenbank("miles-verlag.backup-");
         ModulAusgabe.AusgabeSchliessen();
     }//GEN-LAST:event_formWindowClosing
 
@@ -1535,6 +1548,7 @@ public class CarolaHartmannMilesVerlag extends javax.swing.JFrame {
     private JMenuItem jMenuItemTabellenLeeren;
     private JMenuItem jMenuItemSoftwareTabellenLoeschen;
     private JMenuItem jMenuItemSoftwareTabellenErstellen;
+    private JMenuItem menuItem1;
     private JMenuItem jMenuItemServerKonfiguration;
     private JMenuItem menuItemSoftwareverwaltungBenutzer;
     private JMenuItem jMenuItemServerBestellnummer;
