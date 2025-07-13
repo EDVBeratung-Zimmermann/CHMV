@@ -195,7 +195,7 @@ public class ModulHelferlein {
     public static String[] SpracheVerrechnung3 = {"für das aktuelle Geschäftsjahr.", "for the current year."};
     public static String[] SpracheGruss = {"Mit freundlichen Grüßen", "Yours sincerely"};
     public static String[] SpracheBeruf = {"Diplom Kauffrau", "Master of Science in Business Administration"};
-    public static String[] SpracheAnlage1 = {"Dite Details Ihrer Bestellung entnehmen Sie bitte der Anlage.", "Please find the details of your order on the next page."};
+    public static String[] SpracheAnlage1 = {"Die Details Ihrer Bestellung entnehmen Sie bitte der Anlage.", "Please find the details of your order on the next page."};
     public static String[] SpracheAnlage2 = {"Anlage Bestelldetails", "Annex order"};
     public static String[] Sprache = {"", ""};
 

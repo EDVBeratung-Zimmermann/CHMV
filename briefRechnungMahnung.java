@@ -2111,6 +2111,11 @@ public class briefRechnungMahnung {
 
                         Basiszeile = 688;
                         resultBD.beforeFirst();
+                        Gesamt19 = 0.0;
+                        Gesamt7 = 0.0;
+                        Betrag = 0.0;
+                        ZBetrag = 0.0;
+                        ZPreis = 0.0;
                         while (resultBD.next()) {
                             // Buchdetails holen
                             if (resultBD.getBoolean("BESTELLUNG_DETAIL_SONST")) {
