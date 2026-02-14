@@ -132,7 +132,7 @@ public class briefVerrechnungHonorar {
                 resultAdresse = SQLAdresse.executeQuery("SELECT * FROM TBL_ADRESSE WHERE ADRESSEN_ID='" + HONORAR_AUTOR + "'");
                 resultAdresse.next();
 
-                System.out.println("   -> Schreibe Honorarabrechnung für " + HONORAR_AUTOR);
+                System.out.println("      => briefVerrechnung.java für " + HONORAR_AUTOR);
                 String Titel = "";
                 Integer Anzahl = 1;
                 //if (HONORAR_TITEL.contains(" ")) {
@@ -210,7 +210,7 @@ public class briefVerrechnungHonorar {
                 // Adresse
                 String[] AdressZeile = {"", "", "", "", "", "", ""};
                 String[] adresse = {"", "", "", "", "", "", ""};
-                System.out.println("      .. erzeuge Adresse aus Kundendatenbank");
+                System.out.println("         .. erzeuge Adresse aus Kundendatenbank");
                 adresse[0] = resultAdresse.getString("ADRESSEN_ZUSATZ_1");
                 adresse[1] = ModulHelferlein.makeAnrede(resultAdresse.getString("ADRESSEN_NAMENSZUSATZ"),
                         resultAdresse.getString("ADRESSEN_VORNAME"),
@@ -219,6 +219,7 @@ public class briefVerrechnungHonorar {
                 adresse[3] = resultAdresse.getString("ADRESSEN_STRASSE");
                 adresse[4] = resultAdresse.getString("ADRESSEN_PLZ") + " " + resultAdresse.getString("ADRESSEN_ORT");
                 adresse[5] = resultAdresse.getString("ADRESSEN_ZUSATZ_3");
+                System.out.println("            .. " + adresse[1] + ", " + adresse[4]);
                 Integer ZeilenNr = 1;
                 for (int i = 0; i < 6; i++) {
                     if (!adresse[i].equals("")) {
@@ -265,7 +266,7 @@ public class briefVerrechnungHonorar {
                 AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 395, "Die detaillierte Übersicht der Abrechnungen entnehmen Sie bitte der Anlage.");
                 
                 // Abrechnung
-               if (GesamtHonorar - Betrag < 0) {
+                if (GesamtHonorar - Betrag < 0) {
                     GesamtBetrag = -1D * (GesamtHonorar - Betrag);  // Gesamtbetrag negativ = einzahlen
                     AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 350, "Den Differenzbetrag in Höhe von");
                     AusgabeLB(cos, fontBold, 12, Color.RED, 235, 350, ModulHelferlein.str2dec(GesamtBetrag) + " Euro ");
@@ -298,7 +299,11 @@ public class briefVerrechnungHonorar {
 
                 ZeilenNr = 1;
                 resultVerrechnung = SQLVerrechnung.executeQuery("SELECT * FROM TBL_VERRECHNUNG");
+                resultVerrechnung.last();
+                System.out.println("         .. verrechne " + resultVerrechnung.getRow() + " Rechnungen");
+                resultVerrechnung.first();
                 while (resultVerrechnung.next()) {
+                    System.out.println("            .. Rechnung Nr. " + resultVerrechnung.getString("VERRECHNUNG_ISBN"));
                     AusgabeLB(cos, fontPlain, 12, Color.BLACK, 55, 740 - 15 * ZeilenNr, "Rechnung Nr. " + resultVerrechnung.getString("VERRECHNUNG_ISBN"));
                     AusgabeLB(cos, fontPlain, 12, Color.BLACK, 337, 740 - 15 * ZeilenNr, "Betrag:");
                     AusgabeDB(cos, fontPlain, 12, Color.BLACK, 397, 740 - 15 * ZeilenNr, resultVerrechnung.getString("VERRECHNUNG_BETRAG"));
@@ -309,7 +314,7 @@ public class briefVerrechnungHonorar {
 
                 // Make sure that the content stream is closed:
                 cos.close();
-                System.out.println("   -> Inhalt geschrieben");
+                System.out.println("      -> Inhalt geschrieben, Content Stream closed");
 
                 String outputFileName = ModulHelferlein.pathBerichte + "\\Honorare\\"
                         + "Verrechnung-Honorar"
@@ -323,10 +328,10 @@ public class briefVerrechnungHonorar {
                         + Titel
                         + ".pdf";
                 //System.out.println("   -> " + outputFileName);
-                System.out.println("   -> PDF/A erzeugen ...");
+                System.out.println("      -> PDF/A erzeugen ...");
 
 // add XMP metadata
-                System.out.println("     .. XMP metaddata schreiben");
+                System.out.println("         .. XMP metaddata schreiben");
                 XMPMetadata xmp = XMPMetadata.createXMPMetadata();
 
                 DublinCoreSchema dc = xmp.createAndAddDublinCoreSchema();
@@ -343,10 +348,10 @@ public class briefVerrechnungHonorar {
                 PDMetadata metadata = new PDMetadata(document);
                 metadata.importXMPMetadata(baos.toByteArray());
                 document.getDocumentCatalog().setMetadata(metadata);
-                System.out.println("        -> XMP metadata geschrieben");
+                System.out.println("            -> XMP metadata geschrieben");
 
 // sRGB output intent
-                System.out.println("      .. sRGB output schreiben");
+                System.out.println("         .. sRGB output schreiben");
                 //InputStream colorProfile = briefRechnungMahnung.class.getResourceAsStream("/org/apache/pdfbox/resources/pdfa/sRGB.icc");
                 InputStream colorProfile = briefRechnungMahnung.class.getResourceAsStream("sRGB.icc");
                 PDOutputIntent intent = new PDOutputIntent(document, colorProfile);
@@ -355,15 +360,19 @@ public class briefVerrechnungHonorar {
                 intent.setOutputConditionIdentifier("sRGB IEC61966-2.1");
                 intent.setRegistryName("http://www.color.org");
                 document.getDocumentCatalog().addOutputIntent(intent);
-                System.out.println("         -> sRGB output geschrieben");
+                System.out.println("            -> sRGB output geschrieben");
 
 // Save the results and ensure that the document is properly closed:
                 document.save(outputFileName);
                 document.close();
 
-                SQLAdresse.close();
                 resultAdresse.close();
-                System.out.println("   -> gespeichert: ");
+                resultVerrechnung.close();
+                resultHonorar.close();
+                SQLAdresse.close();
+                SQLHonorar.close();
+                System.out.println("      -> PDF gespeichert: ");
+                System.out.println("         -> " + outputFileName);
                 System.out.println("");
 //                ModulHelferlein.Infomeldung("Honorarabrechnung " + args[1], "ist als PDF gespeichert unter ", outputFileName);
 //                try {
@@ -372,13 +381,16 @@ public class briefVerrechnungHonorar {
 //                    ModulHelferlein.Fehlermeldung("Honorarabrechnung", "AusgabeLB Brief: IO-Exception: ", exept.getMessage());
 //                } // try Brief ausgeben
             } catch (IOException ex) {
+                System.out.println("      -> IO-Exception: " + ex.getMessage());
                 ModulHelferlein.Fehlermeldung("Honorarverrechnung: Brief erstellen", "IO-Exception: ", ex.getMessage());
             } catch (SQLException ex) {
+                System.out.println("      -> SQL-Exception: " + ex.getMessage());
                 ModulHelferlein.Fehlermeldung("Honorarverrechnung: Brief erstellen", "SQL-Exception: ", ex.getMessage());
             } catch (BadFieldValueException e) {
                 // won't happen here, as the provided value is valid
                 throw new IllegalArgumentException(e);
             } catch (TransformerException ex) {
+                System.out.println("      -> Transformer Exception PDF/A: " + ex.getMessage());
                 ModulHelferlein.Fehlermeldung("PDF/A-Erstellung Honorverrechnung", "TransformerException-Exception: " + ex.getMessage());
             }
         } // if conn!= null

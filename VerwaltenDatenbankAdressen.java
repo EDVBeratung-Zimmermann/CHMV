@@ -464,7 +464,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
         setTitle("Carola Hartmann Miles Verlag");
         setResizable(false);
         setMinimumSize(new Dimension(975, 600));
-        Container contentPane = getContentPane();
+        var contentPane = getContentPane();
 
         //======== panel1 ========
         {
@@ -489,7 +489,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
             //---- jLabel2 ----
             jLabel2.setText("Datensatz Nr.");
             panel1.add(jLabel2);
-            jLabel2.setBounds(615, 0, jLabel2.getPreferredSize().width, 20);
+            jLabel2.setBounds(600, 0, jLabel2.getPreferredSize().width, 20);
 
             //---- field_count ----
             field_count.setEditable(false);
@@ -500,12 +500,12 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
             field_count.setMinimumSize(new Dimension(30, 20));
             field_count.setPreferredSize(null);
             panel1.add(field_count);
-            field_count.setBounds(687, 0, 30, field_count.getPreferredSize().height);
+            field_count.setBounds(670, 0, 30, field_count.getPreferredSize().height);
 
             //---- jLabel3 ----
             jLabel3.setText("von");
             panel1.add(jLabel3);
-            jLabel3.setBounds(722, 0, jLabel3.getPreferredSize().width, 20);
+            jLabel3.setBounds(705, 0, jLabel3.getPreferredSize().width, 20);
 
             //---- field_countMax ----
             field_countMax.setEditable(false);
@@ -516,7 +516,7 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
             field_countMax.setMinimumSize(new Dimension(30, 20));
             field_countMax.setPreferredSize(new Dimension(35, 25));
             panel1.add(field_countMax);
-            field_countMax.setBounds(745, 0, 30, 20);
+            field_countMax.setBounds(730, 0, 45, 20);
             panel1.add(hSpacer1);
             hSpacer1.setBounds(780, 0, hSpacer1.getPreferredSize().width, 20);
 
@@ -965,7 +965,8 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
             panel1.add(Schliessen);
             Schliessen.setBounds(560, 476, Schliessen.getPreferredSize().width, 25);
 
-            { // compute preferred size
+            {
+                // compute preferred size
                 Dimension preferredSize = new Dimension();
                 for(int i = 0; i < panel1.getComponentCount(); i++) {
                     Rectangle bounds = panel1.getComponent(i).getBounds();
@@ -987,14 +988,14 @@ public class VerwaltenDatenbankAdressen extends javax.swing.JDialog {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(panel1, GroupLayout.PREFERRED_SIZE, 945, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(18, Short.MAX_VALUE))
+                    .addContainerGap(22, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(16, Short.MAX_VALUE))
+                    .addContainerGap(22, Short.MAX_VALUE))
         );
         setSize(975, 560);
         setLocationRelativeTo(getOwner());

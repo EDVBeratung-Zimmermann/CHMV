@@ -35,6 +35,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import static milesVerlagMain.ModulHelferlein.removeExtension;
 
  
 public class ModulHonorarProgressBar extends JPanel
@@ -308,185 +309,192 @@ public class ModulHonorarProgressBar extends JPanel
                     Integer AnzahlGesamt = 0;
                     BufferedReader in = new BufferedReader(new FileReader(Filename));
                     String CSVzeileIn = null;
+                    String fileName[] = removeExtension(Filename).split("-");
+                    strVon = fileName[2] + "-" + fileName[3] + "-" + fileName[4];
+                    strBis = fileName[6] + "-" + fileName[7] + "-" + fileName[8];
                     zeile = 1;
+                    Log("   - Berechne Honorare für den Zeitraum " + strVon + " - " + strBis);
                     while ((CSVzeileIn = in.readLine()) != null) {
                         progress = progress + 1;  if (progress<100) {setProgress(progress);}
                         // Zeile lesen
                         String CSVZeile[] = CSVzeileIn.split(";");
-                        switch (zeile) {
-                            case 1: // Kopf mit Zeitraum
-                                String Zeitraum = CSVZeile[0].substring(10, CSVZeile[0].length());
-                                Zeitraum = Zeitraum.replace("-", ".");
-                                strVon = Zeitraum.substring(0, 10);
-                                strVon = strVon.replace(".", "-");
-                                strBis = Zeitraum.substring(13, Zeitraum.length());
-                                strBis = strBis.replace(".", "-");
-                                break;
-                            case 2: // Spaltenköpfe
-                                break;
-                            default:
-                                String ISBN = CSVZeile[1];
+                        Log("   - lese Zeile "+zeile.toString() + ": "+CSVzeileIn);
+                        if (CSVzeileIn.contains("Zeitraum")) { // Zeitraum der Abrechnung
+                            String Zeitraum = CSVZeile[0].substring(10, CSVZeile[0].length());
+                            Zeitraum = Zeitraum.replace("-", ".");
+                            strVon = Zeitraum.substring(0, 10);
+                            strVon = strVon.replace(".", "-");
+                            strBis = Zeitraum.substring(13, Zeitraum.length());
+                            strBis = strBis.replace(".", "-");
+                        } else if (CSVzeileIn.contains("BoD-Nr.")) { // Kopfzeile der Tabelle
+                            // mache nichts
+                            Log("     - ignoriere Zeile ");
+                        }
+                        else {
+                            String ISBN = CSVZeile[1];
 
-                                ISBN = ISBN.replace("-", "");
-                                String sAnzahlGesamt = CSVZeile[4];
-                                Log("   - übertrage Zeile " + zeile.toString() + " mit ISBN: " + ISBN + ", Anzahl: " + sAnzahlGesamt);
-                                if (sAnzahlGesamt.contains(".")) {
-                                    sAnzahlGesamt = sAnzahlGesamt.replace(".", "");
-                                }
-                                if (sAnzahlGesamt.contains(",")) {
-                                    sAnzahlGesamt = sAnzahlGesamt.replace(",", ".");
-                                }
-                                AnzahlGesamt = Math.round(Float.parseFloat(sAnzahlGesamt));
-                                
-                                // Buch mit der ISBN in der Honorar-DB suchen und Daten ergänzen
-                                String SQL = "SELECT * FROM TBL_HONORAR "
-                                        + "WHERE ("
+                            ISBN = ISBN.replace("-", "");
+                            String sAnzahlGesamt = CSVZeile[4];
+                            Log("     - übertrage Zeile " + zeile.toString() + " mit ISBN: " + ISBN + ", Anzahl: " + sAnzahlGesamt);
+                            if (sAnzahlGesamt.contains(".")) {
+                                sAnzahlGesamt = sAnzahlGesamt.replace(".", "");
+                            }
+                            if (sAnzahlGesamt.contains(",")) {
+                                sAnzahlGesamt = sAnzahlGesamt.replace(",", ".");
+                            }
+                            AnzahlGesamt = Math.round(Float.parseFloat(sAnzahlGesamt));
+
+                            // Buch mit der ISBN in der Honorar-DB suchen und Daten ergänzen
+                            String SQL = "SELECT * FROM TBL_HONORAR "
+                                    + "WHERE ("
                                         + "(HONORAR_ISBN_PB = '" + ISBN + "') OR "
                                         + "(HONORAR_ISBN_HC = '" + ISBN + "') OR "
                                         + "(HONORAR_ISBN_EB = '" + ISBN + "')"
                                         + ")";
-                                Log("     - Suche in Honorar-Datenbank nach " + ISBN);
-                                    resultHonorar = SQLHonorar.executeQuery(SQL);
-                                    if (resultHonorar.next()) {
-                                        try{
-                                            Log("       -> Buch mit ISBN " + ISBN + " ist vorhanden in Honorar DB => Update");
-                                            if (resultHonorar.getString("HONORAR_ISBN_PB").equals(ISBN)) {
-                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", AnzahlGesamt + resultHonorar.getInt("HONORAR_ANZAHL_BOD_PB"));
-                                            } else if (resultHonorar.getString("HONORAR_ISBN_HC").equals(ISBN)) {
-                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", AnzahlGesamt + resultHonorar.getInt("HONORAR_ANZAHL_BOD_HC"));
-                                            } else {
-                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", AnzahlGesamt + resultHonorar.getInt("HONORAR_ANZAHL_BOD_EB"));
-                                            }
-                                            resultHonorar.updateRow();
-                                        } catch(Exception except) {
-                                            Log("          => Fehler beim Update ISBN " + ISBN + " SQL-Exception " + except.getMessage());
-                                            Log("          => Honorar-DB-Titel: " + resultHonorar.getString("HONORAR_TITEL").substring(0, 100));
-                                            //ModulHelferlein.Fehlermeldung("Fehler beim Update ISBN " + ISBN, "SQL-Exception", except.getMessage());
-                                        } 
-                                    } else { // warum auch immer existiert das Buch bisher nicht
-                                    Log("       -> Buch mit ISBN " + ISBN + " ist nicht in Honorar DB => ergänzen");
+                            Log("     - Suche in Honorar-Datenbank nach " + ISBN);
+                            resultHonorar = SQLHonorar.executeQuery(SQL);
+                            if (resultHonorar.next()) {
+                                try{
+                                    Log("       -> Buch mit ISBN " + ISBN + " ist vorhanden in Honorar DB => Update");
+                                    if (resultHonorar.getString("HONORAR_ISBN_PB").equals(ISBN)) {
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", AnzahlGesamt + resultHonorar.getInt("HONORAR_ANZAHL_BOD_PB"));
+                                    } else if (resultHonorar.getString("HONORAR_ISBN_HC").equals(ISBN)) {
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", AnzahlGesamt + resultHonorar.getInt("HONORAR_ANZAHL_BOD_HC"));
+                                    } else {
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", AnzahlGesamt + resultHonorar.getInt("HONORAR_ANZAHL_BOD_EB"));
+                                    }
+                                    resultHonorar.updateRow();
+                                } catch(Exception except) {
+                                    Log("          => Fehler beim Update ISBN " + ISBN + " SQL-Exception " + except.getMessage());
+                                    Log("          => Honorar-DB-Titel: " + resultHonorar.getString("HONORAR_TITEL").substring(0, 100));
+                                    //ModulHelferlein.Fehlermeldung("Fehler beim Update ISBN " + ISBN, "SQL-Exception", except.getMessage());
+                                } 
+                            } else { // warum auch immer existiert das Buch bisher nicht
+                                Log("       -> Buch mit ISBN " + ISBN + " ist nicht in Honorar DB => ergänzen");
                                     
-                                    // Suche Buch in der Buch-DB und füge es der Honorar-DB zu    
-                                    resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ISBN = '" + ISBN + "'");
-                                    try {
-                                        resultBuch.next();
-                                    
-                                        // Titel normalisieren
-                                        utf8EncodedTitel = resultBuch.getString("BUCH_TITEL");
-                                        Log("          => normalisiere " + utf8EncodedTitel);
-                                        utf8EncodedTitel = utf8EncodedTitel.replace(",", " ");
-                                        utf8EncodedTitel = utf8EncodedTitel.replace("+", " ");
-                                        utf8EncodedTitel = utf8EncodedTitel.replace("/", " ");
-                                        utf8EncodedTitel = utf8EncodedTitel.replace("?", " ");
-                                        utf8EncodedTitel = utf8EncodedTitel.replace("!", " ");
-                                        utf8EncodedTitel = utf8EncodedTitel.replace("\"", " ");
-                                        utf8EncodedTitel = utf8EncodedTitel.replace("'", " ");
-                                        utf8EncodedTitel = utf8EncodedTitel.replace("*", " ");
-                                        utf8EncodedTitel = utf8EncodedTitel.replace(";", " ");
-                                        /*
-                                        int c = 0x0027;    utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // '
-                                        c = 0x0022;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // 
-                                        c = 0x2018;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // '
-                                        c = 0x2019;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // '
-                                        c = 0x003F;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // 
-                                        c = 0x002A;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // *
-                                        c = 0x0021;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // !
-                                        c = 0x005C;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // \
-                                        c = 0x002F;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // /
-                                        c = 0x002B;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // +
-                                        c = 0x002C;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // ,
-                                        c = 0x003B;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // ;
-                                        c = 0x0060;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // ,
-                                        c = 0x003A;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // ,
-                                        c = 0x00B4;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // ,
-                                        c = 0x00C4;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "Ä"); // Ä
-                                        c = 0x00D6;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "Ö"); // Ö
-                                        c = 0x00DC;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "Ü"); // Ü
-                                        c = 0x00E4;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "ä"); // ä
-                                        c = 0x00F6;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "ö"); // ö
-                                        c = 0x00FC;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "ü"); // ü
-                        
-                                        */
+                                // Suche Buch in der Buch-DB und füge es der Honorar-DB zu    
+                                resultBuch = SQLBuch.executeQuery("SELECT * FROM TBL_BUCH WHERE BUCH_ISBN = '" + ISBN + "'");
+                                try {
+                                    resultBuch.next();
 
-                                        Log("        => " + utf8EncodedTitel);
-                                        
-                                        try {
-                                            resultHonorar.moveToInsertRow();
-                                            resultHonorar.updateInt("HONORAR_ID", HONORAR_ID);
-                                            resultHonorar.updateInt("HONORAR_ZAHLEN", 0);
-                                            resultHonorar.updateString("HONORAR_TITEL", utf8EncodedTitel);
-                                            resultHonorar.updateBoolean("HONORAR_VEREINBART", resultBuch.getBoolean("BUCH_HONORAR"));
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_1", resultBuch.getInt("BUCH_HONORAR_ANZAHL"));
-                                            resultHonorar.updateInt("HONORAR_PROZENT_1", resultBuch.getInt("BUCH_HONORAR_PROZENT"));
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_2", resultBuch.getInt("BUCH_HONORAR_2_ANZAHL"));
-                                            resultHonorar.updateInt("HONORAR_PROZENT_2", resultBuch.getInt("BUCH_HONORAR_2_PROZENT"));
-                                            resultHonorar.updateFloat("HONORAR_BODPROZENT", resultBuch.getInt("BUCH_BODPROZENT"));
-                                            resultHonorar.updateInt("HONORAR_BODFIX", resultBuch.getInt("BUCH_BODFIX"));
-                                            resultHonorar.updateFloat("HONORAR_MARGE_EB", 0F);
-                                            resultHonorar.updateFloat("HONORAR_MARGE_PB", 0F);
-                                            resultHonorar.updateFloat("HONORAR_MARGE_HC", 0F);
-                                            resultHonorar.updateBoolean("HONORAR_GESAMTBETRACHTUNG", resultBuch.getBoolean("BUCH_GESAMTBETRACHTUNG"));
-                                            resultHonorar.updateString("HONORAR_ISBN_PB", "");
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_PB", 0);
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", 0);
-                                            resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
-                                            resultHonorar.updateString("HONORAR_ISBN_HC", "");
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_HC", 0);
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", 0);
-                                            resultHonorar.updateFloat("HONORAR_PREIS_HC", 0F);
-                                            resultHonorar.updateFloat("HONORAR_HONORAR", 0F);
-                                            resultHonorar.updateString("HONORAR_ISBN_EB", "");
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_EB", 0);
-                                            resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
-                                            resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", 0);
-                                            resultHonorar.updateInt("HONORAR_FIX_EB", 0);
-                                            resultHonorar.updateInt("HONORAR_FIX_PB", 0);
-                                            resultHonorar.updateInt("HONORAR_FIX_HC", 0);
-                                            switch (resultBuch.getInt("BUCH_HC")) {
-                                                case 0: // PB
-                                                    resultHonorar.updateString("HONORAR_ISBN_PB", resultBuch.getString("BUCH_ISBN"));
-                                                    resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", AnzahlGesamt);
-                                                    resultHonorar.updateFloat("HONORAR_PREIS_PB", resultBuch.getFloat("BUCH_PREIS"));
-                                                    resultHonorar.updateFloat("HONORAR_MARGE_PB", resultBuch.getFloat("BUCH_MARGE"));
-                                                    resultHonorar.updateInt("HONORAR_FIX_PB", resultBuch.getInt("BUCH_BODFIX"));
-                                                    break;
-                                                case 1: // HC
-                                                    resultHonorar.updateString("HONORAR_ISBN_HC", resultBuch.getString("BUCH_ISBN"));
-                                                    resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", AnzahlGesamt);
-                                                    resultHonorar.updateFloat("HONORAR_PREIS_HC", resultBuch.getFloat("BUCH_PREIS"));
-                                                    resultHonorar.updateFloat("HONORAR_MARGE_HC", resultBuch.getFloat("BUCH_MARGE"));
-                                                    resultHonorar.updateInt("HONORAR_FIX_HC", resultBuch.getInt("BUCH_BODFIX"));
-                                                    break;
-                                                case 2: // EB
-                                                    resultHonorar.updateString("HONORAR_ISBN_EB", resultBuch.getString("BUCH_ISBN"));
-                                                    resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", AnzahlGesamt);
-                                                    resultHonorar.updateFloat("HONORAR_PREIS_EB", resultBuch.getFloat("BUCH_PREIS"));
-                                                    resultHonorar.updateFloat("HONORAR_MARGE_EB", resultBuch.getFloat("BUCH_MARGE"));
-                                                    resultHonorar.updateInt("HONORAR_FIX_EB", resultBuch.getInt("BUCH_BODFIX"));
-                                                    break;
-                                            }
-                                            String Autoren = resultBuch.getString("BUCH_AUTOR") + ",0";
-                                            String[] Autor = Autoren.split(",");
-                                            if (Autor[1].equals("0")) {
-                                                resultHonorar.updateBoolean("HONORAR_VERTEILEN", false);
-                                            } else {
-                                                resultHonorar.updateBoolean("HONORAR_VERTEILEN", true);
-                                            }
-                                            resultHonorar.updateInt("HONORAR_AUTOR_1", Integer.parseInt(Autor[0]));
-                                            resultHonorar.updateInt("HONORAR_AUTOR_2", Integer.parseInt(Autor[1]));
-                                            resultHonorar.insertRow();
-                                            Log("        => Honorar-DB ergänzt mit ID " + Integer.toString(HONORAR_ID) + " ISBN " + ISBN);
-                                            HONORAR_ID = HONORAR_ID + 1;
-                                        } catch(Exception except) {
-                                            Log("        => Fehler bei der Suche nach ISBN " + ISBN + " SQL-Exception " + except.getMessage());
-                                            //ModulHelferlein.Fehlermeldung("Fehler bei der Suche nach ISBN " + ISBN, "SQL-Exception", except.getMessage());
+                                    // Titel normalisieren
+                                    utf8EncodedTitel = resultBuch.getString("BUCH_TITEL");
+                                    Log("          => normalisiere " + utf8EncodedTitel);
+                                    utf8EncodedTitel = utf8EncodedTitel.replace(",", " ");
+                                    utf8EncodedTitel = utf8EncodedTitel.replace("+", " ");
+                                    utf8EncodedTitel = utf8EncodedTitel.replace("/", " ");
+                                    utf8EncodedTitel = utf8EncodedTitel.replace("?", " ");
+                                    utf8EncodedTitel = utf8EncodedTitel.replace("!", " ");
+                                    utf8EncodedTitel = utf8EncodedTitel.replace("\"", " ");
+                                    utf8EncodedTitel = utf8EncodedTitel.replace("'", " ");
+                                    utf8EncodedTitel = utf8EncodedTitel.replace("*", " ");
+                                    utf8EncodedTitel = utf8EncodedTitel.replace(";", " ");
+                                    /*
+                                    int c = 0x0027;    utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // '
+                                    c = 0x0022;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // 
+                                    c = 0x2018;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // '
+                                    c = 0x2019;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // '
+                                    c = 0x003F;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // 
+                                    c = 0x002A;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // *
+                                    c = 0x0021;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // !
+                                    c = 0x005C;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // \
+                                    c = 0x002F;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // /
+                                    c = 0x002B;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // +
+                                    c = 0x002C;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // ,
+                                    c = 0x003B;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // ;
+                                    c = 0x0060;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // ,
+                                    c = 0x003A;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // ,
+                                    c = 0x00B4;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), " "); // ,
+                                    c = 0x00C4;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "Ä"); // Ä
+                                    c = 0x00D6;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "Ö"); // Ö
+                                    c = 0x00DC;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "Ü"); // Ü
+                                    c = 0x00E4;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "ä"); // ä
+                                    c = 0x00F6;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "ö"); // ö
+                                    c = 0x00FC;        utf8EncodedTitel = utf8EncodedTitel.replace(Character.toString((char) c), "ü"); // ü
+
+                                    */
+
+                                    Log("        => " + utf8EncodedTitel);
+
+                                    try {
+                                        resultHonorar.moveToInsertRow();
+                                        resultHonorar.updateInt("HONORAR_ID", HONORAR_ID);
+                                        resultHonorar.updateInt("HONORAR_ZAHLEN", 0);
+                                        resultHonorar.updateString("HONORAR_TITEL", utf8EncodedTitel);
+                                        resultHonorar.updateBoolean("HONORAR_VEREINBART", resultBuch.getBoolean("BUCH_HONORAR"));
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_1", resultBuch.getInt("BUCH_HONORAR_ANZAHL"));
+                                        resultHonorar.updateInt("HONORAR_PROZENT_1", resultBuch.getInt("BUCH_HONORAR_PROZENT"));
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_2", resultBuch.getInt("BUCH_HONORAR_2_ANZAHL"));
+                                        resultHonorar.updateInt("HONORAR_PROZENT_2", resultBuch.getInt("BUCH_HONORAR_2_PROZENT"));
+                                        resultHonorar.updateFloat("HONORAR_BODPROZENT", resultBuch.getInt("BUCH_BODPROZENT"));
+                                        resultHonorar.updateInt("HONORAR_BODFIX", resultBuch.getInt("BUCH_BODFIX"));
+                                        resultHonorar.updateFloat("HONORAR_MARGE_EB", 0F);
+                                        resultHonorar.updateFloat("HONORAR_MARGE_PB", 0F);
+                                        resultHonorar.updateFloat("HONORAR_MARGE_HC", 0F);
+                                        resultHonorar.updateBoolean("HONORAR_GESAMTBETRACHTUNG", resultBuch.getBoolean("BUCH_GESAMTBETRACHTUNG"));
+                                        resultHonorar.updateString("HONORAR_ISBN_PB", "");
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_PB", 0);
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", 0);
+                                        resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
+                                        resultHonorar.updateString("HONORAR_ISBN_HC", "");
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_HC", 0);
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", 0);
+                                        resultHonorar.updateFloat("HONORAR_PREIS_HC", 0F);
+                                        resultHonorar.updateFloat("HONORAR_HONORAR", 0F);
+                                        resultHonorar.updateString("HONORAR_ISBN_EB", "");
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_EB", 0);
+                                        resultHonorar.updateFloat("HONORAR_PREIS_PB", 0F);
+                                        resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", 0);
+                                        resultHonorar.updateInt("HONORAR_FIX_EB", 0);
+                                        resultHonorar.updateInt("HONORAR_FIX_PB", 0);
+                                        resultHonorar.updateInt("HONORAR_FIX_HC", 0);
+                                        switch (resultBuch.getInt("BUCH_HC")) {
+                                            case 0: // PB
+                                                resultHonorar.updateString("HONORAR_ISBN_PB", resultBuch.getString("BUCH_ISBN"));
+                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_PB", AnzahlGesamt);
+                                                resultHonorar.updateFloat("HONORAR_PREIS_PB", resultBuch.getFloat("BUCH_PREIS"));
+                                                resultHonorar.updateFloat("HONORAR_MARGE_PB", resultBuch.getFloat("BUCH_MARGE"));
+                                                resultHonorar.updateInt("HONORAR_FIX_PB", resultBuch.getInt("BUCH_BODFIX"));
+                                                break;
+                                            case 1: // HC
+                                                resultHonorar.updateString("HONORAR_ISBN_HC", resultBuch.getString("BUCH_ISBN"));
+                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_HC", AnzahlGesamt);
+                                                resultHonorar.updateFloat("HONORAR_PREIS_HC", resultBuch.getFloat("BUCH_PREIS"));
+                                                resultHonorar.updateFloat("HONORAR_MARGE_HC", resultBuch.getFloat("BUCH_MARGE"));
+                                                resultHonorar.updateInt("HONORAR_FIX_HC", resultBuch.getInt("BUCH_BODFIX"));
+                                                break;
+                                            case 2: // EB
+                                                resultHonorar.updateString("HONORAR_ISBN_EB", resultBuch.getString("BUCH_ISBN"));
+                                                resultHonorar.updateInt("HONORAR_ANZAHL_BOD_EB", AnzahlGesamt);
+                                                resultHonorar.updateFloat("HONORAR_PREIS_EB", resultBuch.getFloat("BUCH_PREIS"));
+                                                resultHonorar.updateFloat("HONORAR_MARGE_EB", resultBuch.getFloat("BUCH_MARGE"));
+                                                resultHonorar.updateInt("HONORAR_FIX_EB", resultBuch.getInt("BUCH_BODFIX"));
+                                                break;
                                         }
-                                    } catch (Exception except) { // Buch fehlt in der Buch-DB
+                                        String Autoren = resultBuch.getString("BUCH_AUTOR") + ",0";
+                                        String[] Autor = Autoren.split(",");
+                                        if (Autor[1].equals("0")) {
+                                            resultHonorar.updateBoolean("HONORAR_VERTEILEN", false);
+                                        } else {
+                                            resultHonorar.updateBoolean("HONORAR_VERTEILEN", true);
+                                        }
+                                        resultHonorar.updateInt("HONORAR_AUTOR_1", Integer.parseInt(Autor[0]));
+                                        resultHonorar.updateInt("HONORAR_AUTOR_2", Integer.parseInt(Autor[1]));
+                                        resultHonorar.insertRow();
+                                        Log("        => Honorar-DB ergänzt mit ID " + Integer.toString(HONORAR_ID) + " ISBN " + ISBN);
+                                        HONORAR_ID = HONORAR_ID + 1;
+                                    } catch(Exception except) {
+                                        Log("        => Fehler bei der Suche nach ISBN " + ISBN + " SQL-Exception " + except.getMessage());
+                                        //ModulHelferlein.Fehlermeldung("Fehler bei der Suche nach ISBN " + ISBN, "SQL-Exception", except.getMessage());
+                                    }
+                                } catch (Exception except) { // Buch fehlt in der Buch-DB
                                         Log("        => Fehler bei der Suche nach ISBN " + ISBN + " in der Buch-Datenbank - SQL-Exception " + except.getMessage());
                                         buchFehltInBuchDB = true;
-                                        fehlendeBuecher = fehlendeBuecher + "ISBN: " + ISBN + "\n";
-                                    }
-                                }
+                                        if (!fehlendeBuecher.contains(ISBN)) {
+                                            fehlendeBuecher = fehlendeBuecher + "ISBN: " + ISBN + "\n";
+                                        }
+                                } // catch
+                            }
                         }
                         zeile = zeile + 1;
                     }    // while CSV-einlesen
@@ -850,14 +858,18 @@ public class ModulHonorarProgressBar extends JPanel
                     resultHonorar.close();
                     resultBuch.close();
                 } catch (SQLException ex) {
+                    Log("   -> SQL-Exception: " + ex.getMessage());
                     ModulHelferlein.Fehlermeldung("Abrechnung erstellen", "SQL-Exception", ex.getMessage());
                 } catch (IOException ex) {
+                    Log("   -> IO-Exception: " + ex.getMessage());
                     ModulHelferlein.Fehlermeldung("Abrechnung erstellen", "IO-Exception", ex.getMessage());
                 }
                 ModulHelferlein.Infomeldung("Die Briefe mit der Abrechnung sind als PDF gespeichert!");
                 if (buchFehltInBuchDB) {
                     ModulHelferlein.Fehlermeldung("Die Honorar-Abrechnung ist unvollständig", "Es fehlen folgende Bücher in der Buch-Datenbank", fehlendeBuecher);
-                } 
+                } else {
+                    Log("Es fehlen keine Bücher in der BUCH-Datenbank");
+                }
             } // conn steht 
             
             setProgress(100);

@@ -206,6 +206,17 @@ public class ModulHelferlein {
     }
 
     /**
+     * Entfernt die Dateieindung aus einem Dateinamen
+     *
+     * @param filename Dateiname mit Endung
+     * @return Dateiname ohne Endung
+     */
+    public static String removeExtension(final String filename)
+    {
+        return filename != null && filename.lastIndexOf(".") > 0 ? filename.substring(0, filename.lastIndexOf(".")) : filename;
+    }
+    
+    /**
      * Erstellt aus einer ISBN ohne Trennzeichen eine ISBN mit Trennzeichen
      *
      * @param ISBN ISBN-Nummer ohne Trennzeichen
@@ -846,7 +857,10 @@ public class ModulHelferlein {
         String Ausgabe;
         Ausgabe = Meldung1 + "\n" + Meldung2 + "\n" + Meldung3;
         JOptionPane.showMessageDialog(null, Ausgabe, "Achtung Fehler", JOptionPane.WARNING_MESSAGE);
-        System.out.println(Meldung1 + " " + Meldung2 + " " + Meldung3);
+        System.out.println("Fehlermeldung");
+        System.out.println(" - " + Meldung1);
+        if (!Meldung2.equals("")) System.out.println(" - " + Meldung2);
+        if (!Meldung3.equals("")) System.out.println(" - " + Meldung3);
     }
 
     /**

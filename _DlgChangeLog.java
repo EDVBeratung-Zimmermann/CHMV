@@ -35,6 +35,78 @@ public class _DlgChangeLog extends javax.swing.JDialog {
     public _DlgChangeLog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        String changeLog = 
+                "20260214 Anpassen Honorarabrechung\n" +
+                "         - robustes Lesen BoD-Sales.CSV\n"+
+                "         Anpassen Log-Meldungen\n"+
+                "\n" +
+                "Bug-Fix\n" + 
+                " * Bericht Einnahmen - UStr bei ausl. Einnahmen\n"+ 
+                "Feature\n" + 
+                " * Anpassen Adresse - Aktualisieren der Stra\u00dfe\n" + 
+                "Feature\n" + 
+                " * Umsatzsteueranpassung auf Grund Corona einpflegen\n" + 
+                "      - Rechnung/Mahnung\n" + 
+                "      - Umsatz\u00fcbersicht Ausgaben  \n\n" + 
+                "Feature\n" + 
+                "  * Flyer erstellen  \n" + 
+                "Bug-Fix\n" + 
+                "  * Honorarabrechnung  \n" + 
+                "Feature\n" + 
+                "  * Mail aus dem Bestelldialog heraus versenden  \n" + 
+                "Feature\n" + 
+                "   * Benutzerverwaltung   \n" + 
+                "Feature\n" + 
+                "  * PDF-Ausgabe/E-Rechnung/Hybrid-PDF    \n" + 
+                "Feature\n" + 
+                "  * Sichern und Bereinigen der Datenbank zum Jahresabschluss/-wechsel    \n" + 
+                "Feature\n" + 
+                "  * Bericht zu den verkauften B\u00fcchern als Excel-Datei    \n" + 
+                "Feature\n" + 
+                "  * Pr\u00fcfen Umsatzsteuer-ID und Ausgabe des Ergebnisses    \n" + 
+                "Feature\n" + 
+                "  * Freiexemplar als Option bei Rezensionen    \n" + 
+                "Feature\n" + 
+                "  * Buchrechnung um Freitext-Zeilen erg\u00e4nzen    \n" + 
+                "Feature\n" + 
+                "  * Adressetikettendruck aus dem Adressen-Dialog    \n" + 
+                "Feature\n" + 
+                "  * Rechnungsbetrag Fett    \n" + 
+                "Feature\n" + 
+                "  * Dialog Adresse erg\u00e4nzt um Auswahl-Liste    \n" + 
+                "Bug-Fix\n" + 
+                "  * Ausgabe der Beschreibung bei Rezensionen\n" + 
+                "  * Richtiger Autorentitel bei mehreren Rezensionen    \n" + 
+                "Bug-Fix\n" + 
+                "  * Adressaufkleber Adresse 7,8 neu gesetzt\n" + 
+                "  * Adressaufkleber Adresse 9, 10 neu gesetzt    \n" + 
+                "Feature\n" + 
+                "  * Einf\u00fcgen eines Feldes \"BESTELLUNG_STORNIERT\"\n" + 
+                "    - Anpassen der Rechnung f\u00fcr den Fall \"STORNIERT\"\n" + 
+                "    - Anpassen der Bestellung f\u00fcr den Fall \"STORNIERT\"\n" + 
+                "    - Anpassen Berichte Einnahmen, Ums\u00e4tze      \n" + 
+                "Feature\n" + 
+                "  * Etikettendruck f\u00fcr Avery Zweckform     \n" + 
+                "Bug-Fix\n" + 
+                "  * Brief Rezension\n" + 
+                "     - Zeilenl\u00e4nge 1. Satz;\n" + 
+                "     - Zeilenumbruch 2. Satz, Leerzeichen\n" + 
+                "Bug-Fix\n" + 
+                "  * Umbenennen DOC zu DOCX\n" + 
+                "  * Brief Rezension: Herausgeber/mehrere Autoren ber\u00fccksichtigen\n" + 
+                "Bug-Fix\n" + 
+                "  * Bericht Einnahmen: Abfrage der Tabelle bzgl. Einnahmearten\n" + 
+                "  * Bericht Ums\u00e4tze: Abfrage der Tabelle bzgl. Einnahmearten    \n" + 
+                "Feature\n" + 
+                "  * Brief Rezensions-, Pflicht- und Belegexemplar um Text-Feld erg\u00e4nzen      \n" + 
+                "Feature\n" + 
+                "  * Info- und Fehlermeldung ein-, zwei- und dreizeilig erm\u00f6glichen    \n" + 
+                "Feature\n" + 
+                "  * Belegexemplar als Bestell-Typ    \n" + 
+                "Bug-Fix\n" + 
+                "  * Liste der B\u00fccher mit f\u00fchrenden Nullen bei ID, Courier New wg. Lesbarkeit";
+        jTextArea1.setText(changeLog);
+        jTextArea1.setFont(new Font("Courier", Font.PLAIN, 12));
     }
 
     /**
@@ -92,7 +164,6 @@ public class _DlgChangeLog extends javax.swing.JDialog {
                 jTextArea1.setColumns(20);
                 jTextArea1.setLineWrap(true);
                 jTextArea1.setRows(5);
-                jTextArea1.setText("Bug-Fix\n * Bericht Einnahmen - UStr bei ausl. Einnahmen\n\nFeature\n * Anpassen Adresse - Aktuelaisieren der Stra\u00dfe\n\nFeature\n * Umsatzsteueranpassung auf Grund Corona einpflegen\n      - Rechnung/Mahnung\n      - Umsatz\u00fcbersicht Ausgaben  \n\nFeature\n  * Flyer erstellen  \n\nBug-Fix\n  * Honorarabrechnung  \n\nFeature\n  * Mail aus dem Bestelldialog heraus versenden  \n\nFeature\n   * Benutzerverwaltung   \n\nFeature\n  * PDF-Ausgabe/E-Rechnung/Hybrid-PDF    \n\nFeature\n  * Sichern und Bereinigen der Datenbank zum Jahresabschluss/-wechsel    \n\nFeature\n  * Bericht zu den verkauften B\u00fcchern als Excel-Datei    \n\nFeature\n  * Pr\u00fcfen Umsatzsteuer-ID und Ausgabe des Ergebnisses    \n\nFeature\n  * Freiexemplar als Option bei Rezensionen    \n\nFeature\n  * Buchrechnung um Freitext-Zeilen erg\u00e4nzen    \n\nFeature\n  * Adressetikettendruck aus dem Adressen-Dialog    \n\nFeature\n  * Rechnungsbetrag Fett    \n\nFeature\n  * Dialog Adresse erg\u00e4nzt um Auswahl-Liste    \n\nBug-Fix\n  * Ausgabe der Beschreibung bei Rezensionen\n  * Richtiger Autorentitel bei mehreren Rezensionen    \n\nBug-Fix\n  * Adressaufkleber Adresse 7,8 neu gesetzt\n  * Adressaufkleber Adresse 9, 10 neu gesetzt    \n\nFeature\n  * Einf\u00fcgen eines Feldes \"BESTELLUNG_STORNIERT\"\n    - Anpassen der Rechnung f\u00fcr den Fall \"STORNIERT\"\n    - Anpassen der Bestellung f\u00fcr den Fall \"STORNIERT\"\n    - Anpassen Berichte Einnahmen, Ums\u00e4tze      \n\nFeature\n  * Etikettendruck f\u00fcr Avery Zweckform     \n\nBug-Fix\n  * Brief Rezension\n     - Zeilenl\u00e4nge 1. Satz;\n     - Zeilenumbruch 2. Satz, Leerzeichen\n\nBug-Fix\n  * Umbenennen DOC zu DOCX\n  * Brief Rezension: Herausgeber/mehrere Autoren ber\u00fccksichtigen    \n\nBug-Fix\n  * Bericht Einnahmen: Abfrage der Tabelle bzgl. Einnahmearten\n  * Bericht Ums\u00e4tze: Abfrage der Tabelle bzgl. Einnahmearten    \n\nFeature\n  * Brief Rezensions-, Pflicht- und Belegexemplar um Text-Feld erg\u00e4nzen      \n\nFeature\n  * Info- und Fehlermeldung ein-, zwei- und dreizeilig erm\u00f6glichen    \n\nFeature\n  * Belegexemplar als Bestell-Typ    \n\nBug-Fix\n  * Liste der B\u00fccher mit f\u00fchrenden Nullen bei ID, Courier New wg. Lesbarkeit");
                 jTextArea1.setWrapStyleWord(true);
                 jTextArea1.setFocusable(false);
                 jScrollPane1.setViewportView(jTextArea1);
@@ -121,7 +192,7 @@ public class _DlgChangeLog extends javax.swing.JDialog {
                         .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonSchliessen)
-                        .addContainerGap(12, Short.MAX_VALUE))
+                        .addContainerGap(17, Short.MAX_VALUE))
             );
         }
 
@@ -138,7 +209,7 @@ public class _DlgChangeLog extends javax.swing.JDialog {
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(44, Short.MAX_VALUE)
+                    .addContainerGap(45, Short.MAX_VALUE)
                     .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(46, 46, 46))
                 .addComponent(panel1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -184,6 +255,7 @@ public class _DlgChangeLog extends javax.swing.JDialog {
                     dialog.setVisible(false);
                 }
             });
+                
             dialog.setVisible(true);
         });
     }
@@ -196,4 +268,5 @@ public class _DlgChangeLog extends javax.swing.JDialog {
     private JScrollPane jScrollPane1;
     private JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
+
 }
