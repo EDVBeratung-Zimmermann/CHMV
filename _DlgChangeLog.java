@@ -104,8 +104,8 @@ public class _DlgChangeLog extends javax.swing.JDialog {
                 "20260214 Anpassen Honorarabrechung\n" +
                 "         - robustes Lesen BoD-Sales.CSV\n"+
                 "         Anpassen Log-Meldungen\n"+
-                "20260216 \n" +
-                "";
+                "20260216 Anpassen Honorarabrechnung\n" +
+                "         - Namenskonvention Dateiname inkl. ID\n";
         jTextArea1.setText(changeLog);
         jTextArea1.setFont(new Font("Courier", Font.PLAIN, 12));
     }
