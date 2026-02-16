@@ -1080,4 +1080,13 @@ public class ModulHelferlein {
         }
         return BestNrString;
     }
+    
+    public static String padLeft(String input, int length, char paddingChar) {
+        int paddingLength = Math.max(0, length - input.length());
+        return String.valueOf(paddingChar).repeat(paddingLength) + input;
+    }
+    public static String padRight(String input, int length, char paddingChar) {
+        int paddingLength = Math.max(0, length - input.length());
+        return input + String.valueOf(paddingChar).repeat(paddingLength);
+    }
 }

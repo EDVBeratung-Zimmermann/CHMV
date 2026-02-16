@@ -600,6 +600,10 @@ public class ModulHonorarProgressBar extends JPanel
                             resultHonorar.updateInt("HONORAR_ANZAHL_EB", AnzahlGesamt);
                         }
                         resultHonorar.updateRow();
+                        // Debug Infos
+                        // if(ISBN.equals("9783967760972") || ISBN.equals("9783967760385") || ISBN.equals("9783967760774")){
+                        //     Log("DEBUG "+ISBN+" "+AnzahlGesamt.toString());
+                        // }
                     } // while resultBuch.next()
                     Log("   -> Verkäufe Miles-Verlag eingelesen");
                     Log("");

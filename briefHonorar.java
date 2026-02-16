@@ -739,6 +739,8 @@ public class briefHonorar {
                         + "-"
                         + resultAdresse.getString("ADRESSEN_NAME")
                         + "-"
+                        + ModulHelferlein.padLeft(HONORAR_ID.toString(), 4, '0')
+                        + "-"
                         + Titel
                         + ".pdf";
                 outputFileName = outputFileName.replaceAll(":", "");

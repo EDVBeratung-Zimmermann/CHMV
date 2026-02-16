@@ -36,10 +36,6 @@ public class _DlgChangeLog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         String changeLog = 
-                "20260214 Anpassen Honorarabrechung\n" +
-                "         - robustes Lesen BoD-Sales.CSV\n"+
-                "         Anpassen Log-Meldungen\n"+
-                "\n" +
                 "Bug-Fix\n" + 
                 " * Bericht Einnahmen - UStr bei ausl. Einnahmen\n"+ 
                 "Feature\n" + 
@@ -104,7 +100,12 @@ public class _DlgChangeLog extends javax.swing.JDialog {
                 "Feature\n" + 
                 "  * Belegexemplar als Bestell-Typ    \n" + 
                 "Bug-Fix\n" + 
-                "  * Liste der B\u00fccher mit f\u00fchrenden Nullen bei ID, Courier New wg. Lesbarkeit";
+                "  * Liste der B\u00fccher mit f\u00fchrenden Nullen bei ID, Courier New wg. Lesbarkeit\n" +
+                "20260214 Anpassen Honorarabrechung\n" +
+                "         - robustes Lesen BoD-Sales.CSV\n"+
+                "         Anpassen Log-Meldungen\n"+
+                "20260216 \n" +
+                "";
         jTextArea1.setText(changeLog);
         jTextArea1.setFont(new Font("Courier", Font.PLAIN, 12));
     }
